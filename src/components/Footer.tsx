@@ -61,7 +61,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-5 text-xs">
-          © {new Date().getFullYear()} Resto Action, un produit de Studio LT,{" "}
+          © {new Date().getFullYear()} Resto Action, un produit de Studios LT,{" "}
           {CITY}.
         </div>
       </div>

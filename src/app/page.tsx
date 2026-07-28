@@ -60,7 +60,7 @@ const jsonLd = {
         addressCountry: "CA",
       },
       areaServed: { "@type": "AdministrativeArea", name: "Québec, Canada" },
-      parentOrganization: { "@type": "Organization", name: "Studio LT" },
+      parentOrganization: { "@type": "Organization", name: "Studios LT" },
       founder: [
         {
           "@type": "Person",

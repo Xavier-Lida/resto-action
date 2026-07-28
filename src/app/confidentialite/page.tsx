@@ -4,7 +4,7 @@ import { CITY, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
   description:
-    "Politique de confidentialité de Resto Action (Studio LT), conforme à la Loi 25 du Québec.",
+    "Politique de confidentialité de Resto Action (Studios LT), conforme à la Loi 25 du Québec.",
   alternates: { canonical: "/confidentialite" },
 };
 
@@ -87,7 +87,7 @@ export default function Confidentialite() {
           <section>
             <h2 className="text-xl font-black text-ink">Qui nous sommes</h2>
             <p className="mt-3">
-              Resto Action est un produit de Studio LT, {CITY}.
+              Resto Action est un produit de Studios LT, {CITY}.
             </p>
           </section>
 

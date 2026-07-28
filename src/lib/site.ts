@@ -4,8 +4,8 @@ export const SITE_NAME = "Resto Action";
 export const PHONE_DISPLAY = "819 944-4661";
 export const PHONE_E164 = "+18199444661";
 export const PHONE_HREF = "tel:+18199444661";
-// TODO_USER: remplacer par l'adresse Studio LT exacte, puis par contact@restoaction.ca quand elle existera
-export const EMAIL = "info@studioslt.com";
+// À migrer vers contact@restoaction.ca quand l'adresse existera
+export const EMAIL = "guillaume@studioslt.com";
 export const CITY = "Trois-Rivières, Québec";
 export const BOOKING_URL =
   "https://calendar.google.com/appointments/schedules/AcZssZ11xifVy2SxoUT89E7wvDkpRLzoo37wATk6ObnOF9kGvYl9gaHs59hhUhW1eRxlDauCAmIMqPNt";
