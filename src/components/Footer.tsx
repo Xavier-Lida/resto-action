@@ -14,13 +14,13 @@ export default function Footer() {
             className="h-8 w-auto"
           />
           <p>
-            La commande en ligne des restaurants indépendants du Québec, sans
-            commission de marketplace.
+            Une entreprise de Trois-Rivières au service des restaurants
+            indépendants du Québec.
           </p>
         </div>
         <nav className="flex flex-col gap-2" aria-label="Pied de page">
-          <a href="/#solution" className="hover:text-white transition-colors">
-            La solution
+          <a href="/#approche" className="hover:text-white transition-colors">
+            Notre approche
           </a>
           <a href="/#mission" className="hover:text-white transition-colors">
             Notre mission

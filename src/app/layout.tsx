@@ -14,20 +14,20 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Resto Action | Commande en ligne sans commission au Québec",
+    default: "Resto Action | On règle les vrais problèmes des restos indépendants",
     template: "%s | Resto Action",
   },
   description:
-    "Ta propre commande en ligne, zéro commission de marketplace, tes données clients à toi. Une solution québécoise pour restos indépendants. 819 944-4661.",
+    "Une entreprise québécoise à l'écoute des restaurateurs indépendants. On trouve ce qui gruge ton resto pis on le règle avec toi. 819 944-4661.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "fr_CA",
     url: "/",
     siteName: "Resto Action",
-    title: "Resto Action | Commande en ligne sans commission au Québec",
+    title: "Resto Action | On règle les vrais problèmes des restos indépendants",
     description:
-      "Ta propre plateforme de commande, tes clients, tes données. Zéro commission de marketplace.",
+      "On commence par t'écouter. On trouve ce qui gruge ton resto, pis on le règle avec toi.",
   },
   twitter: { card: "summary_large_image" },
 };

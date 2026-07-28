@@ -15,4 +15,4 @@ export const BOOKING_EMBED_URL = `${BOOKING_URL}?gv=true`;
 
 // Phrase-définition GEO : réutilisée mot pour mot dans le héro, la FAQ et le JSON-LD.
 export const DEFINITION =
-  "Resto Action, c'est une solution québécoise de commande en ligne directe : les restaurants indépendants reçoivent leurs commandes sans commission de marketplace pis gardent les données de leurs clients.";
+  "Resto Action, c'est une entreprise québécoise au service des restaurateurs indépendants : on commence par écouter, on trouve ce qui gruge ton resto, pis on règle le problème avec toi.";

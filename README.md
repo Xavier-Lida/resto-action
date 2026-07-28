@@ -1,6 +1,6 @@
 # Resto Action — site vitrine
 
-Landing page de [Resto Action](https://restoaction.ca) : solution québécoise de commande en ligne directe pour restaurants indépendants, sans commission de marketplace. Un produit de Studios LT, Trois-Rivières.
+Landing page de [Resto Action](https://restoaction.ca) : entreprise québécoise au service des restaurants indépendants. On écoute les restaurateurs pis on règle leurs vrais problèmes. Un produit de Studios LT, Trois-Rivières.
 
 Stack : Next.js 16 (App Router), Tailwind CSS v4, TypeScript.
 
@@ -18,7 +18,6 @@ Toutes les coordonnées (URL, téléphone, courriel) sont centralisées dans `sr
 
 - [ ] Acheter **restoaction.ca** et **resto-action.ca** ; configurer resto-action.ca en redirection 308 vers restoaction.ca (réglages de domaine Vercel, pas de code).
 - [ ] Migrer le courriel vers `contact@restoaction.ca` quand l'adresse existera (une ligne dans `src/lib/site.ts`).
-- [ ] Ajouter 2 captures d'écran du produit dans `public/screenshots/` et les afficher dans la section « La solution » (TODO_USER dans `page.tsx`).
 - [ ] Confirmer la cohérence entre « concours de l'École d'entrepreneurship de Beauce » (texte) et le certificat « Défi CEED 2026 » (photo) ; ajouter un lien vers l'article s'il existe.
 - [ ] Valider que la phrase « restos pilotes » reste vraie tant que la certification gouvernementale n'est pas obtenue.
 - [ ] Vérifier que les liens de sources (Restaurants Canada, DoorDash, Uber Eats) affichent toujours les chiffres cités (30 %, marges).

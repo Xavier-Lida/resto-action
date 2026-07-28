@@ -17,19 +17,19 @@ import {
 const FAQ = [
   {
     q: "C'est quoi, Resto Action?",
-    a: "Resto Action, c'est une solution québécoise de commande en ligne directe : on monte ta propre plateforme de commande, à ton nom. Tes clients commandent chez vous, sans commission de marketplace, pis les données restent à toi.",
+    a: "Resto Action, c'est une entreprise de Trois-Rivières au service des restaurants indépendants du Québec. On commence par t'écouter, on trouve ce qui gruge ton resto, pis on règle le problème avec toi.",
+  },
+  {
+    q: "Quels genres de problèmes vous réglez?",
+    a: "Des commissions qui grugent tes marges, des clients que t'arrives pas à rejoindre, de la visibilité, des outils qui te coûtent trop cher. Peu importe le problème, on commence par t'écouter.",
   },
   {
     q: "Combien ça coûte?",
-    a: "Pas de commission de 30 % sur tes ventes : ça, c'est garanti. Le reste dépend de ton resto. Appelle-nous au 819 944-4661, on te fait le calcul en 15 minutes, chiffres en main.",
-  },
-  {
-    q: "Qui garde les données de mes clients?",
-    a: "Toi. Point final. Les noms, les courriels, l'historique de commandes t'appartiennent. Pas à nous, et surtout pas à une app américaine.",
+    a: "Ça dépend de ton resto pis de ton problème. Appelle-nous au 819 944-4661, on regarde ça ensemble en 15 minutes, chiffres en main.",
   },
   {
     q: "C'est quoi la différence avec DoorDash pis Uber Eats?",
-    a: "Les marketplaces prennent jusqu'à 30 % de chaque commande et gardent les données de tes clients. Nous, on te monte ton canal direct : tu gardes tes ventes, tes clients et tes données.",
+    a: "Eux, c'est des marketplaces américaines qui prennent jusqu'à 30 % de chaque commande. Nous, on est une entreprise d'ici qui travaille pour toi, pas sur ton dos.",
   },
   {
     q: "Vous êtes où? Vous servez qui?",
@@ -119,10 +119,10 @@ export default function Home() {
               Appelle-nous pour découvrir ta solution
             </a>
             <a
-              href="#solution"
+              href="#approche"
               className="inline-flex items-center gap-2 rounded-full border-2 border-ink px-7 py-4 text-base font-black transition hover:bg-ink hover:text-white active:scale-95"
             >
-              Voir comment ça marche
+              Voir notre approche
               <ArrowDown className="size-5" />
             </a>
           </div>
@@ -233,20 +233,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── La solution ─── */}
-      <section id="solution" className="bg-white">
+      {/* ─── Notre approche ─── */}
+      <section id="approche" className="bg-white">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <Reveal>
             <p className="text-xs font-black uppercase tracking-widest text-brand">
-              La solution
+              Notre approche
             </p>
             <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
-              Ta propre commande en ligne. Tes clients. Tes données.
+              On commence par t&apos;écouter.
             </h2>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink/75">
-              On monte ta plateforme de commande en ligne, à ton nom, branchée
-              direct sur ton resto. Le client commande chez vous, pas sur une
-              app américaine.
+              Chaque resto est différent. Avant de parler solution, on veut
+              comprendre c&apos;est quoi, ton vrai problème.
             </p>
           </Reveal>
 
@@ -254,18 +253,18 @@ export default function Home() {
             {[
               {
                 n: "1",
-                title: "On monte ta plateforme.",
-                text: "Ton menu, tes photos, tes prix. En ligne à ton nom, pas au nom d'une app.",
+                title: "On t'écoute.",
+                text: "Un appel de 15 minutes. Tu nous parles de ton resto, de tes chiffres, de ce qui gruge ton temps pis tes marges.",
               },
               {
                 n: "2",
-                title: "Tes clients commandent direct.",
-                text: "Pas d'intermédiaire, pas de 30 % qui part aux États. Chaque dollar de vente s'en va dans ta caisse.",
+                title: "On creuse avec toi.",
+                text: "On regarde ensemble ce qui te coûte le plus cher, pis on te le montre chiffres en main.",
               },
               {
                 n: "3",
-                title: "Tu gardes tes données.",
-                text: "Les noms, les courriels, les habitudes de tes clients t'appartiennent. Tu peux leur reparler quand tu veux.",
+                title: "On règle le problème.",
+                text: "Une solution adaptée à ton resto, pas une recette toute faite. Pas de contrat de 40 pages non plus.",
               },
             ].map(({ n, title, text }, i) => (
               <Reveal key={n} delay={i as 0 | 1 | 2}>
@@ -280,19 +279,11 @@ export default function Home() {
             ))}
           </div>
 
-          {/*
-            TODO_USER: ajouter 2 captures d'écran du produit dans
-            public/screenshots/ (plateforme-1.png, plateforme-2.png) puis les
-            afficher ici avec <Image>. On livre la section en texte seul en
-            attendant — pas de placeholder qui fait faux.
-          */}
-
           {/* TODO_USER: valider que cette phrase reste exacte tant que la certification n'est pas obtenue */}
           <Reveal>
             <p className="mt-10 max-w-2xl text-sm text-ink/60">
-              Des restos pilotes de chez nous testent la plateforme en ce
-              moment. Les premiers partenariats officiels seront annoncés
-              bientôt.
+              On travaille déjà avec des restos pilotes de chez nous. Les
+              premiers partenariats officiels seront annoncés bientôt.
             </p>
           </Reveal>
         </div>

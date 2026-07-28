@@ -1,6 +1,6 @@
 # Resto Action
 
-> Resto Action, c'est une solution québécoise de commande en ligne directe : les restaurants indépendants reçoivent leurs commandes sans commission de marketplace pis gardent les données de leurs clients. Un produit de Studios LT, Trois-Rivières, Québec.
+> Resto Action, c'est une entreprise québécoise au service des restaurateurs indépendants : on commence par écouter, on trouve ce qui gruge ton resto, pis on règle le problème avec toi. Un produit de Studios LT, Trois-Rivières, Québec.
 
 Site : https://restoaction.ca
 Téléphone : 819 944-4661
@@ -11,16 +11,16 @@ Fondateurs : Guillaume Therrien et Justin Bouillon
 ## Questions fréquentes
 
 ### C'est quoi, Resto Action?
-Resto Action, c'est une solution québécoise de commande en ligne directe : on monte ta propre plateforme de commande, à ton nom. Tes clients commandent chez vous, sans commission de marketplace, pis les données restent à toi.
+Resto Action, c'est une entreprise de Trois-Rivières au service des restaurants indépendants du Québec. On commence par t'écouter, on trouve ce qui gruge ton resto, pis on règle le problème avec toi.
+
+### Quels genres de problèmes vous réglez?
+Des commissions qui grugent tes marges, des clients que t'arrives pas à rejoindre, de la visibilité, des outils qui te coûtent trop cher. Peu importe le problème, on commence par t'écouter.
 
 ### Combien ça coûte?
-Pas de commission de 30 % sur tes ventes : ça, c'est garanti. Le reste dépend de ton resto. Appelle-nous au 819 944-4661 pis on te fait le calcul en 15 minutes, chiffres en main.
-
-### Qui garde les données de mes clients?
-Toi. Point final. Les noms, les courriels, l'historique de commandes t'appartiennent. Pas à nous, pis surtout pas à une app américaine.
+Ça dépend de ton resto pis de ton problème. Appelle-nous au 819 944-4661, on regarde ça ensemble en 15 minutes, chiffres en main.
 
 ### C'est quoi la différence avec DoorDash pis Uber Eats?
-Les marketplaces prennent jusqu'à 30 % de chaque commande pis gardent les données de tes clients. Nous, on te monte ton canal direct : tu gardes tes ventes, tes clients pis tes données.
+Eux, c'est des marketplaces américaines qui prennent jusqu'à 30 % de chaque commande. Nous, on est une entreprise d'ici qui travaille pour toi, pas sur ton dos.
 
 ### Vous êtes où? Vous servez qui?
 On est basés à Trois-Rivières, en Mauricie, pis on travaille avec des restaurants indépendants partout au Québec.

@@ -17,8 +17,8 @@ export default function Header() {
           />
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm font-bold">
-          <a href="/#solution" className="hover:text-brand transition-colors">
-            La solution
+          <a href="/#approche" className="hover:text-brand transition-colors">
+            Notre approche
           </a>
           <a href="/#mission" className="hover:text-brand transition-colors">
             Notre mission
