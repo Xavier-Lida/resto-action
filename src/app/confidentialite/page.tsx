@@ -21,7 +21,7 @@ export default function Confidentialite() {
         <p className="mt-7 text-lg leading-relaxed text-ink/75">
           On vous fait la leçon sur les données des clients. Ce serait mal
           venu de niaiser avec les vôtres. Voici, sans jargon, ce qu&apos;on
-          fait (pis surtout ce qu&apos;on fait pas) avec vos renseignements sur
+          fait (et surtout ce qu&apos;on fait pas) avec vos renseignements sur
           ce site.
         </p>
 

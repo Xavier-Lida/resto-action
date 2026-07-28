@@ -17,7 +17,7 @@ import {
 const FAQ = [
   {
     q: "C'est quoi, Resto Action?",
-    a: "Resto Action, c'est une entreprise de Trois-Rivières au service des restaurants indépendants du Québec. On commence par t'écouter, on trouve ce qui gruge ton resto, pis on règle le problème avec toi.",
+    a: "Resto Action, c'est une entreprise de Trois-Rivières au service des restaurants indépendants du Québec. On commence par t'écouter, on trouve ce qui gruge ton resto, et on règle le problème avec toi.",
   },
   {
     q: "Quels genres de problèmes vous réglez?",
@@ -25,11 +25,11 @@ const FAQ = [
   },
   {
     q: "Combien ça coûte?",
-    a: "Ça dépend de ton resto pis de ton problème. Appelle-nous au 819 944-4661, on regarde ça ensemble en 15 minutes, chiffres en main.",
+    a: "Ça dépend de ton resto et de ton problème. Appelle-nous au 819 944-4661, on regarde ça ensemble en 15 minutes, chiffres en main.",
   },
   {
     q: "Vous êtes où? Vous servez qui?",
-    a: "On est basés à Trois-Rivières, en Mauricie, pis on travaille avec des restaurants indépendants partout au Québec.",
+    a: "On est basés à Trois-Rivières, en Mauricie, et on travaille avec des restaurants indépendants partout au Québec.",
   },
   {
     q: "Comment on commence?",
@@ -94,7 +94,7 @@ export default function Home() {
             <span className="text-brand">ceux qui restent pauvres.</span>
           </h1>
           <p className="animate-hero delay-1 mt-7 max-w-2xl text-lg md:text-xl leading-relaxed text-ink/75">
-            Des restaurateurs d&apos;ici travaillent 70 heures par semaine pis
+            Des restaurateurs d&apos;ici travaillent 70 heures par semaine et
             finissent l&apos;année avec presque rien dans les poches. Chez
             Resto Action, on part d&apos;une conviction simple :{" "}
             <strong className="text-ink">
@@ -167,11 +167,11 @@ export default function Home() {
                 <strong className="text-white">
                   Chaque semaine, un nouveau feu à éteindre.
                 </strong>{" "}
-                Pis lui, il a pas une minute pour s&apos;asseoir pis regarder
-                ce qui gruge son resto pour vrai.
+                Lui, il a pas une minute pour s&apos;asseoir et regarder ce
+                qui gruge son resto pour vrai.
               </p>
               <p>
-                Si rien ne change, ces restos-là ferment un par un, pis on perd
+                Si rien ne change, ces restos-là ferment un par un, et on perd
                 notre variété au profit des multinationales. Dans 10 ans, il va
                 rester quoi?{" "}
                 <strong className="text-white">
@@ -225,12 +225,12 @@ export default function Home() {
               {
                 n: "1",
                 title: "On t'écoute.",
-                text: "Un appel de 15 minutes. Tu nous parles de ton resto, de tes chiffres, de ce qui gruge ton temps pis tes marges.",
+                text: "Un appel de 15 minutes. Tu nous parles de ton resto, de tes chiffres, de ce qui gruge ton temps et tes marges.",
               },
               {
                 n: "2",
                 title: "On creuse avec toi.",
-                text: "On regarde ensemble ce qui te coûte le plus cher, pis on te le montre chiffres en main.",
+                text: "On regarde ensemble ce qui te coûte le plus cher, et on te le montre chiffres en main.",
               },
               {
                 n: "3",
