@@ -17,19 +17,19 @@ import {
 const FAQ = [
   {
     q: "C'est quoi, Resto Action?",
-    a: "Resto Action, c'est une solution québécoise de commande en ligne directe : on monte ta propre plateforme de commande, à ton nom. Tes clients commandent chez vous, sans commission de marketplace, pis les données restent à toi. C'est un produit de Studio LT, à Trois-Rivières.",
+    a: "Resto Action, c'est une solution québécoise de commande en ligne directe : on monte ta propre plateforme de commande, à ton nom. Tes clients commandent chez vous, sans commission de marketplace, pis les données restent à toi.",
   },
   {
     q: "Combien ça coûte?",
-    a: "Pas de commission de 30 % sur tes ventes : ça, c'est garanti. Le reste dépend de ton resto. Appelle-nous au 819 944-4661 pis on te fait le calcul en 15 minutes, chiffres en main.",
+    a: "Pas de commission de 30 % sur tes ventes : ça, c'est garanti. Le reste dépend de ton resto. Appelle-nous au 819 944-4661, on te fait le calcul en 15 minutes, chiffres en main.",
   },
   {
     q: "Qui garde les données de mes clients?",
-    a: "Toi. Point final. Les noms, les courriels, l'historique de commandes t'appartiennent. Pas à nous, pis surtout pas à une app américaine.",
+    a: "Toi. Point final. Les noms, les courriels, l'historique de commandes t'appartiennent. Pas à nous, et surtout pas à une app américaine.",
   },
   {
     q: "C'est quoi la différence avec DoorDash pis Uber Eats?",
-    a: "Les marketplaces prennent jusqu'à 30 % de chaque commande pis gardent les données de tes clients. Nous, on te monte ton canal direct : tu gardes tes ventes, tes clients pis tes données.",
+    a: "Les marketplaces prennent jusqu'à 30 % de chaque commande et gardent les données de tes clients. Nous, on te monte ton canal direct : tu gardes tes ventes, tes clients et tes données.",
   },
   {
     q: "Vous êtes où? Vous servez qui?",
@@ -62,9 +62,16 @@ const jsonLd = {
       areaServed: { "@type": "AdministrativeArea", name: "Québec, Canada" },
       parentOrganization: { "@type": "Organization", name: "Studio LT" },
       founder: [
-        { "@type": "Person", name: "Guillaume Therrien" },
-        // TODO_USER: ajouter le nom de famille de Justin
-        { "@type": "Person", name: "Justin" },
+        {
+          "@type": "Person",
+          name: "Guillaume Therrien",
+          sameAs: "https://www.linkedin.com/in/guillaume-therrien-776a653b3/",
+        },
+        {
+          "@type": "Person",
+          name: "Justin Bouillon",
+          sameAs: "https://www.linkedin.com/in/justin-bouillon-58a667421/",
+        },
       ],
     },
     {
@@ -371,37 +378,48 @@ export default function Home() {
                   src: "/guillaume.jpg",
                   name: "Guillaume",
                   alt: "Guillaume Therrien, cofondateur de Resto Action",
+                  linkedin:
+                    "https://www.linkedin.com/in/guillaume-therrien-776a653b3/",
                   width: 675,
                   height: 900,
                 },
                 {
-                  // TODO_USER: nom de famille de Justin pour l'attribut alt
                   src: "/justin.jpg",
                   name: "Justin",
-                  alt: "Justin, cofondateur de Resto Action",
+                  alt: "Justin Bouillon, cofondateur de Resto Action",
+                  linkedin:
+                    "https://www.linkedin.com/in/justin-bouillon-58a667421/",
                   width: 602,
                   height: 900,
                 },
-              ].map(({ src, name, alt, width, height }, i) => (
+              ].map(({ src, name, alt, linkedin, width, height }, i) => (
                 <Reveal
                   key={name}
                   delay={(i + 1) as 1 | 2}
                   className="flex-1 md:flex-none"
                 >
-                  <figure>
-                    <div className="overflow-hidden rounded-2xl shadow-sm transition hover:shadow-md">
-                      <Image
-                        src={src}
-                        alt={alt}
-                        width={width}
-                        height={height}
-                        className="aspect-[3/4] w-full object-cover grayscale"
-                      />
-                    </div>
-                    <figcaption className="mt-2 text-center font-script text-3xl text-ink">
-                      {name}
-                    </figcaption>
-                  </figure>
+                  <a
+                    href={linkedin}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`Profil LinkedIn de ${alt.split(",")[0]}`}
+                    className="group block"
+                  >
+                    <figure>
+                      <div className="overflow-hidden rounded-2xl shadow-sm transition group-hover:shadow-md">
+                        <Image
+                          src={src}
+                          alt={alt}
+                          width={width}
+                          height={height}
+                          className="aspect-[3/4] w-full object-cover grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
+                        />
+                      </div>
+                      <figcaption className="mt-2 text-center font-script text-3xl text-ink transition-colors group-hover:text-brand">
+                        {name}
+                      </figcaption>
+                    </figure>
+                  </a>
                 </Reveal>
               ))}
             </div>

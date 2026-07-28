@@ -18,7 +18,6 @@ Toutes les coordonnées (URL, téléphone, courriel) sont centralisées dans `sr
 
 - [ ] Acheter **restoaction.ca** et **resto-action.ca** ; configurer resto-action.ca en redirection 308 vers restoaction.ca (réglages de domaine Vercel, pas de code).
 - [ ] Mettre la vraie adresse courriel Studio LT dans `src/lib/site.ts` (puis `contact@restoaction.ca` quand elle existera — une ligne à changer).
-- [ ] Ajouter le nom de famille de Justin (`src/app/page.tsx`, deux TODO_USER).
 - [ ] Ajouter 2 captures d'écran du produit dans `public/screenshots/` et les afficher dans la section « La solution » (TODO_USER dans `page.tsx`).
 - [ ] Confirmer la cohérence entre « concours de l'École d'entrepreneurship de Beauce » (texte) et le certificat « Défi CEED 2026 » (photo) ; ajouter un lien vers l'article s'il existe.
 - [ ] Valider que la phrase « restos pilotes » reste vraie tant que la certification gouvernementale n'est pas obtenue.
