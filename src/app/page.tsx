@@ -28,16 +28,12 @@ const FAQ = [
     a: "Ça dépend de ton resto pis de ton problème. Appelle-nous au 819 944-4661, on regarde ça ensemble en 15 minutes, chiffres en main.",
   },
   {
-    q: "C'est quoi la différence avec DoorDash pis Uber Eats?",
-    a: "Eux, c'est des marketplaces américaines qui prennent jusqu'à 30 % de chaque commande. Nous, on est une entreprise d'ici qui travaille pour toi, pas sur ton dos.",
-  },
-  {
     q: "Vous êtes où? Vous servez qui?",
     a: "On est basés à Trois-Rivières, en Mauricie, pis on travaille avec des restaurants indépendants partout au Québec.",
   },
   {
     q: "Comment on commence?",
-    a: "Tu nous appelles au 819 944-4661, tu nous écris, ou tu cédules ton appel directement sur le site. Quinze minutes pour regarder combien les commissions te coûtent vraiment. Pas de pression, pas de contrat de 40 pages.",
+    a: "Tu nous appelles au 819 944-4661, tu nous écris, ou tu cédules ton appel directement sur le site. Quinze minutes pour regarder ensemble ce qui gruge ton resto. Pas de pression, pas de contrat de 40 pages.",
   },
 ];
 
