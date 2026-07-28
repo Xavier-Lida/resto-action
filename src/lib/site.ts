@@ -8,11 +8,10 @@ export const PHONE_HREF = "tel:+18199444661";
 export const EMAIL = "guillaume@studioslt.com";
 export const CITY = "Trois-Rivières, Québec";
 export const BOOKING_URL =
-  "https://calendar.google.com/appointments/schedules/AcZssZ11xifVy2SxoUT89E7wvDkpRLzoo37wATk6ObnOF9kGvYl9gaHs59hhUhW1eRxlDauCAmIMqPNt";
-// Variante intégrable en iframe (le lien de partage ci-dessus envoie
-// x-frame-options: SAMEORIGIN; celle-ci non).
-export const BOOKING_EMBED_URL =
-  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ11xifVy2SxoUT89E7wvDkpRLzoo37wATk6ObnOF9kGvYl9gaHs59hhUhW1eRxlDauCAmIMqPNt?gv=true";
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1CFpw-teL7zuHN8RuH_tdDluYfmhcDQZxQeT8jvN629lIbhLyRGE-Dl4JLXnPb_CDotaO68InG";
+// Variante intégrable en iframe (?gv=true : app d'intégration Google, sans
+// x-frame-options).
+export const BOOKING_EMBED_URL = `${BOOKING_URL}?gv=true`;
 
 // Phrase-définition GEO : réutilisée mot pour mot dans le héro, la FAQ et le JSON-LD.
 export const DEFINITION =
