@@ -1,65 +1,85 @@
 import Image from "next/image";
-import { Phone, ArrowDown } from "lucide-react";
+import { Phone, ArrowDown, Mail } from "lucide-react";
+import Buoy from "@/components/Buoy";
+import {
+  DEFINITION,
+  EMAIL,
+  PHONE_DISPLAY,
+  PHONE_E164,
+  PHONE_HREF,
+  SITE_URL,
+} from "@/lib/site";
 
-const PHONE_DISPLAY = "819 944-4661";
-const PHONE_HREF = "tel:+18199444661";
+// Les réponses sont reprises mot pour mot dans le JSON-LD FAQPage (exigence
+// Google : le balisage doit correspondre au contenu visible).
+const FAQ = [
+  {
+    q: "C'est quoi, Resto Action?",
+    a: "Resto Action, c'est une solution québécoise de commande en ligne directe : on monte ta propre plateforme de commande, à ton nom. Tes clients commandent chez vous, sans commission de marketplace, pis les données restent à toi. C'est un produit de Studio LT, à Trois-Rivières.",
+  },
+  {
+    q: "Combien ça coûte?",
+    a: "Pas de commission de 30 % sur tes ventes — ça, c'est garanti. Le reste dépend de ton resto. Appelle-nous au 819 944-4661 pis on te fait le calcul en 15 minutes, chiffres en main.",
+  },
+  {
+    q: "Qui garde les données de mes clients?",
+    a: "Toi. Point final. Les noms, les courriels, l'historique de commandes t'appartiennent — pas à nous, pis surtout pas à une app américaine.",
+  },
+  {
+    q: "C'est quoi la différence avec DoorDash pis Uber Eats?",
+    a: "Les marketplaces prennent jusqu'à 30 % de chaque commande pis gardent les données de tes clients. Nous, on te monte ton canal direct : tu gardes tes ventes, tes clients pis tes données.",
+  },
+  {
+    q: "Vous êtes où? Vous servez qui?",
+    a: "On est basés à Trois-Rivières, en Mauricie, pis on travaille avec des restaurants indépendants partout au Québec.",
+  },
+  {
+    q: "Comment on commence?",
+    a: "Tu nous appelles au 819 944-4661 ou tu nous écris. Un appel de 15 minutes pour regarder combien les commissions te coûtent vraiment. Pas de pression, pas de contrat de 40 pages.",
+  },
+];
 
-function Buoy({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 160 160" className={className} aria-hidden="true">
-      <circle cx="80" cy="80" r="52" fill="#ffffff" stroke="#f1f1ef" strokeWidth="34" />
-      <circle
-        cx="80"
-        cy="80"
-        r="52"
-        fill="none"
-        stroke="#ff3008"
-        strokeWidth="34"
-        strokeDasharray="40.84 40.84"
-      />
-      <circle cx="80" cy="80" r="69" fill="none" stroke="#191919" strokeWidth="5" />
-      <circle cx="80" cy="80" r="35" fill="#ffffff" stroke="#191919" strokeWidth="5" />
-    </svg>
-  );
-}
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Resto Action",
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.svg`,
+      description: DEFINITION,
+      telephone: PHONE_E164,
+      email: EMAIL,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Trois-Rivières",
+        addressRegion: "QC",
+        addressCountry: "CA",
+      },
+      areaServed: { "@type": "AdministrativeArea", name: "Québec, Canada" },
+      parentOrganization: { "@type": "Organization", name: "Studio LT" },
+      founder: [
+        { "@type": "Person", name: "Guillaume Therrien" },
+        // TODO_USER: ajouter le nom de famille de Justin
+        { "@type": "Person", name: "Justin" },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/#faq`,
+      mainEntity: FAQ.map(({ q, a }) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    },
+  ],
+};
 
 export default function Home() {
   return (
     <main className="flex-1">
-      {/* ─── Nav ─── */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-bone">
-        <div className="mx-auto max-w-6xl px-5 py-3 flex items-center justify-between gap-4">
-          <a href="#top" className="shrink-0">
-            <Image
-              src="/logo.svg"
-              alt="Resto Action"
-              width={180}
-              height={48}
-              priority
-              className="h-9 w-auto"
-            />
-          </a>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-bold">
-            <a href="#mission" className="hover:text-brand transition-colors">
-              Notre mission
-            </a>
-            <a href="#histoire" className="hover:text-brand transition-colors">
-              Notre histoire
-            </a>
-            <a href="#contact" className="hover:text-brand transition-colors">
-              Contact
-            </a>
-          </nav>
-          <a
-            href={PHONE_HREF}
-            className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-black text-white hover:bg-ink transition-colors"
-          >
-            <Phone className="size-4" />
-            Appelle-nous
-          </a>
-        </div>
-      </header>
-
       {/* ─── Héro — le pitch ─── */}
       <section id="top" className="relative overflow-hidden">
         <Buoy className="pointer-events-none absolute -right-24 -top-24 w-[420px] opacity-[0.07] rotate-12" />
@@ -81,6 +101,9 @@ export default function Home() {
               collectif.
             </strong>
           </p>
+          <p className="mt-7 max-w-2xl border-l-4 border-brand pl-5 text-base md:text-lg leading-relaxed font-bold text-ink">
+            {DEFINITION}
+          </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href={PHONE_HREF}
@@ -90,10 +113,10 @@ export default function Home() {
               Appelle-nous pour découvrir ta solution
             </a>
             <a
-              href="#mission"
+              href="#solution"
               className="inline-flex items-center gap-2 rounded-full border-2 border-ink px-7 py-4 text-base font-black hover:bg-ink hover:text-white transition-colors"
             >
-              Notre mission
+              Voir comment ça marche
               <ArrowDown className="size-5" />
             </a>
           </div>
@@ -124,15 +147,28 @@ export default function Home() {
               Le proprio, il se lève à 5 heures pour recevoir ses livraisons.
               Il connaît le nom de ses habitués. Sa recette, c&apos;est
               peut-être celle de sa mère. Lui, il travaille 70 heures par
-              semaine pour se garder 3 à 9 % de marge.
+              semaine pour se garder 3 à 9 % de marge
+              <sup>
+                <a href="#sources" className="text-brand hover:underline">
+                  1
+                </a>
+              </sup>
+              .
             </p>
             <p>
               Pis pendant ce temps-là, une firme américaine qui n&apos;a jamais
               mis les pieds dans sa cuisine prend{" "}
-              <strong className="text-white">30 % de chaque commande</strong> —
-              trois fois plus que lui, sur le fruit de son travail. Et en plus,
-              elle garde les données de ses clients : les noms, les numéros,
-              les habitudes. Lui, il reçoit juste un ticket.
+              <strong className="text-white">
+                jusqu&apos;à 30 % de chaque commande
+              </strong>
+              <sup>
+                <a href="#sources" className="text-brand hover:underline">
+                  2
+                </a>
+              </sup>{" "}
+              — trois fois plus que lui, sur le fruit de son travail. Et en
+              plus, elle garde les données de ses clients : les noms, les
+              numéros, les habitudes. Lui, il reçoit juste un ticket.
             </p>
             <p>
               Si rien ne change, ces restos-là ferment un par un — pis on perd
@@ -147,6 +183,97 @@ export default function Home() {
               restaurateurs québécois leur revienne — pour le bien collectif.
             </p>
           </div>
+
+          {/* TODO avant déploiement : vérifier que ces pages affichent toujours ces chiffres */}
+          <div id="sources" className="mt-12 max-w-2xl text-xs leading-relaxed text-white/50">
+            <p>
+              Sources : 1.{" "}
+              <a
+                href="https://www.restaurantscanada.org/research/"
+                target="_blank"
+                rel="noopener"
+                className="underline hover:text-white/80"
+              >
+                Restaurants Canada
+              </a>
+              , données sur les marges bénéficiaires avant impôt en
+              restauration. 2. Tarifs publiés par{" "}
+              <a
+                href="https://get.doordash.com/en-ca/products/marketplace"
+                target="_blank"
+                rel="noopener"
+                className="underline hover:text-white/80"
+              >
+                DoorDash
+              </a>{" "}
+              (forfait Premier, jusqu&apos;à 30 % par commande livrée) et{" "}
+              <a
+                href="https://merchants.ubereats.com/ca/en/pricing/"
+                target="_blank"
+                rel="noopener"
+                className="underline hover:text-white/80"
+              >
+                Uber Eats
+              </a>{" "}
+              (forfait Marketplace, 30 %).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── La solution ─── */}
+      <section id="solution" className="bg-white">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+          <p className="text-xs font-black uppercase tracking-widest text-brand">
+            La solution
+          </p>
+          <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
+            Ta propre commande en ligne. Tes clients. Tes données.
+          </h2>
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink/75">
+            On monte ta plateforme de commande en ligne, à ton nom, branchée
+            direct sur ton resto. Le client commande chez vous — pas sur une
+            app américaine.
+          </p>
+
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {[
+              {
+                n: "1",
+                title: "On monte ta plateforme.",
+                text: "Ton menu, tes photos, tes prix. En ligne à ton nom — pas au nom d'une app.",
+              },
+              {
+                n: "2",
+                title: "Tes clients commandent direct.",
+                text: "Pas d'intermédiaire, pas de 30 % qui part aux États. Chaque dollar de vente s'en va dans ta caisse.",
+              },
+              {
+                n: "3",
+                title: "Tu gardes tes données.",
+                text: "Les noms, les courriels, les habitudes de tes clients t'appartiennent. Tu peux leur reparler quand tu veux.",
+              },
+            ].map(({ n, title, text }) => (
+              <div key={n} className="rounded-2xl bg-bone p-7">
+                <p className="font-script text-5xl text-brand">{n}</p>
+                <h3 className="mt-3 text-xl font-black leading-snug">{title}</h3>
+                <p className="mt-3 leading-relaxed text-ink/75">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          {/*
+            TODO_USER: ajouter 2 captures d'écran du produit dans
+            public/screenshots/ (plateforme-1.png, plateforme-2.png) puis les
+            afficher ici avec <Image>. On livre la section en texte seul en
+            attendant — pas de placeholder qui fait faux.
+          */}
+
+          {/* TODO_USER: valider que cette phrase reste exacte tant que la certification n'est pas obtenue */}
+          <p className="mt-10 max-w-2xl text-sm text-ink/60">
+            Des restos pilotes de chez nous testent la plateforme en ce moment.
+            Les premiers partenariats officiels seront annoncés bientôt.
+          </p>
         </div>
       </section>
 
@@ -190,6 +317,28 @@ export default function Home() {
                   arrêter d&apos;en parler, pis agir.
                 </strong>
               </p>
+
+              {/*
+                TODO_USER: confirmer le lien entre le concours mentionné
+                (École d'entrepreneurship de Beauce) et le certificat
+                « Défi CEED » — ajuster le paragraphe ci-dessus ou la légende
+                si nécessaire, pis ajouter un lien vers l'article s'il existe.
+              */}
+              <figure className="rounded-2xl bg-white p-4 shadow-sm md:max-w-md">
+                <div className="overflow-hidden rounded-xl">
+                  <Image
+                    src="/ceed.jpeg"
+                    alt="Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action"
+                    width={1086}
+                    height={1448}
+                    className="w-full object-cover"
+                  />
+                </div>
+                <figcaption className="mt-3 text-center font-script text-2xl text-ink">
+                  1<sup>re</sup> position — Défi CEED 2026
+                </figcaption>
+              </figure>
+
               <p className="border-l-4 border-brand pl-5 text-xl md:text-2xl font-black leading-snug text-ink">
                 Aujourd&apos;hui, Resto Action existe pour une seule raison :
                 sauver les restaurants indépendants du Québec, pour le bien de
@@ -200,17 +349,30 @@ export default function Home() {
 
             <div className="flex flex-row gap-6 md:flex-col md:w-52">
               {[
-                { src: "/guillaume.jpg", name: "Guillaume" },
-                { src: "/justin.jpg", name: "Justin" },
-              ].map(({ src, name }) => (
+                {
+                  src: "/guillaume.jpg",
+                  name: "Guillaume",
+                  alt: "Guillaume Therrien, cofondateur de Resto Action",
+                  width: 675,
+                  height: 900,
+                },
+                {
+                  // TODO_USER: nom de famille de Justin pour l'attribut alt
+                  src: "/justin.jpg",
+                  name: "Justin",
+                  alt: "Justin, cofondateur de Resto Action",
+                  width: 602,
+                  height: 900,
+                },
+              ].map(({ src, name, alt, width, height }) => (
                 <figure key={name} className="flex-1 md:flex-none">
                   <div className="overflow-hidden rounded-2xl shadow-sm">
                     <Image
                       src={src}
-                      alt={name}
-                      width={675}
-                      height={900}
-                      className="aspect-[3/4] w-full object-cover"
+                      alt={alt}
+                      width={width}
+                      height={height}
+                      className="aspect-[3/4] w-full object-cover grayscale"
                     />
                   </div>
                   <figcaption className="mt-2 text-center font-script text-3xl text-ink">
@@ -219,6 +381,35 @@ export default function Home() {
                 </figure>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ ─── */}
+      <section id="faq" className="bg-white">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+          <p className="text-xs font-black uppercase tracking-widest text-brand">
+            FAQ
+          </p>
+          <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
+            Questions fréquentes
+          </h2>
+
+          <div className="mt-10 max-w-3xl divide-y divide-bone border-y border-bone">
+            {FAQ.map(({ q, a }, i) => (
+              <details key={q} open={i === 0} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-black [&::-webkit-details-marker]:hidden">
+                  {q}
+                  <span
+                    aria-hidden="true"
+                    className="text-brand transition-transform group-open:rotate-45 text-2xl leading-none"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-4 max-w-2xl leading-relaxed text-ink/75">{a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
@@ -242,24 +433,25 @@ export default function Home() {
             <Phone className="size-5" />
             {PHONE_DISPLAY}
           </a>
-          <p className="mt-4 text-sm text-white/70">
+          <p className="mt-6 text-sm text-white/70">
             Guillaume Therrien · Resto Action
           </p>
+          <a
+            href={`mailto:${EMAIL}`}
+            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-white/85 hover:text-white transition-colors"
+          >
+            <Mail className="size-4" />
+            {EMAIL}
+          </a>
         </div>
       </section>
 
-      {/* ─── Footer ─── */}
-      <footer className="bg-ink text-white/60">
-        <div className="mx-auto max-w-6xl px-5 py-8 flex flex-col md:flex-row items-center justify-between gap-3 text-sm">
-          <p>
-            © {new Date().getFullYear()} Resto Action — un produit de Studio LT,
-            Trois-Rivières, Québec.
-          </p>
-          <a href={PHONE_HREF} className="font-bold hover:text-white transition-colors">
-            {PHONE_DISPLAY}
-          </a>
-        </div>
-      </footer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
     </main>
   );
 }

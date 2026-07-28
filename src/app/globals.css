@@ -15,6 +15,6 @@ html {
 body {
   background: #ffffff;
   color: var(--color-ink);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }

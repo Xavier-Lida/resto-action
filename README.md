@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Resto Action — site vitrine
 
-## Getting Started
+Landing page de [Resto Action](https://restoaction.ca) : solution québécoise de commande en ligne directe pour restaurants indépendants, sans commission de marketplace. Un produit de Studio LT, Trois-Rivières.
 
-First, run the development server:
+Stack : Next.js 16 (App Router), Tailwind CSS v4, TypeScript.
+
+## Développement
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # vérifier avant de déployer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Toutes les coordonnées (URL, téléphone, courriel) sont centralisées dans `src/lib/site.ts` — c'est le seul fichier à modifier pour les changer partout.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## TODO avant le déploiement
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [ ] Acheter **restoaction.ca** et **resto-action.ca** ; configurer resto-action.ca en redirection 308 vers restoaction.ca (réglages de domaine Vercel, pas de code).
+- [ ] Mettre la vraie adresse courriel Studio LT dans `src/lib/site.ts` (puis `contact@restoaction.ca` quand elle existera — une ligne à changer).
+- [ ] Ajouter le nom de famille de Justin (`src/app/page.tsx`, deux TODO_USER).
+- [ ] Ajouter 2 captures d'écran du produit dans `public/screenshots/` et les afficher dans la section « La solution » (TODO_USER dans `page.tsx`).
+- [ ] Confirmer la cohérence entre « concours de l'École d'entrepreneurship de Beauce » (texte) et le certificat « Défi CEED 2026 » (photo) ; ajouter un lien vers l'article s'il existe.
+- [ ] Valider que la phrase « restos pilotes » reste vraie tant que la certification gouvernementale n'est pas obtenue.
+- [ ] Vérifier que les liens de sources (Restaurants Canada, DoorDash, Uber Eats) affichent toujours les chiffres cités (30 %, marges).
+- [ ] Après le build : vérifier `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `/icon.svg`, `/apple-icon`, `/llms.txt` ; valider le JSON-LD sur https://validator.schema.org/ et le test de résultats enrichis Google.
+- [ ] Soumettre le sitemap à Google Search Console et Bing Webmaster Tools.
 
-## Learn More
+## Notes de marque
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Couleurs : `--color-brand: #ff3008` (⚠️ c'est le rouge exact de DoorDash — assumé pour l'instant, sujet à changement ; il ne vit qu'en variable CSS dans `globals.css`, plus en dur dans `public/logo.svg`, `public/logo-dark.svg` et `src/components/Buoy.tsx`).
+- Typo : stack système Helvetica/Arial (volontaire — pas de webfont) + Caveat (manuscrite) pour les accents.
+- Logos : `logo.svg` (fond transparent, surfaces claires) et `logo-dark.svg` (surfaces sombres, utilisé dans le footer).
+- Analytics : Vercel Analytics (sans témoins, divulgué dans `/confidentialite` — pas de bandeau de consentement requis).
