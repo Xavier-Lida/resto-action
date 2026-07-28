@@ -20,7 +20,7 @@ Toutes les coordonnées (URL, téléphone, courriel) sont centralisées dans `sr
 - [ ] Migrer le courriel vers `contact@restoaction.ca` quand l'adresse existera (une ligne dans `src/lib/site.ts`).
 - [ ] Confirmer la cohérence entre « concours de l'École d'entrepreneurship de Beauce » (texte) et le certificat « Défi CEED 2026 » (photo) ; ajouter un lien vers l'article s'il existe.
 - [ ] Valider que la phrase « restos pilotes » reste vraie tant que la certification gouvernementale n'est pas obtenue.
-- [ ] Vérifier que les liens de sources (Restaurants Canada, DoorDash, Uber Eats) affichent toujours les chiffres cités (30 %, marges).
+- [ ] Vérifier que le lien de source (Restaurants Canada) affiche toujours les marges citées (3 à 9 %).
 - [ ] Après le build : vérifier `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `/icon.svg`, `/apple-icon`, `/llms.txt` ; valider le JSON-LD sur https://validator.schema.org/ et le test de résultats enrichis Google.
 - [ ] Soumettre le sitemap à Google Search Console et Bing Webmaster Tools.
 

@@ -94,10 +94,9 @@ export default function Home() {
             <span className="text-brand">ceux qui restent pauvres.</span>
           </h1>
           <p className="animate-hero delay-1 mt-7 max-w-2xl text-lg md:text-xl leading-relaxed text-ink/75">
-            Des restaurateurs d&apos;ici travaillent 70 heures par semaine
-            pendant que des firmes américaines prennent la plus grosse part de
-            chaque commande. Chez Resto Action, on part d&apos;une conviction
-            simple :{" "}
+            Des restaurateurs d&apos;ici travaillent 70 heures par semaine pis
+            finissent l&apos;année avec presque rien dans les poches. Chez
+            Resto Action, on part d&apos;une conviction simple :{" "}
             <strong className="text-ink">
               le fruit de leur travail doit leur revenir, pour le bien
               collectif.
@@ -163,19 +162,13 @@ export default function Home() {
                 .
               </p>
               <p>
-                Pis pendant ce temps-là, une firme américaine qui n&apos;a
-                jamais mis les pieds dans sa cuisine prend{" "}
+                Pis pendant ce temps-là, tout monte : le loyer, la bouffe,
+                l&apos;équipement, les assurances.{" "}
                 <strong className="text-white">
-                  jusqu&apos;à 30 % de chaque commande
-                </strong>
-                <sup>
-                  <a href="#sources" className="text-brand hover:underline">
-                    2
-                  </a>
-                </sup>
-                , trois fois plus que lui, sur le fruit de son travail. Et en
-                plus, elle garde les données de ses clients : les noms, les
-                numéros, les habitudes. Lui, il reçoit juste un ticket.
+                  Chaque semaine, un nouveau feu à éteindre.
+                </strong>{" "}
+                Pis lui, il a pas une minute pour s&apos;asseoir pis regarder
+                ce qui gruge son resto pour vrai.
               </p>
               <p>
                 Si rien ne change, ces restos-là ferment un par un, pis on perd
@@ -192,10 +185,10 @@ export default function Home() {
             </div>
           </Reveal>
 
-          {/* TODO avant déploiement : vérifier que ces pages affichent toujours ces chiffres */}
+          {/* TODO avant déploiement : vérifier que cette page affiche toujours ces chiffres */}
           <div id="sources" className="mt-12 max-w-2xl text-xs leading-relaxed text-white/50">
             <p>
-              Sources : 1.{" "}
+              Source : 1.{" "}
               <a
                 href="https://www.restaurantscanada.org/research/"
                 target="_blank"
@@ -205,25 +198,7 @@ export default function Home() {
                 Restaurants Canada
               </a>
               , données sur les marges bénéficiaires avant impôt en
-              restauration. 2. Tarifs publiés par{" "}
-              <a
-                href="https://get.doordash.com/en-ca/products/marketplace"
-                target="_blank"
-                rel="noopener"
-                className="underline hover:text-white/80"
-              >
-                DoorDash
-              </a>{" "}
-              (forfait Premier, jusqu&apos;à 30 % par commande livrée) et{" "}
-              <a
-                href="https://merchants.ubereats.com/ca/en/pricing/"
-                target="_blank"
-                rel="noopener"
-                className="underline hover:text-white/80"
-              >
-                Uber Eats
-              </a>{" "}
-              (forfait Marketplace, 30 %).
+              restauration.
             </p>
           </div>
         </div>
