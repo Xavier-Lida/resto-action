@@ -14,7 +14,7 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Resto Action — Commande en ligne sans commission au Québec",
+    default: "Resto Action | Commande en ligne sans commission au Québec",
     template: "%s | Resto Action",
   },
   description:
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: "fr_CA",
     url: "/",
     siteName: "Resto Action",
-    title: "Resto Action — Commande en ligne sans commission au Québec",
+    title: "Resto Action | Commande en ligne sans commission au Québec",
     description:
       "Ta propre plateforme de commande, tes clients, tes données. Zéro commission de marketplace.",
   },

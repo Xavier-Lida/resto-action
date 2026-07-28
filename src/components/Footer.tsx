@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CITY, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
+import { BOOKING_URL, CITY, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -14,7 +14,7 @@ export default function Footer() {
             className="h-8 w-auto"
           />
           <p>
-            La commande en ligne des restaurants indépendants du Québec — sans
+            La commande en ligne des restaurants indépendants du Québec, sans
             commission de marketplace.
           </p>
         </div>
@@ -43,6 +43,14 @@ export default function Footer() {
             {PHONE_DISPLAY}
           </a>
           <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener"
+            className="hover:text-white transition-colors"
+          >
+            Céduler un appel
+          </a>
+          <a
             href={`mailto:${EMAIL}`}
             className="hover:text-white transition-colors"
           >
@@ -53,7 +61,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-5 text-xs">
-          © {new Date().getFullYear()} Resto Action — un produit de Studio LT,{" "}
+          © {new Date().getFullYear()} Resto Action, un produit de Studio LT,{" "}
           {CITY}.
         </div>
       </div>

@@ -7,6 +7,12 @@ export const PHONE_HREF = "tel:+18199444661";
 // TODO_USER: remplacer par l'adresse Studio LT exacte, puis par contact@restoaction.ca quand elle existera
 export const EMAIL = "info@studioslt.com";
 export const CITY = "Trois-Rivières, Québec";
+export const BOOKING_URL =
+  "https://calendar.google.com/appointments/schedules/AcZssZ11xifVy2SxoUT89E7wvDkpRLzoo37wATk6ObnOF9kGvYl9gaHs59hhUhW1eRxlDauCAmIMqPNt";
+// Variante intégrable en iframe (le lien de partage ci-dessus envoie
+// x-frame-options: SAMEORIGIN; celle-ci non).
+export const BOOKING_EMBED_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ11xifVy2SxoUT89E7wvDkpRLzoo37wATk6ObnOF9kGvYl9gaHs59hhUhW1eRxlDauCAmIMqPNt?gv=true";
 
 // Phrase-définition GEO : réutilisée mot pour mot dans le héro, la FAQ et le JSON-LD.
 export const DEFINITION =

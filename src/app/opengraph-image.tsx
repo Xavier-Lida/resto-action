@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { PHONE_DISPLAY } from "@/lib/site";
 
 export const alt =
-  "Resto Action — Commande en ligne sans commission pour les restaurants indépendants du Québec";
+  "Resto Action : commande en ligne sans commission pour les restaurants indépendants du Québec";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
