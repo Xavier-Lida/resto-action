@@ -39,21 +39,21 @@ export default function Hero() {
           />
         </div>
 
-        {/* Languette basse : une vague blanche creusée dans le bas de la
-            carte, la flèche blanche juste au-dessus de sa crête */}
+        {/* Languette basse : une bosse rouge qui sort de la carte vers le
+            bas, la flèche blanche logée dedans */}
         <a
           href="#approche"
           aria-label="Descendre vers la suite"
-          className="absolute -bottom-px left-1/2 z-30 -translate-x-1/2"
+          className="absolute left-1/2 top-full z-30 -mt-px -translate-x-1/2"
         >
-          <ArrowDown className="absolute -top-8 left-1/2 size-5 -translate-x-1/2 animate-bounce text-white" />
           <svg
-            viewBox="0 0 180 40"
+            viewBox="0 0 180 44"
             aria-hidden="true"
-            className="block h-10 w-44 fill-white"
+            className="block h-11 w-44 fill-hero"
           >
-            <path d="M0,40 L0,39 C45,39 48,6 90,6 C132,6 135,39 180,39 L180,40 Z" />
+            <path d="M0,0 C45,0 48,38 90,38 C132,38 135,0 180,0 Z" />
           </svg>
+          <ArrowDown className="absolute left-1/2 top-1.5 size-5 -translate-x-1/2 animate-bounce text-white" />
         </a>
 
         {/* Nav intégrée à la carte */}
