@@ -61,42 +61,42 @@ export default function Hero() {
           aria-label="Navigation principale"
           className="animate-hero flex items-center justify-between gap-2 px-4 pt-4 md:px-5 md:pt-5 lg:px-9"
         >
-          <div className="hidden items-center gap-1 text-sm font-bold md:flex">
+          <div className="hidden items-center gap-1 text-sm font-bold md:flex lg:gap-2 lg:text-base">
             <a
               href="#top"
-              className="rounded-full bg-white px-3 py-2 text-brand lg:px-4"
+              className="rounded-full bg-white px-3 py-2 text-brand lg:px-6 lg:py-3"
             >
               Accueil
             </a>
             <a
               href="#approche"
-              className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4"
+              className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3"
             >
               Approche
             </a>
             <a
               href="#mission"
-              className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4"
+              className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3"
             >
               Mission
             </a>
           </div>
-          <div className="ml-auto flex items-center gap-1 text-sm font-bold">
+          <div className="ml-auto flex items-center gap-1 text-sm font-bold lg:gap-2 lg:text-base">
             <a
               href="#histoire"
-              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 md:block"
+              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3 md:block"
             >
               Histoire
             </a>
             <a
               href="#faq"
-              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 md:block"
+              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3 md:block"
             >
               FAQ
             </a>
             <a
               href="#contact"
-              className="hidden rounded-full border-2 border-white px-5 py-2 font-black transition-colors hover:bg-white hover:text-brand md:block"
+              className="hidden rounded-full border-2 border-white px-5 py-2 font-black transition-colors hover:bg-white hover:text-brand md:block lg:px-8 lg:py-3"
             >
               Contact
             </a>
@@ -110,22 +110,19 @@ export default function Hero() {
             Resto Action<span className="text-brand">.</span>
           </h1>
 
-          <div className="relative mx-auto mt-6 w-[46vw] min-w-[230px] max-w-[400px] md:mt-8 lg:w-[26vw]">
-            {/* Ombre au sol dessinée à part : un drop-shadow CSS sur l'image
-                s'applique au rectangle entier tant que la transparence n'est
-                pas décodée, et Safari affiche alors un carré sombre. */}
-            <div
-              aria-hidden="true"
-              className="animate-hero delay-2 absolute -bottom-[2%] left-1/2 h-[9%] w-[58%] -translate-x-1/2 rounded-[50%] bg-ink/15 blur-lg"
-            />
+          {/* L'image est OPAQUE : le rendu original entier (ombre et halo
+              compris), dont le fond a été recoloré pour se fondre au pixel
+              près dans --color-hero. Aucune transparence, donc plus rien à
+              abîmer au décodage ou au réencodage. */}
+          <div className="mx-auto -mt-2 w-[64vw] min-w-[320px] max-w-[560px] md:-mt-4 lg:w-[37vw]">
             <Image
               src="/buoy-3d.webp"
               alt=""
-              width={725}
-              height={677}
+              width={1024}
+              height={1024}
               preload={true}
               unoptimized
-              className="animate-hero delay-2 relative w-full"
+              className="animate-hero delay-2 w-full"
             />
           </div>
         </div>
@@ -146,9 +143,7 @@ export default function Hero() {
               aligné au bas de la carte, le buste dépasse du haut. */}
           <div className="animate-hero delay-4 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
             <p className="text-sm font-black leading-snug">Parle à Guillaume</p>
-            <p className="mt-0.5 text-xs text-ink/70">
-              15 minutes, chiffres en main.
-            </p>
+            <p className="mt-0.5 text-xs text-ink/70">Un appel de 15 minutes.</p>
             <a
               href={PHONE_HREF}
               className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-xs font-black text-white transition-colors hover:bg-ink"

@@ -2,9 +2,10 @@
 
 @theme {
   --color-brand: #ff3008;
-  /* Fond de la hero : le rouge des segments de la bouée 3D (mesuré sur
-     buoy-3d.webp), pour que l'objet et le fond soient ton sur ton. */
-  --color-hero: #c74239;
+  /* Fond de la hero : la couleur EXACTE des bords de buoy-3d.webp encodé
+     (image opaque, fond recoloré). Si l'image change, ré-échantillonner ses
+     coins : le raccord image/CSS doit rester au pixel près. */
+  --color-hero: #c74238;
   --color-ink: #191919;
   --color-bone: #f1f1ef;
   --font-sans: Helvetica, Arial, sans-serif;
