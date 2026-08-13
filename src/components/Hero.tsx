@@ -28,14 +28,14 @@ export default function Hero() {
         {/* Languette haute : le logo. top-0 = appuyée sur le bord intérieur de
             la bordure blanche (continuité blanc sur blanc), le logo reste
             entier dans la languette. */}
-        <div className="absolute left-1/2 top-0 z-30 -translate-x-1/2 rounded-b-[1.25rem] bg-white px-6 pb-3 pt-2 md:rounded-b-[1.5rem] md:px-8 md:pb-3.5 md:pt-2.5">
+        <div className="absolute left-1/2 top-0 z-30 -translate-x-1/2 rounded-b-[1.25rem] bg-white px-5 pb-2.5 pt-2 md:rounded-b-[1.5rem] md:pb-3 md:pt-2.5 xl:px-8">
           <Image
-            src="/logo-nav.png"
+            src="/logo-marque.png"
             alt="Resto Action"
-            width={447}
+            width={1012}
             height={128}
             loading="eager"
-            className="h-9 w-auto md:h-10 lg:h-11 xl:h-12"
+            className="h-7 w-auto md:h-6 lg:h-8 xl:h-10"
           />
         </div>
 
@@ -64,19 +64,19 @@ export default function Hero() {
           <div className="hidden items-center gap-1 text-sm font-bold md:flex lg:gap-2 lg:text-base">
             <a
               href="#top"
-              className="rounded-full bg-white px-3 py-2 text-brand lg:px-6 lg:py-3"
+              className="rounded-full bg-white px-3 py-2 text-brand lg:px-4 lg:py-2.5 xl:px-6 xl:py-3"
             >
               Accueil
             </a>
             <a
               href="#approche"
-              className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3"
+              className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 lg:py-2.5 xl:px-6 xl:py-3"
             >
               Approche
             </a>
             <a
               href="#mission"
-              className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3"
+              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:block lg:px-4 lg:py-2.5 xl:px-6 xl:py-3"
             >
               Mission
             </a>
@@ -84,19 +84,19 @@ export default function Hero() {
           <div className="ml-auto flex items-center gap-1 text-sm font-bold lg:gap-2 lg:text-base">
             <a
               href="#histoire"
-              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3 md:block"
+              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 lg:py-2.5 xl:px-6 xl:py-3 md:block"
             >
               Histoire
             </a>
             <a
               href="#faq"
-              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-6 lg:py-3 md:block"
+              className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 lg:py-2.5 xl:px-6 xl:py-3 md:block"
             >
               FAQ
             </a>
             <a
               href="#contact"
-              className="hidden rounded-full border-2 border-white px-5 py-2 font-black transition-colors hover:bg-white hover:text-brand md:block lg:px-8 lg:py-3"
+              className="hidden rounded-full border-2 border-white px-5 py-2 font-black transition-colors hover:bg-white hover:text-brand md:block lg:px-6 lg:py-2.5 xl:px-8 xl:py-3"
             >
               Contact
             </a>

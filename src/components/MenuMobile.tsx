@@ -82,9 +82,9 @@ export default function MenuMobile() {
             >
               <div className="flex items-center justify-between">
                 <Image
-                  src="/logo-nav.png"
+                  src="/logo-marque.png"
                   alt="Resto Action"
-                  width={447}
+                  width={1012}
                   height={128}
                   className="h-6 w-auto"
                 />
