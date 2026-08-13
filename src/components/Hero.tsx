@@ -104,9 +104,11 @@ export default function Hero() {
           </div>
         </nav>
 
-        {/* Titre géant sur une ligne, bouée 3D en dessous, sans chevauchement */}
-        <div className="mt-8 md:mt-10">
-          <h1 className="animate-hero delay-1 select-none whitespace-nowrap text-center font-display text-[9.5vw] font-black leading-none text-white lg:text-[8vw]">
+        {/* Titre géant sur une ligne, bouée 3D en dessous. L'image étant
+            opaque, elle ne doit JAMAIS remonter sous le titre : pas de marge
+            négative, sinon son bord haut tranche le bas des lettres. */}
+        <div className="mt-12 md:mt-10">
+          <h1 className="animate-hero delay-1 select-none whitespace-nowrap text-center font-display text-[9vw] font-black leading-none text-white lg:text-[8vw]">
             Resto Action<span className="text-brand">.</span>
           </h1>
 
@@ -114,7 +116,7 @@ export default function Hero() {
               compris), dont le fond a été recoloré pour se fondre au pixel
               près dans --color-hero. Aucune transparence, donc plus rien à
               abîmer au décodage ou au réencodage. */}
-          <div className="mx-auto -mt-2 w-[64vw] min-w-[320px] max-w-[560px] md:-mt-4 lg:w-[37vw]">
+          <div className="mx-auto w-[64vw] min-w-[320px] max-w-[560px] lg:w-[37vw]">
             <Image
               src="/buoy-3d.webp"
               alt=""
