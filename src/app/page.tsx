@@ -89,11 +89,67 @@ export default function Home() {
       {/* ─── Héro — carte encadrée, marque géante, bouée 3D ─── */}
       <Hero />
 
+      {/* ─── Notre approche ─── */}
+      <section id="approche" className="bg-white">
+        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+          <Reveal>
+            <p className="text-xs font-black uppercase tracking-widest text-brand">
+              Notre approche
+            </p>
+            <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
+              On commence par t&apos;écouter.
+            </h2>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink/75">
+              Chaque resto est différent. Avant de parler solution, on veut
+              comprendre c&apos;est quoi, ton vrai problème.
+            </p>
+          </Reveal>
+
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {[
+              {
+                n: "1",
+                title: "On t'écoute.",
+                text: "Un appel de 15 minutes. Tu nous parles de ton resto, de tes chiffres, de ce qui gruge ton temps et tes marges.",
+              },
+              {
+                n: "2",
+                title: "On creuse avec toi.",
+                text: "On regarde ensemble ce qui te coûte le plus cher, et on te le montre chiffres en main.",
+              },
+              {
+                n: "3",
+                title: "On règle le problème.",
+                text: "Une solution adaptée à ton resto, pas une recette toute faite. Pas de contrat de 40 pages non plus.",
+              },
+            ].map(({ n, title, text }, i) => (
+              <Reveal key={n} delay={i as 0 | 1 | 2}>
+                <div className="h-full rounded-2xl bg-bone p-7 transition hover:-translate-y-1 hover:shadow-lg">
+                  <p className="font-script text-5xl text-brand">{n}</p>
+                  <h3 className="mt-3 text-xl font-black leading-snug">
+                    {title}
+                  </h3>
+                  <p className="mt-3 leading-relaxed text-ink/75">{text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* TODO_USER: valider que cette phrase reste exacte tant que la certification n'est pas obtenue */}
+          <Reveal>
+            <p className="mt-10 max-w-2xl text-sm text-ink/60">
+              On travaille déjà avec des restos pilotes de chez nous. Les
+              premiers partenariats officiels seront annoncés bientôt.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ─── Notre mission ─── */}
-      {/* Le fond rouge de la hero se prolonge, et la section arrive comme une
-          carte sombre aux coins arrondis posée dessus : même langage visuel
-          que la carte de la hero, pas de coupure d'aplat rouge/noir. */}
-      <section id="mission" className="bg-hero">
+      {/* La section arrive comme une carte sombre aux coins arrondis posée
+          sur le blanc de la page : même langage visuel que la carte de la
+          hero. */}
+      <section id="mission" className="bg-white">
         <div className="relative overflow-hidden rounded-t-[2rem] bg-ink text-white lg:rounded-t-[3rem]">
         <Image
           src="/faillite.jpg"
@@ -168,62 +224,6 @@ export default function Home() {
             </p>
           </div>
         </div>
-        </div>
-      </section>
-
-      {/* ─── Notre approche ─── */}
-      <section id="approche" className="bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-          <Reveal>
-            <p className="text-xs font-black uppercase tracking-widest text-brand">
-              Notre approche
-            </p>
-            <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
-              On commence par t&apos;écouter.
-            </h2>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink/75">
-              Chaque resto est différent. Avant de parler solution, on veut
-              comprendre c&apos;est quoi, ton vrai problème.
-            </p>
-          </Reveal>
-
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {[
-              {
-                n: "1",
-                title: "On t'écoute.",
-                text: "Un appel de 15 minutes. Tu nous parles de ton resto, de tes chiffres, de ce qui gruge ton temps et tes marges.",
-              },
-              {
-                n: "2",
-                title: "On creuse avec toi.",
-                text: "On regarde ensemble ce qui te coûte le plus cher, et on te le montre chiffres en main.",
-              },
-              {
-                n: "3",
-                title: "On règle le problème.",
-                text: "Une solution adaptée à ton resto, pas une recette toute faite. Pas de contrat de 40 pages non plus.",
-              },
-            ].map(({ n, title, text }, i) => (
-              <Reveal key={n} delay={i as 0 | 1 | 2}>
-                <div className="h-full rounded-2xl bg-bone p-7 transition hover:-translate-y-1 hover:shadow-lg">
-                  <p className="font-script text-5xl text-brand">{n}</p>
-                  <h3 className="mt-3 text-xl font-black leading-snug">
-                    {title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-ink/75">{text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          {/* TODO_USER: valider que cette phrase reste exacte tant que la certification n'est pas obtenue */}
-          <Reveal>
-            <p className="mt-10 max-w-2xl text-sm text-ink/60">
-              On travaille déjà avec des restos pilotes de chez nous. Les
-              premiers partenariats officiels seront annoncés bientôt.
-            </p>
-          </Reveal>
         </div>
       </section>
 

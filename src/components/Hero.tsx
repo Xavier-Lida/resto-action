@@ -21,11 +21,10 @@ function IconeLinkedIn({ className }: { className?: string }) {
 
 export default function Hero() {
   return (
-    <section id="top" className="bg-hero p-2 text-white sm:p-3 lg:p-4">
-      {/* Le cadre blanc arrondi qui englobe toute la hero. Les languettes
-          haute et basse chevauchent le bord (offsets négatifs = largeur de
-          bordure) pour se fondre dedans. */}
-      <div className="relative flex min-h-[92svh] flex-col rounded-[2rem] border-[10px] border-white pb-14 md:border-[16px] lg:rounded-[3rem] lg:border-[22px] lg:pb-0">
+    <section id="top" className="bg-white p-3 md:p-5 lg:p-6">
+      {/* La carte rouge arrondie posée sur la page blanche. Les languettes
+          blanches (logo, flèche) se fondent dans le blanc qui l'entoure. */}
+      <div className="relative flex min-h-[92svh] flex-col rounded-[2rem] bg-hero pb-14 text-white lg:rounded-[3rem] lg:pb-0">
         {/* Languette haute : le logo. top-0 = appuyée sur le bord intérieur de
             la bordure blanche (continuité blanc sur blanc), le logo reste
             entier dans la languette. */}
@@ -40,13 +39,21 @@ export default function Hero() {
           />
         </div>
 
-        {/* Languette basse : la flèche vers la suite de la page */}
+        {/* Languette basse : une vague blanche creusée dans le bas de la
+            carte, la flèche blanche juste au-dessus de sa crête */}
         <a
-          href="#mission"
-          aria-label="Descendre vers notre mission"
-          className="absolute bottom-0 left-1/2 z-30 -translate-x-1/2 rounded-t-[1.25rem] bg-white px-6 pb-2 pt-3 text-ink transition-colors hover:text-brand md:rounded-t-[1.5rem]"
+          href="#approche"
+          aria-label="Descendre vers la suite"
+          className="absolute -bottom-px left-1/2 z-30 -translate-x-1/2"
         >
-          <ArrowDown className="size-5 animate-bounce" />
+          <ArrowDown className="absolute -top-8 left-1/2 size-5 -translate-x-1/2 animate-bounce text-white" />
+          <svg
+            viewBox="0 0 180 40"
+            aria-hidden="true"
+            className="block h-10 w-44 fill-white"
+          >
+            <path d="M0,40 L0,39 C45,39 48,6 90,6 C132,6 135,39 180,39 L180,40 Z" />
+          </svg>
         </a>
 
         {/* Nav intégrée à la carte */}
@@ -109,13 +116,13 @@ export default function Hero() {
                 pas décodée, et Safari affiche alors un carré sombre. */}
             <div
               aria-hidden="true"
-              className="animate-hero delay-2 absolute -bottom-[5%] left-1/2 h-[14%] w-[72%] -translate-x-1/2 rounded-[50%] bg-ink/25 blur-xl"
+              className="animate-hero delay-2 absolute -bottom-[2%] left-1/2 h-[9%] w-[58%] -translate-x-1/2 rounded-[50%] bg-ink/15 blur-lg"
             />
             <Image
               src="/buoy-3d.webp"
               alt=""
-              width={723}
-              height={676}
+              width={725}
+              height={677}
               preload={true}
               unoptimized
               className="animate-hero delay-2 relative w-full"
