@@ -103,7 +103,14 @@ export default function Hero() {
             Resto Action<span className="text-brand">.</span>
           </h1>
 
-          <div className="mx-auto mt-6 w-[46vw] min-w-[230px] max-w-[400px] md:mt-8 lg:w-[26vw]">
+          <div className="relative mx-auto mt-6 w-[46vw] min-w-[230px] max-w-[400px] md:mt-8 lg:w-[26vw]">
+            {/* Ombre au sol dessinée à part : un drop-shadow CSS sur l'image
+                s'applique au rectangle entier tant que la transparence n'est
+                pas décodée, et Safari affiche alors un carré sombre. */}
+            <div
+              aria-hidden="true"
+              className="animate-hero delay-2 absolute -bottom-[5%] left-1/2 h-[14%] w-[72%] -translate-x-1/2 rounded-[50%] bg-ink/25 blur-xl"
+            />
             <Image
               src="/buoy-3d.webp"
               alt=""
@@ -111,7 +118,7 @@ export default function Hero() {
               height={676}
               preload={true}
               unoptimized
-              className="animate-hero delay-2 w-full [filter:drop-shadow(0_35px_45px_rgba(25,25,25,0.30))]"
+              className="animate-hero delay-2 relative w-full"
             />
           </div>
         </div>
