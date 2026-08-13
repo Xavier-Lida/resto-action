@@ -93,16 +93,9 @@ export default function Home() {
       <section id="approche" className="bg-white">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <Reveal>
-            <p className="text-xs font-black uppercase tracking-widest text-brand">
+            <h2 className="max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
               Notre approche
-            </p>
-            <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
-              On commence par t&apos;écouter.
             </h2>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink/75">
-              Chaque resto est différent. Avant de parler solution, on veut
-              comprendre c&apos;est quoi, ton vrai problème.
-            </p>
           </Reveal>
 
           {/* Cartes portées par la mascotte : le visuel d'abord, une seule
@@ -156,13 +149,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* TODO_USER: valider que cette phrase reste exacte tant que la certification n'est pas obtenue */}
-          <Reveal>
-            <p className="mt-10 max-w-2xl text-sm text-ink/60">
-              On travaille déjà avec des restos pilotes de chez nous. Les
-              premiers partenariats officiels seront annoncés bientôt.
-            </p>
-          </Reveal>
         </div>
       </section>
 

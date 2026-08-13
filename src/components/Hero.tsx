@@ -28,14 +28,14 @@ export default function Hero() {
         {/* Languette haute : le logo. top-0 = appuyée sur le bord intérieur de
             la bordure blanche (continuité blanc sur blanc), le logo reste
             entier dans la languette. */}
-        <div className="absolute left-1/2 top-0 z-30 -translate-x-1/2 rounded-b-[1.25rem] bg-white px-8 pb-3 pt-2.5 md:rounded-b-[1.5rem] xl:px-10">
+        <div className="absolute left-0 top-0 z-30 rounded-br-[1.25rem] bg-white px-5 pb-3 pt-2.5 md:left-1/2 md:-translate-x-1/2 md:rounded-b-[1.5rem] md:px-8 xl:px-10">
           <Image
             src="/logo-marque.png"
             alt="Resto Action"
             width={1012}
             height={128}
             loading="eager"
-            className="h-6 w-auto lg:h-8 xl:h-10"
+            className="h-8 w-auto md:h-6 lg:h-8 xl:h-10"
           />
         </div>
 
