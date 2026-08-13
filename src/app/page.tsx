@@ -249,133 +249,127 @@ export default function Home() {
       </section>
 
       {/* ─── Notre histoire ─── */}
-      <section id="histoire" className="bg-bone">
+      {/* Trois jalons en colonnes bordées de rouge, photos noir et blanc,
+          légendes manuscrites, chute en une phrase rouge. */}
+      <section id="histoire" className="bg-ink text-white">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <Reveal>
             <p className="text-xs font-black uppercase tracking-widest text-brand">
               Notre histoire
             </p>
-            <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
+            <h2 className="mt-3 max-w-3xl font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
               Un resto qui ferme, c&apos;est un morceau de nos vies qui part
               avec.
             </h2>
           </Reveal>
 
-          <div className="mt-10 grid gap-12 md:grid-cols-[1fr_auto] md:items-center">
-            <Reveal delay={1}>
-              <div className="max-w-2xl space-y-6 text-lg leading-relaxed text-ink/75">
-                <p>
-                  Chaque anniversaire de la famille de Guillaume se fêtait au
-                  même restaurant. Même table, même propriétaire qui les
-                  accueillait par leur prénom. En 2020, le restaurant a fermé,
-                  comme des centaines d&apos;autres au Québec. Ce jour-là,
-                  Guillaume a compris qu&apos;un resto qui ferme, c&apos;est
-                  pas juste un commerce qui disparaît :{" "}
-                  <strong className="text-ink">
-                    c&apos;est un morceau de nos vies qui part avec.
-                  </strong>
-                </p>
-                <p>
-                  Justin, lui, l&apos;a vécu de l&apos;intérieur. En
-                  travaillant en restauration, il a vu à quel point les marges
-                  sont minces. Chaque perte compte, chaque dollar donné à un
-                  intermédiaire fait mal.
-                </p>
-                <p>
-                  Leurs chemins se sont croisés à l&apos;École
-                  d&apos;entrepreneurship de Beauce. Guillaume a présenté son
-                  idée; Justin a embarqué sur-le-champ. Ils ont gagné le
-                  concours. Mais la vraie victoire, ç&apos;a été la décision
-                  prise ce soir-là :{" "}
-                  <strong className="text-ink">
-                    arrêter d&apos;en parler, pis agir.
-                  </strong>
-                </p>
-
-                {/*
-                  TODO_USER: confirmer le lien entre le concours mentionné
-                  (École d'entrepreneurship de Beauce) et le certificat
-                  « Défi CEED » — ajuster le paragraphe ci-dessus ou la légende
-                  si nécessaire, pis ajouter un lien vers l'article s'il existe.
-                */}
-                <figure className="rounded-2xl bg-white p-4 shadow-sm transition hover:shadow-md md:max-w-md">
-                  <div className="overflow-hidden rounded-xl">
-                    <Image
-                      draggable={false}
-                      src="/ceed.jpeg"
-                      alt="Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action"
-                      width={1086}
-                      height={1018}
-                      className="w-full object-cover"
-                    />
-                  </div>
-                  <figcaption className="mt-3 text-center font-script text-2xl text-ink">
-                    1<sup>re</sup> position au Défi CEED 2026
-                  </figcaption>
-                </figure>
-
-                <p className="border-l-4 border-brand pl-5 text-xl md:text-2xl font-black leading-snug text-ink">
-                  Aujourd&apos;hui, Resto Action existe pour une seule raison :
-                  sauver les restaurants indépendants du Québec, pour le bien
-                  de tout le monde. Parce que le fruit de leur travail doit
-                  leur revenir, pour le bien collectif.
-                </p>
-              </div>
-            </Reveal>
-
-            <div className="flex flex-row gap-6 md:flex-col md:w-52">
-              {[
-                {
+          <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            {[
+              {
+                kicker: "2020",
+                titre: "Le resto ferme",
+                texte:
+                  "Chaque anniversaire de la famille de Guillaume se fêtait au même restaurant. Même table, même propriétaire. En 2020, il a fermé, comme des centaines d'autres au Québec.",
+                image: {
                   src: "/guillaume.jpg",
-                  name: "Guillaume",
                   alt: "Guillaume Therrien, cofondateur de Resto Action",
-                  linkedin:
-                    "https://www.linkedin.com/in/guillaume-therrien-776a653b3/",
                   width: 675,
                   height: 900,
+                  lien: "https://www.linkedin.com/in/guillaume-therrien-776a653b3/",
                 },
-                {
+                legende: "Guillaume",
+              },
+              {
+                kicker: "De l'intérieur",
+                titre: "Les marges sont minces",
+                texte:
+                  "Justin l'a vécu en travaillant en restauration : chaque perte compte, chaque dollar donné à un intermédiaire fait mal.",
+                image: {
                   src: "/justin.jpg",
-                  name: "Justin",
                   alt: "Justin Bouillon, cofondateur de Resto Action",
-                  linkedin:
-                    "https://www.linkedin.com/in/justin-bouillon-58a667421/",
                   width: 602,
                   height: 900,
+                  lien: "https://www.linkedin.com/in/justin-bouillon-58a667421/",
                 },
-              ].map(({ src, name, alt, linkedin, width, height }, i) => (
-                <Reveal
-                  key={name}
-                  delay={(i + 1) as 1 | 2}
-                  className="flex-1 md:flex-none"
-                >
-                  <a
-                    href={linkedin}
-                    target="_blank"
-                    rel="noopener"
-                    aria-label={`Profil LinkedIn de ${alt.split(",")[0]}`}
-                    className="group block"
-                  >
-                    <figure>
-                      <div className="overflow-hidden rounded-2xl shadow-sm transition group-hover:shadow-md">
-                        <Image
-                          draggable={false}
-                          src={src}
-                          alt={alt}
-                          width={width}
-                          height={height}
-                          className="aspect-[3/4] w-full object-cover grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
-                        />
-                      </div>
-                      <figcaption className="mt-2 text-center font-script text-3xl text-ink transition-colors group-hover:text-brand">
-                        {name}
-                      </figcaption>
-                    </figure>
-                  </a>
+                legende: "Justin",
+              },
+              {
+                kicker: "2026",
+                titre: "Arrêter d'en parler, pis agir",
+                texte:
+                  "Rencontre à l'École d'entrepreneurship de Beauce. Guillaume présente l'idée, Justin embarque sur-le-champ. Ils gagnent le Défi CEED et décident d'agir.",
+                image: {
+                  src: "/ceed.jpeg",
+                  alt: "Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action",
+                  width: 1086,
+                  height: 1018,
+                  lien: null,
+                },
+                legende: "1re position au Défi CEED 2026",
+              },
+            ].map(({ kicker, titre, texte, image, legende }, i) => {
+              const figure = (
+                <figure>
+                  <div className="overflow-hidden rounded-lg">
+                    <Image
+                      draggable={false}
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      className={`object-cover transition duration-500 ${
+                        image.lien
+                          ? "aspect-[3/4] w-40 grayscale group-hover:grayscale-0"
+                          : "w-52"
+                      }`}
+                    />
+                  </div>
+                  <figcaption className="mt-3 font-script text-xl text-white transition-colors group-hover:text-brand">
+                    {legende}
+                  </figcaption>
+                </figure>
+              );
+              return (
+                <Reveal key={titre} delay={i as 0 | 1 | 2}>
+                  <div className="h-full border-l-2 border-brand pl-6">
+                    <p className="text-xs font-black uppercase tracking-widest text-brand">
+                      {kicker}
+                    </p>
+                    <h3 className="mt-2 font-display text-lg font-bold md:text-xl">
+                      {titre}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-white/70">
+                      {texte}
+                    </p>
+                    <div className="mt-6">
+                      {image.lien ? (
+                        <a
+                          href={image.lien}
+                          target="_blank"
+                          rel="noopener"
+                          aria-label={`Profil LinkedIn de ${legende}`}
+                          className="group inline-block"
+                        >
+                          {figure}
+                        </a>
+                      ) : (
+                        figure
+                      )}
+                    </div>
+                  </div>
                 </Reveal>
-              ))}
-            </div>
+              );
+            })}
           </div>
+
+          <Reveal>
+            <p className="mt-14 border-t border-white/15 pt-8 text-lg font-black leading-snug md:text-xl">
+              Aujourd&apos;hui, Resto Action existe pour une seule raison :{" "}
+              <span className="text-brand">
+                sauver les restaurants indépendants du Québec.
+              </span>
+            </p>
+          </Reveal>
         </div>
       </section>
 
