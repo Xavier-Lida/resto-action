@@ -93,60 +93,72 @@ export default function Home() {
       <section id="approche" className="bg-white">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <Reveal>
-            <h2 className="max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
+            <h2 className="max-w-3xl font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
               Notre approche
             </h2>
+            <p className="mt-3 text-ink/60">
+              On s&apos;adapte vraiment à chaque restaurant!
+            </p>
           </Reveal>
 
-          {/* Cartes portées par la mascotte : le visuel d'abord, une seule
-              phrase. Les images sont opaques, fond calé au pixel sur
-              --color-bone, la couleur des cartes. */}
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {[
-              {
-                n: "1",
-                title: "On t'écoute.",
-                text: "Un appel de 30 minutes, tu nous parles de ton resto.",
-                image: "/mascotte-ecoute.webp",
-                alt: "La mascotte Resto Action écoute au téléphone",
-              },
-              {
-                n: "2",
-                title: "On creuse avec toi.",
-                text: "On trouve ensemble ce qui gruge tes marges.",
-                image: "/mascotte-creuse.webp",
-                alt: "La mascotte Resto Action examine une facture à la loupe",
-              },
-              {
-                n: "3",
-                title: "On règle le problème.",
-                text: "Une solution adaptée, pas une recette toute faite.",
-                image: "/mascotte-regle.webp",
-                alt: "La mascotte Resto Action lève le pouce, problème réglé",
-              },
-            ].map(({ n, title, text, image, alt }, i) => (
-              <Reveal key={n} delay={i as 0 | 1 | 2}>
-                <div className="h-full overflow-hidden rounded-2xl bg-bone transition hover:-translate-y-1 hover:shadow-lg">
-                  <Image
-                    src={image}
-                    alt={alt}
-                    width={1024}
-                    height={1024}
-                    unoptimized
-                    className="aspect-[5/4] w-full object-cover object-top"
-                  />
-                  <div className="p-6 pt-2">
-                    <h3 className="text-xl font-black leading-snug">
-                      <span className="mr-2 font-script text-3xl text-brand">
+          {/* Trois étapes portées par la mascotte : cercles reliés par un
+              pointillé, pastille numérotée, une seule phrase chacune. */}
+          <div className="relative mt-16">
+            <div
+              aria-hidden="true"
+              className="absolute left-[17%] right-[17%] top-20 hidden border-t-2 border-dashed border-brand/40 md:block"
+            />
+            <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+              {[
+                {
+                  n: "1",
+                  title: "On t'écoute",
+                  text: "Un appel de 30 minutes, tu nous parles de ton resto.",
+                  image: "/mascotte-ecoute.webp",
+                  alt: "La mascotte Resto Action écoute au téléphone",
+                },
+                {
+                  n: "2",
+                  title: "On creuse avec toi",
+                  text: "On trouve ensemble ce qui gruge tes marges.",
+                  image: "/mascotte-creuse.webp",
+                  alt: "La mascotte Resto Action examine une facture à la loupe",
+                },
+                {
+                  n: "3",
+                  title: "On règle le problème",
+                  text: "Une solution adaptée, pas une recette toute faite.",
+                  image: "/mascotte-regle.webp",
+                  alt: "La mascotte Resto Action lève le pouce, problème réglé",
+                },
+              ].map(({ n, title, text, image, alt }, i) => (
+                <Reveal key={n} delay={i as 0 | 1 | 2}>
+                  <div className="flex flex-col items-center text-center">
+                    <div className="relative z-10">
+                      <div className="size-40 overflow-hidden rounded-full border-2 border-ink bg-bone">
+                        <Image
+                          src={image}
+                          alt={alt}
+                          width={1024}
+                          height={1024}
+                          unoptimized
+                          className="size-full object-cover"
+                        />
+                      </div>
+                      <span className="absolute -bottom-3 left-1/2 z-20 grid size-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-sm font-black text-white">
                         {n}
                       </span>
+                    </div>
+                    <h3 className="mt-7 font-display text-lg font-bold md:text-xl">
                       {title}
                     </h3>
-                    <p className="mt-2 leading-relaxed text-ink/75">{text}</p>
+                    <p className="mt-2 max-w-[38ch] leading-relaxed text-ink/75">
+                      {text}
+                    </p>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              ))}
+            </div>
           </div>
 
         </div>
