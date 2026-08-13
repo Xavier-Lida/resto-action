@@ -263,7 +263,6 @@ export default function Home() {
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {[
               {
-                kicker: "2020",
                 titre: "Les restos ferment",
                 texte:
                   "Chaque anniversaire de la famille de Guillaume se fêtait au même restaurant. Même table, même propriétaire. En 2020, il a fermé, comme des centaines d'autres au Québec.",
@@ -277,7 +276,6 @@ export default function Home() {
                 legende: "Guillaume",
               },
               {
-                kicker: "De l'intérieur",
                 titre: "Les marges sont minces",
                 texte:
                   "Justin l'a vécu en travaillant en restauration : chaque perte compte, chaque dollar donné à un intermédiaire fait mal.",
@@ -291,7 +289,6 @@ export default function Home() {
                 legende: "Justin",
               },
               {
-                kicker: "2026",
                 titre: "Des jeunes en Action",
                 texte:
                   "Rencontre à l'École d'entrepreneurship de Beauce. Guillaume présente l'idée, Justin embarque sur-le-champ. Ils gagnent le Défi CEED et décident d'agir.",
@@ -304,7 +301,7 @@ export default function Home() {
                 },
                 legende: "1re position au Défi CEED 2026",
               },
-            ].map(({ kicker, titre, texte, image, legende }, i) => {
+            ].map(({ titre, texte, image, legende }, i) => {
               const figure = (
                 <figure>
                   <div className="w-fit overflow-hidden rounded-lg">
@@ -328,11 +325,8 @@ export default function Home() {
               );
               return (
                 <Reveal key={titre} delay={i as 0 | 1 | 2}>
-                  <div className="h-full">
-                    <p className="text-xs font-black uppercase tracking-widest text-brand">
-                      {kicker}
-                    </p>
-                    <h3 className="mt-2 font-display text-lg font-bold md:text-xl">
+                  <div className="h-full border-l-2 border-brand pl-6">
+                    <h3 className="font-display text-lg font-bold md:text-xl">
                       {titre}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-white/70">
