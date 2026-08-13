@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { Caveat } from "next/font/google";
+import { Caveat, Unbounded } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const caveat = Caveat({
   variable: "--font-script",
+  subsets: ["latin"],
+});
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
   subsets: ["latin"],
 });
 
@@ -38,9 +42,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr-CA" className={`${caveat.variable} h-full antialiased`}>
+    <html
+      lang="fr-CA"
+      className={`${caveat.variable} ${unbounded.variable} h-full antialiased`}
+    >
+      {/* Le Header n'est plus global : la home a sa nav intégrée à la hero,
+          les autres pages le rendent elles-mêmes. */}
       <body className="min-h-full flex flex-col">
-        <Header />
         {children}
         <Footer />
         <Analytics />

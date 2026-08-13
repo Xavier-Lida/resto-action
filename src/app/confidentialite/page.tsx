@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Header from "@/components/Header";
 import { CITY, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 
 export default function Confidentialite() {
   return (
-    <main className="flex-1">
+    <>
+      <Header />
+      <main className="flex-1">
       <div className="mx-auto max-w-2xl px-5 py-20 md:py-28">
         <p className="text-xs font-black uppercase tracking-widest text-brand">
           Loi 25
@@ -96,6 +99,7 @@ export default function Confidentialite() {
           </p>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Phone, ArrowDown, Mail } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import Buoy from "@/components/Buoy";
+import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
 import CalendarEmbed from "@/components/CalendarEmbed";
 import {
@@ -85,50 +86,15 @@ const jsonLd = {
 export default function Home() {
   return (
     <main className="flex-1">
-      {/* ─── Héro — le pitch ─── */}
-      <section id="top" className="relative overflow-hidden">
-        <Buoy className="pointer-events-none absolute -right-24 -top-24 w-[420px] opacity-[0.07] animate-[spin_60s_linear_infinite]" />
-        <div className="mx-auto max-w-6xl px-5 pt-20 pb-24 md:pt-28 md:pb-32">
-          <h1 className="animate-hero max-w-4xl text-5xl md:text-7xl font-black leading-[1.04] tracking-tight">
-            Pas normal que ceux qui cuisinent soient{" "}
-            <span className="text-brand">ceux qui restent pauvres.</span>
-          </h1>
-          <p className="animate-hero delay-1 mt-7 max-w-2xl text-lg md:text-xl leading-relaxed text-ink/75">
-            Des restaurateurs d&apos;ici travaillent 70 heures par semaine et
-            finissent l&apos;année avec presque rien dans les poches. Chez
-            Resto Action, on part d&apos;une conviction simple :{" "}
-            <strong className="text-ink">
-              le fruit de leur travail doit leur revenir, pour le bien
-              collectif.
-            </strong>
-          </p>
-          <p className="animate-hero delay-2 mt-7 max-w-2xl border-l-4 border-brand pl-5 text-base md:text-lg leading-relaxed font-bold text-ink">
-            {DEFINITION}
-          </p>
-          <div className="animate-hero delay-3 mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href={PHONE_HREF}
-              className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-4 text-base font-black text-white transition hover:bg-ink active:scale-95"
-            >
-              <Phone className="size-5" />
-              Appelle-nous pour découvrir ta solution
-            </a>
-            <a
-              href="#approche"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-ink px-7 py-4 text-base font-black transition hover:bg-ink hover:text-white active:scale-95"
-            >
-              Voir notre approche
-              <ArrowDown className="size-5" />
-            </a>
-          </div>
-          <p className="animate-hero delay-4 mt-6 text-sm text-ink/60">
-            {PHONE_DISPLAY} · Québec
-          </p>
-        </div>
-      </section>
+      {/* ─── Héro — carte encadrée, marque géante, bouée 3D ─── */}
+      <Hero />
 
       {/* ─── Notre mission ─── */}
-      <section id="mission" className="relative overflow-hidden bg-ink text-white">
+      {/* Le fond rouge de la hero se prolonge, et la section arrive comme une
+          carte sombre aux coins arrondis posée dessus : même langage visuel
+          que la carte de la hero, pas de coupure d'aplat rouge/noir. */}
+      <section id="mission" className="bg-hero">
+        <div className="relative overflow-hidden rounded-t-[2rem] bg-ink text-white lg:rounded-t-[3rem]">
         <Image
           src="/faillite.jpg"
           alt=""
@@ -201,6 +167,7 @@ export default function Home() {
               restauration.
             </p>
           </div>
+        </div>
         </div>
       </section>
 
