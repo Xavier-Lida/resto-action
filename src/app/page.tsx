@@ -26,7 +26,7 @@ const FAQ = [
   },
   {
     q: "Combien ça coûte?",
-    a: "Ça dépend de ton resto et de ton problème. Appelle-nous au 819 944-4661, on regarde ça ensemble en 15 minutes, chiffres en main.",
+    a: "Ça dépend de ton resto et de ton problème. Appelle-nous au 819 944-4661, on regarde ça ensemble en 30 minutes, chiffres en main.",
   },
   {
     q: "Vous êtes où? Vous servez qui?",
@@ -34,7 +34,7 @@ const FAQ = [
   },
   {
     q: "Comment on commence?",
-    a: "Tu nous appelles au 819 944-4661, tu nous écris, ou tu cédules ton appel directement sur le site. Quinze minutes pour regarder ensemble ce qui gruge ton resto. Pas de pression, pas de contrat de 40 pages.",
+    a: "Tu nous appelles au 819 944-4661, tu nous écris, ou tu cédules ton appel directement sur le site. Trente minutes pour regarder ensemble ce qui gruge ton resto. Pas de pression, pas de contrat de 40 pages.",
   },
 ];
 
@@ -106,7 +106,7 @@ export default function Home() {
               {
                 n: "1",
                 title: "On t'écoute.",
-                text: "Un appel de 15 minutes, tu nous parles de ton resto.",
+                text: "Un appel de 30 minutes, tu nous parles de ton resto.",
                 image: "/mascotte-ecoute.webp",
                 alt: "La mascotte Resto Action écoute au téléphone",
               },
@@ -407,7 +407,7 @@ export default function Home() {
               Parlons de ton resto.
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg text-white/85">
-              Un appel de 15 minutes suffit pour voir ce que Resto Action peut
+              Un appel de 30 minutes suffit pour voir ce que Resto Action peut
               faire pour ton resto, et combien les commissions te coûtent
               vraiment.
             </p>

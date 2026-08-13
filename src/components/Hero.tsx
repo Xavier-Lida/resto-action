@@ -145,7 +145,7 @@ export default function Hero() {
               aligné au bas de la carte, le buste dépasse du haut. */}
           <div className="animate-hero delay-4 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
             <p className="text-sm font-black leading-snug">Parle à Guillaume</p>
-            <p className="mt-0.5 text-xs text-ink/70">Un appel de 15 minutes.</p>
+            <p className="mt-0.5 text-xs text-ink/70">Un appel de 30 minutes.</p>
             <a
               href={PHONE_HREF}
               className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-xs font-black text-white transition-colors hover:bg-ink"
