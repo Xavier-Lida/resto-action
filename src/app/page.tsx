@@ -169,8 +169,8 @@ export default function Home() {
       {/* La section arrive comme une carte sombre aux coins arrondis posée
           sur le blanc de la page : même langage visuel que la carte de la
           hero. */}
-      <section id="mission" className="bg-white">
-        <div className="relative overflow-hidden rounded-t-[2rem] bg-ink text-white lg:rounded-t-[3rem]">
+      <section id="mission" className="bg-white p-3 md:p-5 lg:p-6">
+        <div className="relative overflow-hidden rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
         <Image
           draggable={false}
           src="/faillite.jpg"
@@ -251,15 +251,12 @@ export default function Home() {
       {/* ─── Notre histoire ─── */}
       {/* Trois jalons en colonnes bordées de rouge, photos noir et blanc,
           légendes manuscrites, chute en une phrase rouge. */}
-      <section id="histoire" className="bg-ink text-white">
+      <section id="histoire" className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6">
+        <div className="rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <Reveal>
-            <p className="text-xs font-black uppercase tracking-widest text-brand">
+            <h2 className="max-w-3xl font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
               Notre histoire
-            </p>
-            <h2 className="mt-3 max-w-3xl font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
-              Un resto qui ferme, c&apos;est un morceau de nos vies qui part
-              avec.
             </h2>
           </Reveal>
 
@@ -267,7 +264,7 @@ export default function Home() {
             {[
               {
                 kicker: "2020",
-                titre: "Le resto ferme",
+                titre: "Les restos ferment",
                 texte:
                   "Chaque anniversaire de la famille de Guillaume se fêtait au même restaurant. Même table, même propriétaire. En 2020, il a fermé, comme des centaines d'autres au Québec.",
                 image: {
@@ -295,7 +292,7 @@ export default function Home() {
               },
               {
                 kicker: "2026",
-                titre: "Arrêter d'en parler, pis agir",
+                titre: "Des jeunes en Action",
                 texte:
                   "Rencontre à l'École d'entrepreneurship de Beauce. Guillaume présente l'idée, Justin embarque sur-le-champ. Ils gagnent le Défi CEED et décident d'agir.",
                 image: {
@@ -310,7 +307,7 @@ export default function Home() {
             ].map(({ kicker, titre, texte, image, legende }, i) => {
               const figure = (
                 <figure>
-                  <div className="overflow-hidden rounded-lg">
+                  <div className="w-fit overflow-hidden rounded-lg">
                     <Image
                       draggable={false}
                       src={image.src}
@@ -331,7 +328,7 @@ export default function Home() {
               );
               return (
                 <Reveal key={titre} delay={i as 0 | 1 | 2}>
-                  <div className="h-full border-l-2 border-brand pl-6">
+                  <div className="h-full">
                     <p className="text-xs font-black uppercase tracking-widest text-brand">
                       {kicker}
                     </p>
@@ -362,14 +359,7 @@ export default function Home() {
             })}
           </div>
 
-          <Reveal>
-            <p className="mt-14 border-t border-white/15 pt-8 text-lg font-black leading-snug md:text-xl">
-              Aujourd&apos;hui, Resto Action existe pour une seule raison :{" "}
-              <span className="text-brand">
-                sauver les restaurants indépendants du Québec.
-              </span>
-            </p>
-          </Reveal>
+        </div>
         </div>
       </section>
 
