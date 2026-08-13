@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowDown, Phone } from "lucide-react";
+import MenuMobile from "@/components/MenuMobile";
 import { PHONE_HREF } from "@/lib/site";
 
 const LINKEDIN_URL = "https://www.linkedin.com/company/restoaction";
@@ -88,10 +89,11 @@ export default function Hero() {
             </a>
             <a
               href="#contact"
-              className="rounded-full border-2 border-white px-5 py-2 font-black transition-colors hover:bg-white hover:text-brand"
+              className="hidden rounded-full border-2 border-white px-5 py-2 font-black transition-colors hover:bg-white hover:text-brand md:block"
             >
               Contact
             </a>
+            <MenuMobile />
           </div>
         </nav>
 
@@ -108,6 +110,7 @@ export default function Hero() {
               width={723}
               height={676}
               preload={true}
+              unoptimized
               className="animate-hero delay-2 w-full [filter:drop-shadow(0_35px_45px_rgba(25,25,25,0.30))]"
             />
           </div>
@@ -144,6 +147,7 @@ export default function Hero() {
               alt="Guillaume Therrien, cofondateur de Resto Action"
               width={500}
               height={780}
+              unoptimized
               className="pointer-events-none absolute bottom-0 right-4 h-44 w-auto lg:right-9 lg:h-52"
             />
           </div>
