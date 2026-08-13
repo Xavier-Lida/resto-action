@@ -105,31 +105,52 @@ export default function Home() {
             </p>
           </Reveal>
 
+          {/* Cartes portées par la mascotte : le visuel d'abord, une seule
+              phrase. Les images sont opaques, fond calé au pixel sur
+              --color-bone, la couleur des cartes. */}
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {[
               {
                 n: "1",
                 title: "On t'écoute.",
-                text: "Un appel de 15 minutes. Tu nous parles de ton resto, de tes chiffres, de ce qui gruge ton temps et tes marges.",
+                text: "Un appel de 15 minutes, tu nous parles de ton resto.",
+                image: "/mascotte-ecoute.webp",
+                alt: "La mascotte Resto Action écoute au téléphone",
               },
               {
                 n: "2",
                 title: "On creuse avec toi.",
-                text: "On regarde ensemble ce qui te coûte le plus cher, et on te le montre chiffres en main.",
+                text: "On trouve ensemble ce qui gruge tes marges.",
+                image: "/mascotte-creuse.webp",
+                alt: "La mascotte Resto Action examine une facture à la loupe",
               },
               {
                 n: "3",
                 title: "On règle le problème.",
-                text: "Une solution adaptée à ton resto, pas une recette toute faite. Pas de contrat de 40 pages non plus.",
+                text: "Une solution adaptée, pas une recette toute faite.",
+                image: "/mascotte-regle.webp",
+                alt: "La mascotte Resto Action lève le pouce, problème réglé",
               },
-            ].map(({ n, title, text }, i) => (
+            ].map(({ n, title, text, image, alt }, i) => (
               <Reveal key={n} delay={i as 0 | 1 | 2}>
-                <div className="h-full rounded-2xl bg-bone p-7 transition hover:-translate-y-1 hover:shadow-lg">
-                  <p className="font-script text-5xl text-brand">{n}</p>
-                  <h3 className="mt-3 text-xl font-black leading-snug">
-                    {title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-ink/75">{text}</p>
+                <div className="h-full overflow-hidden rounded-2xl bg-bone transition hover:-translate-y-1 hover:shadow-lg">
+                  <Image
+                    src={image}
+                    alt={alt}
+                    width={1024}
+                    height={1024}
+                    unoptimized
+                    className="aspect-[5/4] w-full object-cover object-top"
+                  />
+                  <div className="p-6 pt-2">
+                    <h3 className="text-xl font-black leading-snug">
+                      <span className="mr-2 font-script text-3xl text-brand">
+                        {n}
+                      </span>
+                      {title}
+                    </h3>
+                    <p className="mt-2 leading-relaxed text-ink/75">{text}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}
