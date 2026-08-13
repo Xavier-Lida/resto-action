@@ -137,6 +137,7 @@ export default function Home() {
                     <div className="relative z-10">
                       <div className="size-40 overflow-hidden rounded-full border-2 border-ink bg-bone">
                         <Image
+                          draggable={false}
                           src={image}
                           alt={alt}
                           width={1024}
@@ -171,6 +172,7 @@ export default function Home() {
       <section id="mission" className="bg-white">
         <div className="relative overflow-hidden rounded-t-[2rem] bg-ink text-white lg:rounded-t-[3rem]">
         <Image
+          draggable={false}
           src="/faillite.jpg"
           alt=""
           fill
@@ -299,6 +301,7 @@ export default function Home() {
                 <figure className="rounded-2xl bg-white p-4 shadow-sm transition hover:shadow-md md:max-w-md">
                   <div className="overflow-hidden rounded-xl">
                     <Image
+                      draggable={false}
                       src="/ceed.jpeg"
                       alt="Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action"
                       width={1086}
@@ -356,6 +359,7 @@ export default function Home() {
                     <figure>
                       <div className="overflow-hidden rounded-2xl shadow-sm transition group-hover:shadow-md">
                         <Image
+                          draggable={false}
                           src={src}
                           alt={alt}
                           width={width}

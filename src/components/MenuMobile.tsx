@@ -82,6 +82,7 @@ export default function MenuMobile() {
             >
               <div className="flex items-center justify-between">
                 <Image
+                  draggable={false}
                   src="/logo-marque.png"
                   alt="Resto Action"
                   width={1012}

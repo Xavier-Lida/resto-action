@@ -8,6 +8,7 @@ export default function Header() {
       <div className="mx-auto max-w-6xl px-5 py-3 flex items-center justify-between gap-4">
         <a href="/#top" className="shrink-0">
           <Image
+            draggable={false}
             src="/logo-marque.png"
             alt="Resto Action"
             width={1012}

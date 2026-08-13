@@ -30,6 +30,7 @@ export default function Hero() {
             entier dans la languette. */}
         <div className="absolute left-0 top-0 z-30 rounded-br-[1.25rem] bg-white px-5 pb-3 pt-2.5 md:left-1/2 md:-translate-x-1/2 md:rounded-b-[1.5rem] md:px-8 xl:px-10">
           <Image
+            draggable={false}
             src="/logo-marque.png"
             alt="Resto Action"
             width={1012}
@@ -118,13 +119,14 @@ export default function Hero() {
               abîmer au décodage ou au réencodage. */}
           <div className="mx-auto mt-6 w-[64vw] min-w-[320px] max-w-[560px] lg:mt-0 lg:w-[37vw]">
             <Image
+              draggable={false}
               src="/buoy-3d.webp"
               alt=""
               width={1024}
               height={1024}
               preload={true}
               unoptimized
-              className="animate-hero delay-2 w-full"
+              className="animate-hero-fondu delay-2 w-full"
             />
           </div>
         </div>
@@ -154,6 +156,7 @@ export default function Hero() {
               Appelle-nous
             </a>
             <Image
+              draggable={false}
               src="/guillaume-detoure.webp"
               alt="Guillaume Therrien, cofondateur de Resto Action"
               width={500}

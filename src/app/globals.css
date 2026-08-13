@@ -33,6 +33,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Les images du site ne se laissent pas glisser-déposer. */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 /* ─── Animations ─── */
 
 @keyframes fade-up {
@@ -46,9 +52,23 @@ body {
   }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Cascade d'entrée du héro : pur CSS, joue au chargement de la page. */
 .animate-hero {
   animation: fade-up 0.7s ease-out both;
+}
+/* Fondu sans déplacement : pour les images opaques fondues dans le fond,
+   qu'une translation ferait « décoller » de leur raccord. */
+.animate-hero-fondu {
+  animation: fade-in 0.7s ease-out both;
 }
 .delay-1 {
   animation-delay: 100ms;
@@ -93,6 +113,7 @@ details[open] .faq-answer {
     scroll-behavior: auto;
   }
   .animate-hero,
+  .animate-hero-fondu,
   details[open] .faq-answer {
     animation: none;
   }
