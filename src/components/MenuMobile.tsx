@@ -82,10 +82,10 @@ export default function MenuMobile() {
             >
               <div className="flex items-center justify-between">
                 <Image
-                  src="/logo.svg"
+                  src="/logo-nav.png"
                   alt="Resto Action"
-                  width={180}
-                  height={48}
+                  width={447}
+                  height={128}
                   className="h-6 w-auto"
                 />
                 <button

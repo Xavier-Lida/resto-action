@@ -8,10 +8,10 @@ export default function Header() {
       <div className="mx-auto max-w-6xl px-5 py-3 flex items-center justify-between gap-4">
         <a href="/#top" className="shrink-0">
           <Image
-            src="/logo.svg"
+            src="/logo-nav.png"
             alt="Resto Action"
-            width={180}
-            height={48}
+            width={447}
+            height={128}
             priority
             className="h-9 w-auto"
           />

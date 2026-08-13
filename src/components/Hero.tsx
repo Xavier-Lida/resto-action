@@ -30,10 +30,10 @@ export default function Hero() {
             entier dans la languette. */}
         <div className="absolute left-1/2 top-0 z-30 -translate-x-1/2 rounded-b-[1.25rem] bg-white px-5 pb-2.5 pt-1.5 md:rounded-b-[1.5rem] md:px-9 md:pb-3 md:pt-2">
           <Image
-            src="/logo.svg"
+            src="/logo-nav.png"
             alt="Resto Action"
-            width={180}
-            height={48}
+            width={447}
+            height={128}
             loading="eager"
             className="h-6 w-auto md:h-8"
           />
@@ -116,7 +116,7 @@ export default function Hero() {
               compris), dont le fond a été recoloré pour se fondre au pixel
               près dans --color-hero. Aucune transparence, donc plus rien à
               abîmer au décodage ou au réencodage. */}
-          <div className="mx-auto w-[64vw] min-w-[320px] max-w-[560px] lg:w-[37vw]">
+          <div className="mx-auto mt-6 w-[64vw] min-w-[320px] max-w-[560px] lg:mt-0 lg:w-[37vw]">
             <Image
               src="/buoy-3d.webp"
               alt=""
