@@ -46,7 +46,7 @@ const jsonLd = {
       "@id": `${SITE_URL}/#organization`,
       name: "Resto Action",
       url: SITE_URL,
-      logo: `${SITE_URL}/logo.svg`,
+      logo: `${SITE_URL}/logo-marque.png`,
       description: DEFINITION,
       telephone: PHONE_E164,
       email: EMAIL,

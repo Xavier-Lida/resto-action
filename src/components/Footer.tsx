@@ -6,14 +6,19 @@ export default function Footer() {
     <footer className="bg-ink text-white/60">
       <div className="mx-auto max-w-6xl px-5 py-12 grid gap-10 md:grid-cols-3 text-sm">
         <div className="space-y-4">
-          <Image
-            src="/logo-blanc-2.png"
-            alt="Resto Action"
-            width={1012}
-            height={128}
-            draggable={false}
-            className="h-7 w-auto"
-          />
+          {/* Le logo original, posé sur une plaque blanche comme la
+              languette de la hero : « Resto » est noir, illisible à nu
+              sur le fond sombre. */}
+          <div className="w-fit rounded-xl bg-white px-4 py-2.5">
+            <Image
+              src="/logo-marque.png"
+              alt="Resto Action"
+              width={1012}
+              height={128}
+              draggable={false}
+              className="h-6 w-auto"
+            />
+          </div>
           <p>
             Une entreprise de Trois-Rivières au service des restaurants
             indépendants du Québec.
