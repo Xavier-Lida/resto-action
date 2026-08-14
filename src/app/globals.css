@@ -103,9 +103,25 @@ img {
   transition-delay: 360ms;
 }
 
-/* Ouverture douce du contenu des questions de la FAQ. */
-details[open] .faq-answer {
-  animation: fade-up 0.35s ease-out both;
+/* Accordéon FAQ : ouverture et fermeture animées en hauteur là où le
+   navigateur le permet, repli instantané ailleurs. */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+}
+.faq-item::details-content {
+  opacity: 0;
+  block-size: 0;
+  overflow: clip;
+  transition:
+    content-visibility 0.35s allow-discrete,
+    opacity 0.35s ease,
+    block-size 0.35s ease;
+}
+.faq-item[open]::details-content {
+  opacity: 1;
+  block-size: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -113,9 +129,11 @@ details[open] .faq-answer {
     scroll-behavior: auto;
   }
   .animate-hero,
-  .animate-hero-fondu,
-  details[open] .faq-answer {
+  .animate-hero-fondu {
     animation: none;
+  }
+  .faq-item::details-content {
+    transition: none;
   }
   .reveal {
     opacity: 1;

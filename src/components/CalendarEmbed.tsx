@@ -22,7 +22,7 @@ export default function CalendarEmbed() {
         title="Céduler un appel avec Resto Action"
         loading="lazy"
         onLoad={() => setLoaded(true)}
-        className="h-[720px] w-full border-0"
+        className="h-[520px] w-full border-0"
       />
     </div>
   );

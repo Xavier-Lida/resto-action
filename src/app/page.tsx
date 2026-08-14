@@ -358,31 +358,34 @@ export default function Home() {
       </section>
 
       {/* ─── FAQ ─── */}
+      {/* Accordéon : la question ouverte devient une pilule beige arrondie,
+          une seule ouverte à la fois (details name), hauteur animée en CSS. */}
       <section id="faq" className="bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+        <div className="mx-auto max-w-4xl px-5 py-20 md:py-28">
           <Reveal>
-            <p className="text-xs font-black uppercase tracking-widest text-brand">
+            <h2 className="text-center font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
               FAQ
-            </p>
-            <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
-              Questions fréquentes
             </h2>
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mt-10 max-w-3xl divide-y divide-bone border-y border-bone">
-              {FAQ.map(({ q, a }, i) => (
-                <details key={q} open={i === 0} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-black [&::-webkit-details-marker]:hidden">
+            <div className="mt-12 space-y-2">
+              {FAQ.map(({ q, a }) => (
+                <details
+                  key={q}
+                  name="faq"
+                  className="faq-item group rounded-3xl transition-colors duration-300 open:bg-bone"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 text-lg font-black md:px-8 [&::-webkit-details-marker]:hidden">
                     {q}
                     <span
                       aria-hidden="true"
-                      className="text-brand transition-transform group-open:rotate-45 text-2xl leading-none"
+                      className="text-2xl leading-none transition-transform duration-300 group-open:rotate-45"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="faq-answer mt-4 max-w-2xl leading-relaxed text-ink/75">
+                  <p className="max-w-3xl px-6 pb-6 leading-relaxed text-ink/75 md:px-8">
                     {a}
                   </p>
                 </details>
@@ -393,45 +396,50 @@ export default function Home() {
       </section>
 
       {/* ─── CTA final / Contact ─── */}
-      <section id="contact" className="bg-brand text-white">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28 text-center">
-          <Reveal>
-            <Buoy className="mx-auto mb-8 w-24" />
-            <h2 className="mx-auto max-w-2xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
-              Parlons de ton resto.
-            </h2>
-            <p className="mx-auto mt-5 max-w-xl text-lg text-white/85">
-              Un appel de 30 minutes suffit pour voir ce que Resto Action peut
-              faire pour ton resto, et combien les commissions te coûtent
-              vraiment.
-            </p>
-            <a
-              href={PHONE_HREF}
-              className="mt-9 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-black text-ink transition hover:bg-ink hover:text-white active:scale-95"
-            >
-              <Phone className="size-5" />
-              {PHONE_DISPLAY}
-            </a>
-            <p className="mt-6 text-sm text-white/70">
-              Guillaume Therrien · Resto Action
-            </p>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-white/85 transition hover:text-white"
-            >
-              <Mail className="size-4" />
-              {EMAIL}
-            </a>
-          </Reveal>
+      {/* Le rouge de la hero, le pitch à gauche, l'agenda compact à droite. */}
+      <section id="contact" className="bg-hero text-white">
+        <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+            <Reveal>
+              <div>
+                <Buoy className="mb-6 w-16" />
+                <h2 className="max-w-md font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
+                  Parlons de ton resto.
+                </h2>
+                <p className="mt-4 max-w-md text-lg text-white/85">
+                  Un appel de 30 minutes suffit pour voir ce que Resto Action
+                  peut faire pour ton resto, et combien les commissions te
+                  coûtent vraiment.
+                </p>
+                <a
+                  href={PHONE_HREF}
+                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-black text-ink transition hover:bg-ink hover:text-white active:scale-95"
+                >
+                  <Phone className="size-5" />
+                  {PHONE_DISPLAY}
+                </a>
+                <p className="mt-6 text-sm text-white/70">
+                  Guillaume Therrien · Resto Action
+                </p>
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-white/85 transition hover:text-white"
+                >
+                  <Mail className="size-4" />
+                  {EMAIL}
+                </a>
+              </div>
+            </Reveal>
 
-          <Reveal delay={1}>
-            <div className="mx-auto mt-14 max-w-3xl text-left">
-              <p className="mb-4 text-center text-lg font-black">
-                Ou cédule ton appel directement ici :
-              </p>
-              <CalendarEmbed />
-            </div>
-          </Reveal>
+            <Reveal delay={1}>
+              <div>
+                <p className="mb-3 text-lg font-black">
+                  Ou cédule ton appel directement ici :
+                </p>
+                <CalendarEmbed />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 

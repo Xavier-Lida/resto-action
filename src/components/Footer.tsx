@@ -5,13 +5,14 @@ export default function Footer() {
   return (
     <footer className="bg-ink text-white/60">
       <div className="mx-auto max-w-6xl px-5 py-12 grid gap-10 md:grid-cols-3 text-sm">
-        <div className="space-y-3">
+        <div className="space-y-4">
           <Image
-            src="/logo-dark.svg"
+            src="/logo-blanc.png"
             alt="Resto Action"
-            width={180}
-            height={48}
-            className="h-8 w-auto"
+            width={1012}
+            height={128}
+            draggable={false}
+            className="h-7 w-auto"
           />
           <p>
             Une entreprise de Trois-Rivières au service des restaurants
@@ -61,8 +62,16 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-5 text-xs">
-          © {new Date().getFullYear()} Resto Action, un produit de Studios LT,{" "}
-          {CITY}.
+          © {new Date().getFullYear()} Resto Action, un produit de{" "}
+          <a
+            href="https://studioslt.com"
+            target="_blank"
+            rel="noopener"
+            className="font-bold text-white/80 underline transition-colors hover:text-white"
+          >
+            Studios LT
+          </a>
+          , {CITY}.
         </div>
       </div>
     </footer>
