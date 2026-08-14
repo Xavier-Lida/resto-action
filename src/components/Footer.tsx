@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-12 grid gap-10 md:grid-cols-3 text-sm">
         <div className="space-y-4">
           <Image
-            src="/logo-blanc.png"
+            src="/logo-blanc-2.png"
             alt="Resto Action"
             width={1012}
             height={128}

@@ -364,7 +364,7 @@ export default function Home() {
         <div className="mx-auto max-w-4xl px-5 py-20 md:py-28">
           <Reveal>
             <h2 className="text-center font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
-              FAQ
+              Questions fréquentes
             </h2>
           </Reveal>
 
@@ -408,8 +408,7 @@ export default function Home() {
                 </h2>
                 <p className="mt-4 max-w-md text-lg text-white/85">
                   Un appel de 30 minutes suffit pour voir ce que Resto Action
-                  peut faire pour ton resto, et combien les commissions te
-                  coûtent vraiment.
+                  peut faire pour ton resto.
                 </p>
                 <a
                   href={PHONE_HREF}
@@ -432,12 +431,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={1}>
-              <div>
-                <p className="mb-3 text-lg font-black">
-                  Ou cédule ton appel directement ici :
-                </p>
-                <CalendarEmbed />
-              </div>
+              <CalendarEmbed />
             </Reveal>
           </div>
         </div>

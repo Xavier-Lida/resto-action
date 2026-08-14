@@ -8,7 +8,9 @@ export default function CalendarEmbed() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg">
+    // L'en-tête Google (avatar, titre, meta) est rogné : l'iframe est plus
+    // haute que la fenêtre et remontée, seule la carte de sélection se voit.
+    <div className="relative h-[520px] overflow-hidden rounded-3xl bg-white shadow-xl">
       {!loaded && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-white">
           <Buoy className="w-16 animate-[spin_3s_linear_infinite]" />
@@ -22,7 +24,7 @@ export default function CalendarEmbed() {
         title="Céduler un appel avec Resto Action"
         loading="lazy"
         onLoad={() => setLoaded(true)}
-        className="h-[520px] w-full border-0"
+        className="-mt-[212px] h-[760px] w-full border-0"
       />
     </div>
   );
