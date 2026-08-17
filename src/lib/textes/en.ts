@@ -55,6 +55,16 @@ export const EN: Textes = {
 
   langue: { aria: "Language", courante: "English" },
 
+  h1: {
+    fixe: "Quebec's independent restaurants call us to",
+    variantes: [
+      "finally show up on Google.",
+      "sell online without the commission.",
+      "get their customers coming back.",
+      "get an app of their own.",
+    ],
+  },
+
   hero: {
     carteTitre: "Talk to Guillaume",
     carteSousTitre: "A 30-minute call.",

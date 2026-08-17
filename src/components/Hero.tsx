@@ -1,11 +1,10 @@
 import Image from "next/image";
 import { ArrowDown, Phone } from "lucide-react";
 import MenuMobile from "@/components/MenuMobile";
+import TitreTournant from "@/components/TitreTournant";
 import SelecteurLangue from "@/components/SelecteurLangue";
-import { PHONE_HREF } from "@/lib/site";
+import { LINKEDIN_URL, PHONE_HREF } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
-
-const LINKEDIN_URL = "https://www.linkedin.com/company/restoaction";
 
 // Glyphe LinkedIn (lucide-react ne fournit plus d'icônes de marques).
 function IconeLinkedIn({ className }: { className?: string }) {
@@ -110,13 +109,16 @@ export default function Hero({ t }: { t: Textes }) {
           </div>
         </nav>
 
-        {/* Titre géant sur une ligne, bouée 3D en dessous. L'image étant
-            opaque, elle ne doit JAMAIS remonter sous le titre : pas de marge
-            négative, sinon son bord haut tranche le bas des lettres. */}
+        {/* Le titre, bouée 3D en dessous. L'image étant opaque, elle ne doit
+            JAMAIS remonter sous le titre : pas de marge négative, sinon son
+            bord haut tranche le bas des lettres.
+
+            Le mot-marque géant qui tenait cette place a cédé au titre : il ne
+            disait que la marque, alors que c'est le signal le plus fort de la
+            page. La marque reste dans sa languette blanche, en haut de la
+            carte. */}
         <div className="mt-12 md:mt-10">
-          <h1 className="animate-hero delay-1 select-none whitespace-nowrap text-center font-display text-[9vw] font-black leading-none text-white lg:text-[8vw]">
-            Resto Action<span className="text-brand">.</span>
-          </h1>
+          <TitreTournant t={t} />
 
           {/* L'image est OPAQUE : le rendu original entier (ombre et halo
               compris), dont le fond a été recoloré pour se fondre au pixel

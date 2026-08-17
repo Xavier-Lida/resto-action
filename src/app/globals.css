@@ -22,6 +22,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* LES DEUX COURBES DE LA MAISON. Elles ont été posées pour la section
+   « Résultats » puis ont servi au titre du héro : elles vivent donc au :root et
+   non plus sous #resultats. --res-glisse est un ease-in-out cubique symétrique
+   (départ et arrivée amortis, aucun dépassement), --res-fondu une courbe douce
+   pour les apparitions. Ce sont de simples béziers : pas besoin de la
+   déclaration de repli que réclame linear(). */
+:root {
+  --res-glisse: cubic-bezier(0.65, 0, 0.35, 1);
+  --res-fondu: cubic-bezier(0.4, 0, 0.3, 1);
+}
+
 /* Rebond élastique bloqué seulement sur les appareils à souris : sur
    téléphone, tirer la page vers le bas sert à la rafraîchir. */
 @media (hover: hover) and (pointer: fine) {
@@ -86,6 +97,49 @@ img {
 }
 .delay-4 {
   animation-delay: 400ms;
+}
+
+/* ── Le titre tournant du héro ──
+   La phrase sortante s'efface EN BLOC en montant ; l'entrante arrive MOT PAR
+   MOT, chacun décalé sur le précédent par le --t que lui pose le composant.
+   Les durées sont celles relevées sur la référence : 120 ms pour sortir,
+   170 ms par mot à l'entrée.
+
+   Les mots n'ont pas de fill-mode `backwards` par hasard : sans lui, un mot
+   attendant son tour serait déjà opaque, et la cascade ne se verrait pas. */
+@keyframes titre-sortie {
+  to {
+    opacity: 0;
+    transform: translateY(-0.35em);
+  }
+}
+.titre-sortie {
+  animation: titre-sortie 120ms ease-in both;
+}
+
+@keyframes titre-mot {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.titre-mot {
+  display: inline-block;
+  white-space: pre;
+  animation: titre-mot 170ms var(--res-fondu) both;
+  animation-delay: var(--t);
+}
+
+/* Mouvement réduit : la phrase est là, elle ne bouge pas. */
+@media (prefers-reduced-motion: reduce) {
+  .titre-mot,
+  .titre-sortie {
+    animation: none;
+  }
 }
 
 /* Apparition au défilement : la classe is-visible est posée par <Reveal>. */
@@ -180,8 +234,6 @@ img {
      et arrivée tous deux amortis, aucun dépassement. Ce sont de simples
      béziers, donc pas besoin de la déclaration de repli que réclame linear() —
      elles s'écrivent directement dans le raccourci animation. */
-  --res-glisse: cubic-bezier(0.65, 0, 0.35, 1); /* les déplacements */
-  --res-fondu: cubic-bezier(0.4, 0, 0.3, 1); /* les apparitions */
   /* Le vert du plat ajouté, relevé sur la référence. C'est le SEUL vert du
      site : il ne va pas dans @theme parce qu'il ne sert qu'ici, et qu'il n'est
      jamais posé par le balisage — le repos du bouton est bone, le vert n'arrive

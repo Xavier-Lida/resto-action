@@ -55,6 +55,25 @@ export const FR = {
 
   langue: { aria: "Langue", courante: "Français" },
 
+  /* LE H1. Une partie fixe en gris, une partie qui tourne en noir plein.
+     SEULE LA PREMIÈRE VARIANTE EST RENDUE DANS LE DOM — les autres arrivent par
+     le JavaScript. C'est ce que fait la référence, et c'est ce qui compte pour
+     le référencement : le robot lit un H1 propre et unique au lieu des quatre
+     phrases concaténées. Sans JavaScript, la première reste affichée et la
+     phrase est complète.
+
+     Les quatre variantes reprennent les quatre onglets de la section
+     Résultats : c'est la même promesse, dite deux fois. */
+  h1: {
+    fixe: "Les restos indépendants du Québec nous appellent pour",
+    variantes: [
+      "sortir enfin dans Google.",
+      "vendre en ligne sans commission.",
+      "faire revenir leurs clients.",
+      "avoir leur propre app.",
+    ],
+  },
+
   hero: {
     carteTitre: "Parle à Guillaume",
     carteSousTitre: "Un appel de 30 minutes.",

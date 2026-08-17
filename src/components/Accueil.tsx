@@ -7,7 +7,7 @@ import Resultats from "@/components/Resultats";
 import Reveal from "@/components/Reveal";
 import CalendarEmbed from "@/components/CalendarEmbed";
 import type { Textes } from "@/lib/textes/fr";
-import { EMAIL, PHONE_DISPLAY, PHONE_E164, PHONE_HREF, SITE_URL } from "@/lib/site";
+import { EMAIL, LINKEDIN_URL, PHONE_DISPLAY, PHONE_E164, PHONE_HREF, SITE_URL } from "@/lib/site";
 
 /* La page d'accueil, une seule fois pour les deux langues. Les routes
    (src/app/page.tsx et src/app/en/page.tsx) ne font que lui passer leur
@@ -52,12 +52,26 @@ export default function Accueil({ t }: { t: Textes }) {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        /* ProfessionalService, pas Organization : c'est un sous-type de
+           LocalBusiness, et Resto Action EST une entreprise locale — à
+           Trois-Rivières, au service du Québec. C'est ce type-là qui alimente
+           les résultats locaux et les réponses d'IA à « qui aide les restos à
+           Trois-Rivières » ; Organization tout court ne dit rien de l'ancrage
+           géographique. Le nœud garde son @id : c'est la même entité, mieux
+           déclarée. */
+        "@type": ["Organization", "ProfessionalService"],
         "@id": `${racine}/#organization`,
         name: "Resto Action",
         url: racine,
         logo: `${SITE_URL}/logo-marque.png`,
+        image: `${SITE_URL}/logo-marque.png`,
         description: t.donnees.definition,
+        /* sameAs rattache la marque au graphe d'entités : c'est le signal que
+           les moteurs génératifs suivent pour reconnaître une entreprise et la
+           relier à ce qui se dit d'elle ailleurs. Les fondateurs en avaient un,
+           l'entreprise non. */
+        sameAs: [LINKEDIN_URL],
+        priceRange: "$$",
         telephone: PHONE_E164,
         email: EMAIL,
         address: {
