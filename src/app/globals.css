@@ -11,6 +11,11 @@
   --font-sans: Helvetica, Arial, sans-serif;
   --font-script: var(--font-script), cursive;
   --font-display: var(--font-unbounded), sans-serif;
+  /* Réservée aux fausses interfaces de la section « Résultats » :
+     Helvetica rend mal en très petit corps, la pile système du
+     visiteur donne la netteté qu'on attend d'une vraie app. */
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", sans-serif;
 }
 
 html {
@@ -124,6 +129,729 @@ img {
   block-size: auto;
 }
 
+/* ─── Section « Résultats » ─── */
+/* PRINCIPE DE MINUTAGE. Chaque élément animé porte son propre instant de
+   départ en millisecondes, passé par la variable --t et consommé par
+   animation-delay. Les keyframes ne décrivent donc plus qu'une forme courte
+   (une entrée, une sortie, un allumage) au lieu d'être des pourcentages d'une
+   durée globale. C'est ce qui permet de coller aux temps relevés sur la
+   référence sans recalculer tout un tableau dès qu'une durée bouge.
+
+   Seule la barre de progression s'étale sur --res-duree, la durée de l'onglet
+   affiché — et cette durée n'est PAS la même d'un onglet à l'autre : elle vaut
+   le temps qu'il faut pour regarder ce que l'onglet montre.
+
+   Tout joue une fois par activation (fill-mode both) et tient sa dernière
+   image ; React relance la séquence en remontant le panneau. */
+
+/* POURQUOI --res-bascule EST RETRANCHÉE PARTOUT. Les instants --t sont relevés
+   sur la référence à partir du moment où l'onglet s'allume. Mais nos maquettes
+   ne sont montées qu'une fois la bascule finie, 155 ms plus tard : sans cette
+   soustraction, toute la partition jouerait avec ce retard. La correction est
+   faite ici, en un seul endroit, pour que les --t du composant restent
+   lisibles comme ce qu'ils sont — des temps mesurés sur la vidéo. */
+
+/* LES RESSORTS. La référence est un export After Effects : ses glissements
+   suivent de vrais ressorts amortis, pas des béziers. linear() permet de
+   servir la même chose — ces chaînes sont l'échantillonnage d'un ressort
+   masse-amortisseur (script ressort.mjs du scratchpad, à régénérer si on veut
+   changer l'amorti). Le franc dépasse sa cible de ~5 % avant de se poser (les
+   glissements), le doux de ~1 % (les entrées). Chaque règle déclare d'abord
+   sa bézier : les navigateurs sans linear() (avant 2023) gardent celle-là. */
+#resultats {
+  /* LES DISTANCES DE LA MAQUETTE 1, en un seul endroit. Elles servent dans les
+     keyframes ET dans le bloc « mouvement réduit » : passer par des variables
+     évite qu'un des deux côtés dérive.
+       --res-cran   un rang de la liste (la hauteur d'une ligne, au pixel) ;
+       --res-plaque quatre crans, la hauteur du contenant ;
+       --res-pose   où la fiche isolée vient se poser — pas un cran rond, mais
+                    le compte exact pour qu'elle tombe au milieu de la maquette
+                    (2,75 rem de barre + 1 rem + 16,5 rem de scène = 20,25 rem,
+                    donc son centre à 10,125 rem du haut).
+     Le composant tient les mêmes valeurs pour poser sa structure : les changer
+     ici oblige à les changer là-bas. */
+  --res-cran: 3.25rem;
+  --res-plaque: 13rem;
+  --res-pose: 4.75rem;
+  /* LES COURBES DE LA MAQUETTE 1. Elle ne suit PAS les ressorts déclarés en
+     dessous, dont vivent les maquettes 2 et 3 : un ressort dépasse sa cible de
+     1 à 5 % avant de se poser, ce qui rend le geste vif — et cette maquette-ci
+     doit glisser. --res-glisse est un ease-in-out cubique symétrique : départ
+     et arrivée tous deux amortis, aucun dépassement. Ce sont de simples
+     béziers, donc pas besoin de la déclaration de repli que réclame linear() —
+     elles s'écrivent directement dans le raccourci animation. */
+  --res-glisse: cubic-bezier(0.65, 0, 0.35, 1); /* les déplacements */
+  --res-fondu: cubic-bezier(0.4, 0, 0.3, 1); /* les apparitions */
+  /* Le vert du plat ajouté, relevé sur la référence. C'est le SEUL vert du
+     site : il ne va pas dans @theme parce qu'il ne sert qu'ici, et qu'il n'est
+     jamais posé par le balisage — le repos du bouton est bone, le vert n'arrive
+     que par la keyframe (et par le bloc « mouvement réduit », qui fige l'état
+     final). Le rouge de marque ne pouvait pas jouer ce rôle : un crochet rouge
+     se lit comme une erreur, pas comme une confirmation. */
+  --res-valide: #0c7e23;
+  /* La pastille de comptage, posée sur la pilule sombre : le vert du bouton y
+     serait trop foncé pour se lire, d'où celui-ci, relevé lui aussi sur la
+     référence — elle fait exactement la même distinction. */
+  --res-compte: #218834;
+  --res-ressort: linear(
+    0, 0.074 4.2%, 0.239 8.3%, 0.434 12.5%, 0.62 16.7%, 0.776 20.8%,
+    0.893 25%, 0.974 29.2%, 1.022 33.3%, 1.047 37.5%, 1.054 41.7%,
+    1.051 45.8%, 1.043 50%, 1.032 54.2%, 1.022 58.3%, 1.013 62.5%,
+    1.006 66.7%, 1.002 70.8%, 0.999 75%, 0.998 79.2%, 0.997 83.3%,
+    0.997 87.5%, 0.998 91.7%, 0.998 95.8%, 1
+  );
+  --res-ressort-doux: linear(
+    0, 0.051 4.2%, 0.167 8.3%, 0.31 12.5%, 0.454 16.7%, 0.586 20.8%,
+    0.699 25%, 0.79 29.2%, 0.86 33.3%, 0.913 37.5%, 0.951 41.7%,
+    0.977 45.8%, 0.993 50%, 1.003 54.2%, 1.009 58.3%, 1.011 62.5%,
+    1.011 66.7%, 1.01 70.8%, 1.009 75%, 1.007 79.2%, 1.006 83.3%,
+    1.004 87.5%, 1.003 91.7%, 1.002 95.8%, 1
+  );
+}
+
+/* ── La bascule d'onglet ──
+   Deux temps : le contenu sortant s'efface, un court creux laisse le fond
+   basculer sans qu'on le voie, puis le nouveau contenu monte. Les trois
+   durées sont celles relevées sur la référence — c'est court, et c'est ce qui
+   rend la bascule franche plutôt que molle. */
+@keyframes res-contenu {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.res-contenu {
+  animation: res-contenu var(--res-entree) cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timing-function: var(--res-ressort-doux);
+}
+
+@keyframes res-contenu-sortie {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+.res-contenu-sortie {
+  animation: res-contenu-sortie var(--res-sortie) ease-in both;
+}
+
+/* La photo suit le même tempo, mais en fondu seul : une image posée en absolu
+   se décollerait de son cadre si on la translatait. */
+@keyframes res-fond-sortie {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.res-fond {
+  animation: fade-in var(--res-entree) ease-out both;
+}
+.res-fond-sortie {
+  animation: res-fond-sortie var(--res-sortie) ease-in both;
+}
+
+/* ── La minuterie visible ──
+   Elle démarre en même temps que le libellé s'allume, sans attendre que le
+   panneau ait fini de basculer, et elle est linéaire : elle ne doit pas
+   mentir sur le temps qui reste. */
+@keyframes res-barre {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.res-barre {
+  transform-origin: left;
+  animation: res-barre var(--res-duree) linear forwards;
+}
+
+/* ═══ Maquette 1 · la recherche Google (onglet de 7,6 s) ═══
+   Cinq actes, relevés sur la référence image par image. La barre paraît au
+   MILIEU du panneau (0,22 s), un curseur battant dans son champ vide, puis
+   MONTE à sa place (1,15 s, 0,9 s de trajet). Le curseur s'éteint et la frappe
+   part, en gras et sans hâte (2,05 → 3,65 s) — jamais les deux à la fois. La
+   plaque de résultats arrive vide (1,5 s) et ses quatre squelettes tombent
+   PENDANT la frappe (1,9 → 2,81 s), pour que rien n'attende son tour. La fiche
+   du resto SORT DU BORD INFÉRIEUR de la plaque et glisse tout en haut (3,9 s,
+   1,15 s de trajet) : chaque squelette dépassé cède un cran et le dernier sort
+   du cadre. Enfin la plaque se resserre sur la fiche et s'efface (6,05 s), la
+   laissant seule.
+
+   Les deux seuls silences tombent APRÈS un geste achevé — 0,76 s pour lire la
+   première position conquise, 0,65 s de pose finale. Une pause au milieu d'un
+   geste, c'est ce qui donne l'impression que tout est précipité.
+
+   TOUT GLISSE. Les durées ci-dessous valent 40 % de plus que celles de la
+   première version, et chaque règle prend --res-glisse (ease-in-out franc) ou
+   --res-fondu au lieu des ressorts de la section : le dépassement d'un ressort
+   rend vif, on veut du lisse. Seule la frappe garde steps() — une vraie frappe
+   n'est pas amortie, c'est sa cadence qui compte (ici ~94 ms par caractère).
+
+   GÉOMÉTRIE PARTAGÉE avec ResultatsMaquettes.tsx : un cran vaut 3,25 rem, la
+   plaque en tient quatre (13 rem), la scène 16,5 rem. Ces trois valeurs se
+   retrouvent dans les keyframes ci-dessous ET dans le bloc « mouvement
+   réduit » en fin de fichier : elles bougent ensemble ou pas du tout. */
+
+@keyframes res-entree-douce {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes res-sortie-douce {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+.res-champ {
+  animation: res-entree-douce 520ms var(--res-fondu) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+.res-champ-sortie {
+  animation: res-sortie-douce 460ms ease-in both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* La montée de la barre : elle paraît là où l'œil est déjà — au milieu du
+   panneau — puis rejoint sa place en haut. C'est ce déplacement qui annonce
+   qu'il va se passer quelque chose sous elle ; sans lui, la frappe démarre
+   dans le vide. Les 8,4 rem valent la demi-hauteur de la maquette moins la
+   demi-hauteur de la barre : c'est la seule valeur de la partition qui dépende
+   de ce que le navigateur rend, donc la seule à revoir à l'œil si la maquette
+   change de taille. */
+@keyframes res-champ-monte {
+  from {
+    transform: translateY(8.75rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.res-champ-monte {
+  animation: res-champ-monte 900ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* La frappe : chaque LETTRE paraît à son tour, le balisage lui donne son
+   instant. C'était une découpe (clip-path avançant par steps() sur la largeur
+   totale), et c'était faux : les pas étaient égaux alors que les caractères
+   n'ont pas tous la même largeur, si bien que le bord de la découpe tombait
+   presque toujours au milieu d'un glyphe et le tranchait verticalement. Aucune
+   valeur CSS ne sait où finit une lettre — il faut un élément par caractère.
+   Les lettres sont toutes présentes dès le départ, seulement transparentes : la
+   largeur du champ ne bouge donc pas d'un caractère à l'autre. Le fondu de 90 ms
+   chevauche légèrement le pas de 70 ms, ce qui donne un bord d'attaque doux —
+   et une lettre en cours de fondu est translucide d'un bloc, jamais coupée. */
+.res-lettre {
+  animation: res-fondu-entree 90ms var(--res-fondu) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Le curseur ne bat QUE dans le champ vide, et s'éteint avant la première
+   lettre. Il ne suit plus la frappe : sa position se calait sur la découpe par
+   pas égaux alors que les caractères n'ont pas tous la même largeur, si bien
+   qu'il dérivait par-dessus une lettre déjà écrite et la cachait. Il reste donc
+   posé à gauche (left: 0 dans le balisage), là où le premier caractère va
+   paraître, et l'ancien @keyframes res-curseur-pos n'a plus de raison d'être.
+   Trois couches, une propriété chacune : naissance et mort animent toutes deux
+   l'opacité, et sur un seul élément le fill both de la seconde imposerait son
+   état de départ dès l'instant zéro, écrasant la première. */
+.res-curseur {
+  /* res-fondu-entree est le simple 0 → 1 déclaré avec la plaque, plus bas. */
+  animation: res-fondu-entree 200ms var(--res-fondu) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+@keyframes res-curseur-mort {
+  to {
+    opacity: 0;
+  }
+}
+.res-curseur-mort {
+  /* 80 ms au départ de --t, lui-même 100 ms avant la frappe : le curseur est
+     donc éteint 20 ms avant la première lettre. Il ne doit jamais se trouver
+     par-dessus un caractère, même le temps d'une image. */
+  animation: res-curseur-mort 80ms ease-in both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+@keyframes res-curseur-clignote {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.res-curseur-clignote {
+  animation: res-curseur-clignote 0.9s step-end infinite;
+}
+
+/* ── La plaque de résultats ──
+   Les squelettes ne flottent plus sur le fond du panneau : ils sont RANGÉS
+   dans un même contenant, comme dans la référence. La plaque porte deux
+   animations, ce qui se tient parce qu'elles ne se disputent pas la même
+   propriété : elle paraît en fondu (--t), puis se resserre en hauteur sur la
+   fiche (--t2). Sa hauteur de départ est ici et non en ligne dans le balisage,
+   pour que « mouvement réduit » puisse la figer refermée. */
+@keyframes res-fondu-entree {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes res-boite-serre {
+  from {
+    height: var(--res-plaque);
+  }
+  to {
+    height: var(--res-cran);
+  }
+}
+.res-boite {
+  height: var(--res-plaque);
+  animation:
+    res-fondu-entree 520ms var(--res-fondu) both,
+    res-boite-serre 700ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule)),
+    calc(var(--t2) - var(--res-bascule));
+}
+
+/* La plaque suit la fiche pendant qu'elle se referme sur elle : même
+   déplacement que le couronnement, sinon elle se refermerait à côté. */
+@keyframes res-boite-place {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--res-pose));
+  }
+}
+.res-boite-place {
+  animation: res-boite-place 900ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Puis elle s'efface, un peu après le début du resserrement : on la voit se
+   refermer avant de disparaître. Elle emporte ses squelettes — inutile de leur
+   donner un fondu à eux, il ne se verrait pas. */
+@keyframes res-boite-sortie {
+  to {
+    opacity: 0;
+  }
+}
+.res-boite-sortie {
+  animation: res-boite-sortie 460ms ease-in both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Les squelettes tombent en cascade, pendant la frappe. */
+@keyframes res-ligne {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.res-ligne {
+  animation: res-ligne 460ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* La montée dans le classement : la fiche part SOUS le bord inférieur de la
+   plaque, cachée par la fenêtre écrêtante que lui pose le balisage, et remonte
+   les quatre crans jusqu'à la première place. C'est ce trajet qui la découvre —
+   elle n'a aucun fondu à elle : au premier cran parcouru elle est entière, et
+   les trois autres se font à découvert. Quatre crans en 1,15 s, en ease-in-out :
+   la métaphore SEO ne tient que si on a le temps de la voir passer devant les
+   autres, et un ressort la ferait claquer en fin de course. */
+@keyframes res-monte {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-1 * var(--res-plaque)));
+  }
+}
+.res-monte {
+  animation: res-monte 1150ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* …pendant que chaque squelette dépassé cède un cran vers le bas. Le dernier
+   sort de la plaque, que son overflow-hidden écrête : la liste ne s'étire
+   jamais, et grimper au classement pousse bien quelqu'un hors de la page. */
+@keyframes res-cede {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--res-cran));
+  }
+}
+.res-cede {
+  animation: res-cede 1000ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Le couronnement : la plaque refermée, la fiche descend se poser au milieu de
+   la scène et prend son relief. Sur un élément imbriqué DANS celui de la
+   montée : deux animations de transform sur le même élément s'écraseraient. */
+@keyframes res-couronne {
+  from {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 0 rgb(25 25 25 / 0);
+  }
+  to {
+    transform: translateY(var(--res-pose)) scale(1.04);
+    box-shadow: 0 18px 40px -12px rgb(25 25 25 / 0.28);
+  }
+}
+.res-couronne {
+  animation: res-couronne 900ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* ═══ Maquette 2 · la commande en ligne (onglet de 9,8 s) ═══
+   Cinq plats ajoutés toutes les 1,6 s. Toutes les cartes gardent leur fond
+   blanc — celles qui attendent sont simplement estompées, comme dans la
+   référence — et le montant roule chiffre par chiffre, en odomètre.
+
+   Trois gestes portent l'onglet, relevés sur la référence image par image :
+   le « + » de la carte devient un crochet VERT, la pilule du panier grossit et
+   s'éclaircit en avalant le plat, et la pile descend EN DÉCALÉ, la carte du bas
+   partant la première. Leurs instants respectifs vivent dans le composant
+   (RETARD_DESCENTE, RETARD_PULSE, RETARD_CHIFFRES) ; ici, seules les formes. */
+
+/* ── La descente en domino ──
+   La pile ne descend plus d'un bloc : CHAQUE carte joue ce keyframe, et le
+   composant la retarde de 80 ms par cran de rang. Comme le retard décale toute
+   la partition de la carte, le domino se reproduit à chaque cran sans qu'on ait
+   à l'écrire cran par cran — la carte la plus basse encore visible mène
+   toujours, et les écarts entre cartes s'ouvrent pendant la course.
+
+   CINQ CRANS : le dernier plat rentre dans le panier comme les autres, et
+   l'onglet se referme sur la pilule seule — la liste finit vide, comme dans la
+   référence.
+
+   LES POURCENTAGES SONT RÉGULIERS, ET C'EST TOUT L'INTÉRÊT. L'échelle n'est pas
+   la durée de l'onglet mais --res-descente, la fenêtre du premier départ à la
+   dernière arrivée (4 × PAS_AJOUT + DUREE_DESCENTE = 6880 ms), posée par le
+   composant. Un cran vaut donc 480/6880 = 6,98 % de course et un pas
+   1600/6880 = 23,26 % : deux nombres engendrent le tableau entier, et la durée
+   de l'onglet peut bouger sans rien casser. Changer DUREE_DESCENTE ou PAS_AJOUT,
+   en revanche, oblige à recalculer ces pourcentages. */
+@keyframes res-descend {
+  0% {
+    transform: translateY(-7.5rem);
+  }
+  6.98%,
+  23.26% {
+    transform: translateY(-3.75rem);
+  }
+  30.23%,
+  46.51% {
+    transform: translateY(0);
+  }
+  53.49%,
+  69.77% {
+    transform: translateY(3.75rem);
+  }
+  76.74%,
+  93.02% {
+    transform: translateY(7.5rem);
+  }
+  100% {
+    transform: translateY(11.25rem);
+  }
+}
+.res-descend {
+  animation: res-descend var(--res-descente) var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Chaque carte attend estompée puis s'éclaire en arrivant dans la fente, et
+   RESTE éclairée : elle ne s'efface pas en partant, elle glisse derrière la
+   pilule et c'est l'overflow du conteneur qui la fait disparaître — comme dans
+   la référence, où la carte qui s'en va garde son opacité jusqu'au bout.
+   L'ancienne version l'éteignait à 79 %, si bien que la fente du bas restait
+   VIDE pendant la descente : la partante avait disparu avant que la suivante
+   n'arrive. Toutes les cartes jouent donc la même règle, la dernière comprise.
+   Sa fenêtre dure 1,9 s et son zéro tombe 900 ms avant le crochet.
+
+   PAS D'OMBRE PORTÉE, ET C'EST MESURÉ. Sous la carte active de la référence, la
+   luminance passe de 242 (le blanc de la carte) à 233,3 — soit exactement la
+   valeur de l'interstice entre deux cartes : il n'y a rien. Ce qui détache une
+   carte du fond, c'est son blanc sur le crème du panneau (255 contre 240, plus
+   franc encore que les 242 contre 233 de la référence) et l'estompage de celles
+   qui attendent. Une ombre ici ne se lisait pas comme un relief mais comme un
+   bandeau gris, et il fallait creuser le conteneur pour la loger — ce qui
+   laissait dépasser un liseré de la carte suivante. La keyframe ne joue donc
+   plus que l'opacité, et le fond blanc reste porté par le balisage. */
+@keyframes res-carte {
+  0%,
+  5% {
+    opacity: 0.45;
+  }
+  11%,
+  100% {
+    opacity: 1;
+  }
+}
+.res-carte {
+  animation: res-carte 1900ms ease-out both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* ── Le « + » devient un crochet vert ──
+   Le fond passe du bone au vert et l'icône du ink au blanc, avec un petit pop
+   d'échelle qui se pose vers 200 ms. Les deux keyframes d'opacité en dessous
+   croisent les icônes à mi-course : une seule icône ne pourrait pas changer de
+   forme, il en faut deux qui se relaient. Le crochet RESTE (fill both) — dans
+   la référence, la carte quitte la liste avec son crochet, elle ne se
+   décoche pas au départ. Toutes les cartes jouent la même règle, la dernière
+   comprise : il n'y a plus de cas particulier. */
+@keyframes res-bouton {
+  0% {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.12);
+  }
+  64% {
+    background-color: var(--res-valide);
+    color: #ffffff;
+  }
+  100% {
+    background-color: var(--res-valide);
+    color: #ffffff;
+    transform: scale(1);
+  }
+}
+.res-bouton {
+  animation: res-bouton 220ms var(--res-fondu) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+@keyframes res-bouton-plus {
+  to {
+    opacity: 0;
+  }
+}
+.res-bouton-plus {
+  animation: res-bouton-plus 140ms var(--res-fondu) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+.res-bouton-crochet {
+  /* res-fondu-entree est le simple 0 → 1 déclaré avec la maquette 1. Le retard
+     de 60 ms fait croiser les deux icônes à mi-course, plutôt que de laisser un
+     creux où le bouton serait vide. */
+  animation: res-fondu-entree 140ms var(--res-fondu) both;
+  animation-delay: calc(var(--t) + 60ms - var(--res-bascule));
+}
+
+/* ── Le pouls de la pilule ──
+   Elle grossit et s'éclaircit en acceptant un plat, puis revient. Une seule
+   règle jouée CINQ FOIS — une par plat — au lieu d'un keyframe géant qui
+   encoderait les cinq pouls et se recollerait mal si la cadence bougeait.
+   Les valeurs viennent de la référence : scale(1,031) exactement (sa pilule
+   passe de 764×132 à 788×136 px) et +8 points de clarté, en 160 ms à l'aller
+   contre 260 ms au retour — franc à l'aller, lent au retour, c'est ce qui donne
+   l'impression d'avaler. Rapportés à --res-pas (1600 ms) : 160 ms → 10 %,
+   288 ms → 18 %, 544 ms → 34 %.
+   PAS de fill-mode : avant le délai comme après les cinq tours, c'est le bg-ink
+   du balisage qui tient l'état de repos. */
+@keyframes res-pilule {
+  0% {
+    transform: scale(1);
+    background-color: var(--color-ink);
+  }
+  10%,
+  18% {
+    transform: scale(1.031);
+    background-color: #303030;
+  }
+  34%,
+  100% {
+    transform: scale(1);
+    background-color: var(--color-ink);
+  }
+}
+.res-pilule {
+  animation: res-pilule var(--res-pas) var(--res-glisse) 5;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* L'odomètre du panier : chaque valeur défile dans une fente à
+   overflow-hidden. La même paire de keyframes sert au libellé de départ, au
+   badge de comptage et à CHAQUE COLONNE DE CHIFFRE du montant — c'est le
+   décalage de 45 ms que le composant met entre les colonnes qui produit le
+   roulement d'odomètre visible dans la référence. Rien n'anime `opacity` :
+   c'est la fente qui fait la lisibilité, deux valeurs se croisent en glissant
+   sans jamais se superposer. */
+/* LA FENÊTRE DÉBORDE D'UN RELAIS, ET C'EST VOULU. Chaque valeur dure
+   --res-pas + 304 ms : elle entre sur ses 16 premiers pourcents (304 ms), tient
+   jusqu'à 84 %, et sort sur les 16 derniers. Comme deux valeurs consécutives
+   sont espacées de --res-pas, la sortie de l'une tombe EXACTEMENT sur l'entrée
+   de l'autre : les deux chiffres se croisent dans la fente, comme sur un vrai
+   odomètre. Avec une fenêtre de --res-pas tout juste, la sortie finissait quand
+   l'entrée commençait, et la fente restait presque vide 300 ms à chaque relais —
+   cinq fois par onglet, assez pour se lire comme un raté. */
+@keyframes res-valeur {
+  0% {
+    transform: translateY(100%);
+  }
+  16%,
+  84% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+.res-valeur {
+  animation: res-valeur calc(var(--res-pas) + 304ms)
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timing-function: var(--res-ressort-doux);
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* La dernière valeur de chaque fente reste : c'est le total qu'on veut faire
+   lire. */
+@keyframes res-valeur-fin {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.res-valeur-fin {
+  animation: res-valeur-fin 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timing-function: var(--res-ressort-doux);
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Le fondu d'apparition générique : « ceci se montre à tel instant ». */
+.res-apparait {
+  animation: fade-in 300ms ease-out both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* ═══ Maquette 3 · les relances (onglet de 6,85 s) ═══
+   Les huit étapes arrivent pleines et blanches avec le panneau — la référence
+   ne les éteint pas. Ce qui vit : un petit tiret qui descend le fil en 4,8 s,
+   le trait qui se remplit derrière lui, et l'icône de chaque étape qui prend
+   sa couleur au passage, avec un léger pop. C'est le passage du tiret qui
+   raconte la relance, pas une cascade d'apparitions. */
+
+/* La vitesse du tiret n'est pas constante : mesurée sur la référence, elle
+   passe de 0,0075 à 0,022 % de fil par milliseconde entre le premier et le
+   dernier jalon — une accélération régulière. D'où cette courbe plutôt qu'un
+   `linear`, et un départ à 15 % : le tiret naît sur le premier jalon, pas
+   dans le vide au-dessus. Les instants d'allumage du composant (PASSAGES)
+   sont calculés sur cette courbe : si elle change, ils changent avec. */
+@keyframes res-pulse {
+  from {
+    top: 15%;
+  }
+  to {
+    top: 90%;
+  }
+}
+.res-pulse {
+  animation: res-pulse var(--res-parcours) cubic-bezier(0.5, 0.15, 0.75, 1)
+    both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Le trait plein suit exactement le tiret : le pointillé devient continu au
+   fur et à mesure, donc le chemin déjà parcouru reste lisible. */
+@keyframes res-fil-plein {
+  from {
+    transform: scaleY(0.15);
+  }
+  to {
+    transform: scaleY(0.9);
+  }
+}
+.res-fil-plein {
+  transform-origin: top;
+  animation: res-fil-plein var(--res-parcours) cubic-bezier(0.5, 0.15, 0.75, 1)
+    both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* Les étapes entrent toutes avec le panneau, pleines. */
+.res-etape {
+  animation: res-contenu 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timing-function: var(--res-ressort-doux);
+}
+
+/* L'icône s'allume quand le tiret la dépasse : du gris à la couleur de
+   marque, avec un pop. Deux animations sur le même élément, propriétés
+   disjointes (couleurs / transform), donc pas de conflit. */
+@keyframes res-icone-allumee {
+  from {
+    background-color: rgb(25 25 25 / 0.08);
+    color: rgb(25 25 25 / 0.35);
+  }
+  to {
+    background-color: rgb(255 48 8 / 0.12);
+    color: var(--color-brand);
+  }
+}
+@keyframes res-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.res-icone-allumee {
+  animation:
+    res-icone-allumee 380ms ease-out both,
+    res-pop 450ms ease-out both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
+}
+
+/* ═══ Maquette 4 · l'app ═══
+   Rien à animer au-delà de l'entrée du panneau : la photo porte le message, et
+   la référence ne l'anime pas non plus. C'est aussi pour ça que cet onglet est
+   le plus court du cycle. */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -140,4 +868,107 @@ img {
     transform: none;
     transition: none;
   }
+  /* Section « Résultats » : plus rien ne bouge et plus rien ne s'enchaîne tout
+     seul (l'auto-défilement des onglets est coupé côté React). Les keyframes
+     partent toutes de l'état « en attente » vers l'état final, et le balisage
+     porte l'état final : couper les animations fige donc chaque maquette sur
+     l'image qui porte son message — les quelques règles en dessous posent les
+     états finals qui, eux, vivaient dans les keyframes. */
+  .res-contenu,
+  .res-contenu-sortie,
+  .res-fond,
+  .res-fond-sortie,
+  .res-barre,
+  .res-champ,
+  .res-champ-monte,
+  .res-champ-sortie,
+  .res-lettre,
+  .res-curseur,
+  .res-curseur-mort,
+  .res-curseur-clignote,
+  .res-boite,
+  .res-boite-place,
+  .res-boite-sortie,
+  .res-ligne,
+  .res-monte,
+  .res-cede,
+  .res-couronne,
+  .res-apparait,
+  .res-descend,
+  .res-carte,
+  .res-bouton,
+  .res-bouton-plus,
+  .res-bouton-crochet,
+  .res-pilule,
+  .res-valeur,
+  .res-valeur-fin,
+  .res-pulse,
+  .res-fil-plein,
+  .res-etape,
+  .res-icone-allumee {
+    animation: none;
+  }
+  .res-barre {
+    transform: scaleX(1);
+  }
+  /* Le curseur de frappe n'a plus lieu d'être : le texte est déjà écrit. */
+  .res-curseur {
+    opacity: 0;
+  }
+  /* Onglet 1 figé sur son image finale : la barre et la plaque effacées, la
+     fiche seule au milieu de la scène, en première position conquise. La barre
+     n'a rien à poser — sa montée finit sur transform: none, la valeur par
+     défaut. Ces valeurs DOUBLENT les to{} des keyframes ci-dessus : les 13 rem
+     de la montée et les 3,25 rem du cran se changent des deux côtés. */
+  .res-champ-sortie,
+  .res-boite-sortie {
+    opacity: 0;
+  }
+  .res-boite {
+    height: var(--res-cran);
+  }
+  .res-boite-place {
+    transform: translateY(var(--res-pose));
+  }
+  .res-monte {
+    transform: translateY(calc(-1 * var(--res-plaque)));
+  }
+  .res-couronne {
+    transform: translateY(var(--res-pose)) scale(1.04);
+    box-shadow: 0 18px 40px -12px rgb(25 25 25 / 0.28);
+  }
+  /* Onglet 2 : tous les plats cochés, total lisible. Un cran DE MOINS que la
+     fin de l'animation, volontairement — au dernier cran la liste est vide, et
+     une image fixe montrant une boîte vide au-dessus du panier ne dirait rien.
+     On s'arrête donc sur le dernier plat encore en place, à côté de son total :
+     c'est l'image qui porte le message. */
+  .res-descend {
+    transform: translateY(7.5rem);
+  }
+  /* Le vert et le crochet sont l'état final : le balisage porte le bone et le
+     « + », c'est donc ici qu'il faut les remplacer. */
+  .res-bouton {
+    background-color: var(--res-valide);
+    color: #ffffff;
+  }
+  .res-bouton-plus {
+    opacity: 0;
+  }
+  /* Les valeurs partagent une fente : on sort les intermédiaires du cadre
+     pour ne laisser lire que la dernière — le total, chiffre par chiffre. */
+  .res-valeur {
+    transform: translateY(-100%);
+  }
+  .res-valeur-fin {
+    transform: translateY(0);
+  }
+  /* Onglet 3 : le parcours du tiret montré arrivé à son terme, les icônes
+     gardent les couleurs de marque posées par le balisage. */
+  .res-pulse {
+    top: 90%;
+  }
+  .res-fil-plein {
+    transform: scaleY(0.9);
+  }
 }
+

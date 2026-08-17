@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Phone, Mail } from "lucide-react";
 import Buoy from "@/components/Buoy";
 import Hero from "@/components/Hero";
+import Resultats from "@/components/Resultats";
 import Reveal from "@/components/Reveal";
 import CalendarEmbed from "@/components/CalendarEmbed";
 import {
@@ -88,6 +89,9 @@ export default function Home() {
     <main className="flex-1">
       {/* ─── Héro — carte encadrée, marque géante, bouée 3D ─── */}
       <Hero />
+
+      {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
+      <Resultats />
 
       {/* ─── Notre approche ─── */}
       <section id="approche" className="bg-white">

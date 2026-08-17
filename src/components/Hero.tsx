@@ -43,7 +43,7 @@ export default function Hero() {
         {/* Languette basse : une bosse rouge qui sort de la carte vers le
             bas, la flèche blanche logée dedans */}
         <a
-          href="#approche"
+          href="#resultats"
           aria-label="Descendre vers la suite"
           className="absolute left-1/2 top-full z-30 -mt-px -translate-x-1/2"
         >
