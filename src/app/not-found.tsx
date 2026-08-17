@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone } from "lucide-react";
+import Footer from "@/components/Footer";
 import { PHONE_HREF } from "@/lib/site";
+import { FR } from "@/lib/textes/fr";
 
 export const metadata: Metadata = {
   title: "Page introuvable",
@@ -12,7 +14,8 @@ export const metadata: Metadata = {
 // la mascotte perdue dans un cercle comme sur les cartes de l'approche.
 export default function NotFound() {
   return (
-    <main className="flex-1 bg-white p-3 md:p-5 lg:p-6">
+    <>
+      <main className="flex-1 bg-white p-3 md:p-5 lg:p-6">
       <div className="flex min-h-[92svh] flex-col items-center justify-center rounded-[2rem] bg-hero px-6 py-16 text-center text-white lg:rounded-[3rem]">
         <p
           aria-hidden="true"
@@ -57,5 +60,7 @@ export default function NotFound() {
         </div>
       </div>
     </main>
+      <Footer t={FR} />
+    </>
   );
 }

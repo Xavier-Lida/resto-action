@@ -1,7 +1,19 @@
 import Image from "next/image";
-import { BOOKING_URL, CITY, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
+import { BOOKING_URL, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
+import type { Textes } from "@/lib/textes/fr";
 
-export default function Footer() {
+/* Le pied de page suit la langue de la page qui le rend. Il était rendu par la
+   mise en page racine, donc partout à l'identique : il en est descendu pour
+   pouvoir parler anglais sur /en.
+
+   Ses liens de section sont ABSOLUS (`/#approche`), parce qu'il apparaît aussi
+   sur /confidentialite où un simple fragment ne mènerait nulle part. D'où le
+   préfixe `t.racine` : sans lui, un anglophone retomberait sur la page
+   française. La politique de confidentialité, elle, n'existe qu'en français —
+   son lien ne prend donc pas le préfixe. */
+export default function Footer({ t }: { t: Textes }) {
+  const lien = (ancre: string) => `${t.racine}/#${ancre}`;
+
   return (
     <footer className="bg-ink text-white/60">
       <div className="mx-auto max-w-6xl px-5 py-12 grid gap-10 md:grid-cols-3 text-sm">
@@ -12,33 +24,30 @@ export default function Footer() {
           <div className="w-fit rounded-xl bg-white px-4 py-2.5">
             <Image
               src="/logo-marque.png"
-              alt="Resto Action"
+              alt={t.nav.logoAlt}
               width={1012}
               height={128}
               draggable={false}
               className="h-6 w-auto"
             />
           </div>
-          <p>
-            Une entreprise de Trois-Rivières au service des restaurants
-            indépendants du Québec.
-          </p>
+          <p>{t.pied.tagline}</p>
         </div>
-        <nav className="flex flex-col gap-2" aria-label="Pied de page">
-          <a href="/#approche" className="hover:text-white transition-colors">
-            Notre approche
+        <nav className="flex flex-col gap-2" aria-label={t.pied.aria}>
+          <a href={lien("approche")} className="hover:text-white transition-colors">
+            {t.pied.approche}
           </a>
-          <a href="/#mission" className="hover:text-white transition-colors">
-            Notre mission
+          <a href={lien("mission")} className="hover:text-white transition-colors">
+            {t.pied.mission}
           </a>
-          <a href="/#histoire" className="hover:text-white transition-colors">
-            Notre histoire
+          <a href={lien("histoire")} className="hover:text-white transition-colors">
+            {t.pied.histoire}
           </a>
-          <a href="/#faq" className="hover:text-white transition-colors">
-            FAQ
+          <a href={lien("faq")} className="hover:text-white transition-colors">
+            {t.pied.faq}
           </a>
           <a href="/confidentialite" className="hover:text-white transition-colors">
-            Politique de confidentialité
+            {t.pied.confidentialite}
           </a>
         </nav>
         <div className="flex flex-col gap-2">
@@ -54,7 +63,7 @@ export default function Footer() {
             rel="noopener"
             className="hover:text-white transition-colors"
           >
-            Céduler un appel
+            {t.pied.ceduler}
           </a>
           <a
             href={`mailto:${EMAIL}`}
@@ -62,12 +71,12 @@ export default function Footer() {
           >
             {EMAIL}
           </a>
-          <p>{CITY}</p>
+          <p>{t.pied.ville}</p>
         </div>
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-5 text-xs">
-          © {new Date().getFullYear()} Resto Action, un produit de{" "}
+          {t.pied.droits.replace("{annee}", String(new Date().getFullYear()))}{" "}
           <a
             href="https://studioslt.com"
             target="_blank"
@@ -76,7 +85,7 @@ export default function Footer() {
           >
             Studios LT
           </a>
-          , {CITY}.
+          {t.pied.droitsFin}
         </div>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Check, Gift, Mail, Plus, Search, ShoppingCart, Tag } from "lucide-react";
 import type { CSSProperties } from "react";
+import type { Textes } from "@/lib/textes/fr";
 
 /* Les trois maquettes d'interface animées de la section « Résultats »
    (le quatrième onglet est une photo, il n'a pas de maquette).
@@ -46,7 +47,6 @@ const tempo = (ms: number, extra: Record<string, string> = {}) =>
 
 export const DUREE_TRAFIC = 7200;
 
-const RECHERCHE = "Pizza près de moi";
 const T1 = {
   champ: 220, // la barre paraît, au milieu du panneau, vide
   curseurNait: 800, // le curseur bat dans le champ vide
@@ -66,7 +66,9 @@ const T1 = {
    deux verticalement. Un caractère par élément, c'est la seule façon d'être sûr
    que le dévoilement tombe sur une frontière de caractère — le CSS seul ne sait
    pas où finit une lettre. */
-const PAS_FRAPPE = 70; // ms par signe, soit 1190 ms pour les 17 de RECHERCHE
+const PAS_FRAPPE = 70; // ms par signe : la requête change de longueur d'une
+// langue à l'autre, donc la durée totale de la frappe aussi. C'est voulu — on
+// tape à cadence constante, pas en un temps fixe.
 
 /* La plaque tient quatre crans, et la fiche attend juste sous son bord
    inférieur : la scène est donc plus haute que la plaque d'une fiche.
@@ -82,7 +84,8 @@ const PLAQUE = "13rem"; // CRANS × CRAN
 const SCENE = "16.5rem"; // PLAQUE + une fiche qui attend dessous
 const MARGE = "1.5rem"; // = les -inset-x-6 / -top-6 / inset-x-6 de la fenêtre
 
-export function MaquetteTrafic() {
+export function MaquetteTrafic({ t }: { t: Textes }) {
+  const RECHERCHE = t.maquettes.recherche;
   return (
     <div className="w-full max-w-[20rem] font-ui">
       {/* Trois couches pour la barre, une propriété chacune — deux animations
@@ -296,12 +299,15 @@ const DECALAGE_DESCENTE = 80;
    référence. D'où 4 × PAS_AJOUT et non 3. */
 const DUREE_TOTALE_DESCENTE = 4 * PAS_AJOUT + DUREE_DESCENTE; // 6880 ms
 
-const PLATS = [
-  { nom: "Salade César", prix: "11,99 $", image: "/resultats-salade.webp" },
-  { nom: "Pain à l'ail", prix: "13,99 $", image: "/resultats-pain-ail.webp" },
-  { nom: "Poutine", prix: "12,99 $", image: "/resultats-poutine.webp" },
-  { nom: "Ailes de poulet", prix: "14,99 $", image: "/resultats-ailes.webp" },
-  { nom: "La Gotham", prix: "34,00 $", image: "/resultats-gotham.webp" },
+/* Les vignettes des plats. Elles ne se traduisent pas — seuls les noms et les
+   prix viennent du dictionnaire — mais l'ordre des deux tableaux doit
+   correspondre : c'est ce qui apparie une image à son plat. */
+const IMAGES_PLATS = [
+  "/resultats-salade.webp",
+  "/resultats-pain-ail.webp",
+  "/resultats-poutine.webp",
+  "/resultats-ailes.webp",
+  "/resultats-gotham.webp",
 ];
 
 /* Les totaux cumulés — 34,00 → 48,99 → 61,98 → 75,97 → 87,96 $ — rangés par
@@ -357,7 +363,8 @@ function Colonne({ c }: { c: number }) {
   );
 }
 
-export function MaquetteVentes() {
+export function MaquetteVentes({ t }: { t: Textes }) {
+  const PLATS = t.maquettes.plats;
   return (
     <div className="w-full max-w-[20rem] font-ui">
       {/* Le dégradé du haut estompe les plats qui attendent leur tour, et
@@ -402,7 +409,7 @@ export function MaquetteVentes() {
               >
                 <Image
                   draggable={false}
-                  src={plat.image}
+                  src={IMAGES_PLATS[i]}
                   alt=""
                   width={512}
                   height={512}
@@ -454,7 +461,7 @@ export function MaquetteVentes() {
               style={tempo(100, { "--res-pas": `${FENETRE_LIBELLE}ms` })}
               className="res-valeur absolute inset-0 grid place-items-center"
             >
-              Ton panier
+              {t.maquettes.panier}
             </span>
           </span>
           {/* Le montant : « Tu gardes » et « $ » sont statiques, seules les
@@ -464,9 +471,13 @@ export function MaquetteVentes() {
             className="res-apparait relative tabular-nums"
             style={tempo(PREMIER_AJOUT + RETARD_CHIFFRES)}
           >
-            Tu gardes <Colonne c={0} />
-            <Colonne c={1} />,<Colonne c={2} />
-            <Colonne c={3} /> $
+            {t.maquettes.montant.avant}
+            <Colonne c={0} />
+            <Colonne c={1} />
+            {t.maquettes.montant.separateur}
+            <Colonne c={2} />
+            <Colonne c={3} />
+            {t.maquettes.montant.apres}
           </span>
         </span>
         {/* La pastille de comptage n'existe qu'à partir du premier montant : une
@@ -498,35 +509,31 @@ export const DUREE_RELANCES = 6850;
 const DEPART_PARCOURS = 800; // le tiret naît sur la première étape
 const PARCOURS = 4800; // il met 4,8 s à rejoindre la dernière
 
-const ETAPES = [
-  { cle: "cliente", genre: "avatar" as const, texte: "Marie-Ève" },
-  { cle: "attente-1", genre: "note" as const, texte: "on attend 1 jour" },
-  {
-    cle: "offre",
-    genre: "pastille" as const,
-    icone: Tag,
-    texte: "Offre spéciale envoyée",
-  },
-  {
-    cle: "suggestions",
-    genre: "pastille" as const,
-    icone: Mail,
-    texte: "Courriel de suggestions",
-  },
-  { cle: "recommande", genre: "note" as const, texte: "Marie-Ève recommande" },
-  { cle: "attente-2", genre: "note" as const, texte: "on attend 1 jour" },
-  {
-    cle: "fetes",
-    genre: "pastille" as const,
-    icone: Gift,
-    texte: "Spécial des fêtes envoyé",
-  },
-  {
-    cle: "habituee",
-    genre: "note" as const,
-    texte: "Marie-Ève devient une habituée",
-  },
-];
+/* La structure du parcours — le genre de chaque jalon et son icône — vit ici ;
+   les mots viennent du dictionnaire. LES HUIT JALONS SONT STRUCTURELS : le
+   tableau PASSAGES ci-dessous donne l'instant où le tiret atteint chacun, il
+   est calculé pour huit. En ajouter ou en retirer un oblige à le recalculer.
+   Le premier jalon est l'avatar de la cliente, d'où le décalage d'un rang
+   entre ce tableau et `t.maquettes.etapes`, qui n'en compte que sept. */
+const etapes = (t: Textes) => {
+  const [attente1, offre, suggestions, recommande, attente2, fetes, habituee] =
+    t.maquettes.etapes;
+  return [
+    { cle: "cliente", genre: "avatar" as const, texte: t.maquettes.cliente },
+    { cle: "attente-1", genre: "note" as const, texte: attente1 },
+    { cle: "offre", genre: "pastille" as const, icone: Tag, texte: offre },
+    {
+      cle: "suggestions",
+      genre: "pastille" as const,
+      icone: Mail,
+      texte: suggestions,
+    },
+    { cle: "recommande", genre: "note" as const, texte: recommande },
+    { cle: "attente-2", genre: "note" as const, texte: attente2 },
+    { cle: "fetes", genre: "pastille" as const, icone: Gift, texte: fetes },
+    { cle: "habituee", genre: "note" as const, texte: habituee },
+  ];
+};
 
 /* L'instant où le tiret atteint chaque étape. Comme il ACCÉLÈRE, ces instants
    ne sont pas régulièrement espacés : ce sont les temps où la courbe
@@ -540,7 +547,8 @@ const passage = (i: number) => DEPART_PARCOURS + PASSAGES[i];
 
 const OMBRE_ETAPE = "shadow-[0_10px_28px_-14px_rgba(25,25,25,0.6)]";
 
-export function MaquetteRelances() {
+export function MaquetteRelances({ t }: { t: Textes }) {
+  const ETAPES = etapes(t);
   const parcours = tempo(DEPART_PARCOURS, {
     "--res-parcours": `${PARCOURS}ms`,
   });
@@ -592,7 +600,7 @@ export function MaquetteRelances() {
                   />
                   <span>
                     <span className="block text-[0.6rem] uppercase leading-none tracking-widest text-ink/45">
-                      Nouvelle cliente
+                      {t.maquettes.nouvelleCliente}
                     </span>
                     <span className="mt-1 block text-[0.8rem] font-semibold leading-none text-ink">
                       {etape.texte}

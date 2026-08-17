@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import {
   DUREE_APP,
@@ -12,6 +12,7 @@ import {
   MaquetteTrafic,
   MaquetteVentes,
 } from "./ResultatsMaquettes";
+import type { Textes } from "@/lib/textes/fr";
 
 /* Section « Résultats » : quatre onglets qui s'enchaînent tout seuls, une
    barre de progression qui sert de minuterie visible, et un panneau qui
@@ -49,51 +50,50 @@ type Onglet = {
   maquette?: ReactNode;
 };
 
-const ONGLETS: Onglet[] = [
-  {
-    cle: "trafic",
-    onglet: "Plus de trafic Google",
-    surTitre: "Ton référencement, réglé",
-    titre: "Ton resto sort enfin dans Google",
-    duree: DUREE_TRAFIC,
-    panneau: "bg-bone",
-    maquette: <MaquetteTrafic />,
-  },
-  {
-    cle: "ventes",
-    onglet: "Plus de ventes en ligne",
-    surTitre: "Des commandes sans commission",
-    titre: "Une commande en ligne qui donne le goût d'ajouter",
-    duree: DUREE_VENTES,
-    panneau: "bg-bone",
-    maquette: <MaquetteVentes />,
-  },
-  {
-    cle: "repetees",
-    onglet: "Plus de commandes répétées",
-    surTitre: "Des relances qui travaillent pour toi",
-    titre: "Tes clients reviennent sans que t'aies à y penser",
-    duree: DUREE_RELANCES,
-    panneau: "bg-gradient-to-br from-hero to-brand",
-    clair: true,
-    maquette: <MaquetteRelances />,
-  },
-  {
-    cle: "telechargements",
-    onglet: "Plus de téléchargements",
-    surTitre: "Ton app, à ton nom",
-    titre: "Récompense tes clients dans ta propre app",
-    duree: DUREE_APP,
-    panneau: "bg-ink",
-    clair: true,
-    photo: {
-      src: "/resultats-app.webp",
-      alt: "Un client commande dans l'application du restaurant, attablé devant des pizzas",
+/* La structure des onglets — durées, fonds, maquettes — vit ici ; leurs mots
+   viennent du dictionnaire. Les deux tableaux se lisent dans le même ordre. */
+const onglets = (t: Textes): Onglet[] => {
+  const [trafic, ventes, repetees, app] = t.resultats.onglets;
+  return [
+    {
+      cle: "trafic",
+      ...trafic,
+      duree: DUREE_TRAFIC,
+      panneau: "bg-bone",
+      maquette: <MaquetteTrafic t={t} />,
     },
-  },
-];
+    {
+      cle: "ventes",
+      ...ventes,
+      duree: DUREE_VENTES,
+      panneau: "bg-bone",
+      maquette: <MaquetteVentes t={t} />,
+    },
+    {
+      cle: "repetees",
+      ...repetees,
+      duree: DUREE_RELANCES,
+      panneau: "bg-gradient-to-br from-hero to-brand",
+      clair: true,
+      maquette: <MaquetteRelances t={t} />,
+    },
+    {
+      cle: "telechargements",
+      ...app,
+      duree: DUREE_APP,
+      panneau: "bg-ink",
+      clair: true,
+      photo: { src: "/resultats-app.webp", alt: t.resultats.photoAlt },
+    },
+  ];
+};
 
-export default function Resultats() {
+export default function Resultats({ t }: { t: Textes }) {
+  /* Mémorisé : sans ça, le tableau est recréé à chaque rendu, et la minuterie
+     qui le lit se relancerait sans fin — l'onglet ne changerait jamais. `t` est
+     une constante de module, la mémoire tient donc pour toute la vie du
+     composant. */
+  const ONGLETS = useMemo(() => onglets(t), [t]);
   // `cible` est l'onglet demandé, `affiche` celui que le panneau montre
   // encore. Tant que les deux diffèrent, le panneau joue sa sortie.
   const [cible, setCible] = useState(0);
@@ -150,7 +150,7 @@ export default function Resultats() {
       ONGLETS[cible].duree
     );
     return () => clearTimeout(minuterie);
-  }, [anime, enVue, cible]);
+  }, [anime, enVue, cible, ONGLETS]);
 
   const activer = useCallback((i: number) => setCible(i), []);
 
@@ -185,8 +185,7 @@ export default function Resultats() {
     >
       <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
         <h2 className="max-w-4xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
-          Avec Resto Action, t&apos;as plus de trafic, plus de ventes, plus de
-          clients qui reviennent.
+          {t.resultats.titre}
         </h2>
 
         {/* Grille 2×2 sur téléphone, rangée de quatre à partir de md. Le rail
@@ -194,7 +193,7 @@ export default function Resultats() {
             durée de l'onglet : c'est la minuterie rendue visible. */}
         <div
           role="tablist"
-          aria-label="Ce que Resto Action change pour ton resto"
+          aria-label={t.resultats.tablistAria}
           onKeyDown={auClavier}
           className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 md:mt-14 md:grid-cols-4"
         >

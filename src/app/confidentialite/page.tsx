@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { CITY, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
+import { FR } from "@/lib/textes/fr";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
@@ -100,6 +102,7 @@ export default function Confidentialite() {
         </div>
       </div>
       </main>
+      <Footer t={FR} />
     </>
   );
 }

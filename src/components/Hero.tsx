@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { ArrowDown, Phone } from "lucide-react";
 import MenuMobile from "@/components/MenuMobile";
+import SelecteurLangue from "@/components/SelecteurLangue";
 import { PHONE_HREF } from "@/lib/site";
+import type { Textes } from "@/lib/textes/fr";
 
 const LINKEDIN_URL = "https://www.linkedin.com/company/restoaction";
 
@@ -19,7 +21,7 @@ function IconeLinkedIn({ className }: { className?: string }) {
   );
 }
 
-export default function Hero() {
+export default function Hero({ t }: { t: Textes }) {
   return (
     <section id="top" className="bg-white p-3 md:p-5 lg:p-6">
       {/* La carte rouge arrondie posée sur la page blanche. Les languettes
@@ -32,7 +34,7 @@ export default function Hero() {
           <Image
             draggable={false}
             src="/logo-marque.png"
-            alt="Resto Action"
+            alt={t.nav.logoAlt}
             width={1012}
             height={128}
             loading="eager"
@@ -43,8 +45,8 @@ export default function Hero() {
         {/* Languette basse : une bosse rouge qui sort de la carte vers le
             bas, la flèche blanche logée dedans */}
         <a
-          href="#resultats"
-          aria-label="Descendre vers la suite"
+          href={`${t.racine}/#resultats`}
+          aria-label={t.nav.descendre}
           className="absolute left-1/2 top-full z-30 -mt-px -translate-x-1/2"
         >
           <svg
@@ -59,49 +61,52 @@ export default function Hero() {
 
         {/* Nav intégrée à la carte */}
         <nav
-          aria-label="Navigation principale"
+          aria-label={t.nav.aria}
           className="animate-hero flex items-center justify-between gap-2 px-4 pt-4 md:px-5 md:pt-5 lg:px-9"
         >
           <div className="hidden items-center gap-1 text-sm font-bold md:flex lg:gap-2 lg:text-base">
             <a
-              href="#top"
+              href={`${t.racine}/#top`}
               className="rounded-full bg-white px-3 py-2 text-brand lg:px-4 lg:py-2.5 xl:px-6 xl:py-3"
             >
-              Accueil
+              {t.nav.accueil}
             </a>
             <a
-              href="#approche"
+              href={`${t.racine}/#approche`}
               className="rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 lg:py-2.5 xl:px-6 xl:py-3"
             >
-              Approche
+              {t.nav.approche}
             </a>
             <a
-              href="#mission"
+              href={`${t.racine}/#mission`}
               className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:block lg:px-4 lg:py-2.5 xl:px-6 xl:py-3"
             >
-              Mission
+              {t.nav.mission}
             </a>
           </div>
           <div className="ml-auto flex items-center gap-1 text-sm font-bold lg:gap-2 lg:text-base">
             <a
-              href="#histoire"
+              href={`${t.racine}/#histoire`}
               className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 lg:py-2.5 xl:px-6 xl:py-3 md:block"
             >
-              Histoire
+              {t.nav.histoire}
             </a>
             <a
-              href="#faq"
+              href={`${t.racine}/#faq`}
               className="hidden rounded-full px-3 py-2 transition-colors hover:bg-white/15 lg:px-4 lg:py-2.5 xl:px-6 xl:py-3 md:block"
             >
-              FAQ
+              {t.nav.faq}
             </a>
             <a
-              href="#contact"
+              href={`${t.racine}/#contact`}
               className="hidden rounded-full border-2 border-white px-5 py-2 font-black transition-colors hover:bg-white hover:text-brand md:block lg:px-6 lg:py-2.5 xl:px-8 xl:py-3"
             >
-              Contact
+              {t.nav.contact}
             </a>
-            <MenuMobile />
+            <span className="hidden md:block">
+              <SelecteurLangue t={t} />
+            </span>
+            <MenuMobile t={t} />
           </div>
         </nav>
 
@@ -137,7 +142,7 @@ export default function Hero() {
             href={LINKEDIN_URL}
             target="_blank"
             rel="noopener"
-            aria-label="Resto Action sur LinkedIn"
+            aria-label={t.nav.linkedin}
             className="animate-hero delay-3 grid size-12 place-items-center justify-self-start rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white lg:absolute lg:bottom-10 lg:left-10 lg:z-20"
           >
             <IconeLinkedIn className="size-5" />
@@ -146,19 +151,19 @@ export default function Hero() {
           {/* Carte façon « Get a Free Consultation » : Guillaume détouré,
               aligné au bas de la carte, le buste dépasse du haut. */}
           <div className="animate-hero delay-4 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
-            <p className="text-sm font-black leading-snug">Parle à Guillaume</p>
-            <p className="mt-0.5 text-xs text-ink/70">Un appel de 30 minutes.</p>
+            <p className="text-sm font-black leading-snug">{t.hero.carteTitre}</p>
+            <p className="mt-0.5 text-xs text-ink/70">{t.hero.carteSousTitre}</p>
             <a
               href={PHONE_HREF}
               className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-xs font-black text-white transition-colors hover:bg-ink"
             >
               <Phone className="size-3.5" />
-              Appelle-nous
+              {t.nav.appelle}
             </a>
             <Image
               draggable={false}
               src="/guillaume-detoure.webp"
-              alt="Guillaume Therrien, cofondateur de Resto Action"
+              alt={t.hero.guillaumeAlt}
               width={500}
               height={780}
               unoptimized

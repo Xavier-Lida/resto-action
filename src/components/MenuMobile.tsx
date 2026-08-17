@@ -5,19 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Menu, Phone, X } from "lucide-react";
 import { PHONE_HREF } from "@/lib/site";
-
-const LIENS: [string, string][] = [
-  ["#top", "Accueil"],
-  ["#approche", "Notre approche"],
-  ["#mission", "Notre mission"],
-  ["#histoire", "Notre histoire"],
-  ["#faq", "FAQ"],
-  ["#contact", "Contact"],
-];
+import SelecteurLangue from "@/components/SelecteurLangue";
+import type { Textes } from "@/lib/textes/fr";
 
 // Menu mobile : carte blanche compacte ancrée en haut, ouverte et fermée
 // en douceur (fondu + glissement). Visible uniquement sous md.
-export default function MenuMobile() {
+export default function MenuMobile({ t }: { t: Textes }) {
   const [monte, setMonte] = useState(false); // le panneau est dans le DOM
   const [visible, setVisible] = useState(false); // l'état de la transition
   const minuterie = useRef<number | null>(null);
@@ -53,7 +46,7 @@ export default function MenuMobile() {
       <button
         type="button"
         onClick={ouvrir}
-        aria-label="Ouvrir le menu"
+        aria-label={t.nav.ouvrirMenu}
         aria-expanded={monte}
         className="grid size-11 place-items-center rounded-full border-2 border-white text-white transition-colors hover:bg-white hover:text-brand"
       >
@@ -68,7 +61,7 @@ export default function MenuMobile() {
             <button
               type="button"
               onClick={fermer}
-              aria-label="Fermer le menu"
+              aria-label={t.nav.fermerMenu}
               className={`absolute inset-0 bg-ink/40 transition-opacity duration-300 motion-reduce:transition-none ${
                 visible ? "opacity-100" : "opacity-0"
               }`}
@@ -84,7 +77,7 @@ export default function MenuMobile() {
                 <Image
                   draggable={false}
                   src="/logo-marque.png"
-                  alt="Resto Action"
+                  alt={t.nav.logoAlt}
                   width={1012}
                   height={128}
                   className="h-6 w-auto"
@@ -92,14 +85,14 @@ export default function MenuMobile() {
                 <button
                   type="button"
                   onClick={fermer}
-                  aria-label="Fermer le menu"
+                  aria-label={t.nav.fermerMenu}
                   className="grid size-10 place-items-center rounded-full bg-bone text-ink transition-colors hover:bg-brand hover:text-white"
                 >
                   <X className="size-5" />
                 </button>
               </div>
-              <nav aria-label="Menu mobile" className="mt-3 flex flex-col">
-                {LIENS.map(([href, etiquette]) => (
+              <nav aria-label={t.nav.mobileAria} className="mt-3 flex flex-col">
+                {t.nav.mobile.map(([href, etiquette]) => (
                   <a
                     key={href}
                     href={href}
@@ -110,12 +103,15 @@ export default function MenuMobile() {
                   </a>
                 ))}
               </nav>
+              <div className="mt-4 flex justify-center">
+                <SelecteurLangue t={t} ton="menu" />
+              </div>
               <a
                 href={PHONE_HREF}
                 className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 font-black text-white transition-colors hover:bg-ink"
               >
                 <Phone className="size-5" />
-                Appelle-nous
+                {t.nav.appelle}
               </a>
             </div>
           </div>,

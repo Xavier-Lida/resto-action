@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Caveat, Unbounded } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import Footer from "@/components/Footer";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -23,16 +22,6 @@ export const metadata: Metadata = {
   },
   description:
     "Une entreprise québécoise à l'écoute des restaurateurs indépendants. On trouve ce qui gruge ton resto pis on le règle avec toi. 819 944-4661.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "fr_CA",
-    url: "/",
-    siteName: "Resto Action",
-    title: "Resto Action | On règle les vrais problèmes des restos indépendants",
-    description:
-      "On commence par t'écouter. On trouve ce qui gruge ton resto, pis on le règle avec toi.",
-  },
   twitter: { card: "summary_large_image" },
 };
 
@@ -46,11 +35,12 @@ export default function RootLayout({
       lang="fr-CA"
       className={`${caveat.variable} ${unbounded.variable} h-full antialiased`}
     >
-      {/* Le Header n'est plus global : la home a sa nav intégrée à la hero,
-          les autres pages le rendent elles-mêmes. */}
+      {/* Ni le Header ni le Footer ne sont globaux : la home a sa nav intégrée
+          à la hero, et le pied de page suit la langue de la page qui le rend —
+          rendu ici, il resterait français sur /en. Chaque page rend donc les
+          deux elle-même. */}
       <body className="min-h-full flex flex-col">
         {children}
-        <Footer />
         <Analytics />
       </body>
     </html>
