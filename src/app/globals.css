@@ -793,27 +793,36 @@ img {
   animation-delay: calc(var(--t) - var(--res-bascule));
 }
 
-/* Le trait plein suit exactement le tiret : le pointillé devient continu au
-   fur et à mesure, donc le chemin déjà parcouru reste lisible. */
-@keyframes res-fil-plein {
-  from {
-    transform: scaleY(0.15);
-  }
-  to {
-    transform: scaleY(0.9);
-  }
-}
-.res-fil-plein {
-  transform-origin: top;
-  animation: res-fil-plein var(--res-parcours) cubic-bezier(0.5, 0.15, 0.75, 1)
-    both;
-  animation-delay: calc(var(--t) - var(--res-bascule));
-}
-
 /* Les étapes entrent toutes avec le panneau, pleines. */
 .res-etape {
   animation: res-contenu 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-timing-function: var(--res-ressort-doux);
+}
+
+/* Chaque composante gonfle quand la lumière la transperce, puis revient. Les
+   valeurs sont relevées sur la référence, bulle par bulle : scale(1,03) au
+   sommet — le même geste que le pouls de la pilule de la maquette 2 —, atteint
+   en 100 ms, tenu 80 ms, rendu en 140 ms. D'où 100/320 = 31 % et 180/320 = 56 %.
+
+   Sur un élément IMBRIQUÉ dans .res-etape : celle-ci anime déjà transform pour
+   l'entrée du panneau, et deux animations de transform sur le même élément
+   s'écraseraient. Son --t est celui du passage de la lumière, le même qui
+   allume l'icône : le gonflement et l'allumage tombent donc ensemble. */
+@keyframes res-gonfle {
+  0% {
+    transform: scale(1);
+  }
+  31%,
+  56% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.res-gonfle {
+  animation: res-gonfle 320ms var(--res-glisse) both;
+  animation-delay: calc(var(--t) - var(--res-bascule));
 }
 
 /* L'icône s'allume quand le tiret la dépasse : du gris à la couleur de
@@ -903,8 +912,8 @@ img {
   .res-valeur,
   .res-valeur-fin,
   .res-pulse,
-  .res-fil-plein,
   .res-etape,
+  .res-gonfle,
   .res-icone-allumee {
     animation: none;
   }
@@ -966,9 +975,6 @@ img {
      gardent les couleurs de marque posées par le balisage. */
   .res-pulse {
     top: 90%;
-  }
-  .res-fil-plein {
-    transform: scaleY(0.9);
   }
 }
 

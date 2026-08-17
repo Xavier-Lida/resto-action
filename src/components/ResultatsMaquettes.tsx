@@ -555,69 +555,67 @@ export function MaquetteRelances({ t }: { t: Textes }) {
 
   return (
     <div className="relative w-full max-w-[20rem] font-ui" aria-hidden="true">
-      {/* Le fil : pointillé au repos, doublé d'un trait plein qui se remplit
-          derrière le tiret. */}
+      {/* La lumière voyage seule, par-dessus toute la colonne : elle doit
+          traverser les segments ET les composantes, elle ne peut donc pas
+          vivre dans le flux comme eux. Le fil, lui, n'est plus ici — il est
+          découpé en segments posés entre les jalons, plus bas. */}
       <div className="absolute inset-y-3 left-1/2 w-px -translate-x-1/2">
-        <div className="h-full border-l border-dashed border-white/40" />
-        <div
-          className="res-fil-plein absolute inset-0 border-l border-white/85"
-          style={parcours}
-        />
-        {/* Le tiret voyageur — discret, comme dans la référence : un court
-            trait lumineux, pas un projecteur. */}
         <div
           className="res-pulse absolute left-1/2 h-4 w-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.55)]"
           style={parcours}
         />
       </div>
 
-      <div className="relative flex flex-col items-center gap-2.5">
-        {ETAPES.map((etape, i) => {
+      {/* LE FIL EST DÉCOUPÉ, un segment par intervalle : dans la référence il
+          s'arrête avant chaque texte et chaque bulle, et ne passe jamais
+          derrière. Chaque segment étant un enfant du flux, il occupe son
+          intervalle sans qu'on ait à connaître la hauteur des jalons — c'est
+          ce qui tient quand le texte change de langue.
+
+          Les segments sont blancs de bout en bout : relevé sur la référence,
+          le dernier est déjà blanc à 3,0 s alors que la lumière ne l'atteint
+          qu'à 7,5 s. Rien ne se remplit derrière elle. */}
+      <div className="relative flex flex-col items-center gap-1">
+        {ETAPES.flatMap((etape, i) => {
+          let contenu;
+
           if (etape.genre === "note") {
-            return (
-              <div key={etape.cle} className="res-etape">
-                <p className="text-center text-[0.7rem] leading-none text-white/70">
-                  {etape.texte}
-                </p>
-              </div>
+            contenu = (
+              <p className="text-center text-[0.7rem] leading-none text-white/70">
+                {etape.texte}
+              </p>
             );
-          }
-
-          if (etape.genre === "avatar") {
-            return (
-              <div key={etape.cle} className="res-etape">
-                <div
-                  className={`flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-4 ${OMBRE_ETAPE}`}
-                >
-                  <Image
-                    draggable={false}
-                    src="/resultats-avatar.webp"
-                    alt=""
-                    width={320}
-                    height={320}
-                    unoptimized
-                    className="size-8 rounded-full object-cover"
-                  />
-                  <span>
-                    <span className="block text-[0.6rem] uppercase leading-none tracking-widest text-ink/45">
-                      {t.maquettes.nouvelleCliente}
-                    </span>
-                    <span className="mt-1 block text-[0.8rem] font-semibold leading-none text-ink">
-                      {etape.texte}
-                    </span>
+          } else if (etape.genre === "avatar") {
+            contenu = (
+              <div
+                className={`flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-4 ${OMBRE_ETAPE}`}
+              >
+                <Image
+                  draggable={false}
+                  src="/resultats-avatar.webp"
+                  alt=""
+                  width={320}
+                  height={320}
+                  unoptimized
+                  className="size-8 rounded-full object-cover"
+                />
+                <span>
+                  <span className="block text-[0.6rem] uppercase leading-none tracking-widest text-ink/45">
+                    {t.maquettes.nouvelleCliente}
                   </span>
-                </div>
+                  <span className="mt-1 block text-[0.8rem] font-semibold leading-none text-ink">
+                    {etape.texte}
+                  </span>
+                </span>
               </div>
             );
-          }
-
-          const Icone = etape.icone;
-          return (
-            <div key={etape.cle} className="res-etape">
+          } else {
+            const Icone = etape.icone;
+            contenu = (
               <div
                 className={`flex items-center gap-2 rounded-full bg-white py-2 pl-2 pr-4 ${OMBRE_ETAPE}`}
               >
-                {/* L'icône s'allume au passage du tiret ; ses couleurs de
+                {/* L'icône s'allume au passage de la lumière ; ses couleurs de
                     repos (celles du balisage) sont l'état allumé, pour que
                     « animations réduites » montre le parcours accompli. */}
                 <span
@@ -630,8 +628,28 @@ export function MaquetteRelances({ t }: { t: Textes }) {
                   {etape.texte}
                 </span>
               </div>
+            );
+          }
+
+          /* Deux enveloppes : res-etape porte l'entrée du panneau, res-gonfle
+             le gonflement au passage. Les deux animent transform, elles ne
+             peuvent pas tenir sur le même élément. */
+          const jalon = (
+            <div key={etape.cle} className="res-etape">
+              <div className="res-gonfle" style={tempo(passage(i))}>
+                {contenu}
+              </div>
             </div>
           );
+
+          if (i === 0) return [jalon];
+          return [
+            <span
+              key={`fil-${etape.cle}`}
+              className="h-3 w-px shrink-0 bg-white/45"
+            />,
+            jalon,
+          ];
         })}
       </div>
     </div>
