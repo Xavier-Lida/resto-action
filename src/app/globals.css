@@ -100,44 +100,44 @@ img {
 }
 
 /* ── Le titre tournant du héro ──
-   La phrase sortante s'efface EN BLOC en montant ; l'entrante arrive MOT PAR
-   MOT, chacun décalé sur le précédent par le --t que lui pose le composant.
-   Les durées sont celles relevées sur la référence : 120 ms pour sortir,
-   170 ms par mot à l'entrée.
+   UN ROULEAU. Les deux lignes bougent EN MÊME TEMPS, sur la même durée : la
+   sortante s'en va par le haut pendant que l'entrante monte prendre sa place.
+   C'est la simultanéité qui fait lire un remplacement — les faire se succéder
+   donnait une disparition, puis une apparition, avec un vide entre les deux.
+   La fente qui les écrête est posée par le composant (overflow-hidden).
 
-   Les mots n'ont pas de fill-mode `backwards` par hasard : sans lui, un mot
-   attendant son tour serait déjà opaque, et la cascade ne se verrait pas. */
-@keyframes titre-sortie {
-  to {
-    opacity: 0;
-    transform: translateY(-0.35em);
-  }
-}
-.titre-sortie {
-  animation: titre-sortie 120ms ease-in both;
-}
-
-@keyframes titre-mot {
+   AUCUNE OPACITÉ ICI, et c'est voulu : faire fondre les deux lignes les mettait
+   toutes deux à moitié transparentes au milieu du parcours, et la fente
+   paraissait se creuser. Un rouleau ne fond pas, il glisse — c'est l'écrêtage
+   qui fait disparaître, pas la transparence. */
+@keyframes titre-sort {
   from {
-    opacity: 0;
-    transform: translateY(0.4em);
+    transform: translateY(0);
   }
   to {
-    opacity: 1;
+    transform: translateY(-100%);
+  }
+}
+.titre-sort {
+  animation: titre-sort 520ms var(--res-glisse) both;
+}
+
+@keyframes titre-entre {
+  from {
+    transform: translateY(100%);
+  }
+  to {
     transform: translateY(0);
   }
 }
-.titre-mot {
-  display: inline-block;
-  white-space: pre;
-  animation: titre-mot 170ms var(--res-fondu) both;
-  animation-delay: var(--t);
+.titre-entre {
+  animation: titre-entre 520ms var(--res-glisse) both;
 }
 
 /* Mouvement réduit : la phrase est là, elle ne bouge pas. */
 @media (prefers-reduced-motion: reduce) {
-  .titre-mot,
-  .titre-sortie {
+  .titre-sort,
+  .titre-entre {
     animation: none;
   }
 }

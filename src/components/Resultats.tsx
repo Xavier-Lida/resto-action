@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import {
@@ -188,14 +189,21 @@ export default function Resultats({ t }: { t: Textes }) {
           {t.resultats.titre}
         </h2>
 
-        {/* Grille 2×2 sur téléphone, rangée de quatre à partir de md. Le rail
-            gris occupe toute la colonne, le trait rouge le remplit sur la
-            durée de l'onglet : c'est la minuterie rendue visible. */}
+        {/* Rangée de quatre à partir de md. SOUS md, un seul onglet est
+            VISIBLE : les trois autres restent dans le DOM — ce sont de vrais
+            role="tab" avec leur aria-selected et leur navigation au clavier, et
+            les réduire à un titre décoratif casserait le motif tablist. Ils
+            sont donc masqués visuellement, pas retirés. Les points et les
+            flèches sous la carte sont des commandes EN PLUS, pas un
+            remplacement.
+
+            Le rail gris occupe toute la colonne, le trait rouge le remplit sur
+            la durée de l'onglet : c'est la minuterie rendue visible. */}
         <div
           role="tablist"
           aria-label={t.resultats.tablistAria}
           onKeyDown={auClavier}
-          className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 md:mt-14 md:grid-cols-4"
+          className="mt-12 grid gap-x-6 gap-y-5 md:mt-14 md:grid-cols-4"
         >
           {ONGLETS.map((o, i) => (
             <button
@@ -210,7 +218,9 @@ export default function Resultats({ t }: { t: Textes }) {
               aria-controls={`panneau-${o.cle}`}
               tabIndex={i === cible ? 0 : -1}
               onClick={() => activer(i)}
-              className="group text-left"
+              className={`group text-left ${
+                i === cible ? "" : "sr-only md:not-sr-only"
+              }`}
             >
               <span
                 className={`block text-sm font-bold transition-colors md:text-base ${
@@ -311,6 +321,43 @@ export default function Resultats({ t }: { t: Textes }) {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Points et flèches, TÉLÉPHONE SEULEMENT : sur la capture d'Owner
+            c'est ce qui remplace la vue d'ensemble des quatre onglets, qu'on
+            n'a plus la place d'afficher. Les points sont décoratifs — l'état
+            courant est déjà porté par l'aria-selected du tablist — d'où
+            aria-hidden. Les flèches, elles, sont de vraies commandes et
+            portent leur libellé. */}
+        <div className="mt-6 flex items-center justify-center gap-5 md:hidden">
+          <button
+            type="button"
+            onClick={() => activer((cible - 1 + ONGLETS.length) % ONGLETS.length)}
+            aria-label={t.resultats.precedent}
+            className="grid size-11 place-items-center rounded-full border border-ink/15 text-ink transition-colors hover:bg-ink hover:text-white"
+          >
+            <ArrowLeft className="size-5" />
+          </button>
+
+          <span aria-hidden="true" className="flex items-center gap-2">
+            {ONGLETS.map((o, i) => (
+              <span
+                key={o.cle}
+                className={`size-2 rounded-full transition-colors ${
+                  i === cible ? "bg-ink" : "bg-ink/20"
+                }`}
+              />
+            ))}
+          </span>
+
+          <button
+            type="button"
+            onClick={() => activer((cible + 1) % ONGLETS.length)}
+            aria-label={t.resultats.suivant}
+            className="grid size-11 place-items-center rounded-full border border-ink/15 text-ink transition-colors hover:bg-ink hover:text-white"
+          >
+            <ArrowRight className="size-5" />
+          </button>
         </div>
       </div>
     </section>

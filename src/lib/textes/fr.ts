@@ -84,6 +84,8 @@ export const FR = {
     titre:
       "Avec Resto Action, tu as plus de trafic, plus de ventes, plus de clients qui reviennent.",
     tablistAria: "Ce que Resto Action change pour ton resto",
+    precedent: "Onglet précédent",
+    suivant: "Onglet suivant",
     onglets: [
       {
         onglet: "Plus de trafic Google",

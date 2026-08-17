@@ -109,33 +109,14 @@ export default function Hero({ t }: { t: Textes }) {
           </div>
         </nav>
 
-        {/* Le titre, bouée 3D en dessous. L'image étant opaque, elle ne doit
-            JAMAIS remonter sous le titre : pas de marge négative, sinon son
-            bord haut tranche le bas des lettres.
-
-            Le mot-marque géant qui tenait cette place a cédé au titre : il ne
+        {/* Le titre. Le mot-marque géant qui tenait cette place a cédé : il ne
             disait que la marque, alors que c'est le signal le plus fort de la
             page. La marque reste dans sa languette blanche, en haut de la
-            carte. */}
+            carte. La bouée 3D qui suivait le titre est partie aussi — le
+            composant Buoy sert encore ailleurs (contact, chargement de
+            l'agenda), seule l'image du héro s'en va. */}
         <div className="mt-12 md:mt-10">
           <TitreTournant t={t} />
-
-          {/* L'image est OPAQUE : le rendu original entier (ombre et halo
-              compris), dont le fond a été recoloré pour se fondre au pixel
-              près dans --color-hero. Aucune transparence, donc plus rien à
-              abîmer au décodage ou au réencodage. */}
-          <div className="mx-auto mt-6 w-[64vw] min-w-[320px] max-w-[560px] lg:mt-0 lg:w-[37vw]">
-            <Image
-              draggable={false}
-              src="/buoy-3d.webp"
-              alt=""
-              width={1024}
-              height={1024}
-              preload={true}
-              unoptimized
-              className="animate-hero-fondu delay-2 w-full"
-            />
-          </div>
         </div>
 
         {/* Zone basse : LinkedIn à gauche, carte Guillaume à droite */}

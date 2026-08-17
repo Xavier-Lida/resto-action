@@ -75,6 +75,8 @@ export const EN: Textes = {
     titre:
       "With Resto Action, you get more traffic, more sales, more customers coming back.",
     tablistAria: "What Resto Action changes for your restaurant",
+    precedent: "Previous tab",
+    suivant: "Next tab",
     onglets: [
       {
         onglet: "More Google traffic",
