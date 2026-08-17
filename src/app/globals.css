@@ -773,23 +773,30 @@ img {
    sa couleur au passage, avec un léger pop. C'est le passage du tiret qui
    raconte la relance, pas une cascade d'apparitions. */
 
-/* La vitesse du tiret n'est pas constante : mesurée sur la référence, elle
-   passe de 0,0075 à 0,022 % de fil par milliseconde entre le premier et le
-   dernier jalon — une accélération régulière. D'où cette courbe plutôt qu'un
-   `linear`, et un départ à 15 % : le tiret naît sur le premier jalon, pas
-   dans le vide au-dessus. Les instants d'allumage du composant (PASSAGES)
-   sont calculés sur cette courbe : si elle change, ils changent avec. */
-@keyframes res-pulse {
+/* LA LUMIÈRE, SEGMENT PAR SEGMENT. Elle n'est plus un élément unique qui
+   survole toute la colonne : chaque segment de fil porte la sienne, et son
+   overflow l'écrête. Elle entre par le haut (top: -100%, donc hors cadre),
+   traverse, et sort par le bas (top: 100%) — c'est-à-dire qu'elle disparaît
+   exactement là où elle entrerait dans la bulle ou le texte suivant, puis
+   réapparaît dans le segment d'après.
+
+   C'est ce découpage qui l'empêche de passer sur le texte. Un seul élément
+   voyageur ne pouvait pas : il aurait fallu l'écrêter contre des positions que
+   seule la mise en page connaît.
+
+   L'accélération n'est plus portée par une courbe mais par le tableau PASSAGES
+   du composant, qui espace les traversées de plus en plus serré. La courbe
+   d'ici reste donc linéaire : dans un segment, la lumière ne ralentit pas. */
+@keyframes res-lueur {
   from {
-    top: 15%;
+    top: -100%;
   }
   to {
-    top: 90%;
+    top: 100%;
   }
 }
-.res-pulse {
-  animation: res-pulse var(--res-parcours) cubic-bezier(0.5, 0.15, 0.75, 1)
-    both;
+.res-lueur {
+  animation: res-lueur var(--res-traversee) linear both;
   animation-delay: calc(var(--t) - var(--res-bascule));
 }
 
@@ -911,7 +918,7 @@ img {
   .res-pilule,
   .res-valeur,
   .res-valeur-fin,
-  .res-pulse,
+  .res-lueur,
   .res-etape,
   .res-gonfle,
   .res-icone-allumee {
@@ -971,10 +978,11 @@ img {
   .res-valeur-fin {
     transform: translateY(0);
   }
-  /* Onglet 3 : le parcours du tiret montré arrivé à son terme, les icônes
-     gardent les couleurs de marque posées par le balisage. */
-  .res-pulse {
-    top: 90%;
+  /* Onglet 3 : les icônes gardent les couleurs de marque posées par le
+     balisage, et la lumière est sortie de chaque segment — le parcours est
+     montré accompli. */
+  .res-lueur {
+    top: 100%;
   }
 }
 

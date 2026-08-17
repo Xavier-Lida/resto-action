@@ -240,10 +240,15 @@ export default function Resultats({ t }: { t: Textes }) {
         </div>
 
         {/* Un seul panneau rendu à la fois, remonté par sa clé pour que les
-            maquettes repartent de zéro. La hauteur est figée : changer
-            d'onglet ne doit jamais faire sauter la page. --res-duree est posée
-            ici, pas sur la section : chaque maquette lit la durée de SON
-            onglet. */}
+            maquettes repartent de zéro. --res-duree est posée ici, pas sur la
+            section : chaque maquette lit la durée de SON onglet.
+
+            LE PLANCHER lg VAUT LA HAUTEUR DU PLUS GRAND, la chaîne des
+            relances : à partir de lg les quatre onglets font donc exactement
+            la même hauteur et rien ne saute à la bascule. En dessous, le
+            panneau empile le titre au-dessus de la maquette et sa hauteur
+            suit forcément le contenu — l'égaliser là coûterait 200 px de vide
+            sur les trois autres. */}
         <div
           key={`${courant.cle}-${cycle}`}
           role="tabpanel"
@@ -251,7 +256,7 @@ export default function Resultats({ t }: { t: Textes }) {
           aria-labelledby={`onglet-${courant.cle}`}
           tabIndex={0}
           style={{ "--res-duree": `${courant.duree}ms` } as CSSProperties}
-          className={`relative mt-8 flex min-h-[32rem] overflow-hidden rounded-[2rem] md:min-h-[30rem] lg:rounded-[3rem] ${courant.panneau} ${
+          className={`relative mt-8 flex min-h-[32rem] overflow-hidden rounded-[2rem] md:min-h-[30rem] lg:min-h-[34rem] lg:rounded-[3rem] ${courant.panneau} ${
             courant.clair ? "text-white" : "text-ink"
           }`}
         >

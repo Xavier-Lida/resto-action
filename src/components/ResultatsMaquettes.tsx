@@ -506,8 +506,7 @@ export function MaquetteVentes({ t }: { t: Textes }) {
 
 export const DUREE_RELANCES = 6850;
 
-const DEPART_PARCOURS = 800; // le tiret naît sur la première étape
-const PARCOURS = 4800; // il met 4,8 s à rejoindre la dernière
+const DEPART_PARCOURS = 800; // le premier jalon gonfle, avant toute lumière
 
 /* La structure du parcours — le genre de chaque jalon et son icône — vit ici ;
    les mots viennent du dictionnaire. LES HUIT JALONS SONT STRUCTURELS : le
@@ -535,37 +534,41 @@ const etapes = (t: Textes) => {
   ];
 };
 
-/* L'instant où le tiret atteint chaque étape. Comme il ACCÉLÈRE, ces instants
-   ne sont pas régulièrement espacés : ce sont les temps où la courbe
-   cubic-bezier(0.5, 0.15, 0.75, 1) — celle du tiret, dans globals.css —
-   atteint chaque huitième du parcours. Un espacement régulier ferait s'allumer
-   les icônes à côté du tiret, et c'est justement ce raccord qui donne
-   l'impression qu'il les réveille au passage.
-   Si la courbe change, ce tableau doit être recalculé avec elle. */
+/* L'instant où la lumière atteint chaque jalon. Ces instants ne sont pas
+   régulièrement espacés : la lumière ACCÉLÈRE, et ce tableau est l'inverse de
+   la courbe qui la portait — les temps où elle atteignait chaque huitième du
+   parcours. C'est maintenant ce tableau LUI-MÊME qui porte l'accélération,
+   puisque la lumière est découpée segment par segment.
+
+   Il commande deux choses à la fois : l'allumage de l'icône du jalon, et le
+   gonflement du jalon. Les deux tombent donc ensemble, comme dans la
+   référence. */
 const PASSAGES = [0, 1200, 1882, 2395, 2899, 3365, 3950, 4800];
 const passage = (i: number) => DEPART_PARCOURS + PASSAGES[i];
+
+/* LA LUMIÈRE NE PASSE PLUS SUR LE TEXTE. Elle n'est plus un élément unique
+   survolant toute la colonne : chaque segment de fil porte la sienne, et
+   l'écrête. Elle entre par le haut du segment, le traverse, et disparaît en
+   sortant par le bas — c'est-à-dire au moment précis où elle entrerait dans la
+   bulle ou le texte suivant. Elle réapparaît dans le segment d'après.
+
+   La traversée du segment k SE TERMINE sur passage(k), l'instant où le jalon
+   suivant gonfle : la lumière arrive donc sur la bulle exactement quand la
+   bulle réagit. Elle dure la moitié de l'écart avec le jalon précédent, ce qui
+   laisse la première moitié sans lumière — le temps qu'elle est « dans » la
+   composante. */
+const traversee = (k: number) => {
+  const duree = (PASSAGES[k] - PASSAGES[k - 1]) / 2;
+  return { debut: passage(k) - duree, duree };
+};
 
 const OMBRE_ETAPE = "shadow-[0_10px_28px_-14px_rgba(25,25,25,0.6)]";
 
 export function MaquetteRelances({ t }: { t: Textes }) {
   const ETAPES = etapes(t);
-  const parcours = tempo(DEPART_PARCOURS, {
-    "--res-parcours": `${PARCOURS}ms`,
-  });
 
   return (
-    <div className="relative w-full max-w-[20rem] font-ui" aria-hidden="true">
-      {/* La lumière voyage seule, par-dessus toute la colonne : elle doit
-          traverser les segments ET les composantes, elle ne peut donc pas
-          vivre dans le flux comme eux. Le fil, lui, n'est plus ici — il est
-          découpé en segments posés entre les jalons, plus bas. */}
-      <div className="absolute inset-y-3 left-1/2 w-px -translate-x-1/2">
-        <div
-          className="res-pulse absolute left-1/2 h-4 w-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.55)]"
-          style={parcours}
-        />
-      </div>
-
+    <div className="w-full max-w-[22rem] font-ui" aria-hidden="true">
       {/* LE FIL EST DÉCOUPÉ, un segment par intervalle : dans la référence il
           s'arrête avant chaque texte et chaque bulle, et ne passe jamais
           derrière. Chaque segment étant un enfant du flux, il occupe son
@@ -575,20 +578,20 @@ export function MaquetteRelances({ t }: { t: Textes }) {
           Les segments sont blancs de bout en bout : relevé sur la référence,
           le dernier est déjà blanc à 3,0 s alors que la lumière ne l'atteint
           qu'à 7,5 s. Rien ne se remplit derrière elle. */}
-      <div className="relative flex flex-col items-center gap-1">
+      <div className="flex flex-col items-center">
         {ETAPES.flatMap((etape, i) => {
           let contenu;
 
           if (etape.genre === "note") {
             contenu = (
-              <p className="text-center text-[0.7rem] leading-none text-white/70">
+              <p className="text-center text-[0.75rem] font-medium leading-none text-white/75">
                 {etape.texte}
               </p>
             );
           } else if (etape.genre === "avatar") {
             contenu = (
               <div
-                className={`flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-4 ${OMBRE_ETAPE}`}
+                className={`flex items-center gap-3 rounded-full bg-white py-2 pl-2 pr-5 ${OMBRE_ETAPE}`}
               >
                 <Image
                   draggable={false}
@@ -597,13 +600,13 @@ export function MaquetteRelances({ t }: { t: Textes }) {
                   width={320}
                   height={320}
                   unoptimized
-                  className="size-8 rounded-full object-cover"
+                  className="size-10 rounded-full object-cover"
                 />
                 <span>
-                  <span className="block text-[0.6rem] uppercase leading-none tracking-widest text-ink/45">
+                  <span className="block text-[0.65rem] font-semibold uppercase leading-none tracking-widest text-ink/45">
                     {t.maquettes.nouvelleCliente}
                   </span>
-                  <span className="mt-1 block text-[0.8rem] font-semibold leading-none text-ink">
+                  <span className="mt-1.5 block text-[0.9rem] font-bold leading-none text-ink">
                     {etape.texte}
                   </span>
                 </span>
@@ -613,18 +616,20 @@ export function MaquetteRelances({ t }: { t: Textes }) {
             const Icone = etape.icone;
             contenu = (
               <div
-                className={`flex items-center gap-2 rounded-full bg-white py-2 pl-2 pr-4 ${OMBRE_ETAPE}`}
+                className={`flex items-center gap-2.5 rounded-full bg-white py-2 pl-2 pr-5 ${OMBRE_ETAPE}`}
               >
                 {/* L'icône s'allume au passage de la lumière ; ses couleurs de
                     repos (celles du balisage) sont l'état allumé, pour que
-                    « animations réduites » montre le parcours accompli. */}
+                    « animations réduites » montre le parcours accompli.
+                    Le glyphe est dessiné à 18 px avec un trait épaissi : à
+                    14 px et 2 px de trait, il paraissait grêle. */}
                 <span
-                  className="res-icone-allumee grid size-6 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"
+                  className="res-icone-allumee grid size-8 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"
                   style={tempo(passage(i))}
                 >
-                  <Icone className="size-3.5" />
+                  <Icone className="size-4" strokeWidth={2.25} />
                 </span>
-                <span className="text-[0.8rem] leading-none text-ink">
+                <span className="text-[0.875rem] font-semibold leading-none text-ink">
                   {etape.texte}
                 </span>
               </div>
@@ -643,11 +648,22 @@ export function MaquetteRelances({ t }: { t: Textes }) {
           );
 
           if (i === 0) return [jalon];
+
+          /* Le segment porte SA lumière et l'écrête : elle entre par le haut,
+             traverse, et disparaît en sortant par le bas — là où elle entrerait
+             dans la composante suivante. C'est ce qui la fait disparaître puis
+             réapparaître au lieu de passer sur le texte. */
+          const { debut, duree } = traversee(i);
           return [
             <span
               key={`fil-${etape.cle}`}
-              className="h-3 w-px shrink-0 bg-white/45"
-            />,
+              className="relative h-6 w-px shrink-0 overflow-hidden bg-white/45"
+            >
+              <span
+                className="res-lueur absolute inset-x-0 h-2.5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.55)]"
+                style={tempo(debut, { "--res-traversee": `${duree}ms` })}
+              />
+            </span>,
             jalon,
           ];
         })}
