@@ -34,22 +34,26 @@ export const FR = {
     mission: "Mission",
     histoire: "Histoire",
     faq: "FAQ",
-    contact: "Contact",
     descendre: "Descendre vers la suite",
     linkedin: "Resto Action sur LinkedIn",
+    // « Appelle-nous » ne survit qu'à un seul endroit : la carte de Guillaume
+    // du héro, où l'action EST un appel. Partout ailleurs, le bouton mène à la
+    // page /contact, qui offre le choix — donc « Nous contacter ».
     appelle: "Appelle-nous",
+    contacter: "Nous contacter",
     logoAlt: "Resto Action",
     // Menu mobile : étiquettes plus longues que celles du bureau, à dessein.
     mobileAria: "Menu mobile",
     ouvrirMenu: "Ouvrir le menu",
     fermerMenu: "Fermer le menu",
+    // Uniquement des SECTIONS de l'accueil : le contact est le bouton plein du
+    // bas du panneau, il n'a pas à figurer deux fois.
     mobile: [
       ["#top", "Accueil"],
       ["#approche", "Notre approche"],
       ["#mission", "Notre mission"],
       ["#histoire", "Notre histoire"],
       ["#faq", "FAQ"],
-      ["#contact", "Contact"],
     ] as [string, string][],
   },
 
@@ -260,6 +264,35 @@ export const FR = {
   agenda: {
     chargement: "Un instant, on ouvre l'agenda…",
     titreIframe: "Céduler un appel avec Resto Action",
+  },
+
+  /* La page /contact. Elle ne remplace pas la section #contact de l'accueil :
+     celle-ci reste l'aboutissement du one-pager. La page, elle, est la
+     destination des boutons « Nous contacter » — elle pose le choix à plat au
+     lieu de faire défiler quelqu'un à travers tout le site. */
+  pageContact: {
+    metaTitre: "Nous contacter",
+    metaDescription:
+      "Deux façons de joindre Resto Action : céduler un appel de 30 minutes avec Guillaume, ou nous appeler directement au 819 944-4661.",
+    surtitre: "On répond vite",
+    titre: "Parlons de ton resto.",
+    sousTitre:
+      "Deux façons de nous joindre. Prends celle qui te ressemble — il n'y en a pas une meilleure que l'autre.",
+    rdv: {
+      titre: "Céduler un appel",
+      texte:
+        "Choisis ton heure dans l'agenda. Trente minutes avec Guillaume, sans pression et sans engagement.",
+      bouton: "Choisir mon heure",
+    },
+    tel: {
+      titre: "Appeler tout de suite",
+      texte:
+        "Si tu préfères parler à quelqu'un maintenant, le téléphone sonne chez nous, pas dans un centre d'appels.",
+      bouton: "Appeler",
+    },
+    agendaTitre: "Choisis ton heure",
+    agendaTexte: "L'agenda est à jour : ce que tu vois est vraiment libre.",
+    retour: "Retour à l'accueil",
   },
 
   pied: {

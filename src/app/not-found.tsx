@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone } from "lucide-react";
 import BarreNav from "@/components/BarreNav";
 import Footer from "@/components/Footer";
-import { PHONE_HREF } from "@/lib/site";
 import { FR } from "@/lib/textes/fr";
 
 export const metadata: Metadata = {
@@ -52,13 +50,14 @@ export default function NotFound() {
           >
             Retour à l&apos;accueil
           </Link>
-          <a
-            href={PHONE_HREF}
+          {/* Le libellé passe enfin par le dictionnaire : il était écrit en dur
+              ici, seule occurrence non traduite du site. */}
+          <Link
+            href="/contact"
             className="inline-flex items-center gap-2 rounded-full border-2 border-white px-6 py-3.5 font-black transition-colors hover:bg-white hover:text-hero"
           >
-            <Phone className="size-4" />
-            Appelle-nous
-          </a>
+            {FR.nav.contacter}
+          </Link>
         </div>
       </div>
     </main>

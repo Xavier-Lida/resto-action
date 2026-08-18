@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BOOKING_URL, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
+import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 /* Le pied de page suit la langue de la page qui le rend. Il était rendu par la
@@ -57,10 +57,11 @@ export default function Footer({ t }: { t: Textes }) {
           >
             {PHONE_DISPLAY}
           </a>
+          {/* Mène à /contact plutôt qu'à l'agenda Google dans un onglet neuf :
+              cette page est maintenant l'adresse de la prise de rendez-vous, et
+              elle laisse le choix d'appeler plutôt que de céduler. */}
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener"
+            href={`${t.racine}/contact`}
             className="hover:text-white transition-colors"
           >
             {t.pied.ceduler}

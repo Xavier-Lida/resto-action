@@ -35,10 +35,10 @@ export const EN: Textes = {
     mission: "Mission",
     histoire: "Story",
     faq: "FAQ",
-    contact: "Contact",
     descendre: "Skip to the next section",
     linkedin: "Resto Action on LinkedIn",
     appelle: "Call us",
+    contacter: "Contact us",
     logoAlt: "Resto Action",
     mobileAria: "Mobile menu",
     ouvrirMenu: "Open the menu",
@@ -49,7 +49,6 @@ export const EN: Textes = {
       ["#mission", "Our mission"],
       ["#histoire", "Our story"],
       ["#faq", "FAQ"],
-      ["#contact", "Contact"],
     ],
   },
 
@@ -235,6 +234,31 @@ export const EN: Textes = {
   agenda: {
     chargement: "One moment, opening the calendar…",
     titreIframe: "Book a call with Resto Action",
+  },
+
+  pageContact: {
+    metaTitre: "Contact us",
+    metaDescription:
+      "Two ways to reach Resto Action: book a 30-minute call with Guillaume, or call us directly at 819 944-4661.",
+    surtitre: "We answer fast",
+    titre: "Let's talk about your restaurant.",
+    sousTitre:
+      "Two ways to reach us. Take the one that suits you — neither is better than the other.",
+    rdv: {
+      titre: "Book a call",
+      texte:
+        "Pick your time in the calendar. Thirty minutes with Guillaume, no pressure and no commitment.",
+      bouton: "Pick my time",
+    },
+    tel: {
+      titre: "Call right now",
+      texte:
+        "If you'd rather talk to someone today, the phone rings at our office, not in a call centre.",
+      bouton: "Call us",
+    },
+    agendaTitre: "Pick your time",
+    agendaTexte: "The calendar is live: what you see is genuinely open.",
+    retour: "Back to home",
   },
 
   pied: {

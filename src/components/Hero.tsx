@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowDown, Phone } from "lucide-react";
+import { ArrowDown, ArrowRight, Phone } from "lucide-react";
 import TitreTournant from "@/components/TitreTournant";
 import { LINKEDIN_URL, PHONE_HREF } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
@@ -53,6 +53,24 @@ export default function Hero({ t }: { t: Textes }) {
             au-dessus, le titre a donc besoin de son propre air en haut. */}
         <div className="mt-20 md:mt-24">
           <TitreTournant t={t} />
+        </div>
+
+        {/* Le vide au centre de la carte est comblé par la seule action qui
+            compte. Blanc plein sur le rouge : c'est la forme du gros bouton de
+            la section contact, donc la même action porte la même forme d'un
+            bout à l'autre du site. Il s'inverse en encre au survol, comme lui.
+
+            `my-auto` le pose entre le titre et la zone basse sans figer de
+            hauteur : quelle que soit la longueur de la variante du titre, il
+            reste au milieu de ce qui reste. */}
+        <div className="my-auto flex justify-center px-5 py-10">
+          <a
+            href={`${t.racine}/contact`}
+            className="animate-hero delay-2 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-black text-ink transition hover:bg-ink hover:text-white active:scale-95 md:px-10 md:py-5 md:text-xl"
+          >
+            {t.nav.contacter}
+            <ArrowRight className="size-5" />
+          </a>
         </div>
 
         {/* Zone basse : LinkedIn à gauche, carte Guillaume à droite */}

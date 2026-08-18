@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Menu, Phone, X } from "lucide-react";
-import { PHONE_HREF } from "@/lib/site";
+import { Menu, X } from "lucide-react";
 import SelecteurLangue from "@/components/SelecteurLangue";
 import type { Textes } from "@/lib/textes/fr";
 
@@ -93,11 +92,17 @@ export default function MenuMobile({ t }: { t: Textes }) {
                   <X className="size-5" />
                 </button>
               </div>
+              {/* Les ancres du dictionnaire sont nues (`#approche`) : il faut
+                  les préfixer par la racine de la langue ET par l'accueil.
+                  Sans ça, depuis /contact ou la 404 — où cette barre vit
+                  maintenant aussi — un fragment sans page cible ne mène nulle
+                  part. Ça marchait tant que le menu n'existait que sur
+                  l'accueil. */}
               <nav aria-label={t.nav.mobileAria} className="mt-3 flex flex-col">
-                {t.nav.mobile.map(([href, etiquette]) => (
+                {t.nav.mobile.map(([ancre, etiquette]) => (
                   <a
-                    key={href}
-                    href={href}
+                    key={ancre}
+                    href={`${t.racine}/${ancre}`}
                     onClick={fermer}
                     className="rounded-xl px-3 py-2.5 text-lg font-black transition-colors hover:bg-bone"
                   >
@@ -108,12 +113,14 @@ export default function MenuMobile({ t }: { t: Textes }) {
               <div className="mt-4 flex justify-center">
                 <SelecteurLangue t={t} ton="menu" />
               </div>
+              {/* Ce bouton EST l'entrée « Contact » du menu : c'est pour ça
+                  qu'elle ne figure plus dans la liste des sections au-dessus. */}
               <a
-                href={PHONE_HREF}
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 font-black text-white transition-colors hover:bg-ink"
+                href={`${t.racine}/contact`}
+                onClick={fermer}
+                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 font-black text-white transition-colors hover:bg-ink"
               >
-                <Phone className="size-5" />
-                {t.nav.appelle}
+                {t.nav.contacter}
               </a>
             </div>
           </div>,
