@@ -1,3 +1,4 @@
+import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import MenuDeroulant from "@/components/MenuDeroulant";
@@ -33,7 +34,7 @@ export default function BarreNav({ t }: { t: Textes }) {
 
   return (
     <header className="sticky top-0 z-50 rounded-b-[1.75rem] border-b border-bone bg-white lg:rounded-b-[2.25rem]">
-      <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 py-3">
+      <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-5 py-3 md:gap-4">
         <Link href={accueil} className="col-start-1 shrink-0">
           <Image
             draggable={false}
@@ -42,7 +43,14 @@ export default function BarreNav({ t }: { t: Textes }) {
             width={1012}
             height={128}
             priority
-            className="h-8 w-auto md:h-9"
+            /* `object-contain` EST UN GARDE-FOU, PAS UNE DÉCORATION. La règle
+               `img { max-width: 100% }` de Tailwind autorise le navigateur à
+               comprimer l'image quand sa piste est trop étroite — avec une
+               hauteur fixe, ça DÉFORME le mot-marque au lieu de le réduire.
+               C'est ce qui arrivait au téléphone : 253 px de logo dans 110 px
+               de piste. `contain` le fait rapetisser proprement si la place
+               vient encore à manquer sous 360 px. */
+            className="h-7 w-auto object-contain md:h-9"
           />
         </Link>
 
@@ -56,7 +64,7 @@ export default function BarreNav({ t }: { t: Textes }) {
           ))}
         </nav>
 
-        <div className="col-start-3 flex items-center justify-end gap-4">
+        <div className="col-start-3 flex items-center justify-end gap-2 md:gap-4">
           {/* Le sélecteur en texte, pas en pilule : à côté d'un vrai bouton,
               sa pilule bordée en imitait un second et l'œil hésitait entre les
               deux. Un réglage n'est pas une action. */}
@@ -74,9 +82,35 @@ export default function BarreNav({ t }: { t: Textes }) {
               bouton. Le bouton du héro avait déjà fait ce chemin. */}
           <Link
             href={`${t.racine}/contact`}
-            className="inline-flex min-w-[9.5rem] shrink-0 items-center justify-center rounded-xl bg-brand px-5 py-2.5 text-sm font-black text-white transition-colors hover:bg-ink"
+            className="hidden min-w-[9.5rem] shrink-0 items-center justify-center rounded-xl bg-brand px-5 py-2.5 text-sm font-black text-white transition-colors hover:bg-ink md:inline-flex"
           >
             {t.nav.contacter}
+          </Link>
+
+          {/* LE MÊME BOUTON, RÉDUIT À SON ICÔNE, AU TÉLÉPHONE.
+
+              En toutes lettres il réclamait 152 px. Avec les 253 px du logo,
+              les 40 px du menu et les gouttières, la barre demandait 493 px
+              pour 350 disponibles sur un écran de 390 : elle débordait, et
+              c'est le logo qui payait en se faisant écraser.
+
+              Le supprimer était tentant — le héro juste dessous porte le même
+              bouton en grand, et le menu en contient un pleine largeur. Mais la
+              barre est COLLANTE : elle suit tout le défilement, et c'est
+              justement plus bas, une fois le héro passé, que l'appel à
+              l'action n'existe plus nulle part ailleurs. L'icône garde cette
+              porte ouverte pour 40 px au lieu de 152.
+
+              L'icône est un agenda et non un téléphone : le lien mène à
+              /contact, qui offre les deux, et une icône de combiné promettrait
+              un appel immédiat. Le libellé part dans `aria-label` — un bouton
+              sans texte n'est muet que pour l'œil. */}
+          <Link
+            href={`${t.racine}/contact`}
+            aria-label={t.nav.contacter}
+            className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-white transition-colors hover:bg-ink md:hidden"
+          >
+            <CalendarDays className="size-5" />
           </Link>
           <MenuMobile t={t} />
         </div>

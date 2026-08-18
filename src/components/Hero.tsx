@@ -97,7 +97,21 @@ export default function Hero({ t }: { t: Textes }) {
             Les séparateurs sont des `span` décoratifs à l'intérieur des `li`
             plutôt que des bordures CSS : une bordure gauche réapparaîtrait en
             début de ligne si la liste se replie sur deux rangs au téléphone. */}
-        <ul className="animate-hero delay-3 mx-auto -mt-2 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70">
+        {/* ELLE PASSE SOUS LA CARTE DE GUILLAUME AU TÉLÉPHONE, ET SEULEMENT LÀ.
+
+            En pile, ces quatre promesses se glissaient entre le bouton et la
+            carte : trois blocs qui se suivent, dont celui du milieu n'est ni
+            une action ni une signature. Renvoyées en fin de carte, elles
+            redeviennent ce qu'elles sont — une précision qu'on lit en dernier.
+
+            À partir de `lg`, rien ne change : la carte de Guillaume et le
+            LinkedIn sont épinglés en absolu dans les coins, donc hors du flux.
+            La liste y reste sous le bouton, là où elle a été mesurée.
+
+            `order` plutôt qu'un déplacement dans le JSX : l'ordre du DOM reste
+            celui de la lecture — titre, action, promesses, signature — pour un
+            lecteur d'écran comme pour un robot. Seul l'œil voit l'échange. */}
+        <ul className="animate-hero delay-3 order-last mx-auto mt-6 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70 lg:order-none lg:-mt-2">
           {t.hero.promesses.map((promesse, i) => (
             <li key={promesse} className="flex items-center gap-2.5">
               {i > 0 && (
