@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Phone, Mail } from "lucide-react";
+import BarreNav from "@/components/BarreNav";
 import Buoy from "@/components/Buoy";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -113,6 +114,7 @@ export default function Accueil({ t }: { t: Textes }) {
 
   return (
     <>
+      <BarreNav t={t} />
       <main className="flex-1" lang={t.htmlLang}>
         {/* ─── Héro — carte encadrée, marque géante, bouée 3D ─── */}
         <Hero t={t} />

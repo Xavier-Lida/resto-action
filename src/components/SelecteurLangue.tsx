@@ -11,8 +11,37 @@ export default function SelecteurLangue({
   ton = "hero",
 }: {
   t: Textes;
-  ton?: "hero" | "menu";
+  ton?: "hero" | "menu" | "barre";
 }) {
+  /* Le ton « barre » est nu : deux mots séparés d'un filet, sans bordure ni
+     pilule. Dans la barre de navigation, le sélecteur voisine le bouton
+     « Appelle-nous » — lui donner une pilule bordée en faisait un second
+     bouton, et l'œil ne savait plus laquelle des deux formes était l'action.
+     Un réglage de langue n'est pas une action. */
+  if (ton === "barre") {
+    return (
+      <div
+        aria-label={t.langue.aria}
+        className="flex items-center gap-1.5 text-sm font-bold"
+      >
+        <span aria-current="true" className="text-ink">
+          {t.code.toUpperCase()}
+        </span>
+        <span aria-hidden="true" className="text-ink/25">
+          |
+        </span>
+        <a
+          href={t.autre.href}
+          hrefLang={t.autre.code}
+          title={t.autre.titre}
+          className="text-ink/40 transition-colors hover:text-brand"
+        >
+          {t.autre.etiquette}
+        </a>
+      </div>
+    );
+  }
+
   const cadre =
     ton === "hero"
       ? "border-white/40 text-white"

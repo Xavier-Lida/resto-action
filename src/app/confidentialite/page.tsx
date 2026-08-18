@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import BarreNav from "@/components/BarreNav";
 import { CITY, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 import { FR } from "@/lib/textes/fr";
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Confidentialite() {
   return (
     <>
-      <Header />
+      <BarreNav t={FR} />
       <main className="flex-1">
       <div className="mx-auto max-w-2xl px-5 py-20 md:py-28">
         <p className="text-xs font-black uppercase tracking-widest text-brand">

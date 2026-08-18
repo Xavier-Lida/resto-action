@@ -48,7 +48,9 @@ export default function MenuMobile({ t }: { t: Textes }) {
         onClick={ouvrir}
         aria-label={t.nav.ouvrirMenu}
         aria-expanded={monte}
-        className="grid size-11 place-items-center rounded-full border-2 border-white text-white transition-colors hover:bg-white hover:text-brand"
+        // La barre est blanche désormais : un bouton blanc sur blanc
+        // serait invisible.
+        className="grid size-11 place-items-center rounded-full border-2 border-ink/15 text-ink transition-colors hover:bg-ink hover:text-white"
       >
         <Menu className="size-5" />
       </button>

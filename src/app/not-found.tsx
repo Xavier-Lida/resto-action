@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone } from "lucide-react";
+import BarreNav from "@/components/BarreNav";
 import Footer from "@/components/Footer";
 import { PHONE_HREF } from "@/lib/site";
 import { FR } from "@/lib/textes/fr";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <>
+      <BarreNav t={FR} />
       <main className="flex-1 bg-white p-3 md:p-5 lg:p-6">
       <div className="flex min-h-[92svh] flex-col items-center justify-center rounded-[2rem] bg-hero px-6 py-16 text-center text-white lg:rounded-[3rem]">
         <p
