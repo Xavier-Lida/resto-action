@@ -1,8 +1,8 @@
 import { ArrowLeft, CalendarDays, Phone } from "lucide-react";
 import Link from "next/link";
+import Agenda from "@/components/Agenda";
 import BarreNav from "@/components/BarreNav";
 import Buoy from "@/components/Buoy";
-import CalendarEmbed from "@/components/CalendarEmbed";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -115,7 +115,7 @@ export default function PageContact({ t }: { t: Textes }) {
             </Reveal>
             <Reveal delay={1}>
               <div className="mt-10">
-                <CalendarEmbed t={t} />
+                <Agenda t={t} />
               </div>
             </Reveal>
           </div>

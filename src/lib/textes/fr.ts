@@ -16,7 +16,12 @@ export const FR = {
   // Racine de la version : sert à préfixer TOUS les liens de section, sinon un
   // anglophone qui clique « Approche » retombe sur la page française.
   racine: "",
-  autre: { code: "en", href: "/en", etiquette: "EN", titre: "English" },
+  /* `autre` a été retiré d'ici. Il tenait le lien vers l'autre langue sous
+     la forme d'un chemin FIGÉ (« /en »), ce qui renvoyait tout le monde à
+     l'accueil quelle que soit la page lue. Le chemin équivalent se déduit
+     maintenant du registre des routes (`equivalentLangue`), qui apparie
+     réellement les pages. Ses trois autres champs — code, etiquette, titre —
+     n'étaient lus nulle part. */
 
   /* LE TITLE ET L'OG-TITRE NE DISENT PLUS LA MÊME CHOSE, ET C'EST VOULU.
 
@@ -317,9 +322,56 @@ export const FR = {
     signature: "Guillaume Therrien · Resto Action",
   },
 
+  /* LE WIDGET D'AGENDA.
+
+     Il avait deux clés quand c'était une iframe de Google : le site n'avait
+     qu'un titre et un « ça charge » à traduire, tout le reste était en
+     Google-anglais dans un cadre qu'on ne contrôlait pas. Maintenant que la
+     prise de rendez-vous est à nous, chaque mot l'est aussi — et le garde-fou
+     de ce fichier oblige à les traduire tous. */
   agenda: {
     chargement: "Un instant, on ouvre l'agenda…",
-    titreIframe: "Céduler un appel avec Resto Action",
+    duree: "30 minutes avec Guillaume, par Google Meet.",
+    fuseau: "Heure de l'Est",
+    choisirJour: "Quel jour ?",
+    choisirHeure: "Quelle heure ?",
+    /* Les groupes d'heures. Vingt créneaux d'affilée, c'est un mur ; en trois
+       paquets, ça se lit. Les seuils sont dans le composant (midi et 17 h). */
+    matin: "Matin",
+    apresMidi: "Après-midi",
+    soiree: "Soirée",
+    // Lus par les lecteurs d'écran seulement : les flèches n'ont qu'un chevron.
+    moisPrecedent: "Mois précédent",
+    moisSuivant: "Mois suivant",
+    aucun:
+      "Aucune plage libre pour l'instant. Appelle-nous, on va te trouver un moment.",
+    panneTitre: "L'agenda ne répond pas",
+    panneTexte: "Ça arrive. Appelle-nous, on prend le rendez-vous à la main.",
+    coordonnees: "Tes coordonnées",
+    retour: "Changer d'heure",
+    nom: "Ton nom",
+    restaurant: "Ton restaurant",
+    courriel: "Ton courriel",
+    telephone: "Ton téléphone",
+    sujet: "Ce dont tu veux parler",
+    facultatif: "facultatif",
+    envoyer: "Confirmer mon rendez-vous",
+    envoi: "On réserve…",
+    confirmeTitre: "C'est réservé.",
+    // Gabarit : le composant y insère l'adresse donnée par le visiteur.
+    confirmeTexte:
+      "L'invitation vient de partir à {courriel}. Elle contient le lien de l'appel.",
+    meet: "Ouvrir le Google Meet",
+    erreurs: {
+      invalide: "Il manque quelque chose. Revérifie tes coordonnées.",
+      pris: "Quelqu'un vient de prendre cette heure. Choisis-en une autre.",
+      double:
+        "Tu as déjà un rendez-vous à venir avec nous. Appelle-nous pour le déplacer.",
+      trop: "Trop d'essais d'un coup. Attends quelques minutes.",
+      google: `L'agenda ne répond pas. Appelle-nous au ${PHONE_DISPLAY}.`,
+      config: `L'agenda ne répond pas. Appelle-nous au ${PHONE_DISPLAY}.`,
+      reseau: "La connexion a flanché. Réessaie.",
+    },
   },
 
   /* La page /contact. Elle ne remplace pas la section #contact de l'accueil :

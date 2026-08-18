@@ -118,6 +118,34 @@ export const paireFonctionnalite = (cle: (typeof CLES)[number]): Paire => ({
   priorite: 0.7,
 });
 
+/* LE CHEMIN ÉQUIVALENT DANS L'AUTRE LANGUE.
+
+   Le sélecteur de langue renvoyait tout le monde à l'accueil. Il lisait un
+   `href` figé dans les dictionnaires — « /en » côté français, « / » côté
+   anglais — qui ne savait rien de la page courante : quelqu'un qui lisait un
+   article et cliquait EN perdait sa lecture et se retrouvait sur la page
+   d'accueil, à recommencer.
+
+   L'INFORMATION EXISTAIT DÉJÀ ICI. `PAIRES` apparie toutes les pages du site,
+   c'est elle qui alimente le plan du site et les balises hreflang. Il ne
+   manquait qu'une table plate pour la consulter dans les deux sens — et c'est
+   bien à ce registre-ci de la fournir, pas à une constante recopiée ailleurs
+   qu'on oublierait de tenir à jour. */
+const VERS_EN = new Map(PAIRES.map(({ fr, en }) => [fr, en]));
+const VERS_FR = new Map(PAIRES.map(({ fr, en }) => [en, fr]));
+
+export function equivalentLangue(chemin: string, cible: "fr" | "en"): string {
+  // Une éventuelle barre finale, pour que « /contact/ » trouve sa paire.
+  // La racine « / » est la seule qui garde la sienne.
+  const normalise = chemin.length > 1 ? chemin.replace(/\/+$/, "") : chemin;
+  const table = cible === "en" ? VERS_EN : VERS_FR;
+  /* Repli sur l'accueil pour ce qui n'est pas au registre — la page 404, qui
+     n'a pas de traduction. Toute VRAIE page y figure forcément, puisque c'est
+     ce registre qui la déclare au plan du site : une page absente d'ici est
+     déjà invisible pour Google, le sélecteur n'est pas le premier symptôme. */
+  return table.get(normalise) ?? (cible === "en" ? ACCUEIL.en : ACCUEIL.fr);
+}
+
 /* Les liens hreflang d'une paire.
 
    x-default pointe sur le français : c'est la version d'origine, et c'est ce

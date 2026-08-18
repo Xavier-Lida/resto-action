@@ -16,7 +16,6 @@ export const EN: Textes = {
   code: "en",
   htmlLang: "en-CA",
   racine: "/en",
-  autre: { code: "fr", href: "/", etiquette: "FR", titre: "Français" },
 
   /* Même partage qu'en français : le title vise le moteur, l'og-titre garde la
      voix. L'ancien title faisait 68 signes et se faisait couper en SERP ;
@@ -240,7 +239,43 @@ export const EN: Textes = {
 
   agenda: {
     chargement: "One moment, opening the calendar…",
-    titreIframe: "Book a call with Resto Action",
+    duree: "30 minutes with Guillaume, over Google Meet.",
+    fuseau: "Eastern time",
+    choisirJour: "Which day?",
+    choisirHeure: "What time?",
+    matin: "Morning",
+    apresMidi: "Afternoon",
+    soiree: "Evening",
+    moisPrecedent: "Previous month",
+    moisSuivant: "Next month",
+    aucun:
+      "No open slots right now. Give us a call and we'll find you a time.",
+    panneTitre: "The calendar isn't answering",
+    panneTexte: "It happens. Call us and we'll book it by hand.",
+    coordonnees: "Your details",
+    retour: "Pick another time",
+    nom: "Your name",
+    restaurant: "Your restaurant",
+    courriel: "Your email",
+    telephone: "Your phone",
+    sujet: "What you'd like to talk about",
+    facultatif: "optional",
+    envoyer: "Confirm my call",
+    envoi: "Booking…",
+    confirmeTitre: "You're booked.",
+    confirmeTexte:
+      "The invite just went out to {courriel}. It has the link for the call.",
+    meet: "Open the Google Meet",
+    erreurs: {
+      invalide: "Something's missing. Double-check your details.",
+      pris: "Someone just took that time. Pick another one.",
+      double:
+        "You already have a call coming up with us. Call us to move it.",
+      trop: "Too many tries at once. Give it a few minutes.",
+      google: `The calendar isn't answering. Call us at ${PHONE_DISPLAY}.`,
+      config: `The calendar isn't answering. Call us at ${PHONE_DISPLAY}.`,
+      reseau: "The connection dropped. Try again.",
+    },
   },
 
   pageContact: {

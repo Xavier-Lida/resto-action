@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { equivalentLangue } from "@/lib/routes";
 import type { Textes } from "@/lib/textes/fr";
 
 /* Le sélecteur de langue, en pilule segmentée.
@@ -25,6 +29,19 @@ import type { Textes } from "@/lib/textes/fr";
    NAVIGATION DOUCE. C'était un `<a>` : changer de langue rechargeait la page
    entière, écran blanc compris. `Link` fait la bascule côté client.
 
+   IL EMMÈNE OÙ ON ÉTAIT, PLUS À L'ACCUEIL. Il lisait `t.autre.href`, une
+   constante figée dans les dictionnaires qui valait toujours « /en » ou « / » :
+   quelqu'un qui lisait un article et cliquait EN se retrouvait sur la page
+   d'accueil anglaise, sa lecture perdue. Le registre des routes sait apparier
+   toutes les pages du site — c'est lui qui compose le plan du site et les
+   balises hreflang — il suffisait de le lui demander.
+
+   D'OÙ LE « use client » : il faut connaître le chemin courant, et seul
+   `usePathname` le donne sans faire descendre la paire depuis chaque page à
+   travers la barre de navigation. Le coût est une poignée d'octets pour un
+   composant qui n'a ni état ni effet ; le prix de l'alternative était une
+   dizaine de fichiers à faire transiter une information qu'on peut lire.
+
    `ton` distingue les deux endroits où il se pose : la barre, sur blanc, et le
    menu mobile, sur blanc lui aussi mais dans un panneau — d'où un rail un peu
    plus marqué pour qu'il ne disparaisse pas. (Un troisième ton « hero »
@@ -37,11 +54,16 @@ export default function SelecteurLangue({
   t: Textes;
   ton?: "barre" | "menu";
 }) {
+  const chemin = usePathname();
+  // La même page, dans l'autre langue. Une seule destination possible : on est
+  // forcément dans l'une des deux, donc l'autre est celle qu'on propose.
+  const ailleurs = equivalentLangue(chemin, t.code === "fr" ? "en" : "fr");
+
   /* Les deux langues dans un ordre qui ne dépend PAS de la page courante.
      `href: null` marque celle où l'on se trouve déjà. */
   const langues = [
-    { code: "fr", href: t.code === "fr" ? null : t.autre.href, titre: "Français" },
-    { code: "en", href: t.code === "en" ? null : t.autre.href, titre: "English" },
+    { code: "fr", href: t.code === "fr" ? null : ailleurs, titre: "Français" },
+    { code: "en", href: t.code === "en" ? null : ailleurs, titre: "English" },
   ];
 
   const rail = ton === "menu" ? "bg-bone" : "bg-ink/[0.06]";

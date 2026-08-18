@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Phone, Mail } from "lucide-react";
+import Agenda from "@/components/Agenda";
 import BarreNav from "@/components/BarreNav";
 import Buoy from "@/components/Buoy";
 import Footer from "@/components/Footer";
@@ -7,7 +8,6 @@ import Hero from "@/components/Hero";
 import Resultats from "@/components/Resultats";
 import Reveal from "@/components/Reveal";
 import SectionFaq from "@/components/SectionFaq";
-import CalendarEmbed from "@/components/CalendarEmbed";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import { noeudFaq } from "@/lib/schema";
 import type { Textes } from "@/lib/textes/fr";
@@ -351,7 +351,15 @@ export default function Accueil({ t }: { t: Textes }) {
         {/* Le rouge de la hero, le pitch à gauche, l'agenda compact à droite. */}
         <section id="contact" className="bg-hero text-white">
           <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+            {/* 3:5 ET NON 1:1, PARCE QUE L'AGENDA A BESOIN DE PLUS QUE LE TEXTE.
+                À moitié-moitié, la carte de l'agenda tombait à 528 px, dont
+                464 px de contenu : de quoi déclencher sa disposition à deux
+                colonnes sans pouvoir la tenir, et des cases de mois de 22 px.
+                Le ratio est calé sur le PIRE CAS, l'écran de 1024 px où `lg:`
+                s'applique tout juste : l'agenda y reçoit 580 px, soit 516 px
+                de contenu — au-dessus du seuil de 512 px du composant. Tout
+                écran plus large ne fait qu'améliorer les deux colonnes. */}
+            <div className="grid items-center gap-10 lg:grid-cols-[3fr_5fr] lg:gap-14">
               <Reveal>
                 <div>
                   <Buoy className="mb-6 w-16" />
@@ -382,7 +390,7 @@ export default function Accueil({ t }: { t: Textes }) {
               </Reveal>
 
               <Reveal delay={1}>
-                <CalendarEmbed t={t} />
+                <Agenda t={t} />
               </Reveal>
             </div>
           </div>

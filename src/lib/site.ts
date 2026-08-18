@@ -22,11 +22,20 @@ export const POSTAL_CODE = "G8W 2P7";
 // Le LinkedIn de la MARQUE (pas des fondateurs) : affiché dans le héro et
 // déclaré en sameAs dans le JSON-LD, d'où sa place ici.
 export const LINKEDIN_URL = "https://www.linkedin.com/company/restoaction";
-export const BOOKING_URL =
-  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1CFpw-teL7zuHN8RuH_tdDluYfmhcDQZxQeT8jvN629lIbhLyRGE-Dl4JLXnPb_CDotaO68InG";
-// Variante intégrable en iframe (?gv=true : app d'intégration Google, sans
-// x-frame-options).
-export const BOOKING_EMBED_URL = `${BOOKING_URL}?gv=true`;
+/* LA PRISE DE RENDEZ-VOUS N'EST PLUS UNE URL, ET N'A PLUS SA PLACE ICI.
+
+   Il y avait à cet endroit BOOKING_URL et BOOKING_EMBED_URL : le lien de la
+   page Google Appointment Schedules, et sa variante `?gv=true` qu'on glissait
+   dans une iframe en rognant l'en-tête de Google à la marge négative.
+
+   L'agenda est maintenant à nous (`src/components/Agenda.tsx` et
+   `src/app/api/agenda/route.ts`). Ce qu'il lui faut ne sont pas des constantes
+   mais des SECRETS — clé du compte de service, identités de calendriers — qui
+   n'ont rien à faire dans un fichier versionné : ils vivent en variables
+   d'environnement, listées dans `.env.example`.
+
+   L'ancienne page Google doit être DÉSACTIVÉE une fois ce site déployé, sinon
+   deux portes mènent au même agenda et une seule est à notre nom. */
 
 /* La date du dernier remaniement du CONTENU, pas du dernier déploiement. Un
    moteur qui ne voit aucune date sur une page ne sait pas si elle date d'hier
