@@ -1,15 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import SelecteurLangue from "@/components/SelecteurLangue";
+import { groupesNav } from "@/lib/navigation";
 import type { Textes } from "@/lib/textes/fr";
 
 // Menu mobile : carte blanche compacte ancrée en haut, ouverte et fermée
 // en douceur (fondu + glissement). Visible uniquement sous md.
 export default function MenuMobile({ t }: { t: Textes }) {
+  /* LES MÊMES GROUPES QUE LA BARRE DU BUREAU. Le menu mobile tenait sa propre
+     liste plate, écrite à part : le téléphone et l'ordinateur proposaient donc
+     deux arborescences du même site, libres de diverger à la prochaine page
+     ajoutée. Ici, tout est déroulé d'un coup — pas de sous-menu à ouvrir sur
+     un écran où le pouce a déjà tout sous les yeux. */
+  const groupes = groupesNav(t);
   const [monte, setMonte] = useState(false); // le panneau est dans le DOM
   const [visible, setVisible] = useState(false); // l'état de la transition
   const minuterie = useRef<number | null>(null);
@@ -92,36 +100,54 @@ export default function MenuMobile({ t }: { t: Textes }) {
                   <X className="size-5" />
                 </button>
               </div>
-              {/* Les ancres du dictionnaire sont nues (`#approche`) : il faut
-                  les préfixer par la racine de la langue ET par l'accueil.
-                  Sans ça, depuis /contact ou la 404 — où cette barre vit
-                  maintenant aussi — un fragment sans page cible ne mène nulle
-                  part. Ça marchait tant que le menu n'existait que sur
-                  l'accueil. */}
-              <nav aria-label={t.nav.mobileAria} className="mt-3 flex flex-col">
-                {t.nav.mobile.map(([ancre, etiquette]) => (
-                  <a
-                    key={ancre}
-                    href={`${t.racine}/${ancre}`}
-                    onClick={fermer}
-                    className="rounded-xl px-3 py-2.5 text-lg font-black transition-colors hover:bg-bone"
-                  >
-                    {etiquette}
-                  </a>
+              <nav
+                aria-label={t.nav.mobileAria}
+                className="mt-4 max-h-[60vh] space-y-5 overflow-y-auto"
+              >
+                <Link
+                  href={t.racine || "/"}
+                  onClick={fermer}
+                  className="block rounded-xl px-3 py-2 text-lg font-black transition-colors hover:bg-bone"
+                >
+                  {t.nav.accueil}
+                </Link>
+
+                {groupes.map(({ cle, titre, liens }) => (
+                  <div key={cle}>
+                    {/* Le titre du groupe n'est pas un lien : c'est une
+                        étiquette. En faire un lien promettrait une page de
+                        groupe qui n'existe pas. */}
+                    <p className="px-3 text-xs font-black uppercase tracking-widest text-ink/40">
+                      {titre}
+                    </p>
+                    <div className="mt-1 flex flex-col">
+                      {liens.map(({ href, libelle }) => (
+                        <Link
+                          key={href}
+                          href={href}
+                          onClick={fermer}
+                          className="rounded-xl px-3 py-2 font-bold transition-colors hover:bg-bone"
+                        >
+                          {libelle}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </nav>
+
               <div className="mt-4 flex justify-center">
                 <SelecteurLangue t={t} ton="menu" />
               </div>
               {/* Ce bouton EST l'entrée « Contact » du menu : c'est pour ça
                   qu'elle ne figure plus dans la liste des sections au-dessus. */}
-              <a
+              <Link
                 href={`${t.racine}/contact`}
                 onClick={fermer}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 font-black text-white transition-colors hover:bg-ink"
+                className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-brand px-6 py-3.5 font-black text-white transition-colors hover:bg-ink"
               >
                 {t.nav.contacter}
-              </a>
+              </Link>
             </div>
           </div>,
           document.body

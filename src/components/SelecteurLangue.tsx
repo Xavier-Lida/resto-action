@@ -1,72 +1,77 @@
+import Link from "next/link";
 import type { Textes } from "@/lib/textes/fr";
 
-/* Le sélecteur de langue : deux pastilles, celle de la page courante marquée et
-   non cliquable. Le lien mène à l'autre version de la page — un rechargement
-   complet, ce qui est exactement ce qu'on attend d'un changement de langue.
+/* Le sélecteur de langue, en pilule segmentée.
 
-   `ton` distingue les deux endroits où il se pose : la nav du héro, blanche sur
-   le rouge de la carte, et le menu mobile, encre sur blanc. */
+   L'ORDRE EST FIXE : FRANÇAIS PUIS ANGLAIS, TOUJOURS. Il affichait la langue
+   COURANTE en premier, ce qui donnait « FR | EN » en français et « EN | FR »
+   en anglais : les deux mots échangeaient leur place au moment même du clic,
+   sous le curseur. Un réglage qui bouge quand on s'en sert donne l'impression
+   d'avoir raté sa cible. La langue active se marque donc par le fond et par
+   `aria-current`, jamais par la position. Le français passe en premier parce
+   que c'est la version d'origine, celle que désigne le x-default.
+
+   LA FORME : un rail teinté, et la langue active posée dessus sur une pastille
+   blanche en relief. C'est la convention du sélecteur segmenté — on voit d'un
+   coup les deux choix possibles ET celui qui est actif, ce qu'un « FR | EN »
+   en texte nu ne montrait qu'à la nuance de gris près. Entièrement rond :
+   la pastille et son rail partagent le même arrondi, sinon la pastille flotte
+   dans un coin carré.
+
+   La crainte d'origine — qu'une pilule à côté du bouton d'action en imite un
+   second — ne tient plus : ce bouton est passé en coins doux. Les deux formes
+   ne se ressemblent plus, l'œil ne les confond plus.
+
+   NAVIGATION DOUCE. C'était un `<a>` : changer de langue rechargeait la page
+   entière, écran blanc compris. `Link` fait la bascule côté client.
+
+   `ton` distingue les deux endroits où il se pose : la barre, sur blanc, et le
+   menu mobile, sur blanc lui aussi mais dans un panneau — d'où un rail un peu
+   plus marqué pour qu'il ne disparaisse pas. (Un troisième ton « hero »
+   existait pour la nav qui vivait dans la carte rouge ; cette nav est sortie
+   de la carte depuis longtemps et le ton n'était plus jamais demandé.) */
 export default function SelecteurLangue({
   t,
-  ton = "hero",
+  ton = "barre",
 }: {
   t: Textes;
-  ton?: "hero" | "menu" | "barre";
+  ton?: "barre" | "menu";
 }) {
-  /* Le ton « barre » est nu : deux mots séparés d'un filet, sans bordure ni
-     pilule. Dans la barre de navigation, le sélecteur voisine le bouton
-     « Appelle-nous » — lui donner une pilule bordée en faisait un second
-     bouton, et l'œil ne savait plus laquelle des deux formes était l'action.
-     Un réglage de langue n'est pas une action. */
-  if (ton === "barre") {
-    return (
-      <div
-        aria-label={t.langue.aria}
-        className="flex items-center gap-1.5 text-sm font-bold"
-      >
-        <span aria-current="true" className="text-ink">
-          {t.code.toUpperCase()}
-        </span>
-        <span aria-hidden="true" className="text-ink/25">
-          |
-        </span>
-        <a
-          href={t.autre.href}
-          hrefLang={t.autre.code}
-          title={t.autre.titre}
-          className="text-ink/40 transition-colors hover:text-brand"
-        >
-          {t.autre.etiquette}
-        </a>
-      </div>
-    );
-  }
+  /* Les deux langues dans un ordre qui ne dépend PAS de la page courante.
+     `href: null` marque celle où l'on se trouve déjà. */
+  const langues = [
+    { code: "fr", href: t.code === "fr" ? null : t.autre.href, titre: "Français" },
+    { code: "en", href: t.code === "en" ? null : t.autre.href, titre: "English" },
+  ];
 
-  const cadre =
-    ton === "hero"
-      ? "border-white/40 text-white"
-      : "border-ink/15 text-ink";
-  const actif =
-    ton === "hero" ? "bg-white text-brand" : "bg-ink text-white";
-  const inactif =
-    ton === "hero" ? "hover:bg-white/15" : "hover:bg-bone";
+  const rail = ton === "menu" ? "bg-bone" : "bg-ink/[0.06]";
 
   return (
     <div
       aria-label={t.langue.aria}
-      className={`flex items-center gap-0.5 rounded-full border p-0.5 text-xs font-black ${cadre}`}
+      className={`inline-flex items-center rounded-full p-1 text-xs font-black ${rail}`}
     >
-      <span aria-current="true" className={`rounded-full px-2.5 py-1.5 ${actif}`}>
-        {t.code.toUpperCase()}
-      </span>
-      <a
-        href={t.autre.href}
-        hrefLang={t.autre.code}
-        title={t.autre.titre}
-        className={`rounded-full px-2.5 py-1.5 transition-colors ${inactif}`}
-      >
-        {t.autre.etiquette}
-      </a>
+      {langues.map(({ code, href, titre }) =>
+        href === null ? (
+          <span
+            key={code}
+            aria-current="true"
+            className="rounded-full bg-white px-3 py-1.5 text-ink shadow-sm"
+          >
+            {code.toUpperCase()}
+          </span>
+        ) : (
+          <Link
+            key={code}
+            href={href}
+            hrefLang={code}
+            title={titre}
+            className="rounded-full px-3 py-1.5 text-ink/45 transition-colors hover:text-ink"
+          >
+            {code.toUpperCase()}
+          </Link>
+        )
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { CITY, PHONE_DISPLAY } from "@/lib/site";
+import { CITY, PHONE_DISPLAY, POSTAL_CODE, STREET } from "@/lib/site";
 
 /* Tous les textes de la page d'accueil, en français.
 
@@ -18,22 +18,54 @@ export const FR = {
   racine: "",
   autre: { code: "en", href: "/en", etiquette: "EN", titre: "English" },
 
+  /* LE TITLE ET L'OG-TITRE NE DISENT PLUS LA MÊME CHOSE, ET C'EST VOULU.
+
+     Le title est lu par un moteur, dans une liste de dix résultats bleus : il
+     doit dire à quoi sert le site avec les mots que les gens tapent. L'ancien
+     — « On règle les vrais problèmes des restos indépendants » — était une
+     bonne phrase de marque et un mauvais titre : rien n'y indiquait qu'on parle
+     de plateforme, de site web ou de commandes en ligne.
+
+     L'og-titre, lui, est lu par un humain dans son fil : il garde la voix. */
   meta: {
-    titre: "Resto Action | On règle les vrais problèmes des restos indépendants",
-    description: `Une entreprise québécoise à l'écoute des restaurateurs indépendants. On trouve ce qui gruge ton resto pis on le règle avec toi. ${PHONE_DISPLAY}.`,
+    titre: "Resto Action | Plateforme web pour restaurants indépendants",
+    description: `Visibilité Google, commandes en ligne sans commission, clients qui reviennent. La plateforme des restos indépendants du Québec. ${PHONE_DISPLAY}.`,
     ogTitre: "Resto Action | On règle les vrais problèmes des restos indépendants",
     ogDescription:
       "On commence par t'écouter. On trouve ce qui gruge ton resto, pis on le règle avec toi.",
     ogLocale: "fr_CA",
   },
 
+  /* LA NAVIGATION EST REGROUPÉE, PLUS À PLAT.
+
+     Elle avait grossi jusqu'à six liens parce que chaque page nouvelle y était
+     branchée une à une, sans jamais reprendre l'ensemble. Six libellés côte à
+     côte, c'est six décisions à prendre pour un visiteur qui n'en a qu'une :
+     savoir ce que vous vendez.
+
+     Trois groupes déroulants les remplacent. Ce dictionnaire ne porte QUE les
+     titres des groupes : leur contenu est composé par src/lib/navigation.ts à
+     partir des sources qui le détiennent déjà — les chemins et les noms des
+     quatre fonctionnalités viennent de contenu/fonctionnalites.ts, les
+     libellés de sections de `pied`. Recopier ici cinq chemins déjà écrits
+     ailleurs aurait été se donner cinq occasions de les désaccorder. */
   nav: {
     aria: "Navigation principale",
+    // Toujours utilisé : c'est le premier maillon des fils d'Ariane.
     accueil: "Accueil",
-    approche: "Approche",
-    mission: "Mission",
-    histoire: "Histoire",
     faq: "FAQ",
+    groupes: {
+      plateforme: "Plateforme",
+      entreprise: "Entreprise",
+      ressources: "Ressources",
+    },
+    // L'entrée qui mène à la page plateforme elle-même, en tête de son groupe.
+    vueDensemble: "Vue d'ensemble",
+    /* Les chemins voyagent avec la langue. Les préfixer de `racine` comme une
+       ancre donnerait « /en/plateforme » côté anglais — une page qui n'existe
+       pas, l'adresse anglaise étant « /en/platform ». */
+    plateformeHref: "/plateforme",
+    blogueHref: "/blogue",
     descendre: "Descendre vers la suite",
     linkedin: "Resto Action sur LinkedIn",
     // « Appelle-nous » ne survit qu'à un seul endroit : la carte de Guillaume
@@ -42,19 +74,9 @@ export const FR = {
     appelle: "Appelle-nous",
     contacter: "Nous contacter",
     logoAlt: "Resto Action",
-    // Menu mobile : étiquettes plus longues que celles du bureau, à dessein.
     mobileAria: "Menu mobile",
     ouvrirMenu: "Ouvrir le menu",
     fermerMenu: "Fermer le menu",
-    // Uniquement des SECTIONS de l'accueil : le contact est le bouton plein du
-    // bas du panneau, il n'a pas à figurer deux fois.
-    mobile: [
-      ["#top", "Accueil"],
-      ["#approche", "Notre approche"],
-      ["#mission", "Notre mission"],
-      ["#histoire", "Notre histoire"],
-      ["#faq", "FAQ"],
-    ] as [string, string][],
   },
 
   langue: { aria: "Langue", courante: "Français" },
@@ -79,6 +101,25 @@ export const FR = {
   },
 
   hero: {
+    /* CE QU'ON VEND, EN QUATRE MOTS-CLÉS PLUTÔT QU'EN PARAGRAPHE.
+
+       C'était une phrase de trois lignes pleine largeur, centrée sous le
+       titre : elle disait la bonne chose et elle la disait mal, en faisant
+       concurrence au H1 au lieu de le prolonger.
+
+       Quatre promesses courtes se lisent d'un coup d'œil, tiennent sur une
+       ligne, et gardent les quatre mots que les gens tapent. C'est aussi une
+       vraie liste dans le HTML, pas un bloc de prose.
+
+       L'ordre suit les quatre onglets de la section Résultats et les quatre
+       pages de fonctionnalité : la même promesse, dite trois fois, dans le
+       même ordre à chaque fois. */
+    promesses: [
+      "Visible dans Google",
+      "Commandes sans commission",
+      "Clients qui reviennent",
+      "Ton app à ton nom",
+    ],
     carteTitre: "Parle à Guillaume",
     carteSousTitre: "Un appel de 30 minutes.",
     guillaumeAlt: "Guillaume Therrien, cofondateur de Resto Action",
@@ -233,7 +274,7 @@ export const FR = {
     items: [
       {
         q: "C'est quoi, Resto Action?",
-        a: `Resto Action, c'est une entreprise de Trois-Rivières au service des restaurants indépendants du Québec. On commence par t'écouter, on trouve ce qui gruge ton resto, et on règle le problème avec toi.`,
+        a: `Resto Action, c'est une plateforme web pour les restaurants indépendants du Québec, bâtie à Trois-Rivières : visibilité dans Google, commandes en ligne sans commission, relances de tes clients et ton app à ton nom.`,
       },
       {
         q: "Quels genres de problèmes vous réglez?",
@@ -251,6 +292,21 @@ export const FR = {
         q: "Comment on commence?",
         a: `Tu nous appelles au ${PHONE_DISPLAY}, tu nous écris, ou tu cédules ton appel directement sur le site. Trente minutes pour regarder ensemble ce qui gruge ton resto. Pas de pression, pas de contrat de 40 pages.`,
       },
+      /* LES QUATRE QUESTIONS DE LONGUE TRAÎNE ONT DÉMÉNAGÉ. Elles étaient ici
+         — commissions de livraison, fiche Google, avis, délais — et portaient
+         la FAQ de l'accueil à neuf questions, soit un mur d'accordéons que
+         personne ne déroule. Chacune vit maintenant sur la page qui traite
+         déjà son sujet :
+
+           DoorDash / Uber Eats  → /plateforme/commandes-en-ligne
+           fiche Google          → /plateforme/referencement-google
+           avis Google           → /plateforme/referencement-google
+           délais                → /plateforme
+
+         DÉPLACÉES, PAS COPIÉES : la même paire question-réponse sur deux pages
+         produirait deux nœuds FAQPage concurrents pour une seule question, et
+         Google ne saurait pas laquelle fait foi. L'accueil garde les cinq
+         questions qui parlent de l'entreprise. */
     ],
   },
 
@@ -296,21 +352,41 @@ export const FR = {
     aria: "Pied de page",
     tagline:
       "Une entreprise de Trois-Rivières au service des restaurants indépendants du Québec.",
+    plateforme: "La plateforme",
     approche: "Notre approche",
     mission: "Notre mission",
     histoire: "Notre histoire",
     faq: "FAQ",
+    blogue: "Le blogue",
     confidentialite: "Politique de confidentialité",
+    // La politique existe maintenant dans les deux langues, à deux adresses
+    // qui ne se déduisent pas l'une de l'autre (/confidentialite et
+    // /en/privacy) : le chemin voyage donc avec le libellé.
+    confidentialiteHref: "/confidentialite",
     ceduler: "Céduler un appel",
-    ville: CITY,
+    // `ville` a disparu d'ici : le pied de page affiche maintenant l'adresse
+    // complète, qui contient déjà la ville, et la mention du bas la répète une
+    // troisième fois. Une seule ligne suffisait.
+    // Le A du NAP. Il manquait : le site nommait la ville, jamais l'adresse.
+    /* Espace INSÉCABLE dans le code postal : « G8W 2P7 » se coupait en fin de
+       ligne, laissant « 2P7 » seul en dessous. POSTAL_CODE garde son espace
+       normale — c'est lui qui part dans le PostalAddress du JSON-LD, où une
+       insécable n'aurait rien à faire. */
+    adresse: `${STREET}, Trois-Rivières (Québec) ${POSTAL_CODE.replace(" ", "\u00A0")}`,
+    // Gabarit : le pied de page y insère la date formatée dans SA langue.
+    miseAJour: "Site mis à jour le {date}",
     droits: "© {annee} Resto Action, un produit de",
     droitsFin: `, ${CITY}.`,
   },
 
   /* Ce qui part dans le JSON-LD et n'apparaît nulle part à l'écran. */
   donnees: {
+    // La description déclarée aux moteurs. Elle NOMME l'offre — c'est le
+    // reproche central de l'audit — et elle dit la même chose que la ligne
+    // visible sous le H1 : un balisage qui promet autre chose que la page est
+    // pire que pas de balisage du tout.
     definition:
-      "Resto Action, c'est une entreprise québécoise au service des restaurateurs indépendants : on commence par écouter, on trouve ce qui gruge ton resto, et on règle le problème avec toi.",
+      "Resto Action, c'est une plateforme québécoise pour les restaurants indépendants : on te rend visible dans Google, on prend tes commandes en ligne sans commission, on fait revenir tes clients, et on te donne ton app à ton nom.",
     zoneServie: "Québec, Canada",
   },
 };

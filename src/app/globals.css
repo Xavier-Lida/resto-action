@@ -98,6 +98,12 @@ img {
 .delay-4 {
   animation-delay: 400ms;
 }
+/* Cinquième palier depuis que la ligne qui nomme l'offre s'est glissée entre le
+   titre et le bouton : la cascade doit continuer de se lire de haut en bas, et
+   deux éléments au même délai auraient cassé cet ordre. */
+.delay-5 {
+  animation-delay: 500ms;
+}
 
 /* ── Le titre tournant du héro ──
    UN ROULEAU. Les deux lignes bougent EN MÊME TEMPS, sur la même durée : la

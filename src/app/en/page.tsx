@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Accueil from "@/components/Accueil";
 import { EN } from "@/lib/textes/en";
-import { LIENS_ALTERNES } from "@/lib/textes/alternances";
+import { ACCUEIL, hreflang } from "@/lib/routes";
 
 /* La version anglaise de la page d'accueil. Elle partage tout avec la
    française sauf son dictionnaire — voir src/components/Accueil.tsx.
@@ -11,7 +11,7 @@ import { LIENS_ALTERNES } from "@/lib/textes/alternances";
 export const metadata: Metadata = {
   title: { absolute: EN.meta.titre },
   description: EN.meta.description,
-  alternates: { canonical: "/en", languages: LIENS_ALTERNES },
+  alternates: { canonical: "/en", languages: hreflang(ACCUEIL) },
   openGraph: {
     type: "website",
     locale: EN.meta.ogLocale,

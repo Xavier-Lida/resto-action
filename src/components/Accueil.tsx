@@ -6,9 +6,22 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Resultats from "@/components/Resultats";
 import Reveal from "@/components/Reveal";
+import SectionFaq from "@/components/SectionFaq";
 import CalendarEmbed from "@/components/CalendarEmbed";
+import DonneesStructurees from "@/components/DonneesStructurees";
+import { noeudFaq } from "@/lib/schema";
 import type { Textes } from "@/lib/textes/fr";
-import { EMAIL, LINKEDIN_URL, PHONE_DISPLAY, PHONE_E164, PHONE_HREF, SITE_URL } from "@/lib/site";
+import {
+  EMAIL,
+  FONDATEURS,
+  LINKEDIN_URL,
+  PHONE_DISPLAY,
+  PHONE_E164,
+  PHONE_HREF,
+  POSTAL_CODE,
+  SITE_URL,
+  STREET,
+} from "@/lib/site";
 
 /* La page d'accueil, une seule fois pour les deux langues. Les routes
    (src/app/page.tsx et src/app/en/page.tsx) ne font que lui passer leur
@@ -32,13 +45,13 @@ const IMAGES_HISTOIRE = [
     src: "/guillaume.jpg",
     width: 675,
     height: 900,
-    lien: "https://www.linkedin.com/in/guillaume-therrien-776a653b3/",
+    lien: FONDATEURS.guillaume.linkedin,
   },
   {
     src: "/justin.jpg",
     width: 602,
     height: 900,
-    lien: "https://www.linkedin.com/in/justin-bouillon-58a667421/",
+    lien: FONDATEURS.justin.linkedin,
   },
   { src: "/ceed.jpeg", width: 1086, height: 1018, lien: null },
 ];
@@ -75,10 +88,15 @@ export default function Accueil({ t }: { t: Textes }) {
         priceRange: "$$",
         telephone: PHONE_E164,
         email: EMAIL,
+        /* Le NAP complet. Il lui manquait le A : sans rue ni code postal, une
+           fiche d'entreprise locale reste à deux tiers, et c'est le tiers
+           manquant qui rattache l'entreprise à un point sur la carte. */
         address: {
           "@type": "PostalAddress",
+          streetAddress: STREET,
           addressLocality: "Trois-Rivières",
           addressRegion: "QC",
+          postalCode: POSTAL_CODE,
           addressCountry: "CA",
         },
         areaServed: {
@@ -86,29 +104,17 @@ export default function Accueil({ t }: { t: Textes }) {
           name: t.donnees.zoneServie,
         },
         parentOrganization: { "@type": "Organization", name: "Studios LT" },
-        founder: [
-          {
-            "@type": "Person",
-            name: "Guillaume Therrien",
-            sameAs: "https://www.linkedin.com/in/guillaume-therrien-776a653b3/",
-          },
-          {
-            "@type": "Person",
-            name: "Justin Bouillon",
-            sameAs: "https://www.linkedin.com/in/justin-bouillon-58a667421/",
-          },
-        ],
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${racine}/#faq`,
-        inLanguage: t.htmlLang,
-        mainEntity: t.faq.items.map(({ q, a }) => ({
-          "@type": "Question",
-          name: q,
-          acceptedAnswer: { "@type": "Answer", text: a },
+        founder: Object.values(FONDATEURS).map(({ nom, linkedin }) => ({
+          "@type": "Person",
+          name: nom,
+          sameAs: linkedin,
         })),
       },
+      noeudFaq({
+        id: `${racine}/#faq`,
+        langue: t.htmlLang,
+        items: t.faq.items,
+      }),
     ],
   };
 
@@ -139,9 +145,19 @@ export default function Accueil({ t }: { t: Textes }) {
                 aria-hidden="true"
                 className="absolute left-[17%] right-[17%] top-20 hidden border-t-2 border-dashed border-brand/40 md:block"
               />
-              <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+              {/* UNE VRAIE LISTE ORDONNÉE. Les trois étapes se lisaient comme
+                  une suite grâce au pointillé et aux pastilles numérotées —
+                  c'est-à-dire à l'œil seulement. Pour un robot comme pour un
+                  lecteur d'écran, c'étaient trois blocs sans ordre. Le `ol`
+                  dit la séquence dans le HTML ; la mise en page ne bouge pas,
+                  la grille est simplement portée par la liste.
+
+                  Le `li` est POSÉ AUTOUR de Reveal, pas dedans : Reveal rend
+                  un `div`, et `ol > div` serait invalide. */}
+              <ol className="grid list-none gap-12 md:grid-cols-3 md:gap-8">
                 {t.approche.etapes.map(({ titre, texte, alt }, i) => (
-                  <Reveal key={titre} delay={i as 0 | 1 | 2}>
+                  <li key={titre}>
+                  <Reveal delay={i as 0 | 1 | 2}>
                     <div className="flex flex-col items-center text-center">
                       <div className="relative z-10">
                         <div className="size-40 overflow-hidden rounded-full border-2 border-ink bg-bone">
@@ -155,7 +171,13 @@ export default function Accueil({ t }: { t: Textes }) {
                             className="size-full object-cover"
                           />
                         </div>
-                        <span className="absolute -bottom-3 left-1/2 z-20 grid size-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-sm font-black text-white">
+                        {/* La pastille devient décorative : la liste ordonnée
+                            annonce déjà « 1 sur 3 », l'entendre deux fois
+                            n'apprend rien. */}
+                        <span
+                          aria-hidden="true"
+                          className="absolute -bottom-3 left-1/2 z-20 grid size-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-sm font-black text-white"
+                        >
                           {i + 1}
                         </span>
                       </div>
@@ -167,8 +189,9 @@ export default function Accueil({ t }: { t: Textes }) {
                       </p>
                     </div>
                   </Reveal>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
           </div>
         </section>
@@ -322,42 +345,7 @@ export default function Accueil({ t }: { t: Textes }) {
         </section>
 
         {/* ─── FAQ ─── */}
-        {/* Accordéon : la question ouverte devient une pilule beige arrondie,
-            une seule ouverte à la fois (details name), hauteur animée en CSS. */}
-        <section id="faq" className="bg-white">
-          <div className="mx-auto max-w-4xl px-5 py-20 md:py-28">
-            <Reveal>
-              <h2 className="text-center font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
-                {t.faq.titre}
-              </h2>
-            </Reveal>
-
-            <Reveal delay={1}>
-              <div className="mt-12 space-y-2">
-                {t.faq.items.map(({ q, a }) => (
-                  <details
-                    key={q}
-                    name="faq"
-                    className="faq-item group rounded-3xl transition-colors duration-300 open:bg-bone"
-                  >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 text-lg font-black md:px-8 [&::-webkit-details-marker]:hidden">
-                      {q}
-                      <span
-                        aria-hidden="true"
-                        className="text-2xl leading-none transition-transform duration-300 group-open:rotate-45"
-                      >
-                        +
-                      </span>
-                    </summary>
-                    <p className="max-w-3xl px-6 pb-6 leading-relaxed text-ink/75 md:px-8">
-                      {a}
-                    </p>
-                  </details>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
+        <SectionFaq id="faq" titre={t.faq.titre} items={t.faq.items} centre />
 
         {/* ─── CTA final / Contact ─── */}
         {/* Le rouge de la hero, le pitch à gauche, l'agenda compact à droite. */}
@@ -400,12 +388,7 @@ export default function Accueil({ t }: { t: Textes }) {
           </div>
         </section>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
+        <DonneesStructurees json={jsonLd} />
       </main>
       <Footer t={t} />
     </>

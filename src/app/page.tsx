@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Accueil from "@/components/Accueil";
 import { FR } from "@/lib/textes/fr";
-import { LIENS_ALTERNES } from "@/lib/textes/alternances";
+import { ACCUEIL, hreflang } from "@/lib/routes";
 
 /* Le canonique et l'Open Graph vivent ICI et non dans la mise en page : posés
    là-haut, ils seraient hérités par /en, qui se déclarerait alors comme une
@@ -9,7 +9,7 @@ import { LIENS_ALTERNES } from "@/lib/textes/alternances";
 export const metadata: Metadata = {
   title: FR.meta.titre,
   description: FR.meta.description,
-  alternates: { canonical: "/", languages: LIENS_ALTERNES },
+  alternates: { canonical: "/", languages: hreflang(ACCUEIL) },
   openGraph: {
     type: "website",
     locale: FR.meta.ogLocale,

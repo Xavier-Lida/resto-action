@@ -1,4 +1,4 @@
-import { PHONE_DISPLAY } from "@/lib/site";
+import { PHONE_DISPLAY, POSTAL_CODE, STREET } from "@/lib/site";
 import type { Textes } from "./fr";
 
 /* La page d'accueil en anglais.
@@ -18,9 +18,12 @@ export const EN: Textes = {
   racine: "/en",
   autre: { code: "fr", href: "/", etiquette: "FR", titre: "Français" },
 
+  /* Même partage qu'en français : le title vise le moteur, l'og-titre garde la
+     voix. L'ancien title faisait 68 signes et se faisait couper en SERP ;
+     celui-ci en fait 54 et dit enfin « platform ». */
   meta: {
-    titre: "Resto Action | We fix what's actually hurting independent restaurants",
-    description: `A Quebec company that listens to independent restaurant owners. We find what's eating your margins and we fix it with you. ${PHONE_DISPLAY}.`,
+    titre: "Resto Action | Web platform for independent restaurants",
+    description: `Google visibility, online ordering with no commission, customers who come back. The platform for Quebec's independent restaurants. ${PHONE_DISPLAY}.`,
     ogTitre:
       "Resto Action | We fix what's actually hurting independent restaurants",
     ogDescription:
@@ -31,10 +34,15 @@ export const EN: Textes = {
   nav: {
     aria: "Main navigation",
     accueil: "Home",
-    approche: "Approach",
-    mission: "Mission",
-    histoire: "Story",
     faq: "FAQ",
+    groupes: {
+      plateforme: "Platform",
+      entreprise: "Company",
+      ressources: "Resources",
+    },
+    vueDensemble: "Overview",
+    plateformeHref: "/en/platform",
+    blogueHref: "/en/blog",
     descendre: "Skip to the next section",
     linkedin: "Resto Action on LinkedIn",
     appelle: "Call us",
@@ -43,13 +51,6 @@ export const EN: Textes = {
     mobileAria: "Mobile menu",
     ouvrirMenu: "Open the menu",
     fermerMenu: "Close the menu",
-    mobile: [
-      ["#top", "Home"],
-      ["#approche", "Our approach"],
-      ["#mission", "Our mission"],
-      ["#histoire", "Our story"],
-      ["#faq", "FAQ"],
-    ],
   },
 
   langue: { aria: "Language", courante: "English" },
@@ -65,6 +66,12 @@ export const EN: Textes = {
   },
 
   hero: {
+    promesses: [
+      "Found on Google",
+      "Orders without commission",
+      "Customers who come back",
+      "An app of your own",
+    ],
     carteTitre: "Talk to Guillaume",
     carteSousTitre: "A 30-minute call.",
     guillaumeAlt: "Guillaume Therrien, co-founder of Resto Action",
@@ -203,7 +210,7 @@ export const EN: Textes = {
     items: [
       {
         q: "What is Resto Action?",
-        a: "Resto Action is a Trois-Rivières company working for Quebec's independent restaurants. We start by listening, we find what's eating your restaurant, and we fix the problem with you.",
+        a: "Resto Action is a web platform for Quebec's independent restaurants, built in Trois-Rivières: Google visibility, online ordering with no commission, customer follow-ups, and an app under your own name.",
       },
       {
         q: "What kinds of problems do you fix?",
@@ -262,20 +269,24 @@ export const EN: Textes = {
     aria: "Footer",
     tagline:
       "A Trois-Rivières company working for Quebec's independent restaurants.",
+    plateforme: "The platform",
     approche: "Our approach",
     mission: "Our mission",
     histoire: "Our story",
     faq: "FAQ",
+    blogue: "The blog",
     confidentialite: "Privacy policy",
+    confidentialiteHref: "/en/privacy",
     ceduler: "Book a call",
-    ville: "Trois-Rivières, Quebec",
+    adresse: `${STREET}, Trois-Rivières (Quebec) ${POSTAL_CODE.replace(" ", "\u00A0")}`,
+    miseAJour: "Site updated {date}",
     droits: "© {annee} Resto Action, a product of",
     droitsFin: ", Trois-Rivières, Quebec.",
   },
 
   donnees: {
     definition:
-      "Resto Action is a Quebec company working for independent restaurant owners: we start by listening, we find what's eating your restaurant, and we fix the problem with you.",
+      "Resto Action is a Quebec platform for independent restaurants: we get you found on Google, we take your online orders without the commission, we bring your customers back, and we give you an app under your own name.",
     zoneServie: "Quebec, Canada",
   },
 };

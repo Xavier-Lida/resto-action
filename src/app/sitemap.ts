@@ -1,56 +1,45 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { PAIRES, type Paire } from "@/lib/routes";
 
-/* Chaque page bilingue est déclarée deux fois, et les deux entrées annoncent la
-   même paire : `alternates.languages` est ce qui dit à Google que ce ne sont
-   pas deux pages concurrentes mais la même dans deux langues. */
-const langues = (cheminFr: string, cheminEn: string) => ({
-  "fr-CA": `${SITE_URL}${cheminFr}`,
-  "en-CA": `${SITE_URL}${cheminEn}`,
+/* Le plan du site, DÉDUIT du registre des routes.
+
+   Il tenait sa propre liste de chemins, en double avec celle des balises
+   hreflang : ajouter une page demandait de penser aux deux endroits, et
+   oublier celui-ci ne casse rien de visible — la page manque simplement au
+   plan, et personne ne s'en aperçoit avant des mois. Une paire ajoutée à
+   src/lib/routes.ts apparaît maintenant ici toute seule.
+
+   Chaque page bilingue produit DEUX entrées annonçant la même table de
+   langues : c'est `alternates.languages` qui dit à Google que ce ne sont pas
+   deux pages concurrentes mais la même dans deux langues. */
+
+/* La racine s'écrit « / » dans le registre (une balise hreflang exige un
+   chemin), mais l'URL du site s'écrit sans barre finale — c'est la forme que
+   déclare la canonique, et le plan du site doit dire exactement la même chose
+   qu'elle. */
+const absolu = (chemin: string) =>
+  `${SITE_URL}${chemin === "/" ? "" : chemin}`;
+
+const absolus = ({ fr, en }: Paire) => ({
+  "fr-CA": absolu(fr),
+  "en-CA": absolu(en),
 });
-
-const ACCUEIL = langues("", "/en");
-const CONTACT = langues("/contact", "/en/contact");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const maintenant = new Date();
-  return [
-    {
-      url: SITE_URL,
+
+  return PAIRES.flatMap((paire) => {
+    const languages = absolus(paire);
+    const commun = {
       lastModified: maintenant,
-      changeFrequency: "monthly",
-      priority: 1,
-      alternates: { languages: ACCUEIL },
-    },
-    {
-      url: `${SITE_URL}/en`,
-      lastModified: maintenant,
-      changeFrequency: "monthly",
-      priority: 0.9,
-      alternates: { languages: ACCUEIL },
-    },
-    /* /contact vient juste après l'accueil : c'est là que mènent tous les
-       boutons d'action du site, donc la page qu'on veut voir indexée en
-       deuxième. */
-    {
-      url: `${SITE_URL}/contact`,
-      lastModified: maintenant,
-      changeFrequency: "monthly",
-      priority: 0.8,
-      alternates: { languages: CONTACT },
-    },
-    {
-      url: `${SITE_URL}/en/contact`,
-      lastModified: maintenant,
-      changeFrequency: "monthly",
-      priority: 0.7,
-      alternates: { languages: CONTACT },
-    },
-    {
-      url: `${SITE_URL}/confidentialite`,
-      lastModified: maintenant,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+      changeFrequency: paire.frequence,
+      priority: paire.priorite,
+      alternates: { languages },
+    };
+    return [
+      { url: absolu(paire.fr), ...commun },
+      { url: absolu(paire.en), ...commun },
+    ];
+  });
 }

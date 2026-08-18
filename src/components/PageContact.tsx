@@ -1,7 +1,9 @@
 import { ArrowLeft, CalendarDays, Phone } from "lucide-react";
+import Link from "next/link";
 import BarreNav from "@/components/BarreNav";
 import Buoy from "@/components/Buoy";
 import CalendarEmbed from "@/components/CalendarEmbed";
+import DonneesStructurees from "@/components/DonneesStructurees";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { PHONE_DISPLAY, PHONE_HREF, SITE_URL } from "@/lib/site";
@@ -120,21 +122,16 @@ export default function PageContact({ t }: { t: Textes }) {
         </section>
 
         <div className="mx-auto max-w-5xl px-5 py-12 text-center">
-          <a
+          <Link
             href={accueil}
             className="inline-flex items-center gap-2 text-sm font-bold text-ink/60 transition-colors hover:text-ink"
           >
             <ArrowLeft className="size-4" />
             {t.pageContact.retour}
-          </a>
+          </Link>
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
+        <DonneesStructurees json={jsonLd} />
       </main>
       <Footer t={t} />
     </>

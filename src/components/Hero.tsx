@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowDown, ArrowRight, Phone } from "lucide-react";
 import TitreTournant from "@/components/TitreTournant";
 import { LINKEDIN_URL, PHONE_HREF } from "@/lib/site";
@@ -27,7 +28,7 @@ export default function Hero({ t }: { t: Textes }) {
       <div className="relative flex min-h-[84svh] flex-col rounded-[2rem] bg-hero pb-12 text-white lg:rounded-[3rem] lg:pb-0">
         {/* Languette basse : une bosse rouge qui sort de la carte vers le
             bas, la flèche blanche logée dedans */}
-        <a
+        <Link
           href={`${t.racine}/#resultats`}
           aria-label={t.nav.descendre}
           className="absolute left-1/2 top-full z-30 -mt-px -translate-x-1/2"
@@ -40,7 +41,7 @@ export default function Hero({ t }: { t: Textes }) {
             <path d="M0,0 C45,0 48,38 90,38 C132,38 135,0 180,0 Z" />
           </svg>
           <ArrowDown className="absolute left-1/2 top-1.5 size-5 -translate-x-1/2 animate-bounce text-white" />
-        </a>
+        </Link>
 
         {/* Le titre. Le mot-marque géant qui tenait cette place a cédé : il ne
             disait que la marque, alors que c'est le signal le plus fort de la
@@ -53,6 +54,7 @@ export default function Hero({ t }: { t: Textes }) {
             au-dessus, le titre a donc besoin de son propre air en haut. */}
         <div className="mt-14 md:mt-16">
           <TitreTournant t={t} />
+
         </div>
 
         {/* Le vide au centre de la carte est comblé par la seule action qui
@@ -67,14 +69,46 @@ export default function Hero({ t }: { t: Textes }) {
             hauteur : quelle que soit la longueur de la variante du titre, il
             reste au milieu de ce qui reste. */}
         <div className="my-auto flex justify-center px-5 py-6">
-          <a
+          <Link
             href={`${t.racine}/contact`}
             className="animate-hero delay-2 group inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 text-lg font-black text-ink shadow-xl shadow-ink/15 transition hover:-translate-y-0.5 hover:bg-ink hover:text-white hover:shadow-2xl hover:shadow-ink/25 active:translate-y-0 active:scale-95 md:px-10 md:py-5 md:text-xl"
           >
             {t.nav.contacter}
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-          </a>
+          </Link>
         </div>
+
+        {/* CE QU'ON VEND — DISCRÈTEMENT, SOUS L'ACTION.
+
+            Ces quatre promesses étaient entre le titre et le bouton, en gras
+            et en 16 px : mesurées, elles réclamaient 765 px pour 672 px
+            disponibles, donc elles retombaient sur deux lignes et formaient un
+            second bloc de texte qui coupait le titre de son bouton.
+
+            Sous le bouton, en 12 px et sans gras, elles tiennent sur un seul
+            rang dans les deux langues (536 px mesurés) et redeviennent ce
+            qu'elles doivent être : une précision qu'on lit après avoir compris
+            le titre, pas un obstacle entre les deux.
+
+            Elles restent une VRAIE liste — pour un robot comme pour un lecteur
+            d'écran, c'est l'énumération de ce qui est vendu. Discret à l'œil ne
+            veut pas dire absent du document.
+
+            Les séparateurs sont des `span` décoratifs à l'intérieur des `li`
+            plutôt que des bordures CSS : une bordure gauche réapparaîtrait en
+            début de ligne si la liste se replie sur deux rangs au téléphone. */}
+        <ul className="animate-hero delay-3 mx-auto -mt-2 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70">
+          {t.hero.promesses.map((promesse, i) => (
+            <li key={promesse} className="flex items-center gap-2.5">
+              {i > 0 && (
+                <span aria-hidden="true" className="text-white/35">
+                  ·
+                </span>
+              )}
+              {promesse}
+            </li>
+          ))}
+        </ul>
 
         {/* Zone basse : LinkedIn à gauche, carte Guillaume à droite */}
         <div className="mt-auto grid grid-cols-[minmax(0,1fr)] items-end gap-6 px-5 pt-10 md:px-8 lg:contents">
@@ -83,14 +117,14 @@ export default function Hero({ t }: { t: Textes }) {
             target="_blank"
             rel="noopener"
             aria-label={t.nav.linkedin}
-            className="animate-hero delay-3 grid size-12 place-items-center justify-self-start rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white lg:absolute lg:bottom-10 lg:left-10 lg:z-20"
+            className="animate-hero delay-4 grid size-12 place-items-center justify-self-start rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white lg:absolute lg:bottom-10 lg:left-10 lg:z-20"
           >
             <IconeLinkedIn className="size-5" />
           </a>
 
           {/* Carte façon « Get a Free Consultation » : Guillaume détouré,
               aligné au bas de la carte, le buste dépasse du haut. */}
-          <div className="animate-hero delay-4 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
+          <div className="animate-hero delay-5 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
             <p className="text-sm font-black leading-snug">{t.hero.carteTitre}</p>
             <p className="mt-0.5 text-xs text-ink/70">{t.hero.carteSousTitre}</p>
             <a
