@@ -24,7 +24,7 @@ export default function Hero({ t }: { t: Textes }) {
       {/* La carte rouge arrondie posée sur la page blanche. La bosse basse à
           flèche se fond dans le blanc qui l'entoure ; la languette du logo,
           elle, est partie avec la nav. */}
-      <div className="relative flex min-h-[92svh] flex-col rounded-[2rem] bg-hero pb-14 text-white lg:rounded-[3rem] lg:pb-0">
+      <div className="relative flex min-h-[84svh] flex-col rounded-[2rem] bg-hero pb-12 text-white lg:rounded-[3rem] lg:pb-0">
         {/* Languette basse : une bosse rouge qui sort de la carte vers le
             bas, la flèche blanche logée dedans */}
         <a
@@ -51,25 +51,28 @@ export default function Hero({ t }: { t: Textes }) {
             l'agenda), seule l'image du héro s'en va. */}
         {/* La nav occupait la première rangée de la carte ; elle est sortie
             au-dessus, le titre a donc besoin de son propre air en haut. */}
-        <div className="mt-20 md:mt-24">
+        <div className="mt-14 md:mt-16">
           <TitreTournant t={t} />
         </div>
 
         {/* Le vide au centre de la carte est comblé par la seule action qui
-            compte. Blanc plein sur le rouge : c'est la forme du gros bouton de
-            la section contact, donc la même action porte la même forme d'un
-            bout à l'autre du site. Il s'inverse en encre au survol, comme lui.
+            compte. Blanc plein sur le rouge, en coins doux plutôt qu'en pilule :
+            une pilule de cette taille se lit comme une étiquette, un rectangle
+            arrondi se lit comme un bouton.
+
+            L'ombre portée le décolle du rouge, et la flèche avance au survol :
+            le mouvement dit où mène le clic mieux qu'un changement de couleur.
 
             `my-auto` le pose entre le titre et la zone basse sans figer de
             hauteur : quelle que soit la longueur de la variante du titre, il
             reste au milieu de ce qui reste. */}
-        <div className="my-auto flex justify-center px-5 py-10">
+        <div className="my-auto flex justify-center px-5 py-6">
           <a
             href={`${t.racine}/contact`}
-            className="animate-hero delay-2 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-black text-ink transition hover:bg-ink hover:text-white active:scale-95 md:px-10 md:py-5 md:text-xl"
+            className="animate-hero delay-2 group inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 text-lg font-black text-ink shadow-xl shadow-ink/15 transition hover:-translate-y-0.5 hover:bg-ink hover:text-white hover:shadow-2xl hover:shadow-ink/25 active:translate-y-0 active:scale-95 md:px-10 md:py-5 md:text-xl"
           >
             {t.nav.contacter}
-            <ArrowRight className="size-5" />
+            <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
 

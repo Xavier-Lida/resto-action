@@ -276,8 +276,6 @@ export const FR = {
       "Deux façons de joindre Resto Action : céduler un appel de 30 minutes avec Guillaume, ou nous appeler directement au 819 944-4661.",
     surtitre: "On répond vite",
     titre: "Parlons de ton resto.",
-    sousTitre:
-      "Deux façons de nous joindre. Prends celle qui te ressemble — il n'y en a pas une meilleure que l'autre.",
     rdv: {
       titre: "Céduler un appel",
       texte:
@@ -291,7 +289,6 @@ export const FR = {
       bouton: "Appeler",
     },
     agendaTitre: "Choisis ton heure",
-    agendaTexte: "L'agenda est à jour : ce que tu vois est vraiment libre.",
     retour: "Retour à l'accueil",
   },
 

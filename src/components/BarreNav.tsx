@@ -45,6 +45,12 @@ export default function BarreNav({ t }: { t: Textes }) {
      de chaque ligne. Une largeur unique pour tous les liens aurait donné une
      pilule « FAQ » aussi large qu'une pilule « Approche » — la stabilité ne
      vaut pas ça. Si un libellé change, il faut remesurer. */
+
+  /* La barre est OPAQUE, plus translucide à flou : sur le rouge du héro, le
+     voile à 90 % rosissait toute la bande. Son bas est arrondi comme la carte
+     du héro, et c'est justement l'opacité qui rend l'arrondi lisible — au
+     défilement, le contenu passe DERRIÈRE la barre et ressort dans les deux
+     coins au lieu de transparaître partout. */
   const liens: [string, string, string, string][] = [
     // [ancre, libellé, palier d'apparition, largeur de fente]
     ["top", t.nav.accueil, "xl:block", "w-[5rem]"], // Accueil 49,8 · Home 38,9
@@ -55,7 +61,7 @@ export default function BarreNav({ t }: { t: Textes }) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-bone bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 rounded-b-[1.75rem] border-b border-bone bg-white lg:rounded-b-[2.25rem]">
       <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 py-3">
         <a href={lien("top")} className="col-start-1 shrink-0">
           <Image

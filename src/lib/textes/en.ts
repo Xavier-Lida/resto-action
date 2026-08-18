@@ -242,8 +242,6 @@ export const EN: Textes = {
       "Two ways to reach Resto Action: book a 30-minute call with Guillaume, or call us directly at 819 944-4661.",
     surtitre: "We answer fast",
     titre: "Let's talk about your restaurant.",
-    sousTitre:
-      "Two ways to reach us. Take the one that suits you — neither is better than the other.",
     rdv: {
       titre: "Book a call",
       texte:
@@ -257,7 +255,6 @@ export const EN: Textes = {
       bouton: "Call us",
     },
     agendaTitre: "Pick your time",
-    agendaTexte: "The calendar is live: what you see is genuinely open.",
     retour: "Back to home",
   },
 

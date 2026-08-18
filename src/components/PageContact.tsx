@@ -50,9 +50,6 @@ export default function PageContact({ t }: { t: Textes }) {
               <h1 className="mt-3 font-display text-4xl font-black leading-tight tracking-tight md:text-6xl">
                 {t.pageContact.titre}
               </h1>
-              <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink/70">
-                {t.pageContact.sousTitre}
-              </p>
             </div>
           </Reveal>
 
@@ -112,9 +109,6 @@ export default function PageContact({ t }: { t: Textes }) {
                 <h2 className="font-display text-3xl font-black leading-tight tracking-tight md:text-4xl">
                   {t.pageContact.agendaTitre}
                 </h2>
-                <p className="mt-3 text-white/85">
-                  {t.pageContact.agendaTexte}
-                </p>
               </div>
             </Reveal>
             <Reveal delay={1}>
