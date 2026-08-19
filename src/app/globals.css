@@ -168,6 +168,28 @@ img {
   transition-delay: 360ms;
 }
 
+/* LISTES NUMÉROTÉES : le chiffre est dessiné, pas écrit.
+
+   Les <ol> du site sont en `list-none` — la pastille rouge remplace le
+   marqueur natif. Tant que ce chiffre était un {j + 1} rendu dans un <span>,
+   il se retrouvait DEUX FOIS dans le texte extrait : une fois comme marqueur
+   de liste, une fois comme contenu. « 1. 1On t'écoute ». `aria-hidden` réglait
+   le cas des lecteurs d'écran, pas celui des extracteurs — et un moteur qui
+   résume une page lit le texte, pas les rôles ARIA.
+
+   Un compteur CSS produit exactement le même pixel en sortant le chiffre du
+   document. Le compteur est nommé par liste et non global : deux listes qui se
+   suivent dans un article doivent chacune repartir à 1. */
+.liste-numerotee {
+  counter-reset: etape;
+}
+.liste-numerotee > li {
+  counter-increment: etape;
+}
+.puce-numero::before {
+  content: counter(etape);
+}
+
 /* Accordéon FAQ : ouverture et fermeture animées en hauteur là où le
    navigateur le permet, repli instantané ailleurs. */
 @supports (interpolate-size: allow-keywords) {

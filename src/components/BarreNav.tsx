@@ -103,14 +103,20 @@ export default function BarreNav({ t }: { t: Textes }) {
 
               L'icône est un agenda et non un téléphone : le lien mène à
               /contact, qui offre les deux, et une icône de combiné promettrait
-              un appel immédiat. Le libellé part dans `aria-label` — un bouton
-              sans texte n'est muet que pour l'œil. */}
+              un appel immédiat.
+
+              LE LIBELLÉ EST UN VRAI TEXTE, pas un `aria-label`. Les deux
+              disent la même chose aux lecteurs d'écran, mais un aria-label ne
+              met rien dans le textContent : un robot qui relève les ancres
+              voit alors deux liens vers /contact dans l'en-tête, dont un
+              vide. `sr-only` le sort de l'écran sans le sortir du document,
+              donc l'ancre a son texte et le bouton reste une icône. */}
           <Link
             href={`${t.racine}/contact`}
-            aria-label={t.nav.contacter}
             className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-white transition-colors hover:bg-ink md:hidden"
           >
             <CalendarDays className="size-5" />
+            <span className="sr-only">{t.nav.contacter}</span>
           </Link>
           <MenuMobile t={t} />
         </div>

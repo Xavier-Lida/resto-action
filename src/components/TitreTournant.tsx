@@ -87,8 +87,17 @@ export default function TitreTournant({ t }: { t: Textes }) {
       className="animate-hero delay-1 mx-auto max-w-[22ch] px-5 text-center font-display text-[6.2vw] font-black leading-[1.15] tracking-tight text-white/60 sm:max-w-none sm:text-[4.6vw] lg:text-[3.4vw]"
     >
       {/* Une ligne pour la partie fixe : `block` plutôt qu'un espace, pour que
-          la coupure soit décidée et non subie. */}
-      <span className="block">{fixe}</span>
+          la coupure soit décidée et non subie.
+
+          L'ESPACE QUI SUIT N'EST PAS DÉCORATIVE. `block` sépare les deux
+          moitiés à l'écran, mais pas dans le texte : un robot lit le
+          textContent, où les deux <span> se collent — « nous appellent
+          poursortir enfin dans Google ». Le nœud texte les décolle sans rien
+          changer au rendu. Il vit ici plutôt qu'à la fin de `fixe` dans les
+          dictionnaires : c'est la mise en page qui a besoin de l'espace, pas
+          le contenu, et une espace en fin de chaîne se fait rogner au premier
+          coup de formateur. */}
+      <span className="block">{fixe}</span>{" "}
 
       {/* LA FENTE. Sa hauteur est celle de la variante la plus longue, rendue
           invisible dessous : sans ce réservoir, le héro sauterait au moindre

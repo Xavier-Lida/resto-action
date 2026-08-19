@@ -13,7 +13,9 @@ import {
   MaquetteTrafic,
   MaquetteVentes,
 } from "./ResultatsMaquettes";
+import Link from "next/link";
 import type { Textes } from "@/lib/textes/fr";
+import type { Cle, Fonctionnalite } from "@/lib/contenu/fonctionnalites";
 
 /* Section « Résultats » : quatre onglets qui s'enchaînent tout seuls, une
    barre de progression qui sert de minuterie visible, et un panneau qui
@@ -44,6 +46,8 @@ type Onglet = {
   onglet: string;
   surTitre: string;
   titre: string;
+  // La page qui explique cet onglet au long.
+  chemin: string;
   duree: number;
   panneau: string; // classes de fond du panneau
   clair?: boolean; // texte blanc sur fond foncé
@@ -52,13 +56,24 @@ type Onglet = {
 };
 
 /* La structure des onglets — durées, fonds, maquettes — vit ici ; leurs mots
-   viennent du dictionnaire. Les deux tableaux se lisent dans le même ordre. */
-const onglets = (t: Textes): Onglet[] => {
+   viennent du dictionnaire. Les deux tableaux se lisent dans le même ordre.
+
+   CHAQUE ONGLET PORTE LE CHEMIN DE SA PAGE. Les quatre onglets promettent
+   quatre choses qui ont chacune leur page depuis la refonte, mais l'accueil ne
+   pointait vers aucune : les onglets sont des `role="tab"`, pas des liens, et
+   leur coller un href casserait le clavier. Le lien part donc du panneau. Le
+   chemin est pris dans le module de contenu — jamais recopié — et il suit la
+   langue puisque le dictionnaire de fonctionnalités arrive d'en haut. */
+const onglets = (
+  t: Textes,
+  fonctionnalites: Record<Cle, Fonctionnalite>
+): Onglet[] => {
   const [trafic, ventes, repetees, app] = t.resultats.onglets;
   return [
     {
       cle: "trafic",
       ...trafic,
+      chemin: fonctionnalites.referencement.slug,
       duree: DUREE_TRAFIC,
       panneau: "bg-bone",
       maquette: <MaquetteTrafic t={t} />,
@@ -66,6 +81,7 @@ const onglets = (t: Textes): Onglet[] => {
     {
       cle: "ventes",
       ...ventes,
+      chemin: fonctionnalites.commandes.slug,
       duree: DUREE_VENTES,
       panneau: "bg-bone",
       maquette: <MaquetteVentes t={t} />,
@@ -73,6 +89,7 @@ const onglets = (t: Textes): Onglet[] => {
     {
       cle: "repetees",
       ...repetees,
+      chemin: fonctionnalites.relances.slug,
       duree: DUREE_RELANCES,
       panneau: "bg-gradient-to-br from-hero to-brand",
       clair: true,
@@ -81,6 +98,7 @@ const onglets = (t: Textes): Onglet[] => {
     {
       cle: "telechargements",
       ...app,
+      chemin: fonctionnalites.application.slug,
       duree: DUREE_APP,
       panneau: "bg-ink",
       clair: true,
@@ -89,12 +107,21 @@ const onglets = (t: Textes): Onglet[] => {
   ];
 };
 
-export default function Resultats({ t }: { t: Textes }) {
+export default function Resultats({
+  t,
+  fonctionnalites,
+}: {
+  t: Textes;
+  fonctionnalites: Record<Cle, Fonctionnalite>;
+}) {
   /* Mémorisé : sans ça, le tableau est recréé à chaque rendu, et la minuterie
      qui le lit se relancerait sans fin — l'onglet ne changerait jamais. `t` est
      une constante de module, la mémoire tient donc pour toute la vie du
      composant. */
-  const ONGLETS = useMemo(() => onglets(t), [t]);
+  const ONGLETS = useMemo(
+    () => onglets(t, fonctionnalites),
+    [t, fonctionnalites]
+  );
   // `cible` est l'onglet demandé, `affiche` celui que le panneau montre
   // encore. Tant que les deux diffèrent, le panneau joue sa sortie.
   const [cible, setCible] = useState(0);
@@ -311,6 +338,29 @@ export default function Resultats({ t }: { t: Textes }) {
               <h3 className="mt-4 max-w-[16ch] font-display text-2xl font-black leading-tight tracking-tight md:text-3xl">
                 {courant.titre}
               </h3>
+
+              {/* LE LIEN VERS LA PAGE DE L'ONGLET. Il est ici, dans le
+                  panneau, et non sur l'onglet lui-même : les onglets forment
+                  un vrai widget `tablist` (aria-selected, tabIndex roulant,
+                  flèches du clavier), et un href par-dessus en ferait un
+                  objet à deux comportements.
+
+                  Il compte double. Pour un visiteur, c'est la suite de ce que
+                  le panneau vient de promettre. Pour un moteur, c'est le seul
+                  chemin qui descend de la page la plus visitée vers les quatre
+                  pages qui vendent — jusqu'ici l'accueil ne leur envoyait
+                  rien. */}
+              <Link
+                href={courant.chemin}
+                className={`group mt-7 inline-flex items-center gap-2 text-sm font-black transition-colors ${
+                  courant.clair
+                    ? "text-white hover:text-white/70"
+                    : "text-brand hover:text-ink"
+                }`}
+              >
+                {t.resultats.lire}
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
 
             {courant.maquette && (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Accueil from "@/components/Accueil";
+import { FONCTIONNALITES_EN } from "@/lib/contenu/fonctionnalites";
 import { EN } from "@/lib/textes/en";
 import { ACCUEIL, hreflang } from "@/lib/routes";
 
@@ -24,5 +25,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomeEn() {
-  return <Accueil t={EN} />;
+  return <Accueil t={EN} fonctionnalites={FONCTIONNALITES_EN} />;
 }

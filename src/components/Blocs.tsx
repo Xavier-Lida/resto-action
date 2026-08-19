@@ -114,16 +114,15 @@ export default function Blocs({ blocs }: { blocs: Bloc[] }) {
             );
 
           case "ol":
+            /* Le chiffre de la pastille vient d'un compteur CSS
+               (`liste-numerotee` / `puce-numero`, globals.css) et non d'un
+               {j + 1} rendu ici : écrit dans le document, il se lisait deux
+               fois à l'extraction du texte. Le rendu est identique. */
             return (
-              <ol key={i} className="space-y-3 pl-1">
+              <ol key={i} className="liste-numerotee space-y-3 pl-1">
                 {bloc.items.map((item, j) => (
                   <li key={j} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-brand text-xs font-black text-white"
-                    >
-                      {j + 1}
-                    </span>
+                    <span className="puce-numero mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-brand text-xs font-black text-white" />
                     <span>{enLigne(item)}</span>
                   </li>
                 ))}

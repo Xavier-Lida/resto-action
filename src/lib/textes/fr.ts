@@ -136,6 +136,11 @@ export const FR = {
     tablistAria: "Ce que Resto Action change pour ton resto",
     precedent: "Onglet précédent",
     suivant: "Onglet suivant",
+    /* Le libellé du lien qui part du panneau vers la page de la
+       fonctionnalité. Les quatre onglets disent ce que la plateforme change ;
+       sans ce lien, l'accueil ne menait à aucune des quatre pages qui
+       l'expliquent. */
+    lire: "En savoir plus",
     onglets: [
       {
         onglet: "Plus de trafic Google",

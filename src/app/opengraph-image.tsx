@@ -1,68 +1,35 @@
-import { ImageResponse } from "next/og";
-import { PHONE_DISPLAY } from "@/lib/site";
+import { TAILLE, TYPE, visuel } from "@/lib/og";
+
+/* L'image de partage de l'accueil français.
+
+   CE QU'ON CROYAIT, ET QUI ÉTAIT FAUX : qu'une image posée ici s'appliquait à
+   toutes les routes du site. Le HTML construit dit le contraire — vingt-trois
+   pages sur vingt-six partaient sans image, alors que la carte est déclarée
+   `summary_large_image` pour tout le monde.
+
+   LA VRAIE RÈGLE, lue dans le résolveur de métadonnées de Next : l'image de la
+   racine descend tant qu'aucun segment plus bas ne déclare `openGraph`. Or
+   chaque page du site en déclare un — locale, url, titre. Next remplace alors
+   le bloc du parent EN ENTIER, images comprises, et seule une image
+   colocalisée dans le même segment les remet. D'où les douze fichiers frères
+   sous plateforme, blogue, contact et confidentialite, et leurs jumeaux
+   anglais. La 404 échappe à la règle : elle ne déclare pas d'openGraph, donc
+   elle hérite bel et bien de celle-ci.
+
+   Pas de `twitter-image` à côté : Next recopie `openGraph.images` dans
+   `twitter.images` quand cette dernière est vide. Un second fichier doublerait
+   le temps de rendu pour un HTML identique. */
 
 export const alt =
   "Resto Action : pour que le fruit du travail des restaurateurs québécois leur revienne";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const size = TAILLE;
+export const contentType = TYPE;
 
 export default function OpengraphImage() {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          backgroundColor: "#f1f1ef",
-          padding: "72px 80px",
-        }}
-      >
-        <svg viewBox="0 0 160 160" width="120" height="120">
-          <circle cx="80" cy="80" r="52" fill="#ffffff" stroke="#e2e2df" strokeWidth="34" />
-          <circle
-            cx="80"
-            cy="80"
-            r="52"
-            fill="none"
-            stroke="#ff3008"
-            strokeWidth="34"
-            strokeDasharray="40.84 40.84"
-          />
-          <circle cx="80" cy="80" r="69" fill="none" stroke="#191919" strokeWidth="5" />
-          <circle cx="80" cy="80" r="35" fill="#ffffff" stroke="#191919" strokeWidth="5" />
-        </svg>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            fontSize: 64,
-            fontWeight: 700,
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-            color: "#191919",
-          }}
-        >
-          <span>Pas normal que ceux qui cuisinent</span>
-          <span style={{ color: "#ff3008" }}>
-            soient ceux qui restent pauvres.
-          </span>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            fontSize: 28,
-            fontWeight: 700,
-            color: "#191919",
-            opacity: 0.7,
-          }}
-        >
-          restoaction.ca · {PHONE_DISPLAY}
-        </div>
-      </div>
-    ),
-    { ...size }
-  );
+  /* L'accueil est la seule page dont la phrase se casse en deux : la chute
+     passe au rouge. Les pages profondes, elles, ont un sur-titre. */
+  return visuel({
+    titre: "Pas normal que ceux qui cuisinent",
+    chute: "soient ceux qui restent pauvres.",
+  });
 }

@@ -11,6 +11,7 @@ import SectionFaq from "@/components/SectionFaq";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import { noeudFaq } from "@/lib/schema";
 import type { Textes } from "@/lib/textes/fr";
+import type { Cle, Fonctionnalite } from "@/lib/contenu/fonctionnalites";
 import {
   EMAIL,
   FONDATEURS,
@@ -56,7 +57,17 @@ const IMAGES_HISTOIRE = [
   { src: "/ceed.jpeg", width: 1086, height: 1018, lien: null },
 ];
 
-export default function Accueil({ t }: { t: Textes }) {
+/* `fonctionnalites` arrive du fichier de route, comme pour PagePlateforme : la
+   mise en page suit la langue par `t`, et le contenu des quatre pages par son
+   propre dictionnaire. Seule la section Résultats s'en sert — pour lier chaque
+   onglet à la page qui le développe. */
+export default function Accueil({
+  t,
+  fonctionnalites,
+}: {
+  t: Textes;
+  fonctionnalites: Record<Cle, Fonctionnalite>;
+}) {
   /* Le JSON-LD. Ses @id sont ancrés sur la racine de la version : sans ça, les
      deux langues déclareraient les mêmes entités et entreraient en collision.
      Les réponses de FAQ y sont reprises MOT POUR MOT — Google exige que le
@@ -126,7 +137,7 @@ export default function Accueil({ t }: { t: Textes }) {
         <Hero t={t} />
 
         {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
-        <Resultats t={t} />
+        <Resultats t={t} fonctionnalites={fonctionnalites} />
 
         {/* ─── Notre approche ─── */}
         <section id="approche" className="bg-white">
@@ -154,7 +165,7 @@ export default function Accueil({ t }: { t: Textes }) {
 
                   Le `li` est POSÉ AUTOUR de Reveal, pas dedans : Reveal rend
                   un `div`, et `ol > div` serait invalide. */}
-              <ol className="grid list-none gap-12 md:grid-cols-3 md:gap-8">
+              <ol className="liste-numerotee grid list-none gap-12 md:grid-cols-3 md:gap-8">
                 {t.approche.etapes.map(({ titre, texte, alt }, i) => (
                   <li key={titre}>
                   <Reveal delay={i as 0 | 1 | 2}>
@@ -171,15 +182,15 @@ export default function Accueil({ t }: { t: Textes }) {
                             className="size-full object-cover"
                           />
                         </div>
-                        {/* La pastille devient décorative : la liste ordonnée
+                        {/* La pastille est décorative : la liste ordonnée
                             annonce déjà « 1 sur 3 », l'entendre deux fois
-                            n'apprend rien. */}
-                        <span
-                          aria-hidden="true"
-                          className="absolute -bottom-3 left-1/2 z-20 grid size-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-sm font-black text-white"
-                        >
-                          {i + 1}
-                        </span>
+                            n'apprend rien.
+
+                            Son chiffre vient d'un compteur CSS et non d'un
+                            {i + 1} rendu ici : dans le document, il se
+                            retrouvait une seconde fois dans le texte extrait —
+                            « 1. 1On t'écoute ». Voir globals.css. */}
+                        <span className="puce-numero absolute -bottom-3 left-1/2 z-20 grid size-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-sm font-black text-white" />
                       </div>
                       <h3 className="mt-7 font-display text-lg font-bold md:text-xl">
                         {titre}
