@@ -66,6 +66,28 @@ function formaterTelephone(brut: string): string {
   return `(${chiffres.slice(0, 3)}) ${chiffres.slice(3, 6)}-${chiffres.slice(6)}`;
 }
 
+/* L'HEURE EN 24 H DANS LES DEUX LANGUES.
+
+   Le français disait déjà « 13 h 30 ». L'anglais canadien, lui, rendait
+   « 1:30 p.m. » : un méridien redondant sous des titres qui annoncent déjà
+   MORNING / AFTERNOON / EVENING, et assez long pour casser « 10:00 a.m. » sur
+   deux lignes dans sa pastille. Une seule horloge des deux côtés, et le
+   visiteur lit la même heure que celle inscrite dans l'agenda de Guillaume.
+
+   `hourCycle: "h23"` force l'horloge, mais impose du même coup le zéro de tête
+   en anglais (« 09:00 »). On le retire sur la SEULE partie « hour » : un
+   `replace` sur la chaîne entière mordrait un jour dans « 05 août ». */
+function horloge24(langue: string, options: Intl.DateTimeFormatOptions) {
+  const formateur = new Intl.DateTimeFormat(langue, { ...options, hourCycle: "h23" });
+  return {
+    format: (date: Date) =>
+      formateur
+        .formatToParts(date)
+        .map((part) => (part.type === "hour" ? part.value.replace(/^0(?=\d)/, "") : part.value))
+        .join(""),
+  };
+}
+
 const CHAMPS_VIDES = {
   nom: "",
   restaurant: "",
@@ -106,7 +128,7 @@ export default function Agenda({ t }: { t: Textes }) {
         day: "numeric",
         month: "short",
       }),
-      heure: new Intl.DateTimeFormat(t.htmlLang, {
+      heure: horloge24(t.htmlLang, {
         ...zone,
         hour: "numeric",
         minute: "2-digit",
@@ -120,7 +142,7 @@ export default function Agenda({ t }: { t: Textes }) {
         hour: "2-digit",
         hourCycle: "h23",
       }),
-      complet: new Intl.DateTimeFormat(t.htmlLang, {
+      complet: horloge24(t.htmlLang, {
         ...zone,
         weekday: "long",
         day: "numeric",
