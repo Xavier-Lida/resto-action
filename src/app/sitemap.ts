@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
+import { MISE_A_JOUR, SITE_URL } from "@/lib/site";
 import { PAIRES, type Paire } from "@/lib/routes";
 
 /* Le plan du site, DÉDUIT du registre des routes.
@@ -26,13 +26,19 @@ const absolus = ({ fr, en }: Paire) => ({
   "en-CA": absolu(en),
 });
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const maintenant = new Date();
+/* La date annoncée pour une paire : la sienne si elle en a une (les articles
+   du blogue), sinon celle de la dernière refonte du site.
 
+   C'était `new Date()` — la date du BUILD, identique sur les 24 URL et remise à
+   zéro à chaque déploiement. Un plan du site qui déclare tout modifié chaque
+   fois qu'on corrige une marge finit par n'être plus cru du tout. */
+const dateDe = (paire: Paire) => paire.modifieLe ?? MISE_A_JOUR;
+
+export default function sitemap(): MetadataRoute.Sitemap {
   return PAIRES.flatMap((paire) => {
     const languages = absolus(paire);
     const commun = {
-      lastModified: maintenant,
+      lastModified: dateDe(paire),
       changeFrequency: paire.frequence,
       priority: paire.priorite,
       alternates: { languages },

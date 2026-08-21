@@ -29,6 +29,22 @@ export type Paire = {
      l'anglais, ce qui revenait à déclarer la version anglaise secondaire alors
      qu'elle vise un autre public, pas un public moindre. */
   priorite: number;
+  /* La date du dernier remaniement RÉEL du contenu, en ISO. Optionnelle : une
+     page sans date propre retombe sur MISE_A_JOUR (src/lib/site.ts).
+
+     ELLE MANQUAIT, ET LE PLAN DU SITE METTAIT LA DATE DU BUILD. Un `new Date()`
+     évalué au déploiement donnait le même horodatage aux 24 URL, et il bougeait
+     à chaque correction de CSS : le plan annonçait que tout le site avait changé
+     alors que pas un mot n'avait bougé. Un moteur à qui on ment de la sorte
+     apprend à ne plus lire la balise du tout — et le jour où un article change
+     pour vrai, plus personne n'écoute. site.ts le disait déjà de sa propre
+     MISE_A_JOUR : « une date de build mentirait ».
+
+     UNE SEULE DATE POUR LES DEUX LANGUES, comme la priorité juste au-dessus.
+     Les deux versions d'un article sont traduites ensemble — PaireArticle rend
+     même impossible d'en publier une sans l'autre — donc les dater séparément
+     inventerait une différence qui n'existe pas. */
+  modifieLe?: string;
 };
 
 export const ACCUEIL: Paire = {
@@ -92,6 +108,10 @@ export const ARTICLES_PAIRES: Paire[] = ARTICLES.map(({ fr, en }) => ({
   en: en.slug,
   frequence: "yearly",
   priorite: 0.5,
+  /* Chaque article porte DÉJÀ sa date de modification (blogue/types.ts), celle
+     que son BlogPosting déclare en dateModified. Le plan du site lit la même :
+     deux dates pour une seule page, c'est une occasion qu'elles divergent. */
+  modifieLe: fr.modifieLe,
 }));
 
 export const paireArticle = (cheminFr: string): Paire => {
