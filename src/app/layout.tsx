@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Caveat, Unbounded } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { SITE_URL } from "@/lib/site";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { GA_MESURE_ID, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const caveat = Caveat({
@@ -43,6 +44,12 @@ export default function RootLayout({
         {children}
         <Analytics />
       </body>
+      {/* GA4 se pose en FRÈRE du <body>, hors de lui : c'est la forme que
+          prescrit la doc de Next 16 pour ce composant. Il charge gtag.js après
+          l'hydratation, donc sans retarder l'affichage — c'est tout l'intérêt
+          de passer par @next/third-parties plutôt que de coller la balise brute
+          de Google, qui s'exécuterait dans le chemin critique. */}
+      <GoogleAnalytics gaId={GA_MESURE_ID} />
     </html>
   );
 }

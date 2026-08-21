@@ -28,13 +28,13 @@ export const CONFIDENTIALITE_FR = {
   recueillis: {
     titre: "Renseignements recueillis",
     texte:
-      "Ce site ne recueille aucun renseignement personnel. Pas de formulaire, pas de compte, pas de témoins (cookies) publicitaires. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
+      "Ce site ne recueille aucun renseignement personnel : pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Il dépose en revanche des témoins (cookies) de mesure d'audience, décrits juste en dessous. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
   },
 
   statistiques: {
     titre: "Statistiques de fréquentation",
     texte:
-      "On mesure l'achalandage du site avec Vercel Analytics, un outil de statistiques anonymes qui n'utilise pas de témoins et ne permet pas de vous identifier personnellement.",
+      "On mesure l'achalandage avec deux outils. Vercel Analytics produit des statistiques anonymes, sans témoins. Google Analytics, lui, dépose des témoins (cookies) qui attribuent à votre navigateur un identifiant aléatoire, et transmet ces données à Google : ça nous sert à savoir combien de personnes visitent le site et par quel chemin elles arrivent, jamais à vous identifier nommément. Vous pouvez le refuser en bloquant les témoins dans votre navigateur, ou en installant le module de désactivation publié par Google.",
   },
 
   /* La seule section coupée par des liens : le courriel et le téléphone
@@ -77,13 +77,13 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   recueillis: {
     titre: "Information we collect",
     texte:
-      "This site collects no personal information. No forms, no accounts, no advertising cookies. If you call or write to us, we use your contact details for one thing only: getting back to you.",
+      "This site collects no personal information: no account to create, no advertising profile, no data sold to anyone. It does set audience-measurement cookies, described just below. If you call or write to us, we use your contact details for one thing only: getting back to you.",
   },
 
   statistiques: {
     titre: "Traffic statistics",
     texte:
-      "We measure site traffic with Vercel Analytics, an anonymous statistics tool that uses no cookies and cannot identify you personally.",
+      "We measure traffic with two tools. Vercel Analytics produces anonymous statistics and sets no cookies. Google Analytics does set cookies, which assign your browser a random identifier, and sends that data to Google: we use it to know how many people visit the site and how they got here, never to identify you by name. You can refuse it by blocking cookies in your browser, or by installing the opt-out add-on Google publishes.",
   },
 
   responsable: {

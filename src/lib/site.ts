@@ -22,6 +22,22 @@ export const POSTAL_CODE = "G8W 2P7";
 // Le LinkedIn de la MARQUE (pas des fondateurs) : affiché dans le héro et
 // déclaré en sameAs dans le JSON-LD, d'où sa place ici.
 export const LINKEDIN_URL = "https://www.linkedin.com/company/restoaction";
+
+/* L'IDENTIFIANT DE MESURE GOOGLE ANALYTICS 4.
+
+   Il n'est PAS secret : Google l'expose en clair dans la balise, il part donc
+   dans le paquet client de toute façon, et le mettre en variable
+   d'environnement ne cacherait rien tout en ajoutant une valeur à tenir dans le
+   tableau de bord Vercel. Sa place est ici, avec les autres constantes
+   d'identité du site, là où on ira le chercher le jour où il faudra le changer.
+
+   Le site mesure son achalandage DEUX fois, et c'est voulu : Vercel Analytics
+   donne des pages vues sans témoins, GA4 donne les canaux d'acquisition et se
+   relie à Search Console. Les deux sont déclarés dans la politique de
+   confidentialité — GA4 dépose des témoins, ce que Vercel Analytics ne fait
+   pas, et la Loi 25 veut que ce soit écrit. */
+export const GA_MESURE_ID = "G-V8EERCZE9G";
+
 /* LA PRISE DE RENDEZ-VOUS N'EST PLUS UNE URL, ET N'A PLUS SA PLACE ICI.
 
    Il y avait à cet endroit BOOKING_URL et BOOKING_EMBED_URL : le lien de la
@@ -46,7 +62,7 @@ export const LINKEDIN_URL = "https://www.linkedin.com/company/restoaction";
    Le format d'affichage n'est PAS écrit ici : le pied de page la formate selon
    la langue de la page (`toLocaleDateString`), sinon il faudrait maintenir
    « 17 août 2026 » et « August 17, 2026 » en parallèle et les laisser dériver. */
-export const MISE_A_JOUR = "2026-08-18";
+export const MISE_A_JOUR = "2026-08-21";
 
 /* LES DEUX FONDATEURS, à un seul endroit.
 
