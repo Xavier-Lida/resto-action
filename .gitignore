@@ -44,3 +44,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .gstack/
+
+# assets intermédiaires de la démo animée : gros PNG de relecture, régénérables
+scripts/.demo-verif/

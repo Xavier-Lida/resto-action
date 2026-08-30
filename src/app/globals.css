@@ -8,7 +8,9 @@
   --color-hero: #c74238;
   --color-ink: #191919;
   --color-bone: #f1f1ef;
-  --font-sans: Helvetica, Arial, sans-serif;
+  /* Variable DISTINCTE et non auto-référencée, contrairement à --font-script
+     juste en dessous : ce motif-là ne tient que par un hasard de portée. */
+  --font-sans: var(--font-manrope), Helvetica, Arial, sans-serif;
   --font-script: var(--font-script), cursive;
   --font-display: var(--font-unbounded), sans-serif;
   /* Réservée aux fausses interfaces de la section « Résultats » :
@@ -53,6 +55,16 @@ body {
 img {
   -webkit-user-drag: none;
   user-select: none;
+}
+
+/* L'épaisseur sous les deux boutons du héro. SANS FLOU : c'est une arête, pas
+   une lueur, et c'est elle qui donne l'enfoncement au clic. Partagée par les
+   deux boutons, donc une variable plutôt que la même valeur écrite deux fois.
+
+   Hors du bloc `@theme` volontairement : ce n'est pas un jeton d'utilitaire
+   Tailwind, juste une couleur que deux classes vont chercher. */
+:root {
+  --ombre-cta: rgb(25 25 25 / 0.3);
 }
 
 /* ─── Animations ─── */
@@ -104,6 +116,12 @@ img {
 .delay-5 {
   animation-delay: 500ms;
 }
+/* Sixième palier depuis qu'un bouton vers le catalogue s'est posé au-dessus de
+   « Nous contacter » : tout ce qui le suit a reculé d'un cran pour que la
+   cascade continue de se lire de haut en bas. */
+.delay-6 {
+  animation-delay: 600ms;
+}
 
 /* ── Le titre tournant du héro ──
    UN ROULEAU. Les deux lignes bougent EN MÊME TEMPS, sur la même durée : la
@@ -146,6 +164,129 @@ img {
   .titre-entre {
     animation: none;
   }
+}
+
+/* ── La démo animée de l'app cliente ──
+   Un mockup iPhone dans lequel de vraies captures défilent, en boucle autonome.
+   Le moteur est dans DemoApp.tsx ; ici, uniquement la géométrie.
+
+   UNE SEULE VARIABLE pilote la taille — `--demo-w`. Tout le reste est en % ou
+   se déduit du rapport naturel des images, donc le composant est fluide sans la
+   moindre media query. */
+.demo-stage {
+  position: relative;
+  width: var(--demo-w, 320px);
+  max-width: 100%;
+  aspect-ratio: 780 / 1598;
+}
+
+/* L'ouverture d'écran du cadre, mesurée dans son repère 780 × 1598 :
+   left 38 · top 32 · width 708 · height 1535. */
+.demo-screen {
+  position: absolute;
+  left: 4.872%;
+  top: 2.003%;
+  width: 90.769%;
+  height: 96.058%;
+  overflow: hidden;
+  background: #faf7f1;
+  /* Rayon un peu INFÉRIEUR à celui du cadre, pour que les coins restent
+     concentriques plutôt que de se croiser. */
+  border-radius: 12.15% / 5.6%;
+  /* Safari cesse d'écrêter un enfant qui se transforme si le conteneur n'a que
+     `overflow: hidden`. Ce masque le force à respecter la découpe. */
+  -webkit-mask-image: -webkit-radial-gradient(#fff, #000);
+}
+
+.demo-couche {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+/* L'état de repos, AVANT que le moteur ne prenne la main : l'écran Accueil figé
+   en haut, et rien d'autre. C'est aussi ce qu'on voit tant que les images ne
+   sont pas chargées — pas de fond vide, pas de rouet — et c'est exactement l'état
+   que « mouvement réduit » doit laisser en place, puisque le moteur renonce
+   avant d'avoir touché au moindre style. */
+.demo-couche[data-couche="accueil"],
+.demo-tabbar[data-tabbar="accueil"] {
+  opacity: 1;
+}
+
+/* `height: auto` sur une image de largeur connue : c'est son propre rapport qui
+   donne la hauteur juste, sans un seul calcul. La marge haute vaut 94/780 de la
+   largeur de l'écran — une marge en % se résout sur la LARGEUR du conteneur,
+   c'est ce qui la rend exacte à toutes les tailles. */
+.demo-contenu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  margin-top: 12.0513%;
+  will-change: transform;
+}
+
+.demo-statusbar,
+.demo-tabbar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 3;
+  pointer-events: none;
+}
+.demo-statusbar {
+  top: 0;
+}
+/* Les trois variantes sont empilées et fondues l'une dans l'autre : la barre ne
+   défile jamais avec le contenu. */
+.demo-tabbar {
+  bottom: 0;
+  opacity: 0;
+}
+
+/* Le cadre d'attente : la place d'une démo dont les captures n'existent pas
+   encore. Même écran crème que le splash, pour que le jour où les assets
+   arrivent rien ne bouge autour. */
+.demo-attente {
+  display: grid;
+  place-items: center;
+  padding: 12%;
+  text-align: center;
+}
+.demo-attente p {
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #19191966;
+}
+
+.demo-splash {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  background: #faf7f1;
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-splash img {
+  width: 46%;
+  height: auto;
+}
+
+.demo-cadre {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
 }
 
 /* Apparition au défilement : la classe is-visible est posée par <Reveal>. */

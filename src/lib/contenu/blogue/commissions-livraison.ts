@@ -50,7 +50,7 @@ export const COMMISSIONS: PaireArticle = {
         t: "encadre",
         titre: "Un exemple d'arithmétique, pas une statistique",
         texte:
-          "Des nombres ronds pour montrer la mécanique : si les apps ont gardé 20 000 $ dans l'année et que ta marge nette tourne autour de 5 %, il aurait fallu vendre 400 000 $ de plus en salle pour aboutir au même endroit. Remplace par tes vrais chiffres — c'est là que la conversation devient concrète.",
+          "Des nombres ronds pour montrer la mécanique : si les apps ont gardé 20 000 $ dans l'année et que ta marge nette tourne autour de 5 %, il aurait fallu vendre 400 000 $ de plus en salle pour aboutir au même endroit. Remplace par tes vrais chiffres : c'est là que la conversation devient concrète.",
       },
 
       { t: "h2", texte: "Le deuxième coût : le client que tu ne connais pas" },
@@ -67,7 +67,7 @@ export const COMMISSIONS: PaireArticle = {
       {
         t: "p",
         texte:
-          "L'application, elle, sait tout ça. Et elle s'en sert — pour lui proposer le resto d'à côté la semaine prochaine.",
+          "L'application, elle, sait tout ça. Et elle s'en sert, pour lui proposer le resto d'à côté la semaine prochaine.",
       },
 
       { t: "h2", texte: "Le troisième coût : tes prix" },
@@ -101,7 +101,7 @@ export const COMMISSIONS: PaireArticle = {
         t: "ol",
         items: [
           "**Fais le calcul de la première section.** Un après-midi, tes relevés, une calculatrice. La plupart des restaurateurs ne l'ont jamais fait au complet.",
-          "**Donne un chemin direct à tes habitués.** Ceux qui commandent chaque semaine n'ont aucune raison de passer par un intermédiaire — ils le font parce que c'est le chemin qu'on leur a montré.",
+          "**Donne un chemin direct à tes habitués.** Ceux qui commandent chaque semaine n'ont aucune raison de passer par un intermédiaire : ils le font parce que c'est le chemin qu'on leur a montré.",
           "**Garde les adresses des clients qui commandent directement.** C'est ce qui te permet de leur reparler, et c'est exactement ce qu'aucune plateforme ne te donnera.",
         ],
       },
@@ -150,7 +150,7 @@ export const COMMISSIONS: PaireArticle = {
         t: "encadre",
         titre: "An arithmetic example, not a statistic",
         texte:
-          "Round numbers to show the mechanism: if the apps kept $20,000 over the year and your net margin runs around 5%, you'd have had to sell $400,000 more in the dining room to land in the same spot. Swap in your real numbers — that's where the conversation gets concrete.",
+          "Round numbers to show the mechanism: if the apps kept $20,000 over the year and your net margin runs around 5%, you'd have had to sell $400,000 more in the dining room to land in the same spot. Swap in your real numbers: that's where the conversation gets concrete.",
       },
 
       { t: "h2", texte: "The second cost: the customer you don't know" },
@@ -167,7 +167,7 @@ export const COMMISSIONS: PaireArticle = {
       {
         t: "p",
         texte:
-          "The app knows all of it. And it uses it — to suggest the restaurant next door to them next week.",
+          "The app knows all of it. And it uses it: to suggest the restaurant next door to them next week.",
       },
 
       { t: "h2", texte: "The third cost: your prices" },
@@ -201,7 +201,7 @@ export const COMMISSIONS: PaireArticle = {
         t: "ol",
         items: [
           "**Do the calculation from the first section.** One afternoon, your statements, a calculator. Most owners have never done it all the way through.",
-          "**Give your regulars a direct path.** People ordering every week have no reason to go through a middleman — they do it because that's the path they were shown.",
+          "**Give your regulars a direct path.** People ordering every week have no reason to go through a middleman: they do it because that's the path they were shown.",
           "**Keep the addresses of customers who order directly.** That's what lets you talk to them again, and it's exactly what no platform will hand you.",
         ],
       },

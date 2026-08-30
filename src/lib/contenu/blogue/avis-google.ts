@@ -39,7 +39,7 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Les sanctions vont du retrait des avis à la suspension de la fiche. Et elles retombent sur ton resto — pas sur l'agence qui t'a suggéré l'idée.",
+          "Les sanctions vont du retrait des avis à la suspension de la fiche. Et elles retombent sur ton resto, pas sur l'agence qui t'a suggéré l'idée.",
       },
       {
         t: "ul",
@@ -61,7 +61,7 @@ export const AVIS_GOOGLE: PaireArticle = {
         items: [
           "**En salle, au moment de payer**, quand le service a bien été. C'est de loin ce qui fonctionne le mieux, et ça ne coûte rien.",
           "**Sur la facture ou le sac de commande**, avec un QR qui ouvre directement la fenêtre d'avis.",
-          "**Par courriel après une commande en ligne**, une fois, le lendemain — jamais deux.",
+          "**Par courriel après une commande en ligne**, une fois, le lendemain, jamais deux.",
         ],
       },
 
@@ -103,7 +103,7 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Ce n'est pas une manœuvre à faire une fois. C'est une habitude — cinq minutes par semaine pour répondre, une phrase du personnel au moment de payer. Les avis arrivent lentement, et c'est justement ce qui les rend crédibles : une fiche qui passe de six à soixante avis en un mois éveille les soupçons de Google avant ceux des clients.",
+          "Ce n'est pas une manœuvre à faire une fois. C'est une habitude : cinq minutes par semaine pour répondre, une phrase du personnel au moment de payer. Les avis arrivent lentement, et c'est justement ce qui les rend crédibles : une fiche qui passe de six à soixante avis en un mois éveille les soupçons de Google avant ceux des clients.",
       },
       {
         t: "p",
@@ -146,7 +146,7 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Penalties range from removing the reviews to suspending the listing. And they land on your restaurant — not on the agency that suggested the idea.",
+          "Penalties range from removing the reviews to suspending the listing. And they land on your restaurant, not on the agency that suggested the idea.",
       },
       {
         t: "ul",
@@ -168,7 +168,7 @@ export const AVIS_GOOGLE: PaireArticle = {
         items: [
           "**In the dining room, at checkout**, when service went well. By far the most effective, and it costs nothing.",
           "**On the receipt or the takeout bag**, with a QR code that opens the review window directly.",
-          "**By email after an online order**, once, the next day — never twice.",
+          "**By email after an online order**, once, the next day, never twice.",
         ],
       },
 
@@ -210,7 +210,7 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "This isn't a one-time push. It's a habit — five minutes a week to reply, one sentence from staff at checkout. Reviews arrive slowly, and that's exactly what makes them credible: a listing jumping from six to sixty reviews in a month raises Google's suspicions before it raises a customer's.",
+          "This isn't a one-time push. It's a habit: five minutes a week to reply, one sentence from staff at checkout. Reviews arrive slowly, and that's exactly what makes them credible: a listing jumping from six to sixty reviews in a month raises Google's suspicions before it raises a customer's.",
       },
       {
         t: "p",

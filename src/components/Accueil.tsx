@@ -3,6 +3,7 @@ import { Phone, Mail } from "lucide-react";
 import Agenda from "@/components/Agenda";
 import BarreNav from "@/components/BarreNav";
 import Buoy from "@/components/Buoy";
+import DemoApp from "@/components/DemoApp";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Resultats from "@/components/Resultats";
@@ -12,6 +13,12 @@ import DonneesStructurees from "@/components/DonneesStructurees";
 import { noeudFaq } from "@/lib/schema";
 import type { Textes } from "@/lib/textes/fr";
 import type { Cle, Fonctionnalite } from "@/lib/contenu/fonctionnalites";
+
+/* Les paliers d'apparition de <Reveal> s'arrêtent à 3 — c'est ce que définit
+   globals.css. Passer par ce tuple plutôt que par un calcul évite d'avoir à
+   forcer le type, et un quatrième produit se contenterait du dernier palier au
+   lieu de casser la compilation. */
+const DELAIS_PRODUITS = [1, 2, 3] as const;
 import {
   EMAIL,
   FONDATEURS,
@@ -207,78 +214,78 @@ export default function Accueil({
           </div>
         </section>
 
-        {/* ─── Notre mission ─── */}
-        {/* La section arrive comme une carte sombre aux coins arrondis posée
-            sur le blanc de la page : même langage visuel que la carte de la
-            hero. */}
-        <section id="mission" className="bg-white p-3 md:p-5 lg:p-6">
-          <div className="relative overflow-hidden rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
-            <Image
-              draggable={false}
-              src="/faillite.jpg"
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-ink/85" />
-            <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
+        {/* ─── Nos produits ─── */}
+        {/* Même langage visuel que la carte de la hero : une carte sombre aux
+            coins arrondis posée sur le blanc de la page.
+
+            LES TROIS APPS SONT DE MÊME RANG. L'app cliente a été la première à
+            avoir des captures, mais ça n'en fait pas le produit principal —
+            Resto Action et Resto Go occupent la même grille, avec un cadre
+            d'attente à la place du téléphone tant que leurs captures n'existent
+            pas. Le jour où elles arrivent, rien ne bouge ici. */}
+        <section id="produits" className="bg-white p-3 md:p-5 lg:p-6">
+          <div className="overflow-hidden rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
+            <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
               <Reveal>
-                <p className="text-xs font-black uppercase tracking-widest text-brand">
-                  {t.mission.surTitre}
-                </p>
-                <h2 className="mt-3 max-w-3xl text-3xl md:text-5xl font-black leading-tight tracking-tight">
-                  {t.mission.titre}
+                <h2 className="max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
+                  {t.produits.titre}
                 </h2>
               </Reveal>
 
-              <Reveal delay={1}>
-                <div className="mt-10 max-w-2xl space-y-6 text-lg leading-relaxed text-white/80">
-                  {/* Le premier paragraphe est coupé par l'appel de note, les
-                      deux suivants par un <strong> : d'où le découpage en
-                      morceaux du dictionnaire plutôt qu'en paragraphes. */}
-                  <p>
-                    {t.mission.p1a}
-                    <sup>
-                      <a href="#sources" className="text-brand hover:underline">
-                        1
-                      </a>
-                    </sup>
-                    {t.mission.p1b}
-                  </p>
-                  <p>
-                    {t.mission.p2a}{" "}
-                    <strong className="text-white">{t.mission.p2fort}</strong>{" "}
-                    {t.mission.p2b}
-                  </p>
-                  <p>
-                    {t.mission.p3a}{" "}
-                    <strong className="text-white">{t.mission.p3fort}</strong>
-                  </p>
-                  <p className="border-l-4 border-brand pl-5 text-xl md:text-2xl font-black leading-snug text-white">
-                    {t.mission.chute}
-                  </p>
-                </div>
-              </Reveal>
+              {t.produits.apps.map((app, i) => (
+                <Reveal key={app.demo} delay={DELAIS_PRODUITS[Math.min(i, 2)]}>
+                  <div className="mt-16 grid items-center gap-10 md:mt-24 lg:grid-cols-2 lg:gap-16">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-widest text-white/50">
+                        {app.etiquette}
+                      </p>
+                      <h3 className="mt-3 font-display text-2xl font-black leading-tight tracking-tight md:text-3xl">
+                        {app.titre}
+                      </h3>
+                      {/* Le texte arrive en morceaux : les statuts de commande
+                          sont des objets, pas des chaînes, et se rendent en
+                          puces. Rien n'est deviné à coups d'expression
+                          régulière sur des guillemets. */}
+                      <p className="mt-5 text-base leading-relaxed text-white/75">
+                        {app.texte.map((bout, j) =>
+                          typeof bout === "string" ? (
+                            bout
+                          ) : (
+                            <span
+                              key={j}
+                              className="rounded bg-white/10 px-1.5 font-black text-white"
+                            >
+                              {bout.statut}
+                            </span>
+                          ),
+                        )}
+                      </p>
+                    </div>
 
-              {/* TODO avant déploiement : vérifier que cette page affiche toujours ces chiffres */}
-              <div
-                id="sources"
-                className="mt-12 max-w-2xl text-xs leading-relaxed text-white/50"
-              >
-                <p>
-                  {t.mission.sourceAvant}{" "}
-                  <a
-                    href="https://www.restaurantscanada.org/research/"
-                    target="_blank"
-                    rel="noopener"
-                    className="underline hover:text-white/80"
-                  >
-                    {t.mission.sourceLien}
-                  </a>
-                  {t.mission.sourceApres}
-                </p>
-              </div>
+                    {/* Le téléphone change de côté d'un produit à l'autre : trois
+                        blocs identiques enfilés donneraient une colonne de texte
+                        qui se répète, et plus rien pour marquer la séparation.
+
+                        `order` plutôt qu'un déplacement dans le JSX — même
+                        raison que la liste des promesses du héro : l'ordre du
+                        DOM reste celui de la lecture, titre puis démo, pour un
+                        lecteur d'écran comme pour un robot. En pile, l'ordre ne
+                        bouge pas du tout. */}
+                    <div
+                      className={`flex justify-center lg:justify-end ${
+                        i % 2 ? "lg:order-first lg:justify-start" : ""
+                      }`}
+                    >
+                      <DemoApp
+                        demo={app.demo}
+                        alt={app.alt}
+                        attente={t.produits.attente}
+                        className="[--demo-w:17rem] sm:[--demo-w:20rem]"
+                      />
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>

@@ -64,7 +64,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     surTitre: "Plus de trafic Google",
     titre: "Ton resto sort enfin dans Google",
     intro:
-      "Quand quelqu'un tape « pizza près de moi » à six heures un vendredi, trois restos apparaissent avant les autres. Voici comment on te fait entrer dans les trois — et pourquoi ça prend quelques mois plutôt qu'une semaine.",
+      "Quand quelqu'un tape « pizza près de moi » à six heures un vendredi, trois restos apparaissent avant les autres. Voici comment on te fait entrer dans les trois, et pourquoi ça prend quelques mois plutôt qu'une semaine.",
     resume:
       "La fiche Google Business, les avis, et un site qu'une machine peut lire.",
     typeService: "Référencement local pour restaurants",
@@ -80,7 +80,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         items: [
           "**La carte**, en haut des résultats : trois fiches avec des étoiles et un bouton d'itinéraire. C'est là que se joue « près de moi », et c'est ta fiche Google Business qui décide, pas ton site.",
           "**Les résultats bleus**, en dessous : c'est ton site. Il faut qu'il existe, qu'il charge vite et qu'une machine puisse lire ce qu'il y a dedans.",
-          "**Les moteurs qui répondent** — ChatGPT, Perplexity, les aperçus IA de Google. Ils ne renvoient pas une liste, ils rédigent une réponse et citent quelques sources. Un resto dont l'offre est claire et les faits vérifiables s'y fait citer ; les autres n'existent pas.",
+          "**Les moteurs qui répondent** : ChatGPT, Perplexity, les aperçus IA de Google. Ils ne renvoient pas une liste, ils rédigent une réponse et citent quelques sources. Un resto dont l'offre est claire et les faits vérifiables s'y fait citer ; les autres n'existent pas.",
         ],
       },
 
@@ -93,7 +93,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "ul",
         items: [
-          "La réclamer si elle existe déjà — la plupart des restos ont une fiche créée automatiquement qu'ils n'ont jamais revendiquée.",
+          "La réclamer si elle existe déjà : la plupart des restos ont une fiche créée automatiquement qu'ils n'ont jamais revendiquée.",
           "Les bonnes catégories, celles que Google fait correspondre aux recherches. « Restaurant » tout court te met en compétition avec la province au complet.",
           "Les heures, y compris les heures des jours fériés. Une fiche qui dit « ouvert » un lundi de congé quand c'est fermé récolte un avis à une étoile.",
           "Des photos récentes, prises chez toi. Pas des images de banque.",
@@ -105,7 +105,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Les avis pèsent lourd sur la carte, et c'est exactement pour ça que des fournisseurs t'en vendront. Google les repère, et la sanction retombe sur ta fiche — pas sur le fournisseur.",
+          "Les avis pèsent lourd sur la carte, et c'est exactement pour ça que des fournisseurs t'en vendront. Google les repère, et la sanction retombe sur ta fiche, pas sur le fournisseur.",
       },
       {
         t: "p",
@@ -117,7 +117,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "C'est ici que la plupart des sites de resto perdent. Pas parce qu'ils sont laids — parce qu'un robot n'y trouve rien.",
+          "C'est ici que la plupart des sites de resto perdent. Pas parce qu'ils sont laids, mais parce qu'un robot n'y trouve rien.",
       },
       {
         t: "encadre",
@@ -129,7 +129,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         t: "ul",
         items: [
           "Un site qui charge vite sur un téléphone en 4G, pas sur la fibre de ton designer.",
-          "Les horaires, l'adresse et le téléphone en texte, identiques à ceux de ta fiche — quand les deux se contredisent, Google fait moins confiance aux deux.",
+          "Les horaires, l'adresse et le téléphone en texte, identiques à ceux de ta fiche : quand les deux se contredisent, Google fait moins confiance aux deux.",
           "Les données structurées de restaurant : le balisage invisible qui déclare à Google que cette page est un resto, avec sa cuisine, ses heures et son menu.",
           "Une page par sujet réel. Un site d'une seule page ne peut se positionner que sur une seule chose.",
         ],
@@ -227,7 +227,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Le client, lui, ne télécharge rien : il commande depuis ton site, sur son téléphone, et paie en ligne. Ceux qui reviennent souvent finiront par installer ton app — c'est l'autre morceau de la plateforme.",
+          "Le client, lui, ne télécharge rien : il commande depuis ton site, sur son téléphone, et paie en ligne. Ceux qui reviennent souvent finiront par installer ton app : c'est l'autre morceau de la plateforme.",
       },
 
       { t: "h2", texte: "Le panier qui fait monter la facture" },
@@ -239,7 +239,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "ul",
         items: [
-          "Les extras au bon moment — la sauce, le supplément, le format plus grand.",
+          "Les extras au bon moment : la sauce, le supplément, le format plus grand.",
           "Le plat qui va avec, suggéré avant le paiement plutôt qu'après.",
           "La commande précédente rappelée en un tap : c'est le raccourci qui fait revenir les habitués.",
         ],
@@ -284,7 +284,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Et la livraison, vous la faites?",
-          a: "On branche la commande, pas les livreurs. Bien des restos gardent leur propre livraison ou n'offrent que la cueillette — c'est souvent là que la marge est la meilleure.",
+          a: "On branche la commande, pas les livreurs. Bien des restos gardent leur propre livraison ou n'offrent que la cueillette : c'est souvent là que la marge est la meilleure.",
         },
       ],
     },
@@ -304,7 +304,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     surTitre: "Plus de commandes répétées",
     titre: "Tes clients reviennent sans que tu aies à y penser",
     intro:
-      "Quelqu'un a commandé chez toi une fois, il a aimé ça, et il ne revient pas — pas parce qu'il a trouvé mieux, mais parce qu'il a oublié. La relance règle exactement ce problème-là, et rien d'autre.",
+      "Quelqu'un a commandé chez toi une fois, il a aimé ça, et il ne revient pas. Pas parce qu'il a trouvé mieux, mais parce qu'il a oublié. La relance règle exactement ce problème-là, et rien d'autre.",
     resume: "Le client qui a déjà commandé revient, sans que tu y penses.",
     typeService: "Fidélisation et relances clients pour restaurants",
     blocs: [
@@ -329,10 +329,10 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "ol",
         items: [
-          "**Après la première commande** — un mot de remerciement, et l'occasion de laisser un avis pendant que le repas est encore frais en mémoire.",
-          "**Quand il ne revient pas** — une offre, une seule, sur un plat proche de ce qu'il avait pris.",
-          "**Quand il revient** — des suggestions basées sur ses commandes, pas sur ton plat le plus rentable.",
-          "**Aux moments qui comptent** — la Saint-Valentin, la fête des Mères, le temps des fêtes. Ce sont les soirs où un resto se remplit ou se vide.",
+          "**Après la première commande** : un mot de remerciement, et l'occasion de laisser un avis pendant que le repas est encore frais en mémoire.",
+          "**Quand il ne revient pas** : une offre, une seule, sur un plat proche de ce qu'il avait pris.",
+          "**Quand il revient** : des suggestions basées sur ses commandes, pas sur ton plat le plus rentable.",
+          "**Aux moments qui comptent** : la Saint-Valentin, la fête des Mères, le temps des fêtes. Ce sont les soirs où un resto se remplit ou se vide.",
         ],
       },
 
@@ -398,7 +398,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Est-ce que ça marche par texto aussi?",
-          a: "Le texto se lit davantage, et se pardonne beaucoup moins. Les mêmes règles de consentement s'appliquent, en plus strict dans les faits — on commence par le courriel.",
+          a: "Le texto se lit davantage, et se pardonne beaucoup moins. Les mêmes règles de consentement s'appliquent, en plus strict dans les faits : on commence par le courriel.",
         },
       ],
     },
@@ -461,7 +461,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "C'est le canal le plus puissant et le plus facile à gâcher. Une notification par semaine, envoyée quand ça peut servir — le vendredi vers cinq heures, le jour d'un spécial —, se lit. Une par jour se fait désactiver, et une notification désactivée ne se rallume jamais.",
+          "C'est le canal le plus puissant et le plus facile à gâcher. Une notification par semaine, envoyée quand ça peut servir (le vendredi vers cinq heures, le jour d'un spécial), se lit. Une par jour se fait désactiver, et une notification désactivée ne se rallume jamais.",
       },
 
       { t: "h2", texte: "Le délai des magasins" },
@@ -473,7 +473,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Il faut aussi un compte de développeur à ton nom, chez Apple comme chez Google — c'est ce qui fait que l'app t'appartient vraiment, et que tu la gardes le jour où tu ne travailles plus avec nous. On s'occupe des démarches, mais les comptes restent les tiens.",
+          "Il faut aussi un compte de développeur à ton nom, chez Apple comme chez Google : c'est ce qui fait que l'app t'appartient vraiment, et que tu la gardes le jour où tu ne travailles plus avec nous. On s'occupe des démarches, mais les comptes restent les tiens.",
       },
 
       { t: "h2", texte: "Ce que ça demande pour marcher" },
@@ -486,7 +486,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         t: "ul",
         items: [
           "Un QR sur les tables et sur les sacs de commande à emporter.",
-          "Un mot du personnel au moment de payer — c'est ce qui marche le mieux, et de loin.",
+          "Un mot du personnel au moment de payer : c'est ce qui marche le mieux, et de loin.",
           "Une raison d'installer : les points qui commencent à compter dès la première commande.",
         ],
       },
@@ -500,7 +500,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Mes clients vont-ils vraiment la télécharger?",
-          a: "Les habitués, oui, quand on leur donne une raison — les points, et la commande en deux tapes. Les clients d'un soir, non, et c'est correct : eux commandent depuis ton site.",
+          a: "Les habitués, oui, quand on leur donne une raison : les points, et la commande en deux tapes. Les clients d'un soir, non, et c'est correct : eux commandent depuis ton site.",
         },
         {
           q: "Est-ce que je peux avoir l'app sans le reste?",
@@ -526,7 +526,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     surTitre: "More Google traffic",
     titre: "Your restaurant finally shows up on Google",
     intro:
-      "When someone types “pizza near me” at six on a Friday, three restaurants appear ahead of the rest. Here's how we get you into those three — and why it takes months rather than a week.",
+      "When someone types “pizza near me” at six on a Friday, three restaurants appear ahead of the rest. Here's how we get you into those three, and why it takes months rather than a week.",
     resume:
       "The Google Business Profile, the reviews, and a site a machine can read.",
     typeService: "Local search optimization for restaurants",
@@ -542,7 +542,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         items: [
           "**The map**, at the top of the results: three listings with stars and a directions button. That's where “near me” is decided, and it's your Google Business Profile that decides it, not your site.",
           "**The blue results**, underneath: that's your site. It has to exist, load fast, and let a machine read what's on it.",
-          "**The engines that answer** — ChatGPT, Perplexity, Google's AI overviews. They don't return a list, they write an answer and cite a few sources. A restaurant with a clear offer and checkable facts gets cited; the others don't exist.",
+          "**The engines that answer**: ChatGPT, Perplexity, Google's AI overviews. They don't return a list, they write an answer and cite a few sources. A restaurant with a clear offer and checkable facts gets cited; the others don't exist.",
         ],
       },
 
@@ -555,7 +555,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "ul",
         items: [
-          "Claiming it if it already exists — most restaurants have an auto-created listing they've never claimed.",
+          "Claiming it if it already exists: most restaurants have an auto-created listing they've never claimed.",
           "The right categories, the ones Google matches to searches. Plain “Restaurant” puts you up against the whole province.",
           "Hours, holiday hours included. A listing that says “open” on a holiday Monday when you're closed earns you a one-star review.",
           "Recent photos, taken in your place. Not stock images.",
@@ -567,7 +567,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Reviews carry real weight on the map, which is exactly why suppliers will offer to sell you some. Google catches them, and the penalty lands on your listing — not on the supplier.",
+          "Reviews carry real weight on the map, which is exactly why suppliers will offer to sell you some. Google catches them, and the penalty lands on your listing, not on the supplier.",
       },
       {
         t: "p",
@@ -579,7 +579,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "This is where most restaurant sites lose. Not because they're ugly — because a robot finds nothing in them.",
+          "This is where most restaurant sites lose. Not because they're ugly, but because a robot finds nothing in them.",
       },
       {
         t: "encadre",
@@ -591,7 +591,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         t: "ul",
         items: [
           "A site that loads fast on a phone on 4G, not on your designer's fibre connection.",
-          "Hours, address and phone as text, identical to your listing — when the two disagree, Google trusts both a little less.",
+          "Hours, address and phone as text, identical to your listing: when the two disagree, Google trusts both a little less.",
           "Restaurant structured data: the invisible markup that tells Google this page is a restaurant, with its cuisine, its hours and its menu.",
           "One page per real subject. A one-page site can only rank for one thing.",
         ],
@@ -617,7 +617,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
           a: "No, and nobody can. Google doesn't sell positions in its organic results. What we guarantee is the work: the complete listing, the readable site, the reviews asked for properly.",
         },
         {
-          q: "I already have a Google listing — isn't that enough?",
+          q: "I already have a Google listing. Isn't that enough?",
           a: "Rarely. Most listings exist without ever having been claimed: rough categories, wrong hours, photos from five years ago, and an order link pointing to a delivery app.",
         },
         {
@@ -686,7 +686,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "The customer downloads nothing: they order from your site, on their phone, and pay online. The ones who come back often will end up installing your app — that's the other piece of the platform.",
+          "The customer downloads nothing: they order from your site, on their phone, and pay online. The ones who come back often will end up installing your app: that's the other piece of the platform.",
       },
 
       { t: "h2", texte: "The cart that raises the bill" },
@@ -698,7 +698,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "ul",
         items: [
-          "The extras at the right moment — the sauce, the add-on, the bigger size.",
+          "The extras at the right moment: the sauce, the add-on, the bigger size.",
           "The dish that goes with it, suggested before checkout rather than after.",
           "The previous order brought back in one tap: that's the shortcut that keeps regulars coming.",
         ],
@@ -743,7 +743,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Do you handle delivery?",
-          a: "We connect the ordering, not the drivers. Plenty of restaurants keep their own delivery or offer pickup only — that's often where the margin is best.",
+          a: "We connect the ordering, not the drivers. Plenty of restaurants keep their own delivery or offer pickup only: that's often where the margin is best.",
         },
       ],
     },
@@ -763,7 +763,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     surTitre: "More repeat orders",
     titre: "Your customers come back without you lifting a finger",
     intro:
-      "Someone ordered from you once, they liked it, and they don't come back — not because they found better, but because they forgot. Follow-ups fix exactly that problem, and nothing else.",
+      "Someone ordered from you once, they liked it, and they don't come back. Not because they found better, but because they forgot. Follow-ups fix exactly that problem, and nothing else.",
     resume: "The customer who already ordered comes back, without you thinking about it.",
     typeService: "Customer retention and follow-ups for restaurants",
     blocs: [
@@ -788,10 +788,10 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "ol",
         items: [
-          "**After the first order** — a thank-you, and the chance to leave a review while the meal is still fresh in mind.",
-          "**When they don't come back** — one offer, just one, on something close to what they ordered.",
-          "**When they do come back** — suggestions based on their own orders, not on your highest-margin dish.",
-          "**At the moments that matter** — Valentine's Day, Mother's Day, the holidays. Those are the nights a restaurant fills up or sits empty.",
+          "**After the first order**: a thank-you, and the chance to leave a review while the meal is still fresh in mind.",
+          "**When they don't come back**: one offer, just one, on something close to what they ordered.",
+          "**When they do come back**: suggestions based on their own orders, not on your highest-margin dish.",
+          "**At the moments that matter**: Valentine's Day, Mother's Day, the holidays. Those are the nights a restaurant fills up or sits empty.",
         ],
       },
 
@@ -857,7 +857,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Does it work by text message too?",
-          a: "Texts get read more and forgiven far less. The same consent rules apply, stricter in practice — we start with email.",
+          a: "Texts get read more and forgiven far less. The same consent rules apply, stricter in practice: we start with email.",
         },
       ],
     },
@@ -920,7 +920,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "It's the most powerful channel and the easiest to ruin. One notification a week, sent when it can actually help — Friday around five, the day of a special — gets read. One a day gets switched off, and a notification switched off never comes back on.",
+          "It's the most powerful channel and the easiest to ruin. One notification a week, sent when it can actually help (Friday around five, the day of a special) gets read. One a day gets switched off, and a notification switched off never comes back on.",
       },
 
       { t: "h2", texte: "The store review delay" },
@@ -932,7 +932,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "You also need a developer account in your own name, with both Apple and Google — that's what makes the app genuinely yours, and what lets you keep it the day you stop working with us. We handle the paperwork, but the accounts stay yours.",
+          "You also need a developer account in your own name, with both Apple and Google: that's what makes the app genuinely yours, and what lets you keep it the day you stop working with us. We handle the paperwork, but the accounts stay yours.",
       },
 
       { t: "h2", texte: "What it takes to work" },
@@ -945,7 +945,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         t: "ul",
         items: [
           "A QR code on the tables and on takeout bags.",
-          "A word from staff at checkout — that's what works best, by a wide margin.",
+          "A word from staff at checkout: that's what works best, by a wide margin.",
           "A reason to install: points that start counting from the first order.",
         ],
       },
@@ -959,7 +959,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Will my customers actually download it?",
-          a: "Your regulars will, when you give them a reason — the points, and two-tap ordering. One-time customers won't, and that's fine: they order from your site.",
+          a: "Your regulars will, when you give them a reason: the points, and two-tap ordering. One-time customers won't, and that's fine: they order from your site.",
         },
         {
           q: "Can I get the app without the rest?",

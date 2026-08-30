@@ -10,6 +10,56 @@ import { CITY, PHONE_DISPLAY, POSTAL_CODE, STREET } from "@/lib/site";
    Ce qui N'EST PAS ici : les coordonnées (site.ts, elles ne se traduisent pas)
    et les pages /confidentialite et 404, qui restent françaises. */
 
+/* Un paragraphe de produit se lit comme une suite de morceaux : du texte, et
+   des statuts de commande qu'on met en évidence. Ce sont des étiquettes
+   d'interface, pas des citations — d'où des puces plutôt que des guillemets.
+
+   La liste sort en const ANNOTÉE plutôt qu'écrite à même l'objet : sans ça,
+   `typeof FR` déduirait une union de trois formes d'objets — l'une avec `alt`,
+   l'autre avec des statuts dans `texte` — et un `.map` sur cette union se
+   plaindrait côté composant. */
+type Bout = string | { statut: string };
+
+const APPS: {
+  demo: string;
+  etiquette: string;
+  titre: string;
+  texte: Bout[];
+  alt?: string;
+}[] = [
+  {
+    demo: "client",
+    etiquette: "L'app de tes clients",
+    titre: "Une app à ton nom, pas à celui d'un intermédiaire",
+    texte: [
+      "Ton menu, tes photos, tes couleurs, ton programme de points. Le client choisit, commande en livraison ou en cueillette, et retrouve ses commandes passées. Sur son écran d'accueil, c'est ton nom qui reste.",
+    ],
+    alt: "Démonstration de l'application de commande Bistro Habibi",
+  },
+  {
+    demo: "cuisine",
+    etiquette: "L'app de ta cuisine",
+    titre: "Resto Action",
+    texte: [
+      "Les commandes arrivent, sonnent, et se suivent du ",
+      { statut: "nouveau" },
+      " jusqu'au ",
+      { statut: "livrée" },
+      // Aucune puce ne termine une phrase : le point tomberait après le
+      // rembourrage de la pastille, et se lirait comme une espace avant point.
+      " dans la même file. Un plat en rupture se retire en un geste. Les heures, la pause du service, les frais de livraison se règlent de la même place.",
+    ],
+  },
+  {
+    demo: "livreur",
+    etiquette: "L'app de tes livreurs",
+    titre: "Resto Go",
+    texte: [
+      "Tes livreurs voient les courses arriver et en prennent une. L'adresse s'ouvre dans Plans, le client est à un appel. Toi, tu sais où en est chaque livraison sans avoir à appeler personne.",
+    ],
+  },
+];
+
 export const FR = {
   code: "fr",
   htmlLang: "fr-CA",
@@ -78,6 +128,7 @@ export const FR = {
     // page /contact, qui offre le choix — donc « Nous contacter ».
     appelle: "Appelle-nous",
     contacter: "Nous contacter",
+    produits: "Voir nos produits",
     logoAlt: "Resto Action",
     mobileAria: "Menu mobile",
     ouvrirMenu: "Ouvrir le menu",
@@ -225,25 +276,18 @@ export const FR = {
     ],
   },
 
-  /* La mission est le seul bloc où le texte n'est pas fait de phrases entières :
-     un appel de note coupe le premier paragraphe, des <strong> coupent les deux
-     suivants. D'où ce découpage en morceaux plutôt qu'en paragraphes. */
-  mission: {
-    surTitre: "Notre mission",
-    titre: "Pensez au dernier resto indépendant où vous avez mangé.",
-    p1a: "Le proprio, il se lève à 5 heures pour recevoir ses livraisons. Il connaît le nom de ses habitués. Sa recette, c'est peut-être celle de sa mère. Lui, il travaille 70 heures par semaine pour se garder 3 à 9 % de marge",
-    p1b: ".",
-    p2a: "Pis pendant ce temps-là, tout monte : le loyer, la bouffe, l'équipement, les assurances.",
-    p2fort: "Chaque semaine, un nouveau feu à éteindre.",
-    p2b: "Lui, il a pas une minute pour s'asseoir et regarder ce qui gruge son resto pour vrai.",
-    p3a: "Si rien ne change, ces restos-là ferment un par un, et on perd notre variété au profit des multinationales. Dans 10 ans, il va rester quoi?",
-    p3fort: "Des chaînes pis des franchises.",
-    chute:
-      "Nous, on refuse ça. Notre mission : que le fruit du travail des restaurateurs québécois leur revienne, pour le bien collectif.",
-    sourceAvant: "Source : 1.",
-    sourceLien: "Restaurants Canada",
-    sourceApres:
-      ", données sur les marges bénéficiaires avant impôt en restauration.",
+  /* LE CATALOGUE. Trois apps, dont une seule est montrée à l'écran — les deux
+     autres se décrivent, faute d'avoir des captures à leur nom.
+
+     Le texte parle de CE QUE LES APPS FONT, jamais de ce qui est en
+     exploitation : rien n'est publié sur les magasins, aucun resto ne tourne
+     encore en production, et l'encaissement n'est pas bouclé. Chaque phrase
+     doit rester vraie en regardant l'écran. */
+  produits: {
+    titre: "Trois applications, un seul système.",
+    // Tant qu'une démo n'a pas ses captures, son cadre affiche ça.
+    attente: "Aperçu à venir",
+    apps: APPS,
   },
 
   histoire: {
@@ -411,7 +455,7 @@ export const FR = {
       "Une entreprise de Trois-Rivières au service des restaurants indépendants du Québec.",
     plateforme: "La plateforme",
     approche: "Notre approche",
-    mission: "Notre mission",
+    produits: "Nos produits",
     histoire: "Notre histoire",
     faq: "FAQ",
     blogue: "Le blogue",

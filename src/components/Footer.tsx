@@ -55,8 +55,8 @@ export default function Footer({ t }: { t: Textes }) {
           <Link href={lien("approche")} className="hover:text-white transition-colors">
             {t.pied.approche}
           </Link>
-          <Link href={lien("mission")} className="hover:text-white transition-colors">
-            {t.pied.mission}
+          <Link href={lien("produits")} className="hover:text-white transition-colors">
+            {t.pied.produits}
           </Link>
           <Link href={lien("histoire")} className="hover:text-white transition-colors">
             {t.pied.histoire}

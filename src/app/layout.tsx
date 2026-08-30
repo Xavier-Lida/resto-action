@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Unbounded } from "next/font/google";
+import { Caveat, Manrope, Unbounded } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { GA_MESURE_ID, SITE_URL } from "@/lib/site";
@@ -12,6 +12,20 @@ const caveat = Caveat({
 
 const unbounded = Unbounded({
   variable: "--font-unbounded",
+  subsets: ["latin"],
+});
+
+/* La police du texte courant. Elle remplace Helvetica/Arial, qui n'était pas une
+   police mais une pile système — donc Arial sur Windows, et aucun caractère
+   nulle part. Manrope est géométrique-humaniste : la même famille de formes
+   qu'Unbounded, mais dessinée pour être lue en petit corps.
+
+   Pas Unbounded pour le texte : elle est faite pour les grands corps, et les
+   articles de blogue y deviendraient pénibles. Et comme chaque titre écrit
+   `font-display` pour se détacher, les mettre dans la même police effacerait
+   cette hiérarchie. */
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -34,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr-CA"
-      className={`${caveat.variable} ${unbounded.variable} h-full antialiased`}
+      className={`${caveat.variable} ${manrope.variable} ${unbounded.variable} h-full antialiased`}
     >
       {/* Ni le Header ni le Footer ne sont globaux : la home a sa nav intégrée
           à la hero, et le pied de page suit la langue de la page qui le rend —

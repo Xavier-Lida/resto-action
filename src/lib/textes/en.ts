@@ -46,6 +46,7 @@ export const EN: Textes = {
     linkedin: "Resto Action on LinkedIn",
     appelle: "Call us",
     contacter: "Contact us",
+    produits: "See our products",
     logoAlt: "Resto Action",
     mobileAria: "Mobile menu",
     ouvrirMenu: "Open the menu",
@@ -160,21 +161,41 @@ export const EN: Textes = {
     ],
   },
 
-  mission: {
-    surTitre: "Our mission",
-    titre: "Think of the last independent restaurant you ate at.",
-    p1a: "The owner is up at 5 to take deliveries. He knows his regulars by name. The recipe might be his mother's. He works 70 hours a week to keep a margin of 3 to 9%",
-    p1b: ".",
-    p2a: "And meanwhile everything climbs: rent, food, equipment, insurance.",
-    p2fort: "Every week, another fire to put out.",
-    p2b: "He doesn't have a minute to sit down and look at what's really eating his restaurant.",
-    p3a: "If nothing changes, those restaurants close one by one, and we trade our variety for multinationals. In 10 years, what's left?",
-    p3fort: "Chains and franchises.",
-    chute:
-      "We refuse to accept that. Our mission: that the work of Quebec restaurant owners pays them back, for everyone's good.",
-    sourceAvant: "Source: 1.",
-    sourceLien: "Restaurants Canada",
-    sourceApres: ", data on pre-tax profit margins in foodservice.",
+  produits: {
+    titre: "Three apps, one system.",
+    attente: "Preview coming",
+
+    apps: [
+      {
+        demo: "client",
+        etiquette: "Your customers' app",
+        titre: "An app under your name, not a middleman's",
+        texte: [
+          "Your menu, your photos, your colours, your points programme. Customers browse, order for delivery or pickup, and find their past orders. On their home screen, it's your name that stays.",
+        ],
+        alt: "Demonstration of the Bistro Habibi ordering app",
+      },
+      {
+        demo: "cuisine",
+        etiquette: "Your kitchen's app",
+        titre: "Resto Action",
+        texte: [
+          "Orders come in, ring, and move from ",
+          { statut: "new" },
+          " through to ",
+          { statut: "delivered" },
+          " in one queue. A sold-out dish comes off the menu in one tap. Hours, service pauses and delivery fees are set from the same place.",
+        ],
+      },
+      {
+        demo: "livreur",
+        etiquette: "Your drivers' app",
+        titre: "Resto Go",
+        texte: [
+          "Your drivers watch runs come in and claim one. The address opens in Maps, the customer is one call away. And you know where every delivery stands without calling anyone.",
+        ],
+      },
+    ],
   },
 
   histoire: {
@@ -307,7 +328,7 @@ export const EN: Textes = {
       "A Trois-Rivières company working for Quebec's independent restaurants.",
     plateforme: "The platform",
     approche: "Our approach",
-    mission: "Our mission",
+    produits: "Our products",
     histoire: "Our story",
     faq: "FAQ",
     blogue: "The blog",

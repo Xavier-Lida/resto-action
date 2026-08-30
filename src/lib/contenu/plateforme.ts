@@ -60,7 +60,7 @@ export const PLATEFORME_FR = {
     {
       t: "p",
       texte:
-        "**Ton site aussi, si tu y tiens.** Si tu en as un qui fait la job, on y greffe la commande en ligne. S'il date, s'il est lent ou s'il n'existe pas, on t'en bâtit un — c'est souvent ce qui débloque le référencement, parce qu'un site lent ne sort pas dans Google, peu importe le reste.",
+        "**Ton site aussi, si tu y tiens.** Si tu en as un qui fait la job, on y greffe la commande en ligne. S'il date, s'il est lent ou s'il n'existe pas, on t'en bâtit un : c'est souvent ce qui débloque le référencement, parce qu'un site lent ne sort pas dans Google, peu importe le reste.",
     },
     {
       t: "encadre",
@@ -138,7 +138,7 @@ export const PLATEFORME_FR = {
     items: [
       {
         q: "Est-ce que je dois tout prendre?",
-        a: "Non. Bien des restos commencent par un seul morceau — souvent la visibilité dans Google ou les commandes en ligne — et ajoutent le reste quand ça rapporte. On te dira lequel vient en premier chez toi.",
+        a: "Non. Bien des restos commencent par un seul morceau (souvent la visibilité dans Google ou les commandes en ligne) et ajoutent le reste quand ça rapporte. On te dira lequel vient en premier chez toi.",
       },
       {
         q: "Est-ce que je dois changer ma caisse?",
@@ -146,11 +146,11 @@ export const PLATEFORME_FR = {
       },
       {
         q: "Et si j'ai déjà un site web?",
-        a: "On regarde s'il fait la job. S'il est correct, on y greffe la commande en ligne. S'il est lent ou introuvable dans Google, on t'en bâtit un — un site lent ne sort pas, peu importe le reste.",
+        a: "On regarde s'il fait la job. S'il est correct, on y greffe la commande en ligne. S'il est lent ou introuvable dans Google, on t'en bâtit un : un site lent ne sort pas, peu importe le reste.",
       },
       {
         q: "Ça prend combien de temps avant de voir des résultats?",
-        a: "Ton site et tes commandes en ligne partent en quelques semaines. La visibilité dans Google, elle, se bâtit sur quelques mois — méfie-toi de quiconque te promet la première position pour la semaine prochaine.",
+        a: "Ton site et tes commandes en ligne partent en quelques semaines. La visibilité dans Google, elle, se bâtit sur quelques mois. Méfie-toi de quiconque te promet la première position pour la semaine prochaine.",
       },
       {
         q: "Vous travaillez avec quels restos?",
@@ -204,7 +204,7 @@ export const PLATEFORME_EN: Plateforme = {
     {
       t: "p",
       texte:
-        "**Your website too, if you want.** If you have one that does the job, we graft online ordering onto it. If it's dated, slow or nonexistent, we build you one — that's often what unlocks search, because a slow site doesn't show up on Google no matter what else you do.",
+        "**Your website too, if you want.** If you have one that does the job, we graft online ordering onto it. If it's dated, slow or nonexistent, we build you one: that's often what unlocks search, because a slow site doesn't show up on Google no matter what else you do.",
     },
     {
       t: "encadre",
@@ -275,7 +275,7 @@ export const PLATEFORME_EN: Plateforme = {
     items: [
       {
         q: "Do I have to take all of it?",
-        a: "No. Plenty of restaurants start with a single piece — usually Google visibility or online ordering — and add the rest once it pays off. We'll tell you which one comes first for you.",
+        a: "No. Plenty of restaurants start with a single piece (usually Google visibility or online ordering) and add the rest once it pays off. We'll tell you which one comes first for you.",
       },
       {
         q: "Do I have to change my point of sale?",
@@ -283,11 +283,11 @@ export const PLATEFORME_EN: Plateforme = {
       },
       {
         q: "What if I already have a website?",
-        a: "We look at whether it does the job. If it's fine, we graft online ordering onto it. If it's slow or invisible on Google, we build you one — a slow site doesn't rank, no matter what else you do.",
+        a: "We look at whether it does the job. If it's fine, we graft online ordering onto it. If it's slow or invisible on Google, we build you one: a slow site doesn't rank, no matter what else you do.",
       },
       {
         q: "How long before I see results?",
-        a: "Your site and your online ordering go live within a few weeks. Google visibility builds over a few months — be wary of anyone promising you the top spot by next week.",
+        a: "Your site and your online ordering go live within a few weeks. Google visibility builds over a few months. Be wary of anyone promising you the top spot by next week.",
       },
       {
         q: "What restaurants do you work with?",

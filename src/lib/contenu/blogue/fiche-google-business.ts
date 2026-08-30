@@ -34,7 +34,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "La revendication passe par une vérification — un code par la poste, par téléphone ou par vidéo selon les cas. C'est la seule étape un peu longue, et c'est celle qui débloque tout le reste.",
+          "La revendication passe par une vérification : un code par la poste, par téléphone ou par vidéo selon les cas. C'est la seule étape un peu longue, et c'est celle qui débloque tout le reste.",
       },
 
       { t: "h2", texte: "Les catégories, plus importantes qu'on pense" },
@@ -46,7 +46,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Ajoute ensuite les catégories secondaires qui décrivent vraiment ton offre — livraison, apporter son vin, déjeuners. Pas dix : celles qui sont vraies.",
+          "Ajoute ensuite les catégories secondaires qui décrivent vraiment ton offre (livraison, apporter son vin, déjeuners). Pas dix : celles qui sont vraies.",
       },
 
       { t: "h2", texte: "Les heures, y compris celles qui changent" },
@@ -60,7 +60,7 @@ export const FICHE_GOOGLE: PaireArticle = {
         items: [
           "Les heures normales, tenues à jour quand l'horaire d'été change.",
           "**Les heures spéciales des jours fériés**, saisies d'avance. Google les demande explicitement, et presque personne ne les remplit.",
-          "Les heures de la cuisine si elles diffèrent de celles de la salle — un client arrivé à 21 h 45 pour une cuisine fermée à 21 h 30 en veut à ton resto, pas à la fiche.",
+          "Les heures de la cuisine si elles diffèrent de celles de la salle : un client arrivé à 21 h 45 pour une cuisine fermée à 21 h 30 en veut à ton resto, pas à la fiche.",
         ],
       },
 
@@ -80,7 +80,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Regarde où mène le bouton de commande de ta fiche. Chez bien des restos, il pointe vers une app de livraison — parfois sans que le proprio l'ait jamais décidé. Chaque commande qui part de là te coûte une commission alors que le client était déjà rendu chez toi.",
+          "Regarde où mène le bouton de commande de ta fiche. Chez bien des restos, il pointe vers une app de livraison, parfois sans que le proprio l'ait jamais décidé. Chaque commande qui part de là te coûte une commission alors que le client était déjà rendu chez toi.",
       },
       {
         t: "p",
@@ -138,7 +138,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Claiming goes through a verification — a code by mail, by phone or by video depending on the case. It's the one slightly long step, and it's the one that unlocks everything else.",
+          "Claiming goes through a verification: a code by mail, by phone or by video depending on the case. It's the one slightly long step, and it's the one that unlocks everything else.",
       },
 
       { t: "h2", texte: "Categories matter more than people think" },
@@ -150,7 +150,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Then add the secondary categories that genuinely describe what you offer — delivery, bring your own wine, breakfast. Not ten of them: the true ones.",
+          "Then add the secondary categories that genuinely describe what you offer (delivery, bring your own wine, breakfast). Not ten of them: the true ones.",
       },
 
       { t: "h2", texte: "Hours, including the ones that change" },
@@ -164,7 +164,7 @@ export const FICHE_GOOGLE: PaireArticle = {
         items: [
           "Regular hours, kept current when the summer schedule changes.",
           "**Special holiday hours**, entered ahead of time. Google asks for them explicitly, and almost nobody fills them in.",
-          "Kitchen hours if they differ from the dining room's — a customer arriving at 9:45 for a kitchen that closed at 9:30 blames your restaurant, not the listing.",
+          "Kitchen hours if they differ from the dining room's: a customer arriving at 9:45 for a kitchen that closed at 9:30 blames your restaurant, not the listing.",
         ],
       },
 
@@ -184,7 +184,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Look at where your listing's order button leads. At plenty of restaurants it points to a delivery app — sometimes without the owner ever having decided that. Every order leaving from there costs you a commission on a customer who had already found you.",
+          "Look at where your listing's order button leads. At plenty of restaurants it points to a delivery app, sometimes without the owner ever having decided that. Every order leaving from there costs you a commission on a customer who had already found you.",
       },
       {
         t: "p",

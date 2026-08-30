@@ -57,24 +57,42 @@ export default function Hero({ t }: { t: Textes }) {
 
         </div>
 
-        {/* Le vide au centre de la carte est comblé par la seule action qui
-            compte. Blanc plein sur le rouge, en coins doux plutôt qu'en pilule :
-            une pilule de cette taille se lit comme une étiquette, un rectangle
-            arrondi se lit comme un bouton.
+        {/* LA PAIRE DE CTA — variante « Bloc encré ».
 
-            L'ombre portée le décolle du rouge, et la flèche avance au survol :
-            le mouvement dit où mène le clic mieux qu'un changement de couleur.
+            Elle corrige trois défauts mesurés sur l'état précédent : les boutons
+            étaient EMPILÉS alors qu'ils tiennent côte à côte, ils étaient trop
+            LARGES pour ce qu'ils disent, et le secondaire — blanc translucide sur
+            le rouge — était quasi invisible.
 
-            `my-auto` le pose entre le titre et la zone basse sans figer de
-            hauteur : quelle que soit la longueur de la variante du titre, il
-            reste au milieu de ce qui reste. */}
-        <div className="my-auto flex justify-center px-5 py-6">
+            L'ENCRE PLUTÔT QUE LE BLANC pour le primaire : sur ce rouge, le
+            presque-noir contraste plus fort que le blanc, donc il s'affirme mieux
+            comme l'action principale. La flèche reste blanche avec le texte : en
+            rouge de marque elle attirait l'œil avant le libellé qu'elle suit.
+
+            L'OMBRE EST SANS FLOU, donc elle se lit comme une épaisseur sous le
+            bouton plutôt que comme une lueur. C'est elle qui porte l'interaction :
+            au survol le bouton se lève de 2 px et l'épaisseur passe à 6, au clic
+            il descend exactement de la hauteur de son ombre et vient s'asseoir
+            dessus. Dans les deux cas l'arête basse ne bouge pas — c'est ça qui
+            rend l'enfoncement crédible plutôt que flottant.
+
+            L'ORDRE A CHANGÉ : l'appel repasse devant. Il était second du temps où
+            le bouton des produits menait le regard vers le bas de la page ; la
+            bosse à flèche, juste dessous, dit déjà « plus bas ». */}
+        <div className="my-auto flex flex-col items-center justify-center gap-4 px-5 py-6 sm:flex-row">
           <Link
             href={`${t.racine}/contact`}
-            className="animate-hero delay-2 group inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 text-lg font-black text-ink shadow-xl shadow-ink/15 transition hover:-translate-y-0.5 hover:bg-ink hover:text-white hover:shadow-2xl hover:shadow-ink/25 active:translate-y-0 active:scale-95 md:px-10 md:py-5 md:text-xl"
+            className="animate-hero delay-2 group inline-flex items-center gap-3 rounded-xl bg-ink px-8 py-4 text-lg font-black text-white shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none"
           >
             {t.nav.contacter}
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+
+          <Link
+            href={`${t.racine}/#produits`}
+            className="animate-hero delay-3 inline-flex items-center rounded-xl bg-white px-8 py-4 text-lg font-black text-ink shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:bg-bone hover:shadow-[0_6px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none"
+          >
+            {t.nav.produits}
           </Link>
         </div>
 
@@ -111,7 +129,7 @@ export default function Hero({ t }: { t: Textes }) {
             `order` plutôt qu'un déplacement dans le JSX : l'ordre du DOM reste
             celui de la lecture — titre, action, promesses, signature — pour un
             lecteur d'écran comme pour un robot. Seul l'œil voit l'échange. */}
-        <ul className="animate-hero delay-3 order-last mx-auto mt-6 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70 lg:order-none lg:-mt-2">
+        <ul className="animate-hero delay-4 order-last mx-auto mt-6 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70 lg:order-none lg:-mt-2">
           {t.hero.promesses.map((promesse, i) => (
             <li key={promesse} className="flex items-center gap-2.5">
               {i > 0 && (
@@ -131,14 +149,14 @@ export default function Hero({ t }: { t: Textes }) {
             target="_blank"
             rel="noopener"
             aria-label={t.nav.linkedin}
-            className="animate-hero delay-4 grid size-12 place-items-center justify-self-start rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white lg:absolute lg:bottom-10 lg:left-10 lg:z-20"
+            className="animate-hero delay-5 grid size-12 place-items-center justify-self-start rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white lg:absolute lg:bottom-10 lg:left-10 lg:z-20"
           >
             <IconeLinkedIn className="size-5" />
           </a>
 
           {/* Carte façon « Get a Free Consultation » : Guillaume détouré,
               aligné au bas de la carte, le buste dépasse du haut. */}
-          <div className="animate-hero delay-5 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
+          <div className="animate-hero delay-6 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
             <p className="text-sm font-black leading-snug">{t.hero.carteTitre}</p>
             <p className="mt-0.5 text-xs text-ink/70">{t.hero.carteSousTitre}</p>
             <a

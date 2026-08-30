@@ -16,11 +16,17 @@ import type { Textes } from "@/lib/textes/fr";
    existent déjà dans `pied`. Ce module ne fait que les assembler. La seule
    chose qu'il ajoute, ce sont les titres des trois groupes.
 
-   LES FENTES SONT MESURÉES, pas devinées : Helvetica en gras à 14 px (la police
+   LES FENTES SONT MESURÉES, pas devinées : Manrope en gras à 14 px (la police
    de la barre), somme des avances de glyphes, plus 28 px de respiration, plus
-   20 px pour le chevron et son écart, arrondi au quart de rem. La méthode
-   reproduit au dixième de pixel les largeurs relevées au navigateur pour les
-   anciens libellés. Si un titre de groupe change, il faut remesurer. */
+   20 px pour le chevron et son écart, arrondi AU QUART DE REM SUPÉRIEUR. La
+   fente retenue est celle du plus long des deux libellés, français ou anglais.
+   Si un titre de groupe change, ou si la police du site change, il faut
+   remesurer.
+
+   Les chiffres ci-dessous ont été relevés au navigateur après le passage
+   d'Helvetica à Manrope. Manrope est un poil plus large — « Plateforme » gagne
+   2,8 px — mais les trois fentes retombent sur les mêmes quarts de rem, donc
+   aucune largeur n'a bougé. */
 
 export type LienNav = { href: string; libelle: string };
 export type GroupeNav = {
@@ -46,9 +52,13 @@ export function groupesNav(t: Textes): GroupeNav[] {
     {
       cle: "plateforme",
       titre: t.nav.groupes.plateforme,
-      fente: "w-[7.75rem]", // Plateforme 72,4 · Platform 56,8
+      fente: "w-[7.75rem]", // Plateforme 75,2 · Platform 58,8
       liens: [
         { href: t.nav.plateformeHref, libelle: t.nav.vueDensemble },
+        // Le catalogue vivait dans « Entreprise », à côté de Notre approche et
+        // Notre histoire, du temps où cette ancre menait à la mission. Des
+        // produits se cherchent sous « Plateforme ».
+        { href: ancre("produits"), libelle: t.pied.produits },
         ...CLES.map((cle) => ({
           href: fonctionnalites[cle].slug,
           libelle: fonctionnalites[cle].filNom,
@@ -58,17 +68,16 @@ export function groupesNav(t: Textes): GroupeNav[] {
     {
       cle: "entreprise",
       titre: t.nav.groupes.entreprise,
-      fente: "w-[7.5rem]", // Entreprise 69,2 · Company 63,8
+      fente: "w-[7.5rem]", // Entreprise 70,8 · Company 64,6
       liens: [
         { href: ancre("approche"), libelle: t.pied.approche },
-        { href: ancre("mission"), libelle: t.pied.mission },
         { href: ancre("histoire"), libelle: t.pied.histoire },
       ],
     },
     {
       cle: "ressources",
       titre: t.nav.groupes.ressources,
-      fente: "w-[8rem]", // Ressources 79,4 · Resources 71,6
+      fente: "w-[8rem]", // Ressources 79,6 · Resources 72,0
       liens: [
         { href: t.nav.blogueHref, libelle: t.pied.blogue },
         { href: ancre("faq"), libelle: t.nav.faq },
