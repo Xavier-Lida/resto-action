@@ -56,10 +56,10 @@ const IMAGES_HISTOIRE = [
     lien: FONDATEURS.guillaume.linkedin,
   },
   {
-    src: "/justin.jpg",
-    width: 602,
-    height: 900,
-    lien: FONDATEURS.justin.linkedin,
+    src: "/xavier.webp",
+    width: 512,
+    height: 683,
+    lien: FONDATEURS.xavier.linkedin,
   },
   { src: "/ceed.jpeg", width: 1086, height: 1018, lien: null },
 ];

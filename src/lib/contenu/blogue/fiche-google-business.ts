@@ -12,7 +12,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       "C'est elle qui décide qui sort dans « restaurant près de moi ». Ce qu'il faut y mettre, et les erreurs qui coûtent des clients.",
     publieLe: "2026-08-18",
     modifieLe: "2026-08-18",
-    auteur: "justin",
+    auteur: "xavier",
     blocs: [
       {
         t: "p",
@@ -116,7 +116,7 @@ export const FICHE_GOOGLE: PaireArticle = {
       "It decides who shows up for “restaurant near me.” What belongs on it, and the mistakes that cost you customers.",
     publieLe: "2026-08-18",
     modifieLe: "2026-08-18",
-    auteur: "justin",
+    auteur: "xavier",
     blocs: [
       {
         t: "p",

@@ -304,16 +304,16 @@ export const FR = {
         legende: "Guillaume",
       },
       {
-        titre: "Les marges sont minces",
+        titre: "La techno les oublie",
         texte:
-          "Justin l'a vécu en travaillant en restauration : chaque perte compte, chaque dollar donné à un intermédiaire fait mal.",
-        alt: "Justin Bouillon, cofondateur de Resto Action",
-        legende: "Justin",
+          "Les mêmes outils qui propulsent les grandes chaînes restent hors de portée du commerce du coin : trop chers, trop compliqués, jamais pensés pour lui. Xavier bâtit pour que ça change.",
+        alt: "Xavier Lida, cofondateur de Resto Action",
+        legende: "Xavier",
       },
       {
         titre: "Des jeunes en Action",
         texte:
-          "Rencontre à l'École d'entrepreneurship de Beauce. Guillaume présente l'idée, Justin embarque sur-le-champ. Ils gagnent le Défi CEED et décident d'agir.",
+          "Rencontre à l'École d'entrepreneurship de Beauce. Guillaume y présente l'idée, l'équipe se forme sur-le-champ. Ils gagnent le Défi CEED et décident d'agir.",
         alt: "Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action",
         legende: "1re position au Défi CEED 2026",
       },

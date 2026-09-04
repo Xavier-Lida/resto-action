@@ -210,16 +210,16 @@ export const EN: Textes = {
         legende: "Guillaume",
       },
       {
-        titre: "The margins are thin",
+        titre: "Tech leaves them out",
         texte:
-          "Justin lived it working in restaurants: every loss counts, every dollar handed to a middleman hurts.",
-        alt: "Justin Bouillon, co-founder of Resto Action",
-        legende: "Justin",
+          "The same tools that power the big chains stay out of reach for the shop around the corner: too expensive, too complicated, never built for it. Xavier is building to change that.",
+        alt: "Xavier Lida, co-founder of Resto Action",
+        legende: "Xavier",
       },
       {
         titre: "Young people in Action",
         texte:
-          "They met at the École d'entrepreneurship de Beauce. Guillaume pitched the idea, Justin was in on the spot. They won the CEED Challenge and decided to act.",
+          "They met at the École d'entrepreneurship de Beauce. Guillaume pitched the idea and the team came together on the spot. They won the CEED Challenge and decided to act.",
         alt: "CEED Challenge 2026 certificate, 1st place, awarded to Guillaume Therrien for Resto Action",
         legende: "1st place, CEED Challenge 2026",
       },

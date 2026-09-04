@@ -62,7 +62,7 @@ export const GA_MESURE_ID = "G-V8EERCZE9G";
    Le format d'affichage n'est PAS écrit ici : le pied de page la formate selon
    la langue de la page (`toLocaleDateString`), sinon il faudrait maintenir
    « 17 août 2026 » et « August 17, 2026 » en parallèle et les laisser dériver. */
-export const MISE_A_JOUR = "2026-08-21";
+export const MISE_A_JOUR = "2026-09-04";
 
 /* LES DEUX FONDATEURS, à un seul endroit.
 
@@ -78,9 +78,9 @@ export const FONDATEURS = {
     nom: "Guillaume Therrien",
     linkedin: "https://www.linkedin.com/in/guillaume-therrien-776a653b3/",
   },
-  justin: {
-    nom: "Justin Bouillon",
-    linkedin: "https://www.linkedin.com/in/justin-bouillon-58a667421/",
+  xavier: {
+    nom: "Xavier Lida",
+    linkedin: "https://www.linkedin.com/in/xavier-lida/",
   },
 } as const;
 
