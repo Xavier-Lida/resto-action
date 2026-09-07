@@ -9,9 +9,14 @@ import DemoApp from "@/components/DemoApp";
 const DEMOS = ["client", "cuisine", "livreur"];
 
 /* Les curseurs qui servent à régler la démo sans lancer tout le site.
-   La timeline elle-même se modifie en haut de DemoApp.tsx. */
-export default function ReglagesDemo() {
-  const [demo, setDemo] = useState(DEMOS[0]);
+   La timeline elle-même se modifie en haut de DemoApp.tsx.
+
+   `initiale` vient de l'URL (`?demo=livreur`), lue par la page côté serveur :
+   pratique pour une capture automatisée, qui n'a pas de souris pour le menu. */
+export default function ReglagesDemo({ initiale }: { initiale?: string }) {
+  const [demo, setDemo] = useState(
+    initiale && DEMOS.includes(initiale) ? initiale : DEMOS[0],
+  );
   const [largeur, setLargeur] = useState(320);
   const [fond, setFond] = useState("#191919");
 

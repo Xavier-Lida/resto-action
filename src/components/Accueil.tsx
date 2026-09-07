@@ -219,10 +219,10 @@ export default function Accueil({
             coins arrondis posée sur le blanc de la page.
 
             LES TROIS APPS SONT DE MÊME RANG. L'app cliente a été la première à
-            avoir des captures, mais ça n'en fait pas le produit principal —
-            Resto Action et Resto Go occupent la même grille, avec un cadre
-            d'attente à la place du téléphone tant que leurs captures n'existent
-            pas. Le jour où elles arrivent, rien ne bouge ici. */}
+            avoir des captures, Resto Go a suivi, mais ça n'en fait pas des
+            produits principaux — Resto Action occupe la même grille, avec un
+            cadre d'attente à la place du téléphone tant que ses captures
+            n'existent pas. Le jour où elles arrivent, rien ne bouge ici. */}
         <section id="produits" className="bg-white p-3 md:p-5 lg:p-6">
           <div className="overflow-hidden rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
             <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">

@@ -47,3 +47,7 @@ next-env.d.ts
 
 # assets intermédiaires de la démo animée : gros PNG de relecture, régénérables
 scripts/.demo-verif/
+
+# captures brutes du simulateur pour les démos (1170 × 2532, régénérables par
+# integration_test/captures_site_test.dart de chaque app)
+scripts/captures/

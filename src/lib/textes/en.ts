@@ -194,6 +194,7 @@ export const EN: Textes = {
         texte: [
           "Your drivers watch runs come in and claim one. The address opens in Maps, the customer is one call away. And you know where every delivery stands without calling anyone.",
         ],
+        alt: "Demonstration of the Resto Go drivers' app",
       },
     ],
   },

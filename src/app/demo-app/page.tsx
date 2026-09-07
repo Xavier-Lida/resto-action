@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function Page() {
-  return <ReglagesDemo />;
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ demo?: string | string[] }>;
+}) {
+  const { demo } = await searchParams;
+  return <ReglagesDemo initiale={Array.isArray(demo) ? demo[0] : demo} />;
 }

@@ -13,6 +13,11 @@ import { GEOMETRIE, type Demo } from "@/lib/demo-app-geometrie";
    l'air longues écrites ici ; à l'écran elles ne le sont pas, c'est ce qui laisse
    le temps de lire.
 
+   `fondu` change d'écran comme un changement d'onglet : le sortant s'efface,
+   l'entrant arrive en s'agrandissant. `etat` est le même écran dans un autre
+   état — une feuille qui change au bas d'une carte — et se contente d'un fondu
+   croisé, sans zoom : rien n'a bougé, seule la feuille a changé.
+
    Les noms d'écran et d'onglet sont ceux des clés `ecrans` de la config du
    script — ils sont vérifiés contre la géométrie au montage, et une étape qui
    nomme un écran inconnu fait basculer tout le mockup sur le cadre d'attente
@@ -20,6 +25,7 @@ import { GEOMETRIE, type Demo } from "@/lib/demo-app-geometrie";
 type Etape =
   | { ecran: string; tab: string | null; de: number; a: number; pause: number }
   | { fondu: string }
+  | { etat: string }
   | { splash: true };
 
 const TIMELINES: Record<string, Etape[]> = {
@@ -39,12 +45,38 @@ const TIMELINES: Record<string, Etape[]> = {
     { splash: true },
   ],
 
-  // Resto Action et Resto Go attendent leurs captures. Ajouter leur entrée ici
-  // en même temps que celle du script suffit à les faire tourner.
+  /* Resto Go raconte une course : l'accueil ne défile pas — c'est une carte —
+     il change d'état, et chaque état est une capture entière. On enchaîne par
+     `etat`, sans zoom, comme la feuille du bas le fait dans l'app. Stats et
+     Compte, eux, sont de vrais onglets et défilent. */
+  livreur: [
+    { ecran: "accueil", tab: null, de: 0, a: 0, pause: 1800 },
+    { etat: "attente" },
+    { ecran: "attente", tab: null, de: 0, a: 0, pause: 1500 },
+    { etat: "offre" },
+    { ecran: "offre", tab: null, de: 0, a: 0, pause: 2800 },
+    { etat: "itineraire" },
+    { ecran: "itineraire", tab: null, de: 0, a: 0, pause: 1800 },
+    { etat: "enroute" },
+    { ecran: "enroute", tab: null, de: 0, a: 0, pause: 2200 },
+    { etat: "livree" },
+    { ecran: "livree", tab: null, de: 0, a: 0, pause: 2400 },
+    { fondu: "stats" },
+    { ecran: "stats", tab: "stats", de: 0, a: 0, pause: 1600 },
+    { ecran: "stats", tab: "stats", de: 0, a: 1, pause: 2000 },
+    { fondu: "compte" },
+    { ecran: "compte", tab: "compte", de: 0, a: 0, pause: 1400 },
+    { ecran: "compte", tab: "compte", de: 0, a: 1, pause: 2000 },
+    { splash: true },
+  ],
+
+  // Resto Action attend ses captures. Ajouter son entrée ici en même temps que
+  // celle du script suffit à la faire tourner.
 };
 
 const DUREE_DEFILEMENT = 1900; // quelle que soit la distance parcourue
 const DUREE_FONDU = 420;
+const DUREE_ETAT = 380;
 const PART_SORTIE = 0.3; // le calque sortant s'efface sur les 30 premiers %
 const DUREE_TABBAR = 300;
 const SPLASH_ENTREE = 340;
@@ -70,7 +102,9 @@ function jouable(demo: string): { jeu: Jeu; timeline: Etape[] } | null {
   const connus = new Set(Object.keys(jeu.ecrans));
   const inconnu = timeline.find(
     (e) =>
-      ("ecran" in e && !connus.has(e.ecran)) || ("fondu" in e && !connus.has(e.fondu)),
+      ("ecran" in e && !connus.has(e.ecran)) ||
+      ("fondu" in e && !connus.has(e.fondu)) ||
+      ("etat" in e && !connus.has(e.etat)),
   );
   if (inconnu) {
     if (process.env.NODE_ENV !== "production") {
@@ -261,6 +295,24 @@ export default function DemoApp({
       await dormir(entree);
     };
 
+    /* Fondu CROISÉ, lui : l'écran reste le même, seule sa feuille change, et
+       les deux calques partagent le même fond — les voir se superposer un
+       instant est exactement ce qu'un vrai changement d'état donne. */
+    const basculer = async (sortant: string, entrant: string, tab: string | null) => {
+      const a = couche(sortant);
+      const b = couche(entrant);
+      onglet(tab, DUREE_TABBAR);
+      b.style.transition = "none";
+      b.style.transform = "none";
+      b.style.opacity = "0";
+      void b.offsetHeight;
+      a.style.transition = `opacity ${DUREE_ETAT}ms ease-in-out`;
+      b.style.transition = `opacity ${DUREE_ETAT}ms ease-in-out`;
+      a.style.opacity = "0";
+      b.style.opacity = "1";
+      await dormir(DUREE_ETAT);
+    };
+
     /* Le splash masque la couture de la boucle : c'est derrière lui qu'on remet
        tous les calques à zéro, donc le retour au début ne se voit pas. */
     const finBoucle = async () => {
@@ -269,7 +321,7 @@ export default function DemoApp({
       const remettre = () => {
         for (const e of ecrans) poser(e, 0);
         montrer(ecrans[0]);
-        onglet(onglets[0] ?? null);
+        onglet(onglets.includes(ecrans[0]) ? ecrans[0] : null);
       };
       if (!splash) return remettre();
 
@@ -296,10 +348,11 @@ export default function DemoApp({
         let actuel = ecrans[0];
         for (const etape of timeline) {
           if (arrete) return;
-          if ("fondu" in etape) {
-            const suivant = etape.fondu;
+          if ("fondu" in etape || "etat" in etape) {
+            const suivant = "fondu" in etape ? etape.fondu : etape.etat;
             const tab = onglets.includes(suivant) ? suivant : null;
-            await fondre(actuel, suivant, tab);
+            if ("fondu" in etape) await fondre(actuel, suivant, tab);
+            else await basculer(actuel, suivant, tab);
             actuel = suivant;
             continue;
           }
@@ -335,8 +388,10 @@ export default function DemoApp({
 
     document.addEventListener("visibilitychange", reprendre);
 
+    /* La barre du premier écran, s'il en a une : un premier écran pris entier,
+       barre comprise, n'en veut aucune par-dessus. */
     montrer(ecrans[0]);
-    onglet(onglets[0] ?? null);
+    onglet(onglets.includes(ecrans[0]) ? ecrans[0] : null);
     void boucler();
 
     return () => {
@@ -383,6 +438,22 @@ export default function DemoApp({
   }
 
   const premier = ecrans[0];
+  /* Une barre d'état par écran quand les pages n'ont pas toutes le même fond :
+     elle vit alors DANS le calque de l'écran, et s'en va avec lui. */
+  const statusbarParEcran = Boolean(
+    (jeu as { statusbarParEcran?: boolean }).statusbarParEcran,
+  );
+  const statusbar = (e: string | null) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`/demo-app/${demo}/${e ? `statusbar-${e}` : "statusbar"}.webp`}
+      alt=""
+      width={jeu!.largeur}
+      height={jeu!.statusbar}
+      draggable={false}
+      className="demo-statusbar"
+    />
+  );
 
   return (
     <div
@@ -408,18 +479,11 @@ export default function DemoApp({
               decoding="async"
               className="demo-contenu"
             />
+            {statusbarParEcran && statusbar(e)}
           </div>
         ))}
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`/demo-app/${demo}/statusbar.webp`}
-          alt=""
-          width={jeu!.largeur}
-          height={jeu!.statusbar}
-          draggable={false}
-          className="demo-statusbar"
-        />
+        {!statusbarParEcran && statusbar(null)}
 
         {onglets.map((o) => (
           // eslint-disable-next-line @next/next/no-img-element

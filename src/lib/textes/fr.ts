@@ -57,6 +57,7 @@ const APPS: {
     texte: [
       "Tes livreurs voient les courses arriver et en prennent une. L'adresse s'ouvre dans Plans, le client est à un appel. Toi, tu sais où en est chaque livraison sans avoir à appeler personne.",
     ],
+    alt: "Démonstration de l'application des livreurs Resto Go",
   },
 ];
 
