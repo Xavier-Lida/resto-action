@@ -11,6 +11,7 @@ import {
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Buoy from "@/components/Buoy";
 import { FUSEAU } from "@/lib/agenda";
+import { lireProvenance } from "@/lib/provenance";
 import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
@@ -338,6 +339,10 @@ export default function Agenda({ t }: { t: Textes }) {
           debut: heure,
           langue: t.code,
           piege,
+          // D'où vient ce visiteur (vidéo YouTube, LinkedIn…), capté à son
+          // arrivée par instrumentation-client.ts. Absent si rien n'a été
+          // capté : le rendez-vous se prend pareil.
+          provenance: lireProvenance() ?? undefined,
         }),
       });
       const donnees = await reponse.json();

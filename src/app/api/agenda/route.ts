@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { HORIZON_JOURS, decouperCreneaux } from "@/lib/agenda";
 import { ErreurAgenda } from "@/lib/google/auth";
+import { assainirProvenance } from "@/lib/provenance";
 import {
   creerRendezVous,
   listerFenetres,
@@ -116,6 +117,10 @@ export async function POST(requete: NextRequest): Promise<Response> {
   const message = texte(corps.message, 1000);
   const langue = corps.langue === "en" ? "en" : "fr";
   const debut = texte(corps.debut, 40);
+  /* La provenance vient d'un stockage que le visiteur contrôle : on ne garde
+     que les champs connus, bornés, et on jette le reste. Elle est facultative
+     et ne fait jamais refuser une réservation. */
+  const provenance = assainirProvenance(corps.provenance);
 
   if (
     !nom ||
@@ -158,6 +163,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
       restaurant,
       message,
       langue,
+      provenance,
     });
 
     return Response.json({ ok: true, ...resultat }, { headers: SANS_CACHE });

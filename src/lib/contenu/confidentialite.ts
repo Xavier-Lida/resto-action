@@ -14,7 +14,7 @@ import { CITY } from "@/lib/site";
 
    La date est ISO et non écrite en toutes lettres : la page la formate dans sa
    propre langue, comme le pied de page fait pour MISE_A_JOUR. */
-export const POLITIQUE_MAJ = "2026-07-01";
+export const POLITIQUE_MAJ = "2026-09-17";
 
 export const CONFIDENTIALITE_FR = {
   metaTitre: "Politique de confidentialité",
@@ -28,7 +28,7 @@ export const CONFIDENTIALITE_FR = {
   recueillis: {
     titre: "Renseignements recueillis",
     texte:
-      "Ce site ne recueille aucun renseignement personnel : pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Il dépose en revanche des témoins (cookies) de mesure d'audience, décrits juste en dessous. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
+      "Ce site ne recueille aucun renseignement personnel : pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Il dépose en revanche des témoins (cookies) de mesure d'audience, décrits juste en dessous. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre. Le site retient aussi, le temps de votre visite, par quel lien vous êtes arrivé (par exemple une vidéo YouTube), et joint cette information à une demande de rendez-vous pour qu'on sache d'où viennent nos clients.",
   },
 
   statistiques: {
@@ -77,7 +77,7 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   recueillis: {
     titre: "Information we collect",
     texte:
-      "This site collects no personal information: no account to create, no advertising profile, no data sold to anyone. It does set audience-measurement cookies, described just below. If you call or write to us, we use your contact details for one thing only: getting back to you.",
+      "This site collects no personal information: no account to create, no advertising profile, no data sold to anyone. It does set audience-measurement cookies, described just below. If you call or write to us, we use your contact details for one thing only: getting back to you. The site also remembers, for the duration of your visit, which link brought you here (a YouTube video, for instance), and attaches that to a booking request so we know where our clients come from.",
   },
 
   statistiques: {

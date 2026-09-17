@@ -1,12 +1,15 @@
 import { randomUUID } from "node:crypto";
 import type { Intervalle } from "@/lib/agenda";
 import { DUREE_MIN } from "@/lib/agenda";
+import type { Provenance } from "@/lib/provenance";
+import { decrireProvenance } from "@/lib/provenance";
 import { ErreurAgenda, jetonAcces, requis } from "./auth";
 
-/* LES TROIS SEULS APPELS QU'ON FAIT À GOOGLE.
+/* LES QUATRE SEULS APPELS QU'ON FAIT À GOOGLE.
 
    Lire les plages offertes, lire ce qui occupe déjà Guillaume, poser le
-   rendez-vous. Tout le reste de l'API Calendar ne nous concerne pas.
+   rendez-vous, et relire nos propres rendez-vous pour le tableau de bord.
+   Tout le reste de l'API Calendar ne nous concerne pas.
 
    LE MODÈLE À DEUX CALENDRIERS, en une phrase : un calendrier secondaire
    « Resto Action — Disponibilités » DÉFINIT ce qui est offert, les calendriers
@@ -150,7 +153,47 @@ export type Reservation = {
   restaurant: string;
   message: string;
   langue: "fr" | "en";
+  /** Par quel lien le visiteur est arrivé. Facultatif : absent, on l'écrit. */
+  provenance?: Provenance;
 };
+
+/* LA PROVENANCE VIT DANS L'ÉVÉNEMENT, À DEUX ENDROITS.
+
+   En clair dans la description, pour Guillaume. Et en propriétés privées,
+   pour le tableau de bord (`listerRendezVous`) : c'est la seule façon de
+   relire une réservation par sa provenance sans analyser du texte. Google
+   n'accepte que des chaînes non vides en valeur ; un champ absent reste
+   absent plutôt que de devenir `""`. Le nom des clés reprend les UTM, pour
+   qu'on les reconnaisse en ouvrant l'événement à la main dans l'API. */
+const CLES_PRIVEES: ReadonlyArray<[keyof Provenance, string]> = [
+  ["source", "utm_source"],
+  ["medium", "utm_medium"],
+  ["campaign", "utm_campaign"],
+  ["content", "utm_content"],
+  ["term", "utm_term"],
+  ["referent", "referent"],
+  ["page", "page"],
+];
+
+function proprietesProvenance(p: Provenance | undefined): Record<string, string> {
+  const resultat: Record<string, string> = {};
+  if (!p) return resultat;
+  for (const [champ, cle] of CLES_PRIVEES) {
+    if (p[champ]) resultat[cle] = p[champ];
+  }
+  return resultat;
+}
+
+function provenanceDepuis(
+  privees: Record<string, string> | undefined,
+): Provenance | undefined {
+  if (!privees) return undefined;
+  const resultat: Provenance = {};
+  for (const [champ, cle] of CLES_PRIVEES) {
+    if (privees[cle]) resultat[champ] = privees[cle];
+  }
+  return Object.keys(resultat).length > 0 ? resultat : undefined;
+}
 
 /* La création. Deux paramètres d'URL font tout le travail invisible :
 
@@ -178,6 +221,9 @@ export async function creerRendezVous(
 
   const lignes = [
     `Demandé depuis le site, ${reservation.langue === "en" ? "en anglais" : "en français"}.`,
+    // Toujours présente, même « inconnue » : c'est en la voyant à chaque
+    // fois que Guillaume prend l'habitude de la lire.
+    `Provenance : ${decrireProvenance(reservation.provenance)}`,
     "",
     `Nom : ${reservation.nom}`,
     reservation.restaurant ? `Restaurant : ${reservation.restaurant}` : null,
@@ -211,7 +257,14 @@ export async function creerRendezVous(
         guestsCanInviteOthers: false,
         guestsCanSeeOtherGuests: false,
         extendedProperties: {
-          private: { source: "site", courriel: reservation.courriel },
+          private: {
+            // `source: "site"` distingue nos réservations de ce que Guillaume
+            // pose lui-même ; c'est la clé sur laquelle `listerRendezVous`
+            // filtre. Ne pas la confondre avec `utm_source`.
+            source: "site",
+            courriel: reservation.courriel,
+            ...proprietesProvenance(reservation.provenance),
+          },
         },
       }),
     },
@@ -222,4 +275,77 @@ export async function creerRendezVous(
     debut: debut.toISOString(),
     fin: fin.toISOString(),
   };
+}
+
+/* ─── La relecture, pour le tableau de bord ─── */
+
+export type RendezVousListe = {
+  id: string;
+  /** Début du rendez-vous, ISO. */
+  debut: string;
+  titre: string;
+  /** Moment où la réservation a été prise, ISO. C'est lui qu'on compte. */
+  cree: string;
+  provenance?: Provenance;
+};
+
+type EvenementListe = EvenementGoogle & {
+  id?: string;
+  summary?: string;
+  created?: string;
+  extendedProperties?: { private?: Record<string, string> };
+};
+
+/* Nos rendez-vous entre deux dates, provenance comprise.
+
+   `privateExtendedProperty=source=site` ne rend que ce que ce site a créé :
+   les rendez-vous que Guillaume pose à la main n'ont pas de provenance à
+   compter, et on n'a pas à lire son agenda au-delà.
+
+   Le filtre de Google porte sur la DATE DU RENDEZ-VOUS, pas sur celle de la
+   réservation ; c'est l'appelant qui fait le tri sur `cree`. D'où une fenêtre
+   large ici, et le vrai découpage dans la page.
+
+   `fields` ne demande que ce qu'on lit — les descriptions contiennent des
+   téléphones et des courriels qui n'ont pas à transiter pour un comptage.
+   La boucle sur `nextPageToken` est là pour le jour où 2500 rendez-vous ne
+   suffiront plus dans une page ; ce jour-là, on ne veut pas d'un tableau qui
+   tronque en silence. */
+export async function listerRendezVous(
+  debut: Date,
+  fin: Date,
+): Promise<RendezVousListe[]> {
+  const resultat: RendezVousListe[] = [];
+  let pageToken: string | undefined;
+  do {
+    const parametres = new URLSearchParams({
+      privateExtendedProperty: "source=site",
+      timeMin: debut.toISOString(),
+      timeMax: fin.toISOString(),
+      singleEvents: "true",
+      orderBy: "startTime",
+      maxResults: "2500",
+      fields:
+        "nextPageToken,items(id,status,summary,created,start,extendedProperties)",
+    });
+    if (pageToken) parametres.set("pageToken", pageToken);
+    const donnees = await appeler<{
+      items?: EvenementListe[];
+      nextPageToken?: string;
+    }>(`/calendars/${encodeURIComponent(calendrierRdv())}/events?${parametres}`);
+    for (const e of donnees.items ?? []) {
+      if (e.status === "cancelled" || !e.id || !e.start?.dateTime || !e.created) {
+        continue;
+      }
+      resultat.push({
+        id: e.id,
+        debut: e.start.dateTime,
+        titre: e.summary ?? "",
+        cree: e.created,
+        provenance: provenanceDepuis(e.extendedProperties?.private),
+      });
+    }
+    pageToken = donnees.nextPageToken;
+  } while (pageToken);
+  return resultat;
 }
