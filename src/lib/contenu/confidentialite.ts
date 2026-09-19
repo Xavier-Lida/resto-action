@@ -28,7 +28,16 @@ export const CONFIDENTIALITE_FR = {
   recueillis: {
     titre: "Renseignements recueillis",
     texte:
-      "Ce site ne recueille aucun renseignement personnel : pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Il dépose en revanche des témoins (cookies) de mesure d'audience, décrits juste en dessous. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre. Le site retient aussi, le temps de votre visite, par quel lien vous êtes arrivé (par exemple une vidéo YouTube), et joint cette information à une demande de rendez-vous pour qu'on sache d'où viennent nos clients.",
+      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site dépose des témoins (cookies) de mesure d'audience, décrits juste en dessous. Le seul endroit où vous nous donnez des renseignements personnels, c'est la prise de rendez-vous, décrite dans la section suivante. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
+  },
+
+  /* Suit src/app/api/agenda/route.ts et src/lib/crm.ts : ce qui est demandé au
+     formulaire, où ça va, combien de temps ça reste. Si le formulaire gagne un
+     champ ou si le CRM change d'hébergement, ce paragraphe devient faux. */
+  rendezVous: {
+    titre: "Quand vous prenez rendez-vous",
+    texte:
+      "Pour réserver un appel, on vous demande votre nom, votre courriel, votre téléphone et, si vous le voulez, le nom de votre restaurant et un message. Ces renseignements servent à une seule chose : préparer l'appel et y donner suite. Ils sont inscrits dans notre agenda (Google Agenda, qui vous envoie l'invitation) et dans notre outil de suivi des clients, hébergé au Canada et accessible à nos deux cofondateurs seulement. On y joint le lien par lequel vous êtes arrivé sur le site (par exemple une vidéo YouTube), retenu le temps de votre visite, pour savoir d'où viennent nos clients. On ne les vend pas, on ne les loue pas, et on ne s'en sert pas pour de la publicité. On les supprime sur simple demande : écrivez-nous à l'adresse ci-dessous.",
   },
 
   statistiques: {
@@ -85,7 +94,13 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   recueillis: {
     titre: "Information we collect",
     texte:
-      "This site collects no personal information: no account to create, no advertising profile, no data sold to anyone. It does set audience-measurement cookies, described just below. If you call or write to us, we use your contact details for one thing only: getting back to you. The site also remembers, for the duration of your visit, which link brought you here (a YouTube video, for instance), and attaches that to a booking request so we know where our clients come from.",
+      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies, described just below. The only place you give us personal information is when you book a call, described in the next section. If you call or write to us, we use your contact details for one thing only: getting back to you.",
+  },
+
+  rendezVous: {
+    titre: "When you book a call",
+    texte:
+      "To book a call, we ask for your name, email and phone number and, if you like, your restaurant's name and a message. That information is used for one thing: preparing the call and following up on it. It is recorded in our calendar (Google Calendar, which sends you the invitation) and in our client follow-up tool, hosted in Canada and accessible to our two co-founders only. We attach the link that brought you to the site (a YouTube video, for instance), remembered for the duration of your visit, so we know where our clients come from. We do not sell it, rent it, or use it for advertising. We delete it on request: write to us at the address below.",
   },
 
   statistiques: {

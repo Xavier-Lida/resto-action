@@ -1,6 +1,7 @@
-import type { NextRequest } from "next/server";
+import { after, type NextRequest } from "next/server";
 import { HORIZON_JOURS, decouperCreneaux } from "@/lib/agenda";
 import { ErreurAgenda } from "@/lib/google/auth";
+import { signalerReservation } from "@/lib/crm";
 import { assainirProvenance } from "@/lib/provenance";
 import {
   creerRendezVous,
@@ -166,7 +167,37 @@ export async function POST(requete: NextRequest): Promise<Response> {
       provenance,
     });
 
-    return Response.json({ ok: true, ...resultat }, { headers: SANS_CACHE });
+    /* LE CRM EST PRÉVENU APRÈS LA RÉPONSE, ET N'Y CHANGE RIEN.
+
+       `after()` : le visiteur a déjà sa confirmation quand l'appel part. À ce
+       stade, Google a créé l'événement ET envoyé l'invitation — si une panne
+       du CRM faisait échouer la requête, la personne verrait « erreur » avec un
+       rendez-vous bel et bien à l'agenda. `signalerReservation` ne lève jamais.
+
+       Un simple appel non attendu ne suffirait pas : sur Vercel, l'instance
+       peut être gelée dès la réponse envoyée, et la requête ne partirait pas.
+
+       C'est APRÈS le piège à robots et après la création : rien de ce qui est
+       refusé plus haut n'atteint le CRM. S'il en manque un malgré tout, sa
+       resynchronisation quotidienne le retrouve dans l'agenda. */
+    const { id, ...confirmation } = resultat;
+    if (id) {
+      after(() =>
+        signalerReservation({
+          googleEventId: id,
+          nom,
+          courriel,
+          telephone,
+          restaurant,
+          message,
+          langue,
+          provenance,
+          ...confirmation,
+        }),
+      );
+    }
+
+    return Response.json({ ok: true, ...confirmation }, { headers: SANS_CACHE });
   } catch (erreur) {
     return echec(erreur);
   }

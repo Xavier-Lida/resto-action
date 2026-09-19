@@ -212,7 +212,7 @@ function provenanceDepuis(
    client, pour qu'il sache dans quelle langue décrocher. */
 export async function creerRendezVous(
   reservation: Reservation,
-): Promise<{ meet: string | null; debut: string; fin: string }> {
+): Promise<{ id: string | null; meet: string | null; debut: string; fin: string }> {
   const debut = new Date(reservation.debut);
   const fin = new Date(debut.getTime() + DUREE_MIN * 60_000);
 
@@ -234,7 +234,7 @@ export async function creerRendezVous(
     reservation.message ? `Son message :\n${reservation.message}` : null,
   ].filter((l) => l !== null);
 
-  const donnees = await appeler<{ hangoutLink?: string }>(
+  const donnees = await appeler<{ id?: string; hangoutLink?: string }>(
     `/calendars/${encodeURIComponent(calendrierRdv())}/events?conferenceDataVersion=1&sendUpdates=all`,
     {
       method: "POST",
@@ -272,6 +272,10 @@ export async function creerRendezVous(
   );
 
   return {
+    // L'identifiant de l'événement : c'est la clé par laquelle le CRM
+    // reconnaît une réservation, qu'elle lui arrive par le site ou qu'il la
+    // relise dans l'agenda. Il ne sort PAS vers le navigateur (voir la route).
+    id: donnees.id ?? null,
     meet: donnees.hangoutLink ?? null,
     debut: debut.toISOString(),
     fin: fin.toISOString(),
