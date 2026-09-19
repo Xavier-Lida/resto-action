@@ -149,6 +149,56 @@ export function noeudArticle({
   };
 }
 
+/* Le nœud d'une vidéo YouTube reprise sur une page.
+
+   Google exige trois champs pour un VideoObject — `name`, `thumbnailUrl`,
+   `uploadDate` — et ne devine aucun des trois : la vidéo vit dans une iframe
+   qui n'existe même pas avant le clic, le balisage est donc la SEULE chose
+   qu'un robot verra d'elle sur cette page.
+
+   `embedUrl` pointe sur youtube.com et non sur youtube-nocookie.com, qui est
+   pourtant l'adresse que le lecteur charge : c'est la forme que Google
+   reconnaît et recolle à la vidéo de la chaîne. Le domaine sans témoins est
+   un choix pour le visiteur, pas une identité pour le moteur.
+
+   `langue` est celle DE LA VIDÉO, pas de la page : la version anglaise de
+   l'accueil montre la même vidéo, en français. */
+export function noeudVideo({
+  id,
+  racine,
+  idYoutube,
+  nom,
+  description,
+  langue,
+  publieLe,
+  duree,
+  miniature,
+}: {
+  id: string;
+  racine: string;
+  idYoutube: string;
+  nom: string;
+  description: string;
+  langue: string;
+  publieLe: string;
+  duree: string;
+  miniature: string;
+}) {
+  return {
+    "@type": "VideoObject",
+    "@id": id,
+    name: nom,
+    description,
+    inLanguage: langue,
+    thumbnailUrl: `${SITE_URL}${miniature}`,
+    uploadDate: publieLe,
+    duration: duree,
+    embedUrl: `https://www.youtube.com/embed/${idYoutube}`,
+    url: `https://www.youtube.com/watch?v=${idYoutube}`,
+    publisher: refOrganisation(racine),
+  };
+}
+
 /* Le nœud FAQPage.
 
    L'accueil le construisait à la main ; la plateforme et les quatre pages de

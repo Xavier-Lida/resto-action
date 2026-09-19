@@ -14,7 +14,7 @@ import { CITY } from "@/lib/site";
 
    La date est ISO et non écrite en toutes lettres : la page la formate dans sa
    propre langue, comme le pied de page fait pour MISE_A_JOUR. */
-export const POLITIQUE_MAJ = "2026-09-17";
+export const POLITIQUE_MAJ = "2026-09-19";
 
 export const CONFIDENTIALITE_FR = {
   metaTitre: "Politique de confidentialité",
@@ -35,6 +35,14 @@ export const CONFIDENTIALITE_FR = {
     titre: "Statistiques de fréquentation",
     texte:
       "On mesure l'achalandage avec deux outils. Vercel Analytics produit des statistiques anonymes, sans témoins. Google Analytics, lui, dépose des témoins (cookies) qui attribuent à votre navigateur un identifiant aléatoire, et transmet ces données à Google : ça nous sert à savoir combien de personnes visitent le site et par quel chemin elles arrivent, jamais à vous identifier nommément. Vous pouvez le refuser en bloquant les témoins dans votre navigateur, ou en installant le module de désactivation publié par Google.",
+  },
+
+  /* Suit LecteurVideo.tsx : si le lecteur cesse d'attendre le clic, ou quitte
+     youtube-nocookie.com, ce paragraphe devient faux. */
+  video: {
+    titre: "La vidéo de la page d'accueil",
+    texte:
+      "La vidéo de notre page d'accueil est hébergée par YouTube. Tant que vous n'appuyez pas sur lecture, elle n'est qu'une image servie par notre site : rien n'est demandé à YouTube et aucun témoin n'est déposé. Quand vous la lancez, le lecteur de YouTube se charge en mode de confidentialité renforcée (youtube-nocookie.com), et YouTube, donc Google, peut alors recueillir des données de visionnement selon sa propre politique. De notre côté, on compte la lecture dans nos statistiques, et on retient le temps de votre visite que vous avez regardé la vidéo : si vous prenez rendez-vous, cette information accompagne la demande.",
   },
 
   /* La seule section coupée par des liens : le courriel et le téléphone
@@ -84,6 +92,12 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
     titre: "Traffic statistics",
     texte:
       "We measure traffic with two tools. Vercel Analytics produces anonymous statistics and sets no cookies. Google Analytics does set cookies, which assign your browser a random identifier, and sends that data to Google: we use it to know how many people visit the site and how they got here, never to identify you by name. You can refuse it by blocking cookies in your browser, or by installing the opt-out add-on Google publishes.",
+  },
+
+  video: {
+    titre: "The video on the home page",
+    texte:
+      "The video on our home page is hosted by YouTube. Until you press play, it is only an image served by our own site: nothing is requested from YouTube and no cookie is set. When you start it, YouTube's player loads in privacy-enhanced mode (youtube-nocookie.com), and YouTube, meaning Google, may then collect viewing data under its own policy. On our side, we count the play in our statistics, and we remember for the duration of your visit that you watched the video: if you book a call, that information goes along with the request.",
   },
 
   responsable: {

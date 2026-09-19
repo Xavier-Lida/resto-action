@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, Phone } from "lucide-react";
+import IconeYoutube from "@/components/IconeYoutube";
 import TitreTournant from "@/components/TitreTournant";
-import { LINKEDIN_URL, PHONE_HREF } from "@/lib/site";
+import { LINKEDIN_URL, PHONE_HREF, YOUTUBE_ABONNEMENT_URL } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 // Glyphe LinkedIn (lucide-react ne fournit plus d'icônes de marques).
@@ -142,17 +143,31 @@ export default function Hero({ t }: { t: Textes }) {
           ))}
         </ul>
 
-        {/* Zone basse : LinkedIn à gauche, carte Guillaume à droite */}
+        {/* Zone basse : LinkedIn et YouTube à gauche, carte Guillaume à droite */}
         <div className="mt-auto grid grid-cols-[minmax(0,1fr)] items-end gap-6 px-5 pt-10 md:px-8 lg:contents">
-          <a
-            href={LINKEDIN_URL}
-            target="_blank"
-            rel="noopener"
-            aria-label={t.nav.linkedin}
-            className="animate-hero delay-5 grid size-12 place-items-center justify-self-start rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white lg:absolute lg:bottom-10 lg:left-10 lg:z-20"
-          >
-            <IconeLinkedIn className="size-5" />
-          </a>
+          {/* Le PLACEMENT est porté par ce conteneur, plus par le lien : il y
+              a maintenant deux pastilles, et c'est la paire qui se pose en bas
+              à gauche. Chacune ne garde que son apparence. */}
+          <div className="animate-hero delay-5 flex gap-3 justify-self-start lg:absolute lg:bottom-10 lg:left-10 lg:z-20">
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label={t.nav.linkedin}
+              className="grid size-12 place-items-center rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white"
+            >
+              <IconeLinkedIn className="size-5" />
+            </a>
+            <a
+              href={YOUTUBE_ABONNEMENT_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label={t.nav.youtube}
+              className="grid size-12 place-items-center rounded-full bg-white text-brand shadow-md transition-colors hover:bg-ink hover:text-white"
+            >
+              <IconeYoutube className="size-6" />
+            </a>
+          </div>
 
           {/* Carte façon « Get a Free Consultation » : Guillaume détouré,
               aligné au bas de la carte, le buste dépasse du haut. */}

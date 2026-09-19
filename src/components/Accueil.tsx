@@ -2,15 +2,18 @@ import Image from "next/image";
 import { Phone, Mail } from "lucide-react";
 import Agenda from "@/components/Agenda";
 import BarreNav from "@/components/BarreNav";
+import BoutonAbonnement from "@/components/BoutonAbonnement";
 import Buoy from "@/components/Buoy";
 import DemoApp from "@/components/DemoApp";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import IconeYoutube from "@/components/IconeYoutube";
 import Resultats from "@/components/Resultats";
 import Reveal from "@/components/Reveal";
 import SectionFaq from "@/components/SectionFaq";
 import DonneesStructurees from "@/components/DonneesStructurees";
-import { noeudFaq } from "@/lib/schema";
+import LecteurVideo from "@/components/LecteurVideo";
+import { noeudFaq, noeudVideo } from "@/lib/schema";
 import type { Textes } from "@/lib/textes/fr";
 import type { Cle, Fonctionnalite } from "@/lib/contenu/fonctionnalites";
 
@@ -29,6 +32,8 @@ import {
   POSTAL_CODE,
   SITE_URL,
   STREET,
+  VIDEO_HISTOIRE,
+  YOUTUBE_URL,
 } from "@/lib/site";
 
 /* La page d'accueil, une seule fois pour les deux langues. Les routes
@@ -102,7 +107,7 @@ export default function Accueil({
            les moteurs génératifs suivent pour reconnaître une entreprise et la
            relier à ce qui se dit d'elle ailleurs. Les fondateurs en avaient un,
            l'entreprise non. */
-        sameAs: [LINKEDIN_URL],
+        sameAs: [LINKEDIN_URL, YOUTUBE_URL],
         priceRange: "$$",
         telephone: PHONE_E164,
         email: EMAIL,
@@ -132,6 +137,19 @@ export default function Accueil({
         id: `${racine}/#faq`,
         langue: t.htmlLang,
         items: t.faq.items,
+      }),
+      /* `fr-CA` en dur, dans les deux versions : c'est la langue de la vidéo,
+         pas celle de la page qui la montre. */
+      noeudVideo({
+        id: `${racine}/#video`,
+        racine: t.racine,
+        idYoutube: VIDEO_HISTOIRE.id,
+        nom: t.chaine.video.titre,
+        description: t.chaine.video.description,
+        langue: "fr-CA",
+        publieLe: VIDEO_HISTOIRE.publieLe,
+        duree: VIDEO_HISTOIRE.duree,
+        miniature: VIDEO_HISTOIRE.miniature,
       }),
     ],
   };
@@ -358,6 +376,56 @@ export default function Accueil({
                   );
                 })}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── La chaîne YouTube ─── */}
+        {/* Sur le blanc, entre deux cartes sombres et la FAQ : la page respire,
+            et la miniature — la seule image en couleur de ce bout de page —
+            porte la section à elle seule.
+
+            LE BUT EST L'ABONNEMENT, PAS LE VISIONNEMENT. D'où le partage : le
+            texte et le bouton d'un côté, la vidéo de l'autre comme pièce à
+            conviction. Le texte passe avant dans le DOM — c'est lui qui dit de
+            quoi il s'agit ; en pile, sur un téléphone, la vidéo le suit.
+
+            3:2 en faveur de la vidéo : un 16:9 rétrécit vite, et à
+            moitié-moitié la miniature devenait une vignette — trop petite
+            pour donner envie d'appuyer dessus. */}
+        <section id="youtube" className="bg-white">
+          <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+            <div className="grid items-center gap-10 lg:grid-cols-[2fr_3fr] lg:gap-16">
+              <Reveal>
+                <p className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-ink/50">
+                  <IconeYoutube className="size-5 text-brand" />
+                  {t.chaine.surTitre}
+                </p>
+                <h2 className="mt-4 font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
+                  {t.chaine.titre}
+                </h2>
+                <p className="mt-5 text-lg leading-relaxed text-ink/75">
+                  {t.chaine.texte}
+                </p>
+                <div className="mt-8">
+                  <BoutonAbonnement libelle={t.chaine.abonner} />
+                </div>
+              </Reveal>
+
+              <Reveal delay={1}>
+                <LecteurVideo
+                  id={VIDEO_HISTOIRE.id}
+                  miniature={VIDEO_HISTOIRE.miniature}
+                  titre={t.chaine.video.titre}
+                  lire={t.chaine.video.lire}
+                  langue={t.htmlLang}
+                />
+                {t.chaine.video.mention && (
+                  <p className="mt-3 text-sm text-ink/50">
+                    {t.chaine.video.mention}
+                  </p>
+                )}
+              </Reveal>
             </div>
           </div>
         </section>

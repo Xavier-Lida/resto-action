@@ -81,6 +81,7 @@ export function groupesNav(t: Textes): GroupeNav[] {
       liens: [
         { href: t.nav.blogueHref, libelle: t.pied.blogue },
         { href: ancre("faq"), libelle: t.nav.faq },
+        { href: ancre("youtube"), libelle: t.pied.youtube },
       ],
     },
   ];

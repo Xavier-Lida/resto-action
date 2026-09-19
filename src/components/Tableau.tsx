@@ -95,6 +95,13 @@ export default function Tableau({
   const parSource = compter(rendezVous, (r) => nomSource(sourceDe(r.provenance)));
   const youtube = rendezVous.filter((r) => sourceDe(r.provenance) === "youtube");
   const parVideo = compter(youtube, (r) => r.provenance?.content ?? "chaîne (sans vidéo)");
+  /* La vidéo de l'accueil se compte À PART des sources : l'avoir regardée ne
+     dit pas d'où on vient, et quelqu'un arrivé de YouTube peut très bien
+     l'avoir regardée aussi. Les deux barres se lisent l'une contre l'autre —
+     c'est leur rapport qui dit si la vidéo aide à réserver. */
+  const parVisionnement = compter(rendezVous, (r) =>
+    r.provenance?.video ? "Ont regardé la vidéo" : "Ne l'ont pas regardée",
+  );
   const recents = [...rendezVous]
     .sort((a, b) => Date.parse(b.cree) - Date.parse(a.cree))
     .slice(0, 25);
@@ -146,6 +153,10 @@ export default function Tableau({
               lignes={parVideo}
               vide="Aucun rendez-vous venu de YouTube sur cette période."
             />
+          </Carte>
+
+          <Carte titre="La vidéo de l'accueil, avant de réserver">
+            <Barres lignes={parVisionnement} vide="Aucun rendez-vous sur cette période." />
           </Carte>
 
           <Carte titre="Les derniers">

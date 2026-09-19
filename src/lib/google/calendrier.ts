@@ -173,6 +173,7 @@ const CLES_PRIVEES: ReadonlyArray<[keyof Provenance, string]> = [
   ["term", "utm_term"],
   ["referent", "referent"],
   ["page", "page"],
+  ["video", "video_vue"],
 ];
 
 function proprietesProvenance(p: Provenance | undefined): Record<string, string> {

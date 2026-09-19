@@ -42,7 +42,7 @@ export default function PageConfidentialite({
     { year: "numeric", month: "long" }
   );
 
-  const sections = [c.recueillis, c.statistiques];
+  const sections = [c.recueillis, c.statistiques, c.video];
   const suite = [c.droits, c.qui];
 
   return (

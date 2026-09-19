@@ -22,6 +22,12 @@ export const POSTAL_CODE = "G8W 2P7";
 // Le LinkedIn de la MARQUE (pas des fondateurs) : affiché dans le héro et
 // déclaré en sameAs dans le JSON-LD, d'où sa place ici.
 export const LINKEDIN_URL = "https://www.linkedin.com/company/restoaction";
+// La chaîne YouTube, sous deux formes. `YOUTUBE_URL` est son IDENTITÉ : c'est
+// elle qui part dans le sameAs du JSON-LD, où un paramètre de suivi n'a rien à
+// faire. `YOUTUBE_ABONNEMENT_URL` est celle de tous les liens qu'on clique :
+// `sub_confirmation=1` ouvre la chaîne avec la fenêtre d'abonnement déjà levée.
+export const YOUTUBE_URL = "https://www.youtube.com/@RestoAction";
+export const YOUTUBE_ABONNEMENT_URL = `${YOUTUBE_URL}?sub_confirmation=1`;
 
 /* L'IDENTIFIANT DE MESURE GOOGLE ANALYTICS 4.
 
@@ -63,6 +69,24 @@ export const GA_MESURE_ID = "G-V8EERCZE9G";
    la langue de la page (`toLocaleDateString`), sinon il faudrait maintenir
    « 17 août 2026 » et « August 17, 2026 » en parallèle et les laisser dériver. */
 export const MISE_A_JOUR = "2026-09-04";
+
+/* LA VIDÉO « NOTRE HISTOIRE », celle que met de l'avant la section YouTube de
+   l'accueil.
+
+   La miniature est une COPIE LOCALE (public/), pas une adresse i.ytimg.com :
+   tant que personne n'appuie sur lecture, la page ne doit rien demander à
+   Google — ni image, ni script, ni témoin. C'est ce qui rend le lecteur
+   gratuit au chargement ; voir LecteurVideo.tsx.
+
+   `publieLe` et `duree` sont ceux que YouTube déclare pour la vidéo. Ils
+   partent dans le VideoObject du JSON-LD, où Google les exige : une vidéo
+   remplacée par une autre se met à jour ICI, les quatre champs ensemble. */
+export const VIDEO_HISTOIRE = {
+  id: "Va4Mx1x-N-c",
+  miniature: "/video-histoire.jpg",
+  publieLe: "2026-09-17T12:09:32-07:00",
+  duree: "PT5M32S",
+};
 
 /* LES DEUX FONDATEURS, à un seul endroit.
 

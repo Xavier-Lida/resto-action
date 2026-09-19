@@ -44,6 +44,7 @@ export const EN: Textes = {
     blogueHref: "/en/blog",
     descendre: "Skip to the next section",
     linkedin: "Resto Action on LinkedIn",
+    youtube: "Resto Action on YouTube",
     appelle: "Call us",
     contacter: "Contact us",
     produits: "See our products",
@@ -227,6 +228,24 @@ export const EN: Textes = {
     ],
   },
 
+  chaine: {
+    surTitre: "Our YouTube channel",
+    titre: "The story continues on YouTube",
+    texte:
+      "It's where we tell why Resto Action exists, and how an independent restaurant takes back control of its orders, its margins and its customers. Start with our story, then subscribe so you don't miss what comes next.",
+    abonner: "Subscribe to the channel",
+    video: {
+      titre:
+        "Our story: more profit, more customers, more control for restaurants",
+      description:
+        "What if restaurants could bring in more orders, win back their margins and, above all, take back control of their customers? That is exactly why we built Resto Action: to help restaurant owners grow their own digital ecosystem and depend less on the big platforms.",
+      lire: "Play the video “Our story” (5 min 32 s, in French)",
+      // Says only what is certain. The player ASKS YouTube for English
+      // captions, but whether they exist is up to YouTube, not to us.
+      mention: "Video in French.",
+    },
+  },
+
   faq: {
     titre: "Frequently asked questions",
     items: [
@@ -331,6 +350,7 @@ export const EN: Textes = {
     approche: "Our approach",
     produits: "Our products",
     histoire: "Our story",
+    youtube: "YouTube channel",
     faq: "FAQ",
     blogue: "The blog",
     confidentialite: "Privacy policy",

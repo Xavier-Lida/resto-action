@@ -124,6 +124,7 @@ export const FR = {
     blogueHref: "/blogue",
     descendre: "Descendre vers la suite",
     linkedin: "Resto Action sur LinkedIn",
+    youtube: "Resto Action sur YouTube",
     // « Appelle-nous » ne survit qu'à un seul endroit : la carte de Guillaume
     // du héro, où l'action EST un appel. Partout ailleurs, le bouton mène à la
     // page /contact, qui offre le choix — donc « Nous contacter ».
@@ -321,6 +322,35 @@ export const FR = {
     ],
   },
 
+  /* LA SECTION DE LA CHAÎNE YOUTUBE. Elle ne montre pas une vidéo, elle vend un
+     abonnement : la vidéo est la preuve, le bouton est le but.
+
+     Le texte ne promet RIEN que la chaîne n'ait pas déjà publié — pas de
+     « chaque semaine », pas de liste de sujets à venir. Il dit ce qu'on y
+     trouve aujourd'hui et invite à suivre la suite.
+
+     `video.titre` et `video.description` sont CEUX DE YOUTUBE, à l'émoji près :
+     ils partent dans le VideoObject du JSON-LD, et un moteur qui compare les
+     deux fiches doit y reconnaître la même vidéo. `lire` est le nom accessible
+     du lien de lecture — la miniature, elle, ne dit rien à un lecteur d'écran.
+     `mention` est vide ici et remplie en anglais : elle prévient que la vidéo
+     est en français. */
+  chaine: {
+    surTitre: "Notre chaîne YouTube",
+    titre: "La suite se passe sur YouTube",
+    texte:
+      "On y raconte pourquoi Resto Action existe, et comment un resto indépendant reprend le contrôle de ses commandes, de ses marges et de ses clients. Commence par notre histoire, puis abonne-toi pour ne pas manquer la suite.",
+    abonner: "S'abonner à la chaîne",
+    video: {
+      titre:
+        "Notre histoire : plus de profits, plus de clients, plus de contrôle pour les restaurants",
+      description:
+        "Et si les restaurants pouvaient générer plus de commandes, récupérer leurs marges et surtout reprendre le contrôle de leurs clients ? C'est exactement la raison pour laquelle nous avons créé Resto Action : aider les restaurateurs à développer leur propre écosystème numérique et à réduire leur dépendance envers les grandes plateformes.",
+      lire: "Lire la vidéo « Notre histoire » (5 min 32 s)",
+      mention: "",
+    },
+  },
+
   /* Les réponses sont reprises MOT POUR MOT dans le JSON-LD FAQPage : Google
      exige que le balisage corresponde au contenu visible. Traduire une réponse
      ici la traduit donc aussi dans le balisage. */
@@ -458,6 +488,7 @@ export const FR = {
     approche: "Notre approche",
     produits: "Nos produits",
     histoire: "Notre histoire",
+    youtube: "Chaîne YouTube",
     faq: "FAQ",
     blogue: "Le blogue",
     confidentialite: "Politique de confidentialité",

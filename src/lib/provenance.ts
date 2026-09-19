@@ -22,7 +22,13 @@ export const CLE_PROVENANCE = "ra-provenance";
 /* Les cinq UTM standard sous leur nom court, plus deux témoins du contexte :
    le domaine d'où le visiteur venait, et la page sur laquelle il a atterri.
    Les deux derniers servent quand il n'y a pas d'UTM : un lien collé dans un
-   message ou une recherche Google n'en porte pas, mais le referrer parle. */
+   message ou une recherche Google n'en porte pas, mais le referrer parle.
+
+   `video` n'est pas de la même famille : ce n'est pas PAR OÙ le visiteur est
+   arrivé, c'est ce qu'il a fait une fois là — appuyer sur lecture. Il voyage
+   avec le reste parce qu'il répond à la même question (« qu'est-ce qui l'a
+   mené à réserver »), mais il ne remplace jamais la source : quelqu'un venu de
+   LinkedIn qui regarde la vidéo reste venu de LinkedIn. Voir noterVideoVue. */
 export const CHAMPS_PROVENANCE = [
   "source",
   "medium",
@@ -31,6 +37,7 @@ export const CHAMPS_PROVENANCE = [
   "term",
   "referent",
   "page",
+  "video",
 ] as const;
 
 export type ChampProvenance = (typeof CHAMPS_PROVENANCE)[number];
@@ -100,6 +107,33 @@ export function capterProvenance(): void {
   }
 }
 
+/* Appelée par le lecteur vidéo, au moment où le visiteur appuie sur lecture.
+
+   ON AJOUTE, ON N'ÉCRASE RIEN. Une fausse source (`utm_source=site`) aurait
+   effacé la vraie : le visiteur arrivé par /yt/une-autre-video qui regarde
+   ensuite celle de l'accueil aurait cessé d'être « venu de YouTube ». Le champ
+   se pose à côté des autres, et ce qui était là y reste.
+
+   S'il n'y avait rien en mémoire (stockage vidé en cours de visite), la page
+   courante sert de minimum : un `video` seul dirait ce qui a été regardé sans
+   dire où. */
+export function noterVideoVue(id: string): void {
+  try {
+    const brut = window.sessionStorage.getItem(CLE_PROVENANCE);
+    const actuelle = (brut && assainirProvenance(JSON.parse(brut))) || {
+      page: window.location.pathname.slice(0, LONGUEUR_MAX),
+    };
+    const video = propre(id);
+    if (!video) return;
+    window.sessionStorage.setItem(
+      CLE_PROVENANCE,
+      JSON.stringify({ ...actuelle, video }),
+    );
+  } catch {
+    // Stockage indisponible : la vidéo joue quand même, sans trace.
+  }
+}
+
 /** Le domaine d'où on vient, sans `www.`, ou rien si c'est nous-mêmes. */
 function domaineReferent(referrer: string): string | undefined {
   if (!referrer) return undefined;
@@ -154,12 +188,15 @@ export function sourceDe(p: Provenance | undefined): string {
    la langue du visiteur, comme le reste de la description. */
 export function decrireProvenance(p: Provenance | undefined): string {
   if (!p) return "inconnue";
+  // Dit à la suite de la source, quelle qu'elle soit : c'est un fait de plus
+  // sur la visite, pas une quatrième façon d'être arrivé.
+  const vue = p.video ? " ; a regardé la vidéo sur le site" : "";
   if (p.source) {
     const parts = [p.source, p.medium, p.campaign].filter(Boolean).join(" / ");
     const video = p.content ? ` — vidéo « ${p.content} »` : "";
     const terme = p.term ? ` (terme : ${p.term})` : "";
-    return `${parts}${video}${terme}`;
+    return `${parts}${video}${terme}${vue}`;
   }
-  if (p.referent) return `inconnue (arrivé de ${p.referent})`;
-  return "directe (adresse tapée ou lien sans étiquette)";
+  if (p.referent) return `inconnue (arrivé de ${p.referent})${vue}`;
+  return `directe (adresse tapée ou lien sans étiquette)${vue}`;
 }
