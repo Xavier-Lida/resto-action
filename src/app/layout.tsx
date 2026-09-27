@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Caveat, Manrope, Unbounded } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { GA_MESURE_ID, SITE_URL } from "@/lib/site";
+import BanniereTemoins from "@/components/BanniereTemoins";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const caveat = Caveat({
@@ -57,13 +57,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <Analytics />
+        {/* GA4 n'est plus posé ici d'office : la bannière le monte, et
+            seulement après « Accepter ». Voir BanniereTemoins. */}
+        <BanniereTemoins />
       </body>
-      {/* GA4 se pose en FRÈRE du <body>, hors de lui : c'est la forme que
-          prescrit la doc de Next 16 pour ce composant. Il charge gtag.js après
-          l'hydratation, donc sans retarder l'affichage — c'est tout l'intérêt
-          de passer par @next/third-parties plutôt que de coller la balise brute
-          de Google, qui s'exécuterait dans le chemin critique. */}
-      <GoogleAnalytics gaId={GA_MESURE_ID} />
     </html>
   );
 }

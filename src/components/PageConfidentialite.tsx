@@ -1,6 +1,7 @@
 import BarreNav from "@/components/BarreNav";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import Footer from "@/components/Footer";
+import { BoutonTemoins } from "@/components/BanniereTemoins";
 import { EMAIL, PHONE_DISPLAY, PHONE_HREF, SITE_URL } from "@/lib/site";
 import { POLITIQUE_MAJ, type Confidentialite } from "@/lib/contenu/confidentialite";
 import type { Textes } from "@/lib/textes/fr";
@@ -63,6 +64,10 @@ export default function PageConfidentialite({
               <section key={titre}>
                 <h2 className="text-xl font-black text-ink">{titre}</h2>
                 <p className="mt-3">{texte}</p>
+                {/* Retirer son accord doit être aussi simple que le donner. */}
+                {titre === c.statistiques.titre && (
+                  <BoutonTemoins libelle={c.statistiques.bouton} />
+                )}
               </section>
             ))}
 

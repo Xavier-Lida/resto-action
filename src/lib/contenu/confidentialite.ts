@@ -14,7 +14,7 @@ import { CITY } from "@/lib/site";
 
    La date est ISO et non écrite en toutes lettres : la page la formate dans sa
    propre langue, comme le pied de page fait pour MISE_A_JOUR. */
-export const POLITIQUE_MAJ = "2026-09-19";
+export const POLITIQUE_MAJ = "2026-09-27";
 
 export const CONFIDENTIALITE_FR = {
   metaTitre: "Politique de confidentialité",
@@ -28,7 +28,7 @@ export const CONFIDENTIALITE_FR = {
   recueillis: {
     titre: "Renseignements recueillis",
     texte:
-      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site dépose des témoins (cookies) de mesure d'audience, décrits juste en dessous. Le seul endroit où vous nous donnez des renseignements personnels, c'est la prise de rendez-vous, décrite dans la section suivante. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
+      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site ne dépose des témoins (cookies) de mesure d'audience que si vous l'acceptez, comme décrit juste en dessous. Le seul endroit où vous nous donnez des renseignements personnels, c'est la prise de rendez-vous, décrite dans la section suivante. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
   },
 
   /* Suit src/app/api/agenda/route.ts et src/lib/crm.ts : ce qui est demandé au
@@ -43,7 +43,8 @@ export const CONFIDENTIALITE_FR = {
   statistiques: {
     titre: "Statistiques de fréquentation",
     texte:
-      "On mesure l'achalandage avec deux outils. Vercel Analytics produit des statistiques anonymes, sans témoins. Google Analytics, lui, dépose des témoins (cookies) qui attribuent à votre navigateur un identifiant aléatoire, et transmet ces données à Google : ça nous sert à savoir combien de personnes visitent le site et par quel chemin elles arrivent, jamais à vous identifier nommément. Vous pouvez le refuser en bloquant les témoins dans votre navigateur, ou en installant le module de désactivation publié par Google.",
+      "On mesure l'achalandage avec deux outils. Vercel Analytics produit des statistiques anonymes, sans témoins. Google Analytics, lui, dépose des témoins (cookies) qui attribuent à votre navigateur un identifiant aléatoire, et transmet ces données à Google : ça nous sert à savoir combien de personnes visitent le site et par quel chemin elles arrivent, jamais à vous identifier nommément. Il reste éteint tant que vous n'avez pas cliqué « Accepter » dans la petite bannière en bas de l'écran. Vous pouvez changer d'avis en tout temps avec le bouton ci-dessous : si vous retirez votre accord, les témoins de Google Analytics sont effacés.",
+    bouton: "Modifier mon choix de témoins",
   },
 
   /* Suit LecteurVideo.tsx : si le lecteur cesse d'attendre le clic, ou quitte
@@ -94,7 +95,7 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   recueillis: {
     titre: "Information we collect",
     texte:
-      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies, described just below. The only place you give us personal information is when you book a call, described in the next section. If you call or write to us, we use your contact details for one thing only: getting back to you.",
+      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies only if you accept them, as described just below. The only place you give us personal information is when you book a call, described in the next section. If you call or write to us, we use your contact details for one thing only: getting back to you.",
   },
 
   rendezVous: {
@@ -106,7 +107,8 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   statistiques: {
     titre: "Traffic statistics",
     texte:
-      "We measure traffic with two tools. Vercel Analytics produces anonymous statistics and sets no cookies. Google Analytics does set cookies, which assign your browser a random identifier, and sends that data to Google: we use it to know how many people visit the site and how they got here, never to identify you by name. You can refuse it by blocking cookies in your browser, or by installing the opt-out add-on Google publishes.",
+      "We measure traffic with two tools. Vercel Analytics produces anonymous statistics and sets no cookies. Google Analytics does set cookies, which assign your browser a random identifier, and sends that data to Google: we use it to know how many people visit the site and how they got here, never to identify you by name. It stays off until you click “Accept” in the small banner at the bottom of the screen. You can change your mind at any time with the button below: if you withdraw your consent, the Google Analytics cookies are deleted.",
+    bouton: "Change my cookie choice",
   },
 
   video: {
