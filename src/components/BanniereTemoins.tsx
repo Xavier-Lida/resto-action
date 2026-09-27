@@ -12,7 +12,9 @@ import { GA_MESURE_ID } from "@/lib/site";
    déposer des témoins (Vercel Analytics n'en pose aucun, YouTube attend le
    clic, la provenance vit en sessionStorage), il est désormais éteint par
    défaut — c'est ce que la Loi 25 demande d'un traceur — et ne se charge
-   qu'après « Accepter ». La bannière ne parle donc que de lui.
+   qu'après « Accepter ». La carte reste vague exprès : elle ne nomme aucun
+   outil, pour rester vraie si la liste change ; le détail vit dans la
+   politique, derrière « En savoir plus ».
 
    DISCRÈTE PAR CHOIX : une petite carte dans un coin, sans voile ni piège de
    focus. Elle ne bloque rien, et qui l'ignore navigue sans GA. Les deux
@@ -37,7 +39,7 @@ const TEXTES = {
     htmlLang: "fr-CA",
     aria: "Témoins",
     texte:
-      "Google Analytics mesure nos visites avec des témoins, seulement si vous acceptez.",
+      "Ce site utilise des témoins, seulement si vous les acceptez.",
     lien: "En savoir plus",
     href: "/confidentialite",
     refuser: "Refuser",
@@ -47,7 +49,7 @@ const TEXTES = {
     htmlLang: "en-CA",
     aria: "Cookies",
     texte:
-      "Google Analytics measures our traffic with cookies, only if you accept.",
+      "This site uses cookies, only if you accept them.",
     lien: "Learn more",
     href: "/en/privacy",
     refuser: "Decline",
