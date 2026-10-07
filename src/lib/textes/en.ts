@@ -76,6 +76,10 @@ export const EN: Textes = {
     carteTitre: "Talk to Guillaume",
     carteSousTitre: "A 30-minute call.",
     guillaumeAlt: "Guillaume Therrien, co-founder of Resto Action",
+    video: {
+      titre: "What is Resto Action?",
+      lire: "Play the video “What is Resto Action?” (in French)",
+    },
   },
 
   resultats: {

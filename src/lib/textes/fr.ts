@@ -181,6 +181,11 @@ export const FR = {
     carteTitre: "Parle à Guillaume",
     carteSousTitre: "Un appel de 30 minutes.",
     guillaumeAlt: "Guillaume Therrien, cofondateur de Resto Action",
+    // La vidéo du héro. À ajuster au titre exact de la nouvelle vidéo.
+    video: {
+      titre: "C'est quoi Resto Action?",
+      lire: "Lire la vidéo « C'est quoi Resto Action? »",
+    },
   },
 
   resultats: {
