@@ -161,9 +161,6 @@ export default function Accueil({
         {/* ─── Héro — carte encadrée, marque géante, bouée 3D ─── */}
         <Hero t={t} />
 
-        {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
-        <Resultats t={t} fonctionnalites={fonctionnalites} />
-
         {/* ─── Notre approche ─── */}
         <section id="approche" className="bg-white">
           <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -231,6 +228,9 @@ export default function Accueil({
             </div>
           </div>
         </section>
+
+        {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
+        <Resultats t={t} fonctionnalites={fonctionnalites} />
 
         {/* ─── Nos produits ─── */}
         {/* Même langage visuel que la carte de la hero : une carte sombre aux

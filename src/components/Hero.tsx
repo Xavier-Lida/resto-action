@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Phone } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import IconeYoutube from "@/components/IconeYoutube";
+import LecteurVideo from "@/components/LecteurVideo";
 import TitreTournant from "@/components/TitreTournant";
-import { LINKEDIN_URL, PHONE_HREF, YOUTUBE_ABONNEMENT_URL } from "@/lib/site";
+import { LINKEDIN_URL, VIDEO_ACCUEIL, YOUTUBE_ABONNEMENT_URL } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 // Glyphe LinkedIn (lucide-react ne fournit plus d'icônes de marques).
@@ -30,7 +30,7 @@ export default function Hero({ t }: { t: Textes }) {
         {/* Languette basse : une bosse rouge qui sort de la carte vers le
             bas, la flèche blanche logée dedans */}
         <Link
-          href={`${t.racine}/#resultats`}
+          href={`${t.racine}/#approche`}
           aria-label={t.nav.descendre}
           className="absolute left-1/2 top-full z-30 -mt-px -translate-x-1/2"
         >
@@ -80,7 +80,7 @@ export default function Hero({ t }: { t: Textes }) {
             L'ORDRE A CHANGÉ : l'appel repasse devant. Il était second du temps où
             le bouton des produits menait le regard vers le bas de la page ; la
             bosse à flèche, juste dessous, dit déjà « plus bas ». */}
-        <div className="my-auto flex flex-col items-center justify-center gap-4 px-5 py-6 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 px-5 py-6 sm:flex-row">
           <Link
             href={`${t.racine}/contact`}
             className="animate-hero delay-2 group inline-flex items-center gap-3 rounded-xl bg-ink px-8 py-4 text-lg font-black text-white shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none"
@@ -95,6 +95,23 @@ export default function Hero({ t }: { t: Textes }) {
           >
             {t.nav.produits}
           </Link>
+        </div>
+
+        {/* LA VIDÉO, DANS LA CARTE, SOUS LES BOUTONS.
+
+            Elle remplit le grand vide rouge qui séparait le titre du bas de la
+            carte, et c'est elle qui explique le produit le plus vite. Même
+            lecteur que la section YouTube : rien n'est demandé à Google tant
+            que personne n'appuie sur lecture. Les boutons restent AU-DESSUS :
+            l'action doit se voir avant la vidéo, pas après. */}
+        <div className="animate-hero delay-4 mx-auto mt-2 w-full max-w-2xl px-5">
+          <LecteurVideo
+            id={VIDEO_ACCUEIL.id}
+            miniature={VIDEO_ACCUEIL.miniature}
+            titre={t.hero.video.titre}
+            lire={t.hero.video.lire}
+            langue={t.htmlLang}
+          />
         </div>
 
         {/* CE QU'ON VEND — DISCRÈTEMENT, SOUS L'ACTION.
@@ -116,20 +133,8 @@ export default function Hero({ t }: { t: Textes }) {
             Les séparateurs sont des `span` décoratifs à l'intérieur des `li`
             plutôt que des bordures CSS : une bordure gauche réapparaîtrait en
             début de ligne si la liste se replie sur deux rangs au téléphone. */}
-        {/* ELLE PASSE SOUS LA CARTE DE GUILLAUME AU TÉLÉPHONE, ET SEULEMENT LÀ.
-
-            En pile, ces quatre promesses se glissaient entre le bouton et la
-            carte : trois blocs qui se suivent, dont celui du milieu n'est ni
-            une action ni une signature. Renvoyées en fin de carte, elles
-            redeviennent ce qu'elles sont — une précision qu'on lit en dernier.
-
-            À partir de `lg`, rien ne change : la carte de Guillaume et le
-            LinkedIn sont épinglés en absolu dans les coins, donc hors du flux.
-            La liste y reste sous le bouton, là où elle a été mesurée.
-
-            `order` plutôt qu'un déplacement dans le JSX : l'ordre du DOM reste
-            celui de la lecture — titre, action, promesses, signature — pour un
-            lecteur d'écran comme pour un robot. Seul l'œil voit l'échange. */}
+        {/* Au téléphone, les promesses passent en fin de carte (`order-last`) :
+            l'ordre du DOM reste celui de la lecture, seul l'œil voit l'échange. */}
         <ul className="animate-hero delay-4 order-last mx-auto mt-6 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70 lg:order-none lg:-mt-2">
           {t.hero.promesses.map((promesse, i) => (
             <li key={promesse} className="flex items-center gap-2.5">
@@ -143,7 +148,7 @@ export default function Hero({ t }: { t: Textes }) {
           ))}
         </ul>
 
-        {/* Zone basse : LinkedIn et YouTube à gauche, carte Guillaume à droite */}
+        {/* Zone basse : LinkedIn et YouTube à gauche */}
         <div className="mt-auto grid grid-cols-[minmax(0,1fr)] items-end gap-6 px-5 pt-10 md:px-8 lg:contents">
           {/* Le PLACEMENT est porté par ce conteneur, plus par le lien : il y
               a maintenant deux pastilles, et c'est la paire qui se pose en bas
@@ -169,28 +174,9 @@ export default function Hero({ t }: { t: Textes }) {
             </a>
           </div>
 
-          {/* Carte façon « Get a Free Consultation » : Guillaume détouré,
-              aligné au bas de la carte, le buste dépasse du haut. */}
-          <div className="animate-hero delay-6 relative rounded-3xl bg-white p-5 pr-32 text-ink lg:absolute lg:bottom-10 lg:right-10 lg:z-20 lg:w-[24rem]">
-            <p className="text-sm font-black leading-snug">{t.hero.carteTitre}</p>
-            <p className="mt-0.5 text-xs text-ink/70">{t.hero.carteSousTitre}</p>
-            <a
-              href={PHONE_HREF}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-xs font-black text-white transition-colors hover:bg-ink"
-            >
-              <Phone className="size-3.5" />
-              {t.nav.appelle}
-            </a>
-            <Image
-              draggable={false}
-              src="/guillaume-detoure.webp"
-              alt={t.hero.guillaumeAlt}
-              width={500}
-              height={780}
-              unoptimized
-              className="pointer-events-none absolute bottom-0 right-4 h-44 w-auto lg:right-9 lg:h-52"
-            />
-          </div>
+          {/* La carte « Parle à Guillaume » (photo détourée et bouton d'appel)
+              a quitté le héro : la vidéo y prend la place, et le téléphone reste
+              offert dans la section contact et la barre de navigation. */}
         </div>
       </div>
     </section>

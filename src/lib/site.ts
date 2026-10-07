@@ -88,6 +88,13 @@ export const VIDEO_HISTOIRE = {
   duree: "PT5M32S",
 };
 
+/* LA VIDÉO DU HÉRO, celle qui explique le produit en haut de l'accueil.
+
+   À REMPLACER PAR LA NOUVELLE VIDÉO : en attendant son identifiant, elle
+   pointe vers « Notre histoire ». Les quatre champs se changent ensemble, et
+   la miniature est une copie locale dans public/, comme pour l'autre. */
+export const VIDEO_ACCUEIL = VIDEO_HISTOIRE;
+
 /* LES DEUX FONDATEURS, à un seul endroit.
 
    Leurs profils LinkedIn étaient écrits TROIS FOIS dans Accueil.tsx : dans le
