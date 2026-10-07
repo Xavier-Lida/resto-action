@@ -88,12 +88,25 @@ export const VIDEO_HISTOIRE = {
   duree: "PT5M32S",
 };
 
-/* LA VIDÉO DU HÉRO, celle qui explique le produit en haut de l'accueil.
+/* LA VIDÉO DU HÉRO, « Ta propre app de commande, ta clientèle t'appartient ».
+   Elle démarre seule, sans son, pour qui a accepté les témoins ; pour les
+   autres, la miniature (copie locale dans public/) et un clic. */
+export const VIDEO_ACCUEIL = {
+  id: "vWOEnEM3r7M",
+  miniature: "/video-accueil.jpg",
+};
 
-   À REMPLACER PAR LA NOUVELLE VIDÉO : en attendant son identifiant, elle
-   pointe vers « Notre histoire ». Les quatre champs se changent ensemble, et
-   la miniature est une copie locale dans public/, comme pour l'autre. */
-export const VIDEO_ACCUEIL = VIDEO_HISTOIRE;
+/* LE BOUTON « RÉSERVER MA PLACE FONDATEUR ».
+
+   Le lien de paiement Stripe (500 $ + taxes) va ici dès qu'il existe. Tant
+   que c'est `null`, le bouton mène à la page de contact. */
+export const RESERVATION_URL: string | null = null;
+
+/* LES PLACES FONDATEURS, affichées « X sur Y » dans le héro et sous la section
+   des plateformes. SE METTENT À JOUR À LA MAIN, à chaque réservation : un
+   compteur qui ne bouge jamais, ou qui ment, tue la confiance au lieu de
+   créer l'élan. Chiffres À CONFIRMER avant la mise en ligne. */
+export const PLACES_FONDATEURS = { total: 20, prises: 2 };
 
 /* LES DEUX FONDATEURS, à un seul endroit.
 

@@ -76,9 +76,25 @@ export const EN: Textes = {
     carteTitre: "Talk to Guillaume",
     carteSousTitre: "A 30-minute call.",
     guillaumeAlt: "Guillaume Therrien, co-founder of Resto Action",
+    badge: "Made in Trois-Rivières, for local restaurants",
+    titre: ["Your customers.", "Your sales.", "Your app."],
+    puces: [
+      "Web + mobile app in your name",
+      "Delivery by our local drivers",
+      "We install everything, you do nothing",
+    ],
+    recherche: {
+      libelle: "Your restaurant's name",
+      exemple: "Find your restaurant (e.g. Chez Paul diner)",
+      bouton: "See my app",
+    },
+    condition: "$500 reservation, refundable until launch",
+    places: "{prises} founding restaurants out of {total}",
+    reserver: "Reserve my founder spot",
+    pasPret: "Not ready? Free 30-min call",
     video: {
-      titre: "What is Resto Action?",
-      lire: "Play the video “What is Resto Action?” (in French)",
+      titre: "Resto Action: your own ordering app, your customers belong to you",
+      lire: "Play the video “Your own ordering app” (in French)",
     },
   },
 
@@ -145,25 +161,72 @@ export const EN: Textes = {
   },
 
   approche: {
-    titre: "Our approach",
-    sousTitre: "We really do adapt to every restaurant!",
+    titre: "How it works",
+    sousTitre: "Three steps, and we handle everything.",
     etapes: [
       {
-        titre: "We listen",
-        texte: "A 30-minute call, you tell us about your restaurant.",
+        titre: "You reserve your spot",
+        texte: "$500, refundable until the contract is signed.",
         alt: "The Resto Action mascot listening on the phone",
       },
       {
-        titre: "We dig in with you",
-        texte: "Together we find what's eating your margins.",
+        titre: "We build your app and install it",
+        texte: "Your web and mobile app in your colours, the kitchen tablet, and we train your team.",
         alt: "The Resto Action mascot examining an invoice with a magnifying glass",
       },
       {
-        titre: "We fix the problem",
-        texte: "A solution built for you, not a recipe off the shelf.",
+        titre: "Your customers order from you",
+        texte: "Pickup or delivery by our drivers. Your customer list grows with every order.",
         alt: "The Resto Action mascot giving a thumbs up, problem solved",
       },
     ],
+  },
+
+  plateformes: {
+    titre: "On Uber, your customer isn't yours.",
+    eux: {
+      titre: "On the platforms",
+      points: ["The customer is theirs", "Your prices inflated", "You never see them again"],
+    },
+    toi: {
+      titre: "With your app",
+      points: ["The customer is yours", "Cheaper for them", "They come back, again and again"],
+    },
+    reserver: "Reserve my founder spot",
+    sous: "$500, refundable until launch",
+  },
+
+  calcul: {
+    titre: "What your app would do for you in a year",
+    sousTitre: "Enter your real numbers. Watch what happens.",
+    commandes: "Online orders per month",
+    facture: "Average order",
+    rejouer: "Replay the animation",
+    liste: {
+      titre: "Your customer list",
+      unite: "orders per year with the customer's contact info",
+      noms: ["Julie T.", "Marc L.", "Sophie B.", "Kevin R."],
+      ajoute: "joins your list",
+    },
+    ventes: {
+      titre: "Sales you would never have had",
+      unite: "in extra sales per year",
+      evenements: [
+        { texte: "Text reminder to Julie", montant: "+ $27.40" },
+        { texte: "Marc's cart recovered", montant: "+ $21.45" },
+        { texte: "Thursday offer to Sophie", montant: "+ $18.90" },
+      ],
+    },
+    avis: {
+      titre: "Your Google reviews",
+      unite: "new reviews per year",
+      sms: "Thanks Kevin! Would you leave us a review?",
+      extraits: ["Arrived hot, perfect!", "Best poutine around", "So easy to order"],
+    },
+    garde: "kept per year instead of going to the platforms",
+    hypotheses:
+      "Example calculated with cautious assumptions: typical platform fees compared with our subscription and commission, 1 order in 20 coming from a text reminder or a recovered cart, 1 order in 20 leading to a review. Before taxes and card fees.",
+    reserver: "Reserve my founder spot",
   },
 
   produits: {

@@ -1,9 +1,14 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
+import BarrePlaces from "@/components/BarrePlaces";
 import IconeYoutube from "@/components/IconeYoutube";
 import LecteurVideo from "@/components/LecteurVideo";
-import TitreTournant from "@/components/TitreTournant";
-import { LINKEDIN_URL, VIDEO_ACCUEIL, YOUTUBE_ABONNEMENT_URL } from "@/lib/site";
+import {
+  LINKEDIN_URL,
+  RESERVATION_URL,
+  VIDEO_ACCUEIL,
+  YOUTUBE_ABONNEMENT_URL,
+} from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 // Glyphe LinkedIn (lucide-react ne fournit plus d'icônes de marques).
@@ -20,12 +25,22 @@ function IconeLinkedIn({ className }: { className?: string }) {
   );
 }
 
+/* LE HÉRO DE LA MAQUETTE : LE TEXTE À GAUCHE, LA VIDÉO À DROITE.
+
+   À gauche, tout ce qui fait agir, dans l'ordre de lecture : d'où on vient, ce
+   qu'on promet (le H1), ce qui est inclus, le champ « trouve ton resto », la
+   condition de la réservation, puis les deux portes — réserver, ou parler
+   d'abord. À droite, la vidéo, qui démarre seule et sans son quand le visiteur
+   a accepté les témoins (voir LecteurVideo). En pile, au téléphone, la vidéo
+   suit le texte : l'action se voit avant elle.
+
+   L'ancien H1 tournant (TitreTournant) et la carte « Parle à Guillaume » ont
+   quitté le héro ; le composant TitreTournant reste dans le dépôt. */
 export default function Hero({ t }: { t: Textes }) {
+  const reserver = RESERVATION_URL ?? `${t.racine}/contact`;
+
   return (
     <section id="top" className="bg-white p-3 md:p-5 lg:p-6">
-      {/* La carte rouge arrondie posée sur la page blanche. La bosse basse à
-          flèche se fond dans le blanc qui l'entoure ; la languette du logo,
-          elle, est partie avec la nav. */}
       <div className="relative flex min-h-[84svh] flex-col rounded-[2rem] bg-hero pb-12 text-white lg:rounded-[3rem] lg:pb-0">
         {/* Languette basse : une bosse rouge qui sort de la carte vers le
             bas, la flèche blanche logée dedans */}
@@ -44,98 +59,96 @@ export default function Hero({ t }: { t: Textes }) {
           <ArrowDown className="absolute left-1/2 top-1.5 size-5 -translate-x-1/2 animate-bounce text-white" />
         </Link>
 
-        {/* Le titre. Le mot-marque géant qui tenait cette place a cédé : il ne
-            disait que la marque, alors que c'est le signal le plus fort de la
-            page. La marque vit maintenant dans la barre de navigation, au-
-            dessus de la carte. La bouée 3D qui suivait le titre est partie
-            aussi — le
-            composant Buoy sert encore ailleurs (contact, chargement de
-            l'agenda), seule l'image du héro s'en va. */}
-        {/* La nav occupait la première rangée de la carte ; elle est sortie
-            au-dessus, le titre a donc besoin de son propre air en haut. */}
-        <div className="mt-14 md:mt-16">
-          <TitreTournant t={t} />
+        <div className="mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 px-5 pt-14 md:px-8 md:pt-16 lg:grid-cols-2 lg:gap-14 lg:pb-28">
+          <div className="flex flex-col gap-6">
+            <p className="animate-hero delay-1 self-start rounded-full bg-white/15 px-4 py-2 text-sm font-bold">
+              {t.hero.badge}
+            </p>
 
+            <h1 className="animate-hero delay-1 font-display text-5xl font-black leading-[0.95] tracking-tight md:text-7xl">
+              {t.hero.titre.map((ligne) => (
+                <span key={ligne} className="block">
+                  {ligne}
+                </span>
+              ))}
+            </h1>
+
+            <ul className="animate-hero delay-2 flex list-none flex-wrap gap-2">
+              {t.hero.puces.map((puce) => (
+                <li
+                  key={puce}
+                  className="rounded-full bg-white/15 px-3 py-1.5 text-sm font-bold"
+                >
+                  {puce}
+                </li>
+              ))}
+            </ul>
+
+            {/* « TROUVE TON RESTO ». Pour l'instant, le nom part vers la page de
+                contact (paramètre `resto`) ; l'aperçu de l'app au nom du resto,
+                avec sa note Google, viendra dans une version suivante. */}
+            <form
+              action={`${t.racine}/contact`}
+              method="get"
+              className="animate-hero delay-2 flex max-w-xl flex-wrap gap-2 rounded-2xl bg-white p-2"
+            >
+              <label htmlFor="hero-resto" className="sr-only">
+                {t.hero.recherche.libelle}
+              </label>
+              <input
+                id="hero-resto"
+                name="resto"
+                type="text"
+                autoComplete="organization"
+                placeholder={t.hero.recherche.exemple}
+                className="min-w-0 flex-1 basis-56 bg-transparent px-3 py-3 text-base text-ink outline-none placeholder:text-ink/50"
+              />
+              <button
+                type="submit"
+                className="rounded-xl bg-brand px-5 py-3 font-black text-white transition hover:bg-ink active:scale-95"
+              >
+                {t.hero.recherche.bouton}
+              </button>
+            </form>
+
+            <div className="animate-hero delay-3 flex flex-col gap-2">
+              <BarrePlaces modele={t.hero.places} />
+              <p className="text-sm font-semibold text-white/85">
+                {t.hero.condition}
+              </p>
+            </div>
+
+            <div className="animate-hero delay-3 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a
+                href={reserver}
+                className="inline-flex items-center rounded-full bg-white px-7 py-4 text-lg font-black text-ink shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none"
+              >
+                {t.hero.reserver}
+              </a>
+              <Link
+                href={`${t.racine}/contact`}
+                className="font-bold underline underline-offset-4 transition hover:text-white/80"
+              >
+                {t.hero.pasPret}
+              </Link>
+            </div>
+          </div>
+
+          <div className="animate-hero delay-4">
+            <LecteurVideo
+              auto
+              id={VIDEO_ACCUEIL.id}
+              miniature={VIDEO_ACCUEIL.miniature}
+              titre={t.hero.video.titre}
+              lire={t.hero.video.lire}
+              langue={t.htmlLang}
+            />
+          </div>
         </div>
 
-        {/* LA PAIRE DE CTA — variante « Bloc encré ».
-
-            Elle corrige trois défauts mesurés sur l'état précédent : les boutons
-            étaient EMPILÉS alors qu'ils tiennent côte à côte, ils étaient trop
-            LARGES pour ce qu'ils disent, et le secondaire — blanc translucide sur
-            le rouge — était quasi invisible.
-
-            L'ENCRE PLUTÔT QUE LE BLANC pour le primaire : sur ce rouge, le
-            presque-noir contraste plus fort que le blanc, donc il s'affirme mieux
-            comme l'action principale. La flèche reste blanche avec le texte : en
-            rouge de marque elle attirait l'œil avant le libellé qu'elle suit.
-
-            L'OMBRE EST SANS FLOU, donc elle se lit comme une épaisseur sous le
-            bouton plutôt que comme une lueur. C'est elle qui porte l'interaction :
-            au survol le bouton se lève de 2 px et l'épaisseur passe à 6, au clic
-            il descend exactement de la hauteur de son ombre et vient s'asseoir
-            dessus. Dans les deux cas l'arête basse ne bouge pas — c'est ça qui
-            rend l'enfoncement crédible plutôt que flottant.
-
-            L'ORDRE A CHANGÉ : l'appel repasse devant. Il était second du temps où
-            le bouton des produits menait le regard vers le bas de la page ; la
-            bosse à flèche, juste dessous, dit déjà « plus bas ». */}
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 px-5 py-6 sm:flex-row">
-          <Link
-            href={`${t.racine}/contact`}
-            className="animate-hero delay-2 group inline-flex items-center gap-3 rounded-xl bg-ink px-8 py-4 text-lg font-black text-white shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none"
-          >
-            {t.nav.contacter}
-            <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-          </Link>
-
-          <Link
-            href={`${t.racine}/#produits`}
-            className="animate-hero delay-3 inline-flex items-center rounded-xl bg-white px-8 py-4 text-lg font-black text-ink shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:bg-bone hover:shadow-[0_6px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none"
-          >
-            {t.nav.produits}
-          </Link>
-        </div>
-
-        {/* LA VIDÉO, DANS LA CARTE, SOUS LES BOUTONS.
-
-            Elle remplit le grand vide rouge qui séparait le titre du bas de la
-            carte, et c'est elle qui explique le produit le plus vite. Même
-            lecteur que la section YouTube : rien n'est demandé à Google tant
-            que personne n'appuie sur lecture. Les boutons restent AU-DESSUS :
-            l'action doit se voir avant la vidéo, pas après. */}
-        <div className="animate-hero delay-4 mx-auto mt-2 w-full max-w-2xl px-5">
-          <LecteurVideo
-            id={VIDEO_ACCUEIL.id}
-            miniature={VIDEO_ACCUEIL.miniature}
-            titre={t.hero.video.titre}
-            lire={t.hero.video.lire}
-            langue={t.htmlLang}
-          />
-        </div>
-
-        {/* CE QU'ON VEND — DISCRÈTEMENT, SOUS L'ACTION.
-
-            Ces quatre promesses étaient entre le titre et le bouton, en gras
-            et en 16 px : mesurées, elles réclamaient 765 px pour 672 px
-            disponibles, donc elles retombaient sur deux lignes et formaient un
-            second bloc de texte qui coupait le titre de son bouton.
-
-            Sous le bouton, en 12 px et sans gras, elles tiennent sur un seul
-            rang dans les deux langues (536 px mesurés) et redeviennent ce
-            qu'elles doivent être : une précision qu'on lit après avoir compris
-            le titre, pas un obstacle entre les deux.
-
-            Elles restent une VRAIE liste — pour un robot comme pour un lecteur
-            d'écran, c'est l'énumération de ce qui est vendu. Discret à l'œil ne
-            veut pas dire absent du document.
-
-            Les séparateurs sont des `span` décoratifs à l'intérieur des `li`
-            plutôt que des bordures CSS : une bordure gauche réapparaîtrait en
-            début de ligne si la liste se replie sur deux rangs au téléphone. */}
-        {/* Au téléphone, les promesses passent en fin de carte (`order-last`) :
-            l'ordre du DOM reste celui de la lecture, seul l'œil voit l'échange. */}
-        <ul className="animate-hero delay-4 order-last mx-auto mt-6 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70 lg:order-none lg:-mt-2">
+        {/* Les quatre promesses restent, discrètes, sous le contenu : ce sont
+            les mêmes mots-clés, dans le même ordre, que les onglets Résultats. */}
+        <ul className="animate-hero delay-5 order-last mx-auto mt-8 flex max-w-2xl list-none flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 pb-4 text-xs text-white/70 lg:order-none lg:mt-0 lg:pb-12">
           {t.hero.promesses.map((promesse, i) => (
             <li key={promesse} className="flex items-center gap-2.5">
               {i > 0 && (
@@ -149,11 +162,8 @@ export default function Hero({ t }: { t: Textes }) {
         </ul>
 
         {/* Zone basse : LinkedIn et YouTube à gauche */}
-        <div className="mt-auto grid grid-cols-[minmax(0,1fr)] items-end gap-6 px-5 pt-10 md:px-8 lg:contents">
-          {/* Le PLACEMENT est porté par ce conteneur, plus par le lien : il y
-              a maintenant deux pastilles, et c'est la paire qui se pose en bas
-              à gauche. Chacune ne garde que son apparence. */}
-          <div className="animate-hero delay-5 flex gap-3 justify-self-start lg:absolute lg:bottom-10 lg:left-10 lg:z-20">
+        <div className="mt-auto px-5 pt-10 md:px-8 lg:contents">
+          <div className="animate-hero delay-5 flex gap-3 lg:absolute lg:bottom-10 lg:left-10 lg:z-20">
             <a
               href={LINKEDIN_URL}
               target="_blank"
@@ -173,10 +183,6 @@ export default function Hero({ t }: { t: Textes }) {
               <IconeYoutube className="size-6" />
             </a>
           </div>
-
-          {/* La carte « Parle à Guillaume » (photo détourée et bouton d'appel)
-              a quitté le héro : la vidéo y prend la place, et le téléphone reste
-              offert dans la section contact et la barre de navigation. */}
         </div>
       </div>
     </section>

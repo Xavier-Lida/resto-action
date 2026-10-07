@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { preconnect } from "react-dom";
 import Image from "next/image";
 import { Play } from "lucide-react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { noterVideoVue } from "@/lib/provenance";
+import { useTemoinsAcceptes } from "@/components/BanniereTemoins";
 
 /* UNE VIDÉO YOUTUBE QUI NE COÛTE RIEN TANT QU'ON NE LA REGARDE PAS.
 
@@ -36,6 +37,7 @@ export default function LecteurVideo({
   titre,
   lire,
   langue,
+  auto = false,
 }: {
   id: string;
   miniature: string;
@@ -45,9 +47,82 @@ export default function LecteurVideo({
   lire: string;
   /** La langue de la PAGE (`fr-CA`, `en-CA`), pour l'interface du lecteur. */
   langue: string;
+  /** Démarre seule, sans son, en boucle, quand elle est à l'écran — SEULEMENT
+      si le visiteur a accepté les témoins. Sans accord, rien ne change :
+      une image et un lien, rien chez Google avant le clic. */
+  auto?: boolean;
 }) {
   const [lance, setLance] = useState(false);
   const hl = langue.slice(0, 2);
+
+  /* LA LECTURE AUTOMATIQUE DU HÉRO.
+
+     Elle ne part qu'avec l'accord (« Accepter » dans la bannière) : c'est ce
+     que promet la politique de confidentialité. Une fois partie, l'iframe
+     reste montée ; on la met en pause quand elle sort de l'écran et on la
+     relance quand elle revient, par l'API de commande de YouTube
+     (`enablejsapi=1` et postMessage), sans la recharger. */
+  const accepte = useTemoinsAcceptes();
+  const boite = useRef<HTMLDivElement>(null);
+  const lecteur = useRef<HTMLIFrameElement>(null);
+  const [enVue, setEnVue] = useState(false);
+  const [demarre, setDemarre] = useState(false);
+
+  useEffect(() => {
+    if (!auto || !accepte) return;
+    const el = boite.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entree]) => {
+        setEnVue(entree.isIntersecting);
+        if (entree.isIntersecting) setDemarre(true);
+      },
+      { threshold: 0.5 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [auto, accepte]);
+
+  useEffect(() => {
+    if (!demarre || lance) return;
+    lecteur.current?.contentWindow?.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: enVue ? "playVideo" : "pauseVideo",
+        args: [],
+      }),
+      ORIGINE,
+    );
+  }, [enVue, demarre, lance]);
+
+  if (auto && accepte && demarre && !lance) {
+    const params = new URLSearchParams({
+      autoplay: "1",
+      mute: "1",
+      loop: "1",
+      playlist: id,
+      playsinline: "1",
+      rel: "0",
+      enablejsapi: "1",
+      hl,
+    });
+    return (
+      <div
+        ref={boite}
+        className="relative aspect-video overflow-hidden rounded-2xl bg-black"
+      >
+        <iframe
+          ref={lecteur}
+          src={`${ORIGINE}/embed/${id}?${params}`}
+          title={titre}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          className="absolute inset-0 size-full border-0"
+        />
+      </div>
+    );
+  }
 
   if (lance) {
     const params = new URLSearchParams({
@@ -88,6 +163,7 @@ export default function LecteurVideo({
   const prechauffer = () => preconnect(ORIGINE);
 
   return (
+    <div ref={boite}>
     <a
       href={`https://youtu.be/${id}`}
       aria-label={lire}
@@ -125,5 +201,6 @@ export default function LecteurVideo({
         </span>
       </span>
     </a>
+    </div>
   );
 }

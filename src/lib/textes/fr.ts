@@ -181,10 +181,26 @@ export const FR = {
     carteTitre: "Parle à Guillaume",
     carteSousTitre: "Un appel de 30 minutes.",
     guillaumeAlt: "Guillaume Therrien, cofondateur de Resto Action",
-    // La vidéo du héro. À ajuster au titre exact de la nouvelle vidéo.
+    badge: "Fait à Trois-Rivières, pour les restos d'ici",
+    titre: ["Tes clients.", "Tes ventes.", "Ton app."],
+    puces: [
+      "App web + mobile à ton nom",
+      "Livraison par nos livreurs d'ici",
+      "On installe tout, tu n'as rien à faire",
+    ],
+    recherche: {
+      libelle: "Nom de ton resto",
+      exemple: "Trouve ton resto (ex. Casse-croûte Chez Paul)",
+      bouton: "Voir mon app",
+    },
+    condition: "Réservation 500 $ remboursable jusqu'au lancement",
+    // {prises} et {total} viennent de PLACES_FONDATEURS (site.ts).
+    places: "{prises} restos fondateurs sur {total}",
+    reserver: "Réserver ma place fondateur",
+    pasPret: "Pas prêt? Appel gratuit de 30 min",
     video: {
-      titre: "C'est quoi Resto Action?",
-      lire: "Lire la vidéo « C'est quoi Resto Action? »",
+      titre: "Resto Action : ta propre app de commande, ta clientèle t'appartient",
+      lire: "Lire la vidéo « Ta propre app de commande, ta clientèle t'appartient »",
     },
   },
 
@@ -262,25 +278,76 @@ export const FR = {
   },
 
   approche: {
-    titre: "Notre approche",
-    sousTitre: "On s'adapte vraiment à chaque restaurant!",
+    titre: "Comment ça marche",
+    sousTitre: "Trois étapes, et on s'occupe de tout.",
     etapes: [
       {
-        titre: "On t'écoute",
-        texte: "Un appel de 30 minutes, tu nous parles de ton resto.",
+        titre: "Tu réserves ta place",
+        texte: "500 $, remboursables jusqu'à la signature du contrat.",
         alt: "La mascotte Resto Action écoute au téléphone",
       },
       {
-        titre: "On creuse avec toi",
-        texte: "On trouve ensemble ce qui gruge tes marges.",
+        titre: "On bâtit ton app et on l'installe",
+        texte: "Ton app web et mobile à tes couleurs, la tablette pour ta cuisine, et on forme ton équipe.",
         alt: "La mascotte Resto Action examine une facture à la loupe",
       },
       {
-        titre: "On règle le problème",
-        texte: "Une solution adaptée, pas une recette toute faite.",
+        titre: "Tes clients commandent chez toi",
+        texte: "En cueillette ou en livraison par nos livreurs. Ta liste de clients grandit à chaque commande.",
         alt: "La mascotte Resto Action lève le pouce, problème réglé",
       },
     ],
+  },
+
+  /* LA COMPARAISON, EN DIX MOTS PAR COLONNE. Peu de texte, gros caractères :
+     elle se lit d'un coup d'œil et mène au gros bouton de réservation. */
+  plateformes: {
+    titre: "Sur Uber, ton client n'est pas à toi.",
+    eux: {
+      titre: "Sur les plateformes",
+      points: ["Le client est à eux", "Tes prix gonflés", "Tu ne le revois jamais"],
+    },
+    toi: {
+      titre: "Avec ton app",
+      points: ["Le client est à toi", "Moins cher pour lui", "Il revient, encore et encore"],
+    },
+    reserver: "Réserver ma place fondateur",
+    sous: "500 $ remboursable jusqu'au lancement",
+  },
+
+  /* LE CALCULATEUR ANIMÉ. Les noms, montants et avis de l'animation sont des
+     EXEMPLES : la mention « hypotheses » le dit, sous les chiffres. */
+  calcul: {
+    titre: "Ce que ton app ferait pour toi en un an",
+    sousTitre: "Entre tes vrais chiffres. Regarde ce qui se passe.",
+    commandes: "Commandes en ligne par mois",
+    facture: "Facture moyenne",
+    rejouer: "Rejouer l'animation",
+    liste: {
+      titre: "Ta liste de clients",
+      unite: "commandes par année avec les coordonnées du client",
+      noms: ["Julie T.", "Marc L.", "Sophie B.", "Kevin R."],
+      ajoute: "entre dans ta liste",
+    },
+    ventes: {
+      titre: "Des ventes que tu n'aurais jamais eues",
+      unite: "de ventes en plus par année",
+      evenements: [
+        { texte: "Rappel par texto à Julie", montant: "+ 27,40 $" },
+        { texte: "Panier de Marc récupéré", montant: "+ 21,45 $" },
+        { texte: "Offre du jeudi à Sophie", montant: "+ 18,90 $" },
+      ],
+    },
+    avis: {
+      titre: "Tes avis Google",
+      unite: "nouveaux avis par année",
+      sms: "Merci Kevin! Ça te tente de nous laisser un avis?",
+      extraits: ["Livré chaud, parfait!", "Meilleure poutine du coin", "Commande super facile"],
+    },
+    garde: "gardés par année au lieu de les donner aux plateformes",
+    hypotheses:
+      "Exemple calculé avec des hypothèses prudentes : frais de plateforme typiques comparés à notre abonnement et à notre commission, 1 commande sur 20 qui vient d'un rappel par texto ou d'un panier récupéré, 1 commande sur 20 qui donne un avis. Avant taxes et frais de carte.",
+    reserver: "Réserver ma place fondateur",
   },
 
   /* LE CATALOGUE. Trois apps, dont une seule est montrée à l'écran — les deux
