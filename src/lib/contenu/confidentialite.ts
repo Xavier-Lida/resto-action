@@ -50,9 +50,9 @@ export const CONFIDENTIALITE_FR = {
   /* Suit LecteurVideo.tsx : si le lecteur cesse d'attendre le clic, ou quitte
      youtube-nocookie.com, ce paragraphe devient faux. */
   video: {
-    titre: "La vidéo de la page d'accueil",
+    titre: "Les vidéos de la page d'accueil",
     texte:
-      "La vidéo de notre page d'accueil est hébergée par YouTube. Tant que vous n'appuyez pas sur lecture, elle n'est qu'une image servie par notre site : rien n'est demandé à YouTube et aucun témoin n'est déposé. Quand vous la lancez, le lecteur de YouTube se charge en mode de confidentialité renforcée (youtube-nocookie.com), et YouTube, donc Google, peut alors recueillir des données de visionnement selon sa propre politique. De notre côté, on compte la lecture dans nos statistiques, et on retient le temps de votre visite que vous avez regardé la vidéo : si vous prenez rendez-vous, cette information accompagne la demande.",
+      "Les vidéos de notre page d'accueil sont hébergées par YouTube. Si vous refusez les témoins ou n'avez pas encore fait de choix, elles ne sont qu'une image servie par notre site : rien n'est demandé à YouTube et aucun témoin n'est déposé tant que vous n'appuyez pas sur lecture. Si vous acceptez les témoins, la vidéo du haut de la page démarre seule, sans son, quand elle apparaît à l'écran. Dès qu'une vidéo joue, le lecteur de YouTube se charge en mode de confidentialité renforcée (youtube-nocookie.com), et YouTube, donc Google, peut alors recueillir des données de visionnement selon sa propre politique. De notre côté, on compte la lecture dans nos statistiques, et on retient le temps de votre visite que vous avez regardé la vidéo : si vous prenez rendez-vous, cette information accompagne la demande.",
   },
 
   /* La seule section coupée par des liens : le courriel et le téléphone
@@ -112,9 +112,9 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   },
 
   video: {
-    titre: "The video on the home page",
+    titre: "The videos on the home page",
     texte:
-      "The video on our home page is hosted by YouTube. Until you press play, it is only an image served by our own site: nothing is requested from YouTube and no cookie is set. When you start it, YouTube's player loads in privacy-enhanced mode (youtube-nocookie.com), and YouTube, meaning Google, may then collect viewing data under its own policy. On our side, we count the play in our statistics, and we remember for the duration of your visit that you watched the video: if you book a call, that information goes along with the request.",
+      "The videos on our home page are hosted by YouTube. If you decline cookies or have not chosen yet, they are only an image served by our own site: nothing is requested from YouTube and no cookie is set until you press play. If you accept cookies, the video at the top of the page starts on its own, muted, when it comes into view. As soon as a video plays, YouTube's player loads in privacy-enhanced mode (youtube-nocookie.com), and YouTube, meaning Google, may then collect viewing data under its own policy. On our side, we count the play in our statistics, and we remember for the duration of your visit that you watched the video: if you book a call, that information goes along with the request.",
   },
 
   responsable: {

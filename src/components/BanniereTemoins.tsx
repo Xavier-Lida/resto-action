@@ -10,7 +10,7 @@ import { GA_MESURE_ID } from "@/lib/site";
 
    GA se chargeait pour tout le monde, depuis le layout. Seul outil du site à
    déposer des témoins (Vercel Analytics n'en pose aucun, YouTube attend le
-   clic, la provenance vit en sessionStorage), il est désormais éteint par
+   clic ou l'accord, la provenance vit en sessionStorage), il est désormais éteint par
    défaut — c'est ce que la Loi 25 demande d'un traceur — et ne se charge
    qu'après « Accepter ». La carte reste vague exprès : elle ne nomme aucun
    outil, pour rester vraie si la liste change ; le détail vit dans la
@@ -114,6 +114,18 @@ function eteindreGA() {
     document.cookie = expire;
     for (const d of domaines) document.cookie = `${expire}; domain=.${d}`;
   }
+}
+
+/* Vrai seulement après « Accepter ». Pour ce qui doit attendre l'accord sans
+   être GA — la vidéo du héro, qui démarre seule une fois l'accord donné. Le
+   serveur ne connaît pas le choix : il répond « non », le client corrige. */
+export function useTemoinsAcceptes(): boolean {
+  const choix = useSyncExternalStore<Choix | typeof SERVEUR>(
+    abonner,
+    lire,
+    () => SERVEUR,
+  );
+  return choix === "oui";
 }
 
 /* Pour le bouton « Modifier mon choix » de la politique : efface le choix, la

@@ -3,6 +3,7 @@ import { Phone, Mail } from "lucide-react";
 import Agenda from "@/components/Agenda";
 import BarreNav from "@/components/BarreNav";
 import BoutonAbonnement from "@/components/BoutonAbonnement";
+import Calculateur from "@/components/Calculateur";
 import Buoy from "@/components/Buoy";
 import DemoApp from "@/components/DemoApp";
 import Footer from "@/components/Footer";
@@ -11,6 +12,7 @@ import IconeYoutube from "@/components/IconeYoutube";
 import Resultats from "@/components/Resultats";
 import Reveal from "@/components/Reveal";
 import SectionFaq from "@/components/SectionFaq";
+import SectionPlateformes from "@/components/SectionPlateformes";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import LecteurVideo from "@/components/LecteurVideo";
 import { noeudFaq, noeudVideo } from "@/lib/schema";
@@ -228,6 +230,12 @@ export default function Accueil({
             </div>
           </div>
         </section>
+
+        {/* ─── Plateformes contre ton app, et le gros bouton ─── */}
+        <SectionPlateformes t={t} />
+
+        {/* ─── Le calculateur animé ─── */}
+        <Calculateur t={t} />
 
         {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
         <Resultats t={t} fonctionnalites={fonctionnalites} />
