@@ -461,6 +461,42 @@ export const FR = {
     // Tant qu'une démo n'a pas ses captures, son cadre affiche ça.
     attente: "Aperçu à venir",
     apps: APPS,
+    // La démo animée de la tablette de cuisine (DemoTablette). Les noms, les
+    // plats et les montants sont des exemples tirés du menu de Bistro Habibi.
+    tablette: {
+      alt: "Démonstration de la tablette de cuisine : une nouvelle commande arrive, on l'accepte, elle passe en préparation puis au livreur",
+      resto: "Bistro Habibi",
+      ouvert: "Ouvert",
+      onglets: ["Commandes", "Menu", "Réglages"],
+      colonnes: { nouvelles: "Nouvelles", preparation: "En préparation", pretes: "Prêtes" },
+      nouvelle: "Nouvelle commande",
+      livraison: "Livraison",
+      cueillette: "Cueillette",
+      articles: "articles",
+      accepter: "Accepter",
+      prete: "Prête",
+      tempsPrep: "Temps de préparation",
+      minutes: "min",
+      pretDans: "Prête dans {n} min",
+      livreurArrive: "Ali arrive dans 2 min",
+      remis: "Remise au livreur",
+      jour: "Aujourd'hui : {n} commandes · {montant}",
+      commande: {
+        numero: "#1043",
+        client: "Marie-Ève L.",
+        total: "46,48 $",
+        plats: [
+          { qte: 2, nom: "Panuozzo Habibi", note: "Sauce piquante" },
+          { qte: 1, nom: "Frites maison", note: "" },
+          { qte: 1, nom: "Coca-Cola", note: "" },
+        ],
+      },
+      autres: [
+        { numero: "#1042", client: "Sophie T.", mode: "livraison", articles: 2 },
+        { numero: "#1041", client: "Jean-François B.", mode: "cueillette", articles: 3 },
+      ],
+      prete1: { numero: "#1039", client: "Karim D." },
+    },
   },
 
   /* L'OFFRE FONDATEUR. Les montants et la garantie doivent rester identiques au
