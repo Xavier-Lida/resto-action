@@ -192,6 +192,12 @@ export default function FormulaireMaquette({
           {m.reserver}
         </a>
       </p>
+      <p className="mt-2 text-xs text-ink/50">
+        {m.vieprivee}{" "}
+        <a href={t.pied.confidentialiteHref} className="underline underline-offset-4 hover:text-brand">
+          {t.pied.confidentialite}
+        </a>
+      </p>
     </form>
   );
 }

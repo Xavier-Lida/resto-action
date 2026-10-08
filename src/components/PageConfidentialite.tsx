@@ -43,7 +43,7 @@ export default function PageConfidentialite({
     { year: "numeric", month: "long" }
   );
 
-  const sections = [c.recueillis, c.rendezVous, c.statistiques, c.video];
+  const sections = [c.recueillis, c.rendezVous, c.fondateur, c.statistiques, c.video];
   const suite = [c.droits, c.qui];
 
   return (
