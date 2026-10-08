@@ -102,7 +102,10 @@ const onglets = (
       duree: DUREE_APP,
       panneau: "bg-ink",
       clair: true,
-      photo: { src: "/resultats-app.webp", alt: t.resultats.photoAlt },
+      /* La photo montre la vraie app de Bistro Habibi dans le téléphone
+         (composée à partir des captures de public/demo-app/client). Elle est
+         recadrée à droite pour que le téléphone ne passe pas sous le titre. */
+      photo: { src: "/resultats-app-habibi.webp", alt: t.resultats.photoAlt },
     },
   ];
 };
@@ -313,7 +316,9 @@ export default function Resultats({
                 fill
                 sizes="(max-width: 1152px) 100vw, 1152px"
                 unoptimized
-                className="object-cover"
+                // Au téléphone, le panneau est étroit : on cadre sur le
+                // téléphone de la photo plutôt que sur le centre.
+                className="object-cover object-[76%_50%] lg:object-center"
               />
               {/* Le voile creuse le tiers gauche pour que le texte tienne, sans
                   noyer la photo : le bois et les plats restent lisibles. */}
