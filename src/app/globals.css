@@ -1244,3 +1244,27 @@ img {
     animation: none;
   }
 }
+
+/* L'aperçu d'app généré : l'écran défile doucement, aller-retour. 26rem =
+   la hauteur visible de l'écran (34rem) moins la marge de la barre d'onglets. */
+@keyframes gen-defile {
+  0%,
+  12% {
+    transform: translateY(0);
+  }
+  55%,
+  70% {
+    transform: translateY(calc(-100% + 34rem));
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.gen-defile {
+  animation: gen-defile 14s ease-in-out 1.2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gen-defile {
+    animation: none;
+  }
+}
