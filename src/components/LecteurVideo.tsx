@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { preconnect } from "react-dom";
 import Image from "next/image";
-import { Play } from "lucide-react";
+import { Play, Volume2 } from "lucide-react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { noterVideoVue } from "@/lib/provenance";
 import { useTemoinsAcceptes } from "@/components/BanniereTemoins";
@@ -109,6 +109,12 @@ export default function LecteurVideo({
          langue de la page s'il en a, pour qu'on comprenne sans le son. */
       cc_load_policy: "1",
       cc_lang_pref: hl,
+      /* Aucune commande de YouTube par-dessus : pas de barre, pas de gros
+         bouton pause, pas de clavier, pas d'annotations, pas de plein écran. */
+      controls: "0",
+      disablekb: "1",
+      iv_load_policy: "3",
+      fs: "0",
     });
     return (
       <div
@@ -122,8 +128,33 @@ export default function LecteurVideo({
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           referrerPolicy="strict-origin-when-cross-origin"
-          className="absolute inset-0 size-full border-0"
+          tabIndex={-1}
+          className="pointer-events-none absolute inset-0 size-full border-0"
         />
+        {/* UN VOILE PAR-DESSUS L'IFRAME. YouTube affiche son gros bouton
+            pause, le titre et ses liens dès que la souris passe sur le
+            lecteur. La souris n'y arrive jamais : elle tombe sur ce bouton
+            transparent, qui relance la vidéo depuis le début, AVEC le son et
+            les vraies commandes (le mode « lance » plus bas). */}
+        <button
+          type="button"
+          aria-label={lire}
+          onClick={() => {
+            noterVideoVue(id);
+            try {
+              sendGAEvent("event", "video_lecture", { video_id: id });
+            } catch {
+              // Mesure bloquée : la vidéo joue quand même.
+            }
+            setLance(true);
+          }}
+          className="group absolute inset-0 flex cursor-pointer items-end justify-start p-3 outline-offset-4 md:p-4"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full bg-ink/75 px-4 py-2 text-sm font-bold text-white backdrop-blur-sm transition group-hover:bg-brand">
+            <Volume2 aria-hidden="true" className="size-4" />
+            {hl === "fr" ? "Écouter avec le son" : "Watch with sound"}
+          </span>
+        </button>
       </div>
     );
   }
