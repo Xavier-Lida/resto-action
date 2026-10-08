@@ -103,7 +103,8 @@ export type DonneesFondateur = {
   nom: string;
   courriel: string;
   telephone: string;
-  couleur: string;
+  /** Le lien du menu ou du site, pour monter l'app. */
+  menu: string;
   service: string;
   plateformes: string;
   commandes: string;
@@ -133,7 +134,7 @@ export async function creerSessionFondateur(
     ville: d.ville,
     nom: d.nom,
     telephone: d.telephone,
-    couleur: d.couleur,
+    menu: d.menu,
     service: d.service,
     plateformes: d.plateformes,
     commandes: d.commandes,

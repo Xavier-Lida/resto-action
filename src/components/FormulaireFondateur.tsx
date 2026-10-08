@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check, Lock, ShieldCheck } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
-import TelephoneApp, { COULEURS } from "@/components/TelephoneApp";
+import DemoApp from "@/components/DemoApp";
 import { formaterTelephone } from "@/lib/telephone";
 import { lireProvenance } from "@/lib/provenance";
 import { PHONE_DISPLAY } from "@/lib/site";
@@ -14,8 +14,9 @@ import type { Textes } from "@/lib/textes/fr";
 /* LA RÉSERVATION FONDATEUR, EN 4 ÉTAPES, À LA RELAY.
 
    À gauche, une étape à la fois : ton resto → ton app → l'offre → la
-   réservation. À droite, le téléphone qui se construit en direct avec le nom
-   et la couleur choisis : le resto voit ce qu'il achète pendant qu'il remplit.
+   réservation. À droite, la VRAIE app qu'on a bâtie pour Bistro Habibi : on
+   vend du sur mesure fait à la main, donc on montre du vrai travail, pas un
+   modèle généré. L'étape 2 demande de quoi partir (le lien du menu).
 
    POURQUOI DES ÉTAPES ET PAS UN LONG FORMULAIRE. Chaque écran demande peu, et
    le premier ne demande que l'essentiel. Dès qu'il est rempli, le CRM est
@@ -59,7 +60,7 @@ export default function FormulaireFondateur({
     courriel: "",
     telephone: "",
   });
-  const [couleur, setCouleur] = useState(COULEURS[0]);
+  const [menu, setMenu] = useState("");
   const [service, setService] = useState<"livraison" | "cueillette">("livraison");
   const [plateformes, setPlateformes] = useState<string[]>([]);
   const [commandes, setCommandes] = useState("");
@@ -80,7 +81,6 @@ export default function FormulaireFondateur({
   const tps = arrondir(PRIX * TPS);
   const tvq = arrondir(PRIX * TVQ);
   const total = arrondir(PRIX + tps + tvq);
-  const nomApp = champs.restaurant.trim() || r.apercuDefaut;
   const messageErreur = (code: string) =>
     (r.erreurs[code as keyof typeof r.erreurs] ?? r.erreurs.stripe).replace("{tel}", PHONE_DISPLAY);
 
@@ -131,7 +131,7 @@ export default function FormulaireFondateur({
         body: JSON.stringify({
           action: "paiement",
           ...base(),
-          couleur,
+          menu,
           service,
           plateformes,
           commandes,
@@ -247,29 +247,26 @@ export default function FormulaireFondateur({
 
               {etape === 1 && (
                 <Etape titre={r.app.titre} texte={r.app.texte}>
-                  <Groupe titre={r.app.couleur}>
-                    <div className="flex flex-wrap gap-2.5">
-                      {COULEURS.map((c) => (
-                        <button
-                          key={c}
-                          type="button"
-                          onClick={() => setCouleur(c)}
-                          aria-label={c}
-                          aria-pressed={couleur === c}
-                          className={`size-11 rounded-full ring-offset-2 ring-offset-bone transition ${
-                            couleur === c ? "ring-2 ring-ink" : "hover:scale-110"
-                          }`}
-                          style={{ background: c }}
-                        />
-                      ))}
-                    </div>
-                  </Groupe>
+                  <label className="mb-7 block">
+                    <span className="font-bold">
+                      {r.app.menu} <span className="font-normal text-ink/50">({r.app.facultatif})</span>
+                    </span>
+                    <input
+                      type="url"
+                      value={menu}
+                      onChange={(e) => setMenu(e.target.value)}
+                      placeholder={r.app.exempleMenu}
+                      className="mt-2 w-full rounded-2xl border-2 border-transparent bg-white px-4 py-3.5 text-base outline-none transition-colors placeholder:text-ink/35 focus:border-brand"
+                    />
+                    <span className="mt-1.5 block text-sm text-ink/55">{r.app.menuAide}</span>
+                  </label>
 
-                  {/* Au téléphone, l'aperçu de droite n'existe pas : on le
-                      montre ici, sous les couleurs. */}
-                  <div className="mb-8 lg:hidden">
-                    <TelephoneApp g={t.hero.generateur} nom={nomApp} couleur={couleur} />
-                  </div>
+                  {/* Au téléphone, la colonne de droite n'existe pas : la preuve
+                      (l'app de Bistro Habibi) se montre ici. */}
+                  <figure className="mb-8 flex flex-col items-center gap-3 lg:hidden">
+                    <DemoApp demo="client" alt={t.hero.maquette.exempleAlt} attente={t.hero.maquette.attente} className="[--demo-w:15rem]" />
+                    <figcaption className="text-sm font-bold text-ink/60">{t.hero.maquette.exemple}</figcaption>
+                  </figure>
 
                   <Groupe titre={r.app.service}>
                     <div className="grid gap-2 sm:grid-cols-2">
@@ -452,18 +449,22 @@ export default function FormulaireFondateur({
           </form>
         </div>
 
-        {/* ─── L'aperçu en direct ─── */}
+        {/* ─── La preuve : du vrai travail ─── */}
         <aside className="relative hidden flex-col items-center justify-center gap-8 overflow-hidden bg-hero px-8 py-12 text-white lg:flex">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-white/10 blur-3xl"
           />
-          <p className="relative max-w-sm text-center font-display text-2xl font-black leading-tight">
-            {t.hero.generateur.titre.replace("{nom}", nomApp)}
-          </p>
-          <div className="relative">
-            <TelephoneApp g={t.hero.generateur} nom={nomApp} couleur={couleur} />
+          <div className="relative max-w-sm text-center">
+            <p className="font-display text-2xl font-black leading-tight">
+              {r.apercu.titre.replace("{nom}", champs.restaurant.trim() || r.apercuDefaut)}
+            </p>
+            <p className="mt-2 text-white/80">{r.apercu.texte}</p>
           </div>
+          <figure className="relative flex flex-col items-center gap-3">
+            <DemoApp demo="client" alt={t.hero.maquette.exempleAlt} attente={t.hero.maquette.attente} className="[--demo-w:17rem]" />
+            <figcaption className="text-sm font-bold text-white/70">{t.hero.maquette.exemple}</figcaption>
+          </figure>
           <div className="relative w-full max-w-xs">
             <BarrePlaces modele={t.hero.places} />
           </div>

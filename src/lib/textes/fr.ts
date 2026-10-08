@@ -501,9 +501,12 @@ export const FR = {
       telephone: "Téléphone",
     },
     app: {
-      titre: "Ton app, à ton image",
-      texte: "Choisis ta couleur. Le menu, les photos et le reste, on les monte avec toi à l'installation.",
-      couleur: "Ta couleur",
+      titre: "Ton app, faite à la main",
+      texte: "On la monte avec ton logo, ton menu et tes photos. Donne-nous de quoi partir, on s'occupe du reste.",
+      menu: "Lien de ton menu ou de ton site",
+      facultatif: "facultatif",
+      exempleMenu: "Ex. : facebook.com/tonresto ou ton site",
+      menuAide: "Pas de lien? Pas grave : on trouve ton menu et on te le fait valider.",
       service: "Ce que tu offres",
       services: {
         livraison: "Livraison et cueillette",
@@ -541,7 +544,11 @@ export const FR = {
       config: "Le paiement en ligne n'est pas encore ouvert. Appelle-nous au {tel}, on réserve ta place au téléphone.",
       stripe: "Le paiement n'a pas pu s'ouvrir. Réessaie, ou appelle-nous au {tel}.",
     },
-    apercuDefaut: "Ton resto",
+    apercuDefaut: "ton resto",
+    apercu: {
+      titre: "L'app de {nom}, faite à la main",
+      texte: "Comme celle de Bistro Habibi : ton logo, ton menu, tes photos. Pas un modèle.",
+    },
     aide: "Une question avant de réserver ?",
     aideLien: "Appel gratuit de 30 min",
     merci: {
