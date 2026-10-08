@@ -358,17 +358,18 @@ export async function listerRendezVous(
 /* ─── Les demandes de maquette ───
 
    « Trouve ton resto » ne génère plus une app d'exemple : il demande une
-   VRAIE maquette, faite à la main, livrée par texto en 24 h. La demande
+   VRAIE maquette, faite à la main, envoyée par courriel en 48 h. La demande
    atterrit ici, dans le même agenda que les rendez-vous, sous forme d'un
    bloc de 30 minutes placé à l'échéance : Guillaume la voit sur son
    téléphone, avec un rappel, sans outil de plus ni facture de plus.
 
-   Pas d'invité (`sendUpdates=none`) : le resto n'a pas laissé de courriel,
-   on lui répond par texto. La clé `source: "maquette"` la tient à l'écart
+   Pas d'invité (`sendUpdates=none`) : le resto ne doit pas recevoir une
+   invitation d'agenda, il reçoit sa maquette par courriel. La clé `source: "maquette"` la tient à l'écart
    du tableau de bord, qui ne compte que `source: "site"`. */
 export type DemandeMaquette = {
   restaurant: string;
   nom: string;
+  courriel: string;
   telephone: string;
   ville: string;
   menu: string;
@@ -377,15 +378,16 @@ export type DemandeMaquette = {
 };
 
 export async function creerDemandeMaquette(d: DemandeMaquette): Promise<void> {
-  const echeance = new Date(Date.now() + 24 * 3_600_000);
+  const echeance = new Date(Date.now() + 48 * 3_600_000);
   const fin = new Date(echeance.getTime() + 30 * 60_000);
   const lignes = [
-    `Maquette à livrer par texto avant cette heure-ci. Demandée depuis le site, ${d.langue === "en" ? "en anglais" : "en français"}.`,
+    `Maquette à envoyer par courriel avant cette heure-ci. Demandée depuis le site, ${d.langue === "en" ? "en anglais" : "en français"}.`,
     `Provenance : ${decrireProvenance(d.provenance)}`,
     "",
     `Restaurant : ${d.restaurant}`,
     `Ville : ${d.ville}`,
     `Nom : ${d.nom}`,
+    `Courriel : ${d.courriel}`,
     `Cell : ${d.telephone}`,
     d.menu ? `Menu / site : ${d.menu}` : "Menu / site : pas donné, à trouver (Google, Facebook)",
   ];

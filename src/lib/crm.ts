@@ -96,8 +96,7 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
    que Xavier ne l'a pas ajoutée, la variable reste vide et rien ne casse. Les
    paiements, eux, restent toujours visibles dans Stripe. */
 export type EvenementFondateur = {
-  /** « maquette » : demande de maquette gratuite depuis le héro (pas de
-      courriel, on répond par texto). */
+  /** « maquette » : demande de maquette gratuite depuis le héro. */
   etape: "prospect" | "maquette" | "paye";
   prospect: {
     nom: string;

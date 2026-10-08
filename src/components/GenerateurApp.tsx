@@ -9,14 +9,14 @@ import { PHONE_DISPLAY, cheminReservation } from "@/lib/site";
 import { formaterTelephone } from "@/lib/telephone";
 import type { Textes } from "@/lib/textes/fr";
 
-/* « TROUVE TON RESTO » → UNE MAQUETTE FAITE À LA MAIN, EN 24 H.
+/* « TROUVE TON RESTO » → UNE MAQUETTE FAITE À LA MAIN, EN 48 H.
 
    Avant, le champ générait une app d'exemple : des photos de banque, un menu
    inventé. Ça disait « modèle », alors qu'on vend du sur mesure, fait par du
    monde d'ici. Maintenant, le resto tape son nom et la fenêtre lui montre :
      à droite, la VRAIE app qu'on a bâtie pour Bistro Habibi (la preuve) ;
      à gauche, l'offre : SA maquette, avec son logo, son menu et ses photos,
-     gratuite, par texto d'ici 24 h. Nom, cell, ville, lien du menu.
+     gratuite, par courriel dans les 48 h. Nom, courriel, cell, ville, menu.
 
    La demande tombe dans l'agenda de Guillaume (/api/maquette), et c'est en
    livrant la maquette qu'on close. Celui qui est déjà décidé a toujours le
@@ -28,7 +28,7 @@ export default function GenerateurApp({ t }: { t: Textes }) {
   const m = t.hero.maquette;
   const [restaurant, setRestaurant] = useState("");
   const [etat, setEtat] = useState<Etat>("ferme");
-  const [champs, setChamps] = useState({ nom: "", telephone: "", ville: "", menu: "" });
+  const [champs, setChamps] = useState({ nom: "", courriel: "", telephone: "", ville: "", menu: "" });
   const [piege, setPiege] = useState("");
   const [erreur, setErreur] = useState<string | null>(null);
   const fermer = useRef<HTMLButtonElement>(null);
@@ -51,7 +51,12 @@ export default function GenerateurApp({ t }: { t: Textes }) {
 
   async function envoyer() {
     setErreur(null);
-    if (!champs.nom.trim() || !champs.ville.trim() || champs.telephone.replace(/\D/g, "").length < 10) {
+    if (
+      !champs.nom.trim() ||
+      !champs.ville.trim() ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(champs.courriel.trim()) ||
+      champs.telephone.replace(/\D/g, "").length < 10
+    ) {
       setErreur(m.erreurs.invalide);
       return;
     }
@@ -139,7 +144,7 @@ export default function GenerateurApp({ t }: { t: Textes }) {
                 <h2 id="maquette-titre" className="mt-6 font-display text-3xl font-black leading-tight tracking-tight md:text-4xl">
                   {m.merciTitre.replace("{prenom}", champs.nom.trim().split(" ")[0])}
                 </h2>
-                <p className="mt-4 text-lg leading-relaxed text-ink/70">{avecNom(m.merciTexte)}</p>
+                <p className="mt-4 text-lg leading-relaxed text-ink/70">{avecNom(m.merciTexte).replace("{courriel}", champs.courriel.trim())}</p>
                 <a
                   href={reserver}
                   className="group mt-8 inline-flex items-center gap-3 rounded-full bg-brand px-7 py-4 text-lg font-black text-white shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
@@ -175,6 +180,13 @@ export default function GenerateurApp({ t }: { t: Textes }) {
 
                 <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
                   <Champ etiquette={m.nom} valeur={champs.nom} autoComplete="name" onChange={(v) => setChamps({ ...champs, nom: v })} />
+                  <Champ
+                    etiquette={m.courriel}
+                    type="email"
+                    valeur={champs.courriel}
+                    autoComplete="email"
+                    onChange={(v) => setChamps({ ...champs, courriel: v })}
+                  />
                   <Champ
                     etiquette={m.cell}
                     type="tel"

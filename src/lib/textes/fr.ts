@@ -198,9 +198,10 @@ export const FR = {
     maquette: {
       titre: "La maquette de {nom}, faite à la main.",
       texte:
-        "On te monte une vraie maquette de ton app, pas un modèle : ton logo, ton menu, tes photos. Gratuite, sans engagement, et tu la reçois par texto d'ici 24 h.",
+        "On te monte une vraie maquette de ton app, pas un modèle : ton logo, ton menu, tes photos. Gratuite, sans engagement, et envoyée à ton adresse courriel dans les 48 h.",
       inclus: ["Ton logo et tes couleurs", "Ton vrai menu, avec tes prix", "Tes photos, pas des photos d'exemple"],
       nom: "Ton nom",
+      courriel: "Ton courriel",
       cell: "Ton cell",
       ville: "Ville",
       menu: "Lien de ton menu ou de ton site",
@@ -214,10 +215,10 @@ export const FR = {
       reserver: "Réserver ma place fondateur",
       merciTitre: "C'est noté, {prenom}!",
       merciTexte:
-        "On te texte la maquette de {nom} d'ici 24 h. Si on a une question sur ton menu, on t'appelle.",
+        "La maquette de {nom} t'est envoyée à {courriel} dans les 48 h. Si on a une question sur ton menu, on t'appelle.",
       merciReserver: "Réserver ma place pendant qu'il en reste",
       erreurs: {
-        invalide: "Il manque ton nom, ton cell ou ta ville.",
+        invalide: "Il manque ton nom, ton courriel, ton cell ou ta ville.",
         trop: "Trop d'essais d'un coup. Réessaie dans quelques minutes.",
         autre: "Ça n'a pas passé. Appelle-nous ou texte-nous au {tel}, on s'en occupe.",
       },
