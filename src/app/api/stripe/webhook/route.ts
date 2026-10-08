@@ -49,7 +49,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
             ville: m.ville ?? "",
             langue: m.langue === "en" ? "en" : "fr",
           },
-          app: { couleur: m.couleur ?? "", service: m.service ?? "" },
+          app: { menu: m.menu ?? "", service: m.service ?? "" },
           qualification: { plateformes: m.plateformes ?? "", commandes: m.commandes ?? "" },
           paiement: { session: s.id, montant: s.amount_total, devise: s.currency },
         }),

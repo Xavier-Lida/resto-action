@@ -397,9 +397,12 @@ export const EN: Textes = {
       telephone: "Phone",
     },
     app: {
-      titre: "Your app, your look",
-      texte: "Pick your colour. We set up the menu, photos and the rest with you at installation.",
-      couleur: "Your colour",
+      titre: "Your app, made by hand",
+      texte: "We build it with your logo, your menu and your photos. Give us something to start from, we handle the rest.",
+      menu: "Link to your menu or website",
+      facultatif: "optional",
+      exempleMenu: "E.g. facebook.com/yourrestaurant or your site",
+      menuAide: "No link? No problem: we'll find your menu and have you approve it.",
       service: "What you offer",
       services: {
         livraison: "Delivery and pickup",
@@ -436,7 +439,11 @@ export const EN: Textes = {
       config: "Online payment isn't open yet. Call us at {tel} and we'll reserve your spot by phone.",
       stripe: "Checkout couldn't open. Try again, or call us at {tel}.",
     },
-    apercuDefaut: "Your restaurant",
+    apercuDefaut: "your restaurant",
+    apercu: {
+      titre: "{nom}'s app, made by hand",
+      texte: "Like Bistro Habibi's: your logo, your menu, your photos. Not a template.",
+    },
     aide: "Questions before you reserve?",
     aideLien: "Free 30-min call",
     merci: {

@@ -20,7 +20,6 @@ export const runtime = "nodejs";
 
 const SANS_CACHE = { "Cache-Control": "no-store" };
 const COURRIEL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const COULEUR = /^#[0-9a-f]{6}$/i;
 
 function texte(valeur: unknown, max: number): string {
   return typeof valeur === "string" ? valeur.trim().slice(0, max) : "";
@@ -89,7 +88,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
   // L'étape 3 : sans l'accord sur les conditions, pas de paiement.
   if (corps.accord !== true) return refus("accord");
 
-  const couleur = COULEUR.test(texte(corps.couleur, 7)) ? texte(corps.couleur, 7) : "#b03a2e";
+  const menu = texte(corps.menu, 300);
   const service = corps.service === "cueillette" ? "cueillette" : "livraison+cueillette";
   const plateformes = Array.isArray(corps.plateformes)
     ? corps.plateformes.map((p) => texte(p, 30)).filter(Boolean).slice(0, 6).join(", ")
@@ -100,7 +99,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
     const session = await creerSessionFondateur(
       {
         ...prospect,
-        couleur,
+        menu,
         service,
         plateformes,
         commandes,

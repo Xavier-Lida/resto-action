@@ -107,7 +107,7 @@ export type EvenementFondateur = {
     ville: string;
     langue: "fr" | "en";
   };
-  app?: { couleur: string; service: string };
+  app?: { menu: string; service: string };
   qualification?: { plateformes: string; commandes: string };
   paiement?: { session: string; montant: number | null; devise: string };
   maquette?: { menu: string };
