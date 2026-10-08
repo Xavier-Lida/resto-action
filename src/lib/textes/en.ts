@@ -89,6 +89,26 @@ export const EN: Textes = {
       bouton: "See my app",
     },
     condition: "$500 reservation, refundable until launch",
+    generateur: {
+      etapes: ["Your name and colours", "Your menu", "Your loyalty points"],
+      enCours: "Building {nom}'s app…",
+      titre: "Here is {nom}'s app.",
+      texte: "Your menu, your photos and your colours: we set it up with you after your reservation. Your customers keep it on their home screen.",
+      couleur: "Pick your colour",
+      bienvenue: "Welcome to",
+      livraison: "Delivery",
+      cueillette: "Pickup",
+      points: "Your points: 120. 30 more for free fries.",
+      plats: [
+        { nom: "Classic poutine", prix: "$13.95" },
+        { nom: "House burger", prix: "$15.50" },
+        { nom: "Club sandwich", prix: "$16.25" },
+      ],
+      onglets: ["Home", "Menu", "Points", "Account"],
+      note: "Sample preview: your real menu and photos replace these.",
+      reserver: "Reserve {nom}'s app",
+      fermer: "Close the preview",
+    },
     places: "Only {reste} spots left in your city",
     reserver: "Reserve my founder spot",
     pasPret: "Not ready? Free 30-min call",
@@ -220,11 +240,11 @@ export const EN: Textes = {
     ventes: {
       titre: "Sales you would never have had",
       unite: "in extra sales per year",
-      notification: "New order",
-      evenements: [
-        { texte: "Julie came back after a text reminder", montant: "$27.40" },
-        { texte: "Marc finished his cart after the nudge", montant: "$21.45" },
-        { texte: "Sophie took the Thursday offer in the app", montant: "$18.90" },
+      parAn: "/ yr",
+      leviers: [
+        { titre: "Cart suggestions", detail: "“Add a drink?”: orders get 5% bigger" },
+        { titre: "Text reminders and recovered carts", detail: "1 more order in 20" },
+        { titre: "New customers found on Google", detail: "1 more order in 20" },
       ],
     },
     avis: {
@@ -238,7 +258,7 @@ export const EN: Textes = {
     },
     garde: "kept per year instead of going to the platforms",
     hypotheses:
-      "Example calculated with cautious assumptions: typical platform fees compared with our subscription and commission, 1 order in 20 coming from a text reminder or a recovered cart, 1 order in 20 leading to a review. The names, reviews and amounts shown are examples. Before taxes and card fees.",
+      "An estimate, not a guarantee. Money kept: typical 30% platform fees, compared with our $200 monthly subscription and a 10% commission on every order. Extra sales: orders 5% bigger thanks to suggestions, 1 more order in 20 from reminders and recovered carts, 1 more in 20 from Google. Reviews: 1 order in 20. The names and reviews shown are examples. Before taxes and card fees.",
     reserver: "Reserve my founder spot",
   },
 

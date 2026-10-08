@@ -194,6 +194,27 @@ export const FR = {
       bouton: "Voir mon app",
     },
     condition: "Réservation 500 $ remboursable jusqu'au lancement",
+    // L'aperçu d'app généré à partir du nom tapé dans le champ.
+    generateur: {
+      etapes: ["Ton nom et tes couleurs", "Ton menu", "Ton programme de points"],
+      enCours: "On bâtit l'app de {nom}…",
+      titre: "Voici l'app de {nom}.",
+      texte: "Ton menu, tes photos et tes couleurs : on la monte avec toi après ta réservation. Tes clients la gardent sur leur écran d'accueil.",
+      couleur: "Choisis ta couleur",
+      bienvenue: "Bienvenue chez",
+      livraison: "Livraison",
+      cueillette: "Cueillette",
+      points: "Tes points : 120. Encore 30 pour une frite gratuite.",
+      plats: [
+        { nom: "Poutine classique", prix: "13,95 $" },
+        { nom: "Burger maison", prix: "15,50 $" },
+        { nom: "Club sandwich", prix: "16,25 $" },
+      ],
+      onglets: ["Accueil", "Menu", "Points", "Compte"],
+      note: "Exemple d'aperçu : ton vrai menu et tes photos remplacent ceux-ci.",
+      reserver: "Réserver l'app de {nom}",
+      fermer: "Fermer l'aperçu",
+    },
     // {prises} et {total} viennent de PLACES_FONDATEURS (site.ts).
     // {reste} et {total} viennent de PLACES_FONDATEURS (site.ts).
     places: "Il reste {reste} places dans ta ville",
@@ -342,11 +363,11 @@ export const FR = {
     ventes: {
       titre: "Des ventes que tu n'aurais jamais eues",
       unite: "de ventes en plus par année",
-      notification: "Nouvelle commande",
-      evenements: [
-        { texte: "Julie est revenue après un rappel par texto", montant: "27,40 $" },
-        { texte: "Marc a fini son panier après la relance", montant: "21,45 $" },
-        { texte: "Sophie a pris l'offre du jeudi dans l'app", montant: "18,90 $" },
+      parAn: "/ an",
+      leviers: [
+        { titre: "Suggestions au panier", detail: "« Ajoute un breuvage? » : la facture monte de 5 %" },
+        { titre: "Rappels par texto et paniers récupérés", detail: "1 commande sur 20 de plus" },
+        { titre: "Nouveaux clients trouvés sur Google", detail: "1 commande sur 20 de plus" },
       ],
     },
     avis: {
@@ -360,7 +381,7 @@ export const FR = {
     },
     garde: "gardés par année au lieu de les donner aux plateformes",
     hypotheses:
-      "Exemple calculé avec des hypothèses prudentes : frais de plateforme typiques comparés à notre abonnement et à notre commission, 1 commande sur 20 qui vient d'un rappel par texto ou d'un panier récupéré, 1 commande sur 20 qui donne un avis. Les noms, avis et montants qui défilent sont des exemples. Avant taxes et frais de carte.",
+      "Estimation, pas une garantie. Argent gardé : 30 % de frais de plateforme typiques, comparés à notre abonnement à 200 $ par mois et à 10 % de commission sur toutes les commandes. Ventes en plus : 5 % de plus par facture grâce aux suggestions, 1 commande sur 20 de plus grâce aux rappels et aux paniers récupérés, 1 sur 20 de plus grâce à Google. Avis : 1 commande sur 20. Les noms et les avis qui défilent sont des exemples. Avant taxes et frais de carte.",
     reserver: "Réserver ma place fondateur",
   },
 
