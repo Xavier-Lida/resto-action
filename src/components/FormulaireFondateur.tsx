@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, Lock, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Lock, Mail, ShieldCheck } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import DemoApp from "@/components/DemoApp";
 import { formaterTelephone } from "@/lib/telephone";
@@ -247,6 +247,15 @@ export default function FormulaireFondateur({
 
               {etape === 1 && (
                 <Etape titre={r.app.titre} texte={r.app.texte}>
+                  {/* La promesse de livraison, à l'adresse qu'il vient de donner. */}
+                  <p className="mb-7 flex items-start gap-3 rounded-2xl bg-white p-4 font-bold">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand text-white">
+                      <Mail className="size-4" aria-hidden="true" />
+                    </span>
+                    <span className="pt-1">
+                      {r.app.livraisonMaquette.replace("{courriel}", champs.courriel.trim())}
+                    </span>
+                  </p>
                   <label className="mb-7 block">
                     <span className="font-bold">
                       {r.app.menu} <span className="font-normal text-ink/50">({r.app.facultatif})</span>

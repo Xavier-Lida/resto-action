@@ -403,6 +403,7 @@ export const EN: Textes = {
       facultatif: "optional",
       exempleMenu: "E.g. facebook.com/yourrestaurant or your site",
       menuAide: "No link? No problem: we'll find your menu and have you approve it.",
+      livraisonMaquette: "Your mockup is sent to {courriel} within 48 hours.",
       service: "What you offer",
       services: {
         livraison: "Delivery and pickup",
@@ -454,7 +455,8 @@ export const EN: Textes = {
       texteGenerique: "If your payment went through, your invoice is in your inbox. Not sure? Call us at {tel}.",
       suiteTitre: "What's next",
       suite: [
-        "We call you within 24 hours to plan your installation.",
+        "Your mockup arrives by email within 48 hours.",
+        "We call you to plan your installation.",
         "We build your app with your menu, photos and colours.",
         "We install the tablet and train your team.",
         "You launch, and we start your Facebook and Instagram ads, paid by us.",

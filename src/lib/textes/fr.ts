@@ -507,6 +507,7 @@ export const FR = {
       facultatif: "facultatif",
       exempleMenu: "Ex. : facebook.com/tonresto ou ton site",
       menuAide: "Pas de lien? Pas grave : on trouve ton menu et on te le fait valider.",
+      livraisonMaquette: "Ta maquette t'est envoyée dans les 48 h à {courriel}.",
       service: "Ce que tu offres",
       services: {
         livraison: "Livraison et cueillette",
@@ -560,7 +561,8 @@ export const FR = {
         "Si ton paiement est passé, ta facture est dans ta boîte courriel. Un doute ? Appelle-nous au {tel}.",
       suiteTitre: "La suite",
       suite: [
-        "On t'appelle dans les 24 h pour planifier ton installation.",
+        "Ta maquette arrive par courriel dans les 48 h.",
+        "On t'appelle pour planifier ton installation.",
         "On bâtit ton app avec ton menu, tes photos et tes couleurs.",
         "On installe la tablette et on forme ton équipe.",
         "Tu lances, et on part tes pubs Facebook et Instagram, payées par nous.",
