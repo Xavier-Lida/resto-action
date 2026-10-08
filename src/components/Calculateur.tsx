@@ -19,14 +19,18 @@ import type { Textes } from "@/lib/textes/fr";
    changement ici doit s'y refléter :
      - plateformes : FRAIS_PLATEFORME de la facture ;
      - nous : ABONNEMENT par mois + COMMISSION de la facture ;
-     - ventes en plus : 1 commande sur 20 (rappel texto, panier récupéré) ;
+     - ventes en plus, trois leviers : HAUSSE_PANIER sur chaque facture
+       (suggestions), PART_RELANCES de commandes en plus (textos, paniers
+       récupérés), PART_GOOGLE de commandes en plus (nouveaux clients) ;
      - avis : 1 commande sur 20.
    Les noms, avis et montants qui défilent sont des exemples d'illustration. */
 
 const FRAIS_PLATEFORME = 0.3;
 const ABONNEMENT = 200;
 const COMMISSION = 0.1;
-const PART_VENTES_EN_PLUS = 1 / 20;
+const HAUSSE_PANIER = 0.05;
+const PART_RELANCES = 1 / 20;
+const PART_GOOGLE = 1 / 20;
 const PART_AVIS = 1 / 20;
 
 const PASTILLES = ["#ffd9cf", "#d7e9ff", "#d9f0e3", "#fff0bf"];
@@ -101,7 +105,13 @@ export default function Calculateur({ t }: { t: Textes }) {
     12 * (volume * FRAIS_PLATEFORME - (ABONNEMENT + volume * COMMISSION)),
   );
   const commandesAn = commandes * 12;
-  const ventesEnPlus = commandesAn * PART_VENTES_EN_PLUS * facture;
+  const ventesApp = commandesAn * facture;
+  const leviers = [
+    ventesApp * HAUSSE_PANIER,
+    ventesApp * PART_RELANCES,
+    ventesApp * PART_GOOGLE,
+  ];
+  const ventesEnPlus = leviers.reduce((a, b) => a + b, 0);
   const avisAn = Math.round(commandesAn * PART_AVIS);
 
   const argent = new Intl.NumberFormat(t.htmlLang, {
@@ -231,10 +241,10 @@ export default function Calculateur({ t }: { t: Textes }) {
 
             <div className="mt-6 grid gap-2.5 rounded-[1.75rem] bg-gradient-to-b from-[#f4efe9] to-[#ece4da] p-3">
               {actif &&
-                c.ventes.evenements.map(({ texte, montant }, i) => (
+                c.ventes.leviers.map(({ titre, detail }, k) => (
                   <div
-                    key={texte}
-                    style={d(1.3 + i * 0.5)}
+                    key={titre}
+                    style={d(1.3 + k * 0.5)}
                     className="calc-entre flex items-start gap-3 rounded-2xl bg-white/90 p-3 shadow-[0_6px_18px_-8px_rgb(25_25_25/0.35)] backdrop-blur"
                   >
                     <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white ring-1 ring-ink/10">
@@ -242,13 +252,13 @@ export default function Calculateur({ t }: { t: Textes }) {
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-baseline justify-between gap-2">
-                        <span className="text-xs font-black">{c.ventes.notification}</span>
-                        <span className="text-sm font-black text-[#1f6b45]">
-                          {montant}
+                        <span className="text-xs font-black">{titre}</span>
+                        <span className="whitespace-nowrap text-sm font-black text-[#1f6b45]">
+                          +{argent.format(leviers[k] ?? 0)} {c.ventes.parAn}
                         </span>
                       </span>
                       <span className="mt-0.5 block text-xs leading-snug text-ink/65">
-                        {texte}
+                        {detail}
                       </span>
                     </span>
                   </div>

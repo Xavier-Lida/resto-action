@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
+import GenerateurApp from "@/components/GenerateurApp";
 import IconeYoutube from "@/components/IconeYoutube";
 import LecteurVideo from "@/components/LecteurVideo";
 import {
@@ -84,32 +85,8 @@ export default function Hero({ t }: { t: Textes }) {
               ))}
             </ul>
 
-            {/* « TROUVE TON RESTO ». Pour l'instant, le nom part vers la page de
-                contact (paramètre `resto`) ; l'aperçu de l'app au nom du resto,
-                avec sa note Google, viendra dans une version suivante. */}
-            <form
-              action={`${t.racine}/contact`}
-              method="get"
-              className="animate-hero delay-2 flex max-w-xl flex-wrap gap-2 rounded-2xl bg-white p-2"
-            >
-              <label htmlFor="hero-resto" className="sr-only">
-                {t.hero.recherche.libelle}
-              </label>
-              <input
-                id="hero-resto"
-                name="resto"
-                type="text"
-                autoComplete="organization"
-                placeholder={t.hero.recherche.exemple}
-                className="min-w-0 flex-1 basis-56 bg-transparent px-3 py-3 text-base text-ink outline-none placeholder:text-ink/50"
-              />
-              <button
-                type="submit"
-                className="rounded-xl bg-brand px-5 py-3 font-black text-white transition hover:bg-ink active:scale-95"
-              >
-                {t.hero.recherche.bouton}
-              </button>
-            </form>
+            {/* « TROUVE TON RESTO » : l'aperçu de l'app au nom du resto. */}
+            <GenerateurApp t={t} />
 
             <div className="animate-hero delay-3 flex flex-col gap-2">
               <BarrePlaces modele={t.hero.places} />
