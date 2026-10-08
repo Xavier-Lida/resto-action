@@ -196,7 +196,7 @@ export const FR = {
     condition: "Réservation 500 $ remboursable jusqu'au lancement",
     // {prises} et {total} viennent de PLACES_FONDATEURS (site.ts).
     // {reste} et {total} viennent de PLACES_FONDATEURS (site.ts).
-    places: "Il reste {reste} places fondateurs sur {total}",
+    places: "Il reste {reste} places sur {total} dans ta ville",
     reserver: "Réserver ma place fondateur",
     pasPret: "Pas prêt? Appel gratuit de 30 min",
     video: {

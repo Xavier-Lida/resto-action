@@ -102,11 +102,12 @@ export const VIDEO_ACCUEIL = {
    que c'est `null`, le bouton mène à la page de contact. */
 export const RESERVATION_URL: string | null = null;
 
-/* LES PLACES FONDATEURS, affichées « X sur Y » dans le héro et sous la section
-   des plateformes. SE METTENT À JOUR À LA MAIN, à chaque réservation : un
-   compteur qui ne bouge jamais, ou qui ment, tue la confiance au lieu de
-   créer l'élan. Chiffres À CONFIRMER avant la mise en ligne. */
-export const PLACES_FONDATEURS = { total: 20, prises: 2 };
+/* LES PLACES FONDATEURS : 10 PAR VILLE (la limite suit le recrutement des
+   livreurs). Le site ne connaît pas la ville du visiteur : il affiche donc le
+   compteur d'une ville neuve. Quand une ville se remplit, le compteur par ville
+   viendra du formulaire. SE MET À JOUR À LA MAIN : un compteur qui ment tue la
+   confiance au lieu de créer l'élan. */
+export const PLACES_FONDATEURS = { total: 10, prises: 0 };
 
 /* LES DEUX FONDATEURS, à un seul endroit.
 
