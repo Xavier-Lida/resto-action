@@ -175,7 +175,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       ],
     },
     cta: {
-      titre: "On regarde ta fiche et ton site en trente minutes.",
+      titre: "On regarde ta fiche et ton site ensemble.",
       texte:
         "Tu repars avec ce qu'on a vu, et l'ordre dans lequel le régler. Que tu embarques ou non.",
     },
@@ -291,7 +291,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     cta: {
       titre: "Combien te coûtent tes commissions cette année?",
       texte:
-        "Trente minutes, tes chiffres en main, et on regarde ensemble ce que la commande directe changerait.",
+        "Un court appel, tes chiffres en main, et on regarde ensemble ce que la commande directe changerait.",
     },
   },
 
@@ -405,7 +405,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     cta: {
       titre: "Combien de clients ont commandé une seule fois?",
       texte:
-        "C'est la question qu'on regarde ensemble en trente minutes. La réponse surprend presque tout le monde.",
+        "C'est la question qu'on regarde ensemble au téléphone. La réponse surprend presque tout le monde.",
     },
   },
 
@@ -509,7 +509,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       ],
     },
     cta: {
-      titre: "Une app à ton nom, ça se regarde en trente minutes.",
+      titre: "Une app à ton nom, ça se regarde ensemble.",
       texte:
         "On te montre à quoi elle ressemblerait chez toi, et ce que ça prend pour la remplir.",
     },
@@ -635,7 +635,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       ],
     },
     cta: {
-      titre: "We'll look at your listing and your site in thirty minutes.",
+      titre: "We'll look at your listing and your site together.",
       texte:
         "You leave with what we found and the order to fix it in. Whether you sign or not.",
     },
@@ -750,7 +750,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     cta: {
       titre: "What are your commissions costing you this year?",
       texte:
-        "Thirty minutes, your numbers in hand, and we look together at what direct ordering would change.",
+        "A quick call, your numbers in hand, and we look together at what direct ordering would change.",
     },
   },
 
@@ -864,7 +864,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     cta: {
       titre: "How many customers ordered exactly once?",
       texte:
-        "That's the question we look at together in thirty minutes. The answer surprises almost everyone.",
+        "That's the question we look at together on the phone. The answer surprises almost everyone.",
     },
   },
 
@@ -968,7 +968,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       ],
     },
     cta: {
-      titre: "An app under your name is worth thirty minutes.",
+      titre: "An app under your name is worth a quick call.",
       texte:
         "We'll show you what it would look like for your restaurant, and what it takes to fill it.",
     },

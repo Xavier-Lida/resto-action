@@ -66,7 +66,7 @@ export const PLATEFORME_FR = {
       t: "encadre",
       titre: "On regarde ça avant de te vendre quoi que ce soit",
       texte:
-        "L'appel de trente minutes sert exactement à ça : voir ce que tu as, ce qui marche, et ce qui ne vaut pas la peine d'être remplacé. Il arrive qu'on conseille de ne rien changer à un morceau.",
+        "L'appel sert exactement à ça : voir ce que tu as, ce qui marche, et ce qui ne vaut pas la peine d'être remplacé. Il arrive qu'on conseille de ne rien changer à un morceau.",
     },
 
     { t: "h2", texte: "Pourquoi pas juste une app de livraison?" },
@@ -100,7 +100,7 @@ export const PLATEFORME_FR = {
     {
       t: "ol",
       items: [
-        "**On t'écoute.** Trente minutes au téléphone, tu nous racontes ton resto : ce qui roule, ce qui accroche, ce que tu paies déjà.",
+        "**On t'écoute.** Un court appel, tu nous racontes ton resto : ce qui roule, ce qui accroche, ce que tu paies déjà.",
         "**On creuse avec toi.** On regarde tes chiffres, tes commissions, ta présence dans Google. On te dit ce qu'on voit, même quand c'est que le problème est ailleurs.",
         "**On règle le problème.** On met en place ce qui manque, dans l'ordre qui te rapporte le plus vite. Pas les quatre morceaux d'un coup si un seul suffit.",
       ],
@@ -162,7 +162,7 @@ export const PLATEFORME_FR = {
   cta: {
     titre: "On regarde ton resto avant de te vendre quoi que ce soit.",
     texte:
-      "Trente minutes au téléphone avec Guillaume. Tu repars avec ce qu'on a vu, que tu embarques ou non.",
+      "Un court appel avec Guillaume. Tu repars avec ce qu'on a vu, que tu embarques ou non.",
   },
 };
 
@@ -240,7 +240,7 @@ export const PLATEFORME_EN: Plateforme = {
     {
       t: "ol",
       items: [
-        "**We listen.** Thirty minutes on the phone, you tell us about your restaurant: what runs, what sticks, what you're already paying for.",
+        "**We listen.** A quick call, you tell us about your restaurant: what runs, what sticks, what you're already paying for.",
         "**We dig in with you.** We look at your numbers, your commissions, your presence on Google. We tell you what we see, even when what we see is that the problem is somewhere else.",
         "**We fix the problem.** We put in what's missing, in the order that pays you back fastest. Not all four pieces at once if one is enough.",
       ],
@@ -299,6 +299,6 @@ export const PLATEFORME_EN: Plateforme = {
   cta: {
     titre: "We look at your restaurant before we sell you anything.",
     texte:
-      "Thirty minutes on the phone with Guillaume. You leave with what we saw, whether you sign or not.",
+      "A quick call with Guillaume. You leave with what we saw, whether you sign or not.",
   },
 };

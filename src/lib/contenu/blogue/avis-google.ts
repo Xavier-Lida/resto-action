@@ -108,7 +108,7 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Si tu veux qu'on regarde ta fiche et qu'on te monte le lien court avec le QR, [ça se fait en trente minutes](/contact).",
+          "Si tu veux qu'on regarde ta fiche et qu'on te monte le lien court avec le QR, [ça se fait rapidement](/contact).",
       },
     ],
   },
@@ -215,7 +215,7 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "If you'd like us to look at your listing and set up the short link with a QR code, [it takes thirty minutes](/en/contact).",
+          "If you'd like us to look at your listing and set up the short link with a QR code, [it doesn't take long](/en/contact).",
       },
     ],
   },

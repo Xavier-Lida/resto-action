@@ -15,7 +15,8 @@
    Guillaume, où il les ajoute et les retire lui-même. Le jour où il ne veut
    plus des mardis matin, il efface l'événement ; personne ne redéploie. */
 
-// La promesse faite partout sur le site : « trente minutes avec Guillaume ».
+// La durée réelle du rendez-vous. Le site ne l'annonce plus en chiffres (« un court
+// appel ») : 30 minutes, ça faisait peur.
 export const DUREE_MIN = 30;
 // Le pas de la grille. Égal à la durée : les créneaux se touchent sans
 // chevaucher, et une fenêtre de 9 h à 12 h en donne exactement six.
