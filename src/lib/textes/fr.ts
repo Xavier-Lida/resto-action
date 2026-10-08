@@ -195,7 +195,8 @@ export const FR = {
     },
     condition: "Réservation 500 $ remboursable jusqu'au lancement",
     // {prises} et {total} viennent de PLACES_FONDATEURS (site.ts).
-    places: "{prises} restos fondateurs sur {total}",
+    // {reste} et {total} viennent de PLACES_FONDATEURS (site.ts).
+    places: "Il reste {reste} places fondateurs sur {total}",
     reserver: "Réserver ma place fondateur",
     pasPret: "Pas prêt? Appel gratuit de 30 min",
     video: {
@@ -305,11 +306,19 @@ export const FR = {
     titre: "Sur Uber, ton client n'est pas à toi.",
     eux: {
       titre: "Sur les plateformes",
-      points: ["Le client est à eux", "Tes prix gonflés", "Tu ne le revois jamais"],
+      points: [
+        "Jusqu'à 30 % de chaque commande",
+        "Ton client leur appartient",
+        "Ton concurrent affiché juste à côté",
+      ],
     },
     toi: {
       titre: "Avec ton app",
-      points: ["Le client est à toi", "Moins cher pour lui", "Il revient, encore et encore"],
+      points: [
+        "Tu gardes ta marge",
+        "Ton client est à toi, tu le relances",
+        "Des livreurs d'ici, l'argent reste au Québec",
+      ],
     },
     reserver: "Réserver ma place fondateur",
     sous: "500 $ remboursable jusqu'au lancement",
@@ -327,26 +336,31 @@ export const FR = {
       titre: "Ta liste de clients",
       unite: "commandes par année avec les coordonnées du client",
       noms: ["Julie T.", "Marc L.", "Sophie B.", "Kevin R."],
-      ajoute: "entre dans ta liste",
+      ajoute: "1re commande",
+      mois: "Ta liste qui grandit, mois après mois",
     },
     ventes: {
       titre: "Des ventes que tu n'aurais jamais eues",
       unite: "de ventes en plus par année",
+      notification: "Nouvelle commande",
       evenements: [
-        { texte: "Rappel par texto à Julie", montant: "+ 27,40 $" },
-        { texte: "Panier de Marc récupéré", montant: "+ 21,45 $" },
-        { texte: "Offre du jeudi à Sophie", montant: "+ 18,90 $" },
+        { texte: "Julie est revenue après un rappel par texto", montant: "27,40 $" },
+        { texte: "Marc a fini son panier après la relance", montant: "21,45 $" },
+        { texte: "Sophie a pris l'offre du jeudi dans l'app", montant: "18,90 $" },
       ],
     },
     avis: {
       titre: "Tes avis Google",
       unite: "nouveaux avis par année",
+      texto: "Texto automatique",
       sms: "Merci Kevin! Ça te tente de nous laisser un avis?",
+      auteurs: ["Kevin R.", "Annie P.", "Luc M."],
       extraits: ["Livré chaud, parfait!", "Meilleure poutine du coin", "Commande super facile"],
+      quand: "il y a 1 jour",
     },
     garde: "gardés par année au lieu de les donner aux plateformes",
     hypotheses:
-      "Exemple calculé avec des hypothèses prudentes : frais de plateforme typiques comparés à notre abonnement et à notre commission, 1 commande sur 20 qui vient d'un rappel par texto ou d'un panier récupéré, 1 commande sur 20 qui donne un avis. Avant taxes et frais de carte.",
+      "Exemple calculé avec des hypothèses prudentes : frais de plateforme typiques comparés à notre abonnement et à notre commission, 1 commande sur 20 qui vient d'un rappel par texto ou d'un panier récupéré, 1 commande sur 20 qui donne un avis. Les noms, avis et montants qui défilent sont des exemples. Avant taxes et frais de carte.",
     reserver: "Réserver ma place fondateur",
   },
 
@@ -362,6 +376,40 @@ export const FR = {
     // Tant qu'une démo n'a pas ses captures, son cadre affiche ça.
     attente: "Aperçu à venir",
     apps: APPS,
+  },
+
+  /* L'OFFRE FONDATEUR. Les montants et la garantie doivent rester identiques au
+     contrat et au bon d'accord ; la garantie est à valider par l'avocat. */
+  offre: {
+    surTitre: "Offre fondateur",
+    titre: "Ta mise en service à 500 $. La seule fois à ce prix-là.",
+    apresAvant: "Après les places fondateurs :",
+    apresPrix: "1 000 $",
+    inclusTitre: "Tout est inclus",
+    inclus: [
+      "Ton app web et mobile, à ton nom",
+      "La livraison par nos livreurs d'ici",
+      "Tes points et tes rappels par texto",
+      "Ta liste de clients, qui t'appartient",
+      "Ta fiche Google optimisée",
+      "On installe et on forme ton équipe",
+    ],
+    garantie: {
+      titre: "Garantie 90 jours",
+      texte:
+        "Si les commandes sur ton app ne t'ont pas fait économiser au moins ce que tu nous as payé, comparé à tes vrais frais de plateforme, on te rembourse ton abonnement et nos commissions.",
+      note: "Une condition : avoir fait les étapes de redirection qu'on te donne. Mise en service et équipement exclus.",
+    },
+    coutsTitre: "Ce que tu payes, au complet",
+    couts: [
+      { quand: "Aujourd'hui", quoi: "500 $", detail: "Remboursable jusqu'à la signature du contrat" },
+      { quand: "À l'installation", quoi: "495 $", detail: "Tablette, support, chevalet et 500 encarts" },
+      { quand: "Les 3 premiers mois", quoi: "100 $ / mois", detail: "50 % de rabais sur l'abonnement" },
+      { quand: "Ensuite", quoi: "200 $ / mois", detail: "L'abonnement mensuel" },
+      { quand: "Sur les commandes", quoi: "5 % · 10 %", detail: "Cueillette · livraison, sur la nourriture seulement" },
+    ],
+    taxes: "Taxes et frais de carte en sus.",
+    reserver: "Réserver ma place fondateur",
   },
 
   histoire: {

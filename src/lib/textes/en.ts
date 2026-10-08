@@ -89,7 +89,7 @@ export const EN: Textes = {
       bouton: "See my app",
     },
     condition: "$500 reservation, refundable until launch",
-    places: "{prises} founding restaurants out of {total}",
+    places: "{reste} founder spots left out of {total}",
     reserver: "Reserve my founder spot",
     pasPret: "Not ready? Free 30-min call",
     video: {
@@ -186,11 +186,19 @@ export const EN: Textes = {
     titre: "On Uber, your customer isn't yours.",
     eux: {
       titre: "On the platforms",
-      points: ["The customer is theirs", "Your prices inflated", "You never see them again"],
+      points: [
+        "Up to 30% of every order",
+        "Your customer belongs to them",
+        "Your competitor shown right next to you",
+      ],
     },
     toi: {
       titre: "With your app",
-      points: ["The customer is yours", "Cheaper for them", "They come back, again and again"],
+      points: [
+        "You keep your margin",
+        "Your customer is yours to bring back",
+        "Local drivers, the money stays in Québec",
+      ],
     },
     reserver: "Reserve my founder spot",
     sous: "$500, refundable until launch",
@@ -206,26 +214,31 @@ export const EN: Textes = {
       titre: "Your customer list",
       unite: "orders per year with the customer's contact info",
       noms: ["Julie T.", "Marc L.", "Sophie B.", "Kevin R."],
-      ajoute: "joins your list",
+      ajoute: "1st order",
+      mois: "Your list growing, month after month",
     },
     ventes: {
       titre: "Sales you would never have had",
       unite: "in extra sales per year",
+      notification: "New order",
       evenements: [
-        { texte: "Text reminder to Julie", montant: "+ $27.40" },
-        { texte: "Marc's cart recovered", montant: "+ $21.45" },
-        { texte: "Thursday offer to Sophie", montant: "+ $18.90" },
+        { texte: "Julie came back after a text reminder", montant: "$27.40" },
+        { texte: "Marc finished his cart after the nudge", montant: "$21.45" },
+        { texte: "Sophie took the Thursday offer in the app", montant: "$18.90" },
       ],
     },
     avis: {
       titre: "Your Google reviews",
       unite: "new reviews per year",
+      texto: "Automatic text",
       sms: "Thanks Kevin! Would you leave us a review?",
+      auteurs: ["Kevin R.", "Annie P.", "Luc M."],
       extraits: ["Arrived hot, perfect!", "Best poutine around", "So easy to order"],
+      quand: "1 day ago",
     },
     garde: "kept per year instead of going to the platforms",
     hypotheses:
-      "Example calculated with cautious assumptions: typical platform fees compared with our subscription and commission, 1 order in 20 coming from a text reminder or a recovered cart, 1 order in 20 leading to a review. Before taxes and card fees.",
+      "Example calculated with cautious assumptions: typical platform fees compared with our subscription and commission, 1 order in 20 coming from a text reminder or a recovered cart, 1 order in 20 leading to a review. The names, reviews and amounts shown are examples. Before taxes and card fees.",
     reserver: "Reserve my founder spot",
   },
 
@@ -265,6 +278,38 @@ export const EN: Textes = {
         alt: "Demonstration of the Resto Go drivers' app",
       },
     ],
+  },
+
+  offre: {
+    surTitre: "Founder offer",
+    titre: "Your setup for $500. The only time it will be this price.",
+    apresAvant: "After the founder spots:",
+    apresPrix: "$1,000",
+    inclusTitre: "Everything included",
+    inclus: [
+      "Your web and mobile app, in your name",
+      "Delivery by our local drivers",
+      "Your points and text reminders",
+      "Your customer list, which belongs to you",
+      "Your Google profile, optimized",
+      "We install and train your team",
+    ],
+    garantie: {
+      titre: "90-day guarantee",
+      texte:
+        "If the orders on your app haven't saved you at least what you paid us, compared with your real platform fees, we refund your subscription and our commissions.",
+      note: "One condition: you completed the redirection steps we give you. Setup and equipment excluded.",
+    },
+    coutsTitre: "What you pay, in full",
+    couts: [
+      { quand: "Today", quoi: "$500", detail: "Refundable until the contract is signed" },
+      { quand: "At installation", quoi: "$495", detail: "Tablet, stand, counter sign and 500 inserts" },
+      { quand: "First 3 months", quoi: "$100 / month", detail: "50% off the subscription" },
+      { quand: "After that", quoi: "$200 / month", detail: "The monthly subscription" },
+      { quand: "On orders", quoi: "5% · 10%", detail: "Pickup · delivery, on food only" },
+    ],
+    taxes: "Taxes and card fees extra.",
+    reserver: "Reserve my founder spot",
   },
 
   histoire: {

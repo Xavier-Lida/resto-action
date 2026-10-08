@@ -5,13 +5,14 @@ import BarreNav from "@/components/BarreNav";
 import BoutonAbonnement from "@/components/BoutonAbonnement";
 import Calculateur from "@/components/Calculateur";
 import Buoy from "@/components/Buoy";
-import DemoApp from "@/components/DemoApp";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import IconeYoutube from "@/components/IconeYoutube";
 import Resultats from "@/components/Resultats";
 import Reveal from "@/components/Reveal";
 import SectionFaq from "@/components/SectionFaq";
+import SectionOffre from "@/components/SectionOffre";
+import SectionProduits from "@/components/SectionProduits";
 import SectionPlateformes from "@/components/SectionPlateformes";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import LecteurVideo from "@/components/LecteurVideo";
@@ -19,11 +20,6 @@ import { noeudFaq, noeudVideo } from "@/lib/schema";
 import type { Textes } from "@/lib/textes/fr";
 import type { Cle, Fonctionnalite } from "@/lib/contenu/fonctionnalites";
 
-/* Les paliers d'apparition de <Reveal> s'arrêtent à 3 — c'est ce que définit
-   globals.css. Passer par ce tuple plutôt que par un calcul évite d'avoir à
-   forcer le type, et un quatrième produit se contenterait du dernier palier au
-   lieu de casser la compilation. */
-const DELAIS_PRODUITS = [1, 2, 3] as const;
 import {
   EMAIL,
   FONDATEURS,
@@ -240,81 +236,11 @@ export default function Accueil({
         {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
         <Resultats t={t} fonctionnalites={fonctionnalites} />
 
-        {/* ─── Nos produits ─── */}
-        {/* Même langage visuel que la carte de la hero : une carte sombre aux
-            coins arrondis posée sur le blanc de la page.
+        {/* ─── Nos produits : onglets qui tournent seuls (SectionProduits) ─── */}
+        <SectionProduits t={t} />
 
-            LES TROIS APPS SONT DE MÊME RANG. L'app cliente a été la première à
-            avoir des captures, Resto Go a suivi, mais ça n'en fait pas des
-            produits principaux — Resto Action occupe la même grille, avec un
-            cadre d'attente à la place du téléphone tant que ses captures
-            n'existent pas. Le jour où elles arrivent, rien ne bouge ici. */}
-        <section id="produits" className="bg-white p-3 md:p-5 lg:p-6">
-          <div className="overflow-hidden rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
-            <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-              <Reveal>
-                <h2 className="max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
-                  {t.produits.titre}
-                </h2>
-              </Reveal>
-
-              {t.produits.apps.map((app, i) => (
-                <Reveal key={app.demo} delay={DELAIS_PRODUITS[Math.min(i, 2)]}>
-                  <div className="mt-16 grid items-center gap-10 md:mt-24 lg:grid-cols-2 lg:gap-16">
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-widest text-white/50">
-                        {app.etiquette}
-                      </p>
-                      <h3 className="mt-3 font-display text-2xl font-black leading-tight tracking-tight md:text-3xl">
-                        {app.titre}
-                      </h3>
-                      {/* Le texte arrive en morceaux : les statuts de commande
-                          sont des objets, pas des chaînes, et se rendent en
-                          puces. Rien n'est deviné à coups d'expression
-                          régulière sur des guillemets. */}
-                      <p className="mt-5 text-base leading-relaxed text-white/75">
-                        {app.texte.map((bout, j) =>
-                          typeof bout === "string" ? (
-                            bout
-                          ) : (
-                            <span
-                              key={j}
-                              className="rounded bg-white/10 px-1.5 font-black text-white"
-                            >
-                              {bout.statut}
-                            </span>
-                          ),
-                        )}
-                      </p>
-                    </div>
-
-                    {/* Le téléphone change de côté d'un produit à l'autre : trois
-                        blocs identiques enfilés donneraient une colonne de texte
-                        qui se répète, et plus rien pour marquer la séparation.
-
-                        `order` plutôt qu'un déplacement dans le JSX — même
-                        raison que la liste des promesses du héro : l'ordre du
-                        DOM reste celui de la lecture, titre puis démo, pour un
-                        lecteur d'écran comme pour un robot. En pile, l'ordre ne
-                        bouge pas du tout. */}
-                    <div
-                      className={`flex justify-center lg:justify-end ${
-                        i % 2 ? "lg:order-first lg:justify-start" : ""
-                      }`}
-                    >
-                      <DemoApp
-                        demo={app.demo}
-                        alt={app.alt}
-                        attente={t.produits.attente}
-                        className="[--demo-w:17rem] sm:[--demo-w:20rem]"
-                      />
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ─── L'offre fondateur ─── */}
+        <SectionOffre t={t} />
 
         {/* ─── Notre histoire ─── */}
         {/* Trois jalons en colonnes bordées de rouge, photos noir et blanc,
