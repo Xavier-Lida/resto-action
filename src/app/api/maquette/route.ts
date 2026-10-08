@@ -6,8 +6,9 @@ import { assainirProvenance } from "@/lib/provenance";
 
 /* LA DEMANDE DE MAQUETTE GRATUITE (« Trouve ton resto », dans le héro).
 
-   Le resto laisse son nom, son cell, sa ville et, s'il veut, le lien de son
-   menu. On pose un bloc dans l'agenda de Guillaume à l'échéance des 24 h
+   Le resto laisse son nom, son courriel, son cell, sa ville et, s'il veut,
+   le lien de son menu. On pose un bloc dans l'agenda de Guillaume à
+   l'échéance des 48 h
    (voir creerDemandeMaquette), et le CRM est prévenu après coup s'il est
    branché. Aucun service de plus, aucun coût de plus. */
 export const runtime = "nodejs";
@@ -45,6 +46,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
   const demande = {
     restaurant: texte(corps.restaurant, 120),
     nom: texte(corps.nom, 120),
+    courriel: texte(corps.courriel, 160).toLowerCase(),
     telephone: texte(corps.telephone, 40),
     ville: texte(corps.ville, 80),
     menu: texte(corps.menu, 300),
@@ -56,6 +58,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
     !demande.restaurant ||
     !demande.nom ||
     !demande.ville ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(demande.courriel) ||
     demande.telephone.replace(/\D/g, "").length < 10
   ) {
     return refus("invalide");
@@ -77,7 +80,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
       etape: "maquette",
       prospect: {
         nom: demande.nom,
-        courriel: "",
+        courriel: demande.courriel,
         telephone: demande.telephone,
         restaurant: demande.restaurant,
         ville: demande.ville,
