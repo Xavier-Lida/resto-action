@@ -197,6 +197,8 @@ export const FR = {
     // La demande de maquette gratuite, faite à la main, qui s'ouvre du champ.
     maquette: {
       titre: "La maquette de {nom}, faite à la main.",
+      titreGenerique: "Ta maquette gratuite, faite à la main.",
+      restaurant: "Nom de ton resto",
       texte:
         "On te monte une vraie maquette de ton app, pas un modèle : ton logo, ton menu, tes photos. Gratuite, sans engagement, et envoyée à ton adresse courriel dans les 48 h.",
       inclus: ["Ton logo et tes couleurs", "Ton vrai menu, avec tes prix", "Tes photos, pas des photos d'exemple"],
@@ -265,9 +267,20 @@ export const FR = {
     reserver: "Réserver ma place fondateur",
     pasPret: "Pas encore prêt?",
     // La fenêtre qui s'ouvre de « Pas encore prêt? » : l'agenda de Guillaume.
-    appel: {
-      titre: "Pas encore prêt? Parlons-en.",
-      texte: "Choisis un moment qui te va. On regarde tes chiffres ensemble, sans pression.",
+    // La fenêtre « Pas encore prêt? » : deux portes pour ceux qui hésitent.
+    hesite: {
+      titre: "Pas encore prêt? Pas de problème.",
+      texte: "Deux façons d'avancer à ton rythme, sans engagement.",
+      maquette: {
+        titre: "Reçois ta maquette gratuite",
+        texte: "Ton app avec ton logo et ton menu, par courriel dans les 48 h.",
+      },
+      appel: {
+        titre: "Parle à Guillaume",
+        texte: "Choisis ton heure, il t'appelle.",
+      },
+      appelTitre: "Choisis ton heure, Guillaume t'appelle.",
+      retour: "Retour",
       fermer: "Fermer",
     },
     video: {
@@ -557,8 +570,6 @@ export const FR = {
       titre: "L'app de {nom}, faite à la main",
       texte: "Comme celle de Bistro Habibi : ton logo, ton menu, tes photos. Pas un modèle.",
     },
-    aide: "Une question avant de réserver?",
-    aideLien: "Parlons-en",
     merci: {
       metaTitre: "Ta place est réservée | Resto Action",
       titre: "C'est réservé, {nom} !",
@@ -743,7 +754,7 @@ export const FR = {
      de ce fichier oblige à les traduire tous. */
   agenda: {
     chargement: "Un instant, on ouvre l'agenda…",
-    duree: "Un court appel avec Guillaume, par Google Meet.",
+    duree: "Un court appel : Guillaume t'appelle à l'heure que tu choisis.",
     fuseau: "Heure de l'Est",
     choisirJour: "Quel jour ?",
     choisirHeure: "Quelle heure ?",
@@ -772,7 +783,7 @@ export const FR = {
     confirmeTitre: "C'est réservé.",
     // Gabarit : le composant y insère l'adresse donnée par le visiteur.
     confirmeTexte:
-      "L'invitation vient de partir à {courriel}. Elle contient le lien de l'appel.",
+      "L'invitation vient de partir à {courriel}. Guillaume t'appelle à l'heure prévue.",
     meet: "Ouvrir le Google Meet",
     erreurs: {
       invalide: "Il manque quelque chose. Revérifie tes coordonnées.",

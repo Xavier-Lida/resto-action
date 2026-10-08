@@ -105,10 +105,8 @@ export default function LecteurVideo({
       rel: "0",
       enablejsapi: "1",
       hl,
-      /* Elle joue sans son : on force les sous-titres de YouTube, dans la
-         langue de la page s'il en a, pour qu'on comprenne sans le son. */
-      cc_load_policy: "1",
-      cc_lang_pref: hl,
+      /* Pas de sous-titres YouTube : la vidéo a déjà les siens, gravés dans
+         l'image. Les deux ensemble se chevauchaient. */
       /* Aucune commande de YouTube par-dessus : pas de barre, pas de gros
          bouton pause, pas de clavier, pas d'annotations, pas de plein écran. */
       controls: "0",
@@ -148,7 +146,7 @@ export default function LecteurVideo({
             }
             setLance(true);
           }}
-          className="group absolute inset-0 flex cursor-pointer items-end justify-start p-3 outline-offset-4 md:p-4"
+          className="group absolute inset-0 flex cursor-pointer items-start justify-start p-3 outline-offset-4 md:p-4"
         >
           <span className="inline-flex items-center gap-2 rounded-full bg-ink/75 px-4 py-2 text-sm font-bold text-white backdrop-blur-sm transition group-hover:bg-brand">
             <Volume2 aria-hidden="true" className="size-4" />

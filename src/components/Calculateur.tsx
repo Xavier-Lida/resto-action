@@ -334,7 +334,7 @@ export default function Calculateur({ t }: { t: Textes }) {
             <p className="mt-2 font-semibold text-white/85">{c.garde}</p>
           </div>
           <div className="relative flex flex-col items-start gap-3">
-            <BoutonReserver href={reserver} libelle={c.reserver} ton="blanc" taille="xl" />
+            <BoutonReserver href={reserver} libelle={c.reserver} ton="blanc" taille="xl" pasPret={t.hero.pasPret} />
             <button
               type="button"
               onClick={() => {

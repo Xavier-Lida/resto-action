@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import LienPasPret from "@/components/LienPasPret";
 
 /* LE BOUTON « RÉSERVER MA PLACE FONDATEUR », PARTOUT PAREIL.
 
@@ -18,6 +19,7 @@ export default function BoutonReserver({
   taille = "lg",
   pleineLargeur = false,
   sous,
+  pasPret,
   flottant = false,
   className = "",
 }: {
@@ -27,6 +29,9 @@ export default function BoutonReserver({
   taille?: "md" | "lg" | "xl";
   pleineLargeur?: boolean;
   sous?: string;
+  /** Le libellé « Pas encore prêt? » : un lien sous le bouton qui ouvre la
+      fenêtre maquette gratuite / appel (ModalePasPret). */
+  pasPret?: string;
   /** Le bouton de la barre qui suit le visiteur (BarreReservation). Les
       autres portent `data-cta-reserver` : quand l'un d'eux est à l'écran,
       la barre se cache, pour ne jamais montrer deux boutons à la fois. */
@@ -60,6 +65,9 @@ export default function BoutonReserver({
         </span>
       </a>
       {sous && <p className="text-center text-sm font-bold opacity-75">{sous}</p>}
+      {pasPret && (
+        <LienPasPret libelle={pasPret} className="text-sm font-bold underline underline-offset-4 opacity-80 transition hover:opacity-100" />
+      )}
     </div>
   );
 }

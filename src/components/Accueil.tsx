@@ -1,6 +1,7 @@
 import Image from "next/image";
 import BarreNav from "@/components/BarreNav";
 import BarreReservation from "@/components/BarreReservation";
+import ModalePasPret from "@/components/ModalePasPret";
 import BoutonAbonnement from "@/components/BoutonAbonnement";
 import Calculateur from "@/components/Calculateur";
 import Footer from "@/components/Footer";
@@ -392,6 +393,7 @@ export default function Accueil({
 
         <DonneesStructurees json={jsonLd} />
       </main>
+      <ModalePasPret t={t} />
       <BarreReservation
         href={cheminReservation(t.racine)}
         libelle={t.hero.reserver}

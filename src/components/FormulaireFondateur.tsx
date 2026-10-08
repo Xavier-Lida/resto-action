@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check, Lock, Mail, ShieldCheck } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import LienPasPret from "@/components/LienPasPret";
+import ModalePasPret from "@/components/ModalePasPret";
 import DemoApp from "@/components/DemoApp";
 import { formaterTelephone } from "@/lib/telephone";
 import { lireProvenance } from "@/lib/provenance";
@@ -447,14 +448,10 @@ export default function FormulaireFondateur({
               </button>
             </div>
 
-            <p className="mt-6 text-sm text-ink/60">
-              {r.aide}{" "}
-              <LienPasPret
-                t={t}
-                libelle={r.aideLien}
-                className="font-bold text-ink underline underline-offset-4 hover:text-brand"
-              />
-            </p>
+            <LienPasPret
+              libelle={t.hero.pasPret}
+              className="mt-6 self-start text-sm font-bold text-ink/70 underline underline-offset-4 hover:text-brand"
+            />
           </form>
         </div>
 
@@ -479,6 +476,7 @@ export default function FormulaireFondateur({
           </div>
         </aside>
       </div>
+      <ModalePasPret t={t} />
     </main>
   );
 }

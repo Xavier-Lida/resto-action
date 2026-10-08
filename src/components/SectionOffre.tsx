@@ -115,6 +115,7 @@ export default function SectionOffre({ t }: { t: Textes }) {
                 libelle={o.reserver}
                 pleineLargeur
                 sous={o.condition}
+                pasPret={t.hero.pasPret}
                 className="mt-5 text-ink"
               />
             </div>

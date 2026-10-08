@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import type { Intervalle } from "@/lib/agenda";
 import { DUREE_MIN } from "@/lib/agenda";
 import type { Provenance } from "@/lib/provenance";
@@ -196,11 +195,13 @@ function provenanceDepuis(
   return Object.keys(resultat).length > 0 ? resultat : undefined;
 }
 
-/* La création. Deux paramètres d'URL font tout le travail invisible :
+/* La création.
 
-   `conferenceDataVersion=1` autorise Google à honorer notre demande de salle —
-   sans lui, le bloc `conferenceData` est ignoré en silence et il n'y a pas de
-   lien Meet.
+   UN APPEL AU TÉLÉPHONE, PAS UN MEET. Un restaurateur est debout en cuisine,
+   sur son cell : un appel lui demande moins qu'une visio. Le titre de
+   l'événement porte donc le numéro à composer, et c'est Guillaume qui appelle.
+   (Pour remettre un lien Meet : `conferenceDataVersion=1` dans l'URL et un
+   bloc `conferenceData.createRequest` dans le corps.)
 
    `sendUpdates=all` fait envoyer l'invitation par Google. C'est ce qui permet
    à ce site de confirmer un rendez-vous par courriel SANS service d'envoi,
@@ -217,11 +218,11 @@ export async function creerRendezVous(
   const fin = new Date(debut.getTime() + DUREE_MIN * 60_000);
 
   const titre = reservation.restaurant
-    ? `Appel Resto Action — ${reservation.nom} (${reservation.restaurant})`
-    : `Appel Resto Action — ${reservation.nom}`;
+    ? `Appeler ${reservation.nom} (${reservation.restaurant}) · ${reservation.telephone}`
+    : `Appeler ${reservation.nom} · ${reservation.telephone}`;
 
   const lignes = [
-    `Demandé depuis le site, ${reservation.langue === "en" ? "en anglais" : "en français"}.`,
+    `Demandé depuis le site, ${reservation.langue === "en" ? "en anglais" : "en français"}. C'est TOI qui appelles, au ${reservation.telephone}.`,
     // Toujours présente, même « inconnue » : c'est en la voyant à chaque
     // fois que Guillaume prend l'habitude de la lire.
     `Provenance : ${decrireProvenance(reservation.provenance)}`,
@@ -235,7 +236,7 @@ export async function creerRendezVous(
   ].filter((l) => l !== null);
 
   const donnees = await appeler<{ id?: string; hangoutLink?: string }>(
-    `/calendars/${encodeURIComponent(calendrierRdv())}/events?conferenceDataVersion=1&sendUpdates=all`,
+    `/calendars/${encodeURIComponent(calendrierRdv())}/events?sendUpdates=all`,
     {
       method: "POST",
       body: JSON.stringify({
@@ -246,12 +247,6 @@ export async function creerRendezVous(
         attendees: [
           { email: reservation.courriel, displayName: reservation.nom },
         ],
-        conferenceData: {
-          createRequest: {
-            requestId: randomUUID(),
-            conferenceSolutionKey: { type: "hangoutsMeet" },
-          },
-        },
         // Un invité venu d'un formulaire public n'a rien à pouvoir déplacer,
         // ni à voir qui d'autre est dans l'agenda.
         guestsCanModify: false,

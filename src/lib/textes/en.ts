@@ -91,6 +91,8 @@ export const EN: Textes = {
     condition: "$500 reservation, refundable until launch",
     maquette: {
       titre: "A mockup for {nom}, made by hand.",
+      titreGenerique: "Your free mockup, made by hand.",
+      restaurant: "Your restaurant's name",
       texte:
         "We build a real mockup of your app, not a template: your logo, your menu, your photos. Free, no commitment, and sent to your email within 48 hours.",
       inclus: ["Your logo and colours", "Your real menu, with your prices", "Your photos, not stock pictures"],
@@ -155,9 +157,19 @@ export const EN: Textes = {
     places: "Only {reste} spots left in your city",
     reserver: "Reserve my founder spot",
     pasPret: "Not ready yet?",
-    appel: {
-      titre: "Not ready yet? Let's talk.",
-      texte: "Pick a time that works for you. We'll look at your numbers together, no pressure.",
+    hesite: {
+      titre: "Not ready yet? No problem.",
+      texte: "Two ways to move forward at your own pace, no commitment.",
+      maquette: {
+        titre: "Get your free mockup",
+        texte: "Your app with your logo and menu, by email within 48 hours.",
+      },
+      appel: {
+        titre: "Talk to Guillaume",
+        texte: "Pick a time, he'll call you.",
+      },
+      appelTitre: "Pick a time, Guillaume will call you.",
+      retour: "Back",
       fermer: "Close",
     },
     video: {
@@ -451,8 +463,6 @@ export const EN: Textes = {
       titre: "{nom}'s app, made by hand",
       texte: "Like Bistro Habibi's: your logo, your menu, your photos. Not a template.",
     },
-    aide: "Questions before you reserve?",
-    aideLien: "Let's talk",
     merci: {
       metaTitre: "Your spot is reserved | Resto Action",
       titre: "You're in, {nom}!",
@@ -576,7 +586,7 @@ export const EN: Textes = {
 
   agenda: {
     chargement: "One moment, opening the calendar…",
-    duree: "A quick call with Guillaume, over Google Meet.",
+    duree: "A quick call: Guillaume calls you at the time you pick.",
     fuseau: "Eastern time",
     choisirJour: "Which day?",
     choisirHeure: "What time?",
@@ -601,7 +611,7 @@ export const EN: Textes = {
     envoi: "Booking…",
     confirmeTitre: "You're booked.",
     confirmeTexte:
-      "The invite just went out to {courriel}. It has the link for the call.",
+      "The invite just went out to {courriel}. Guillaume will call you at that time.",
     meet: "Open the Google Meet",
     erreurs: {
       invalide: "Something's missing. Double-check your details.",
