@@ -200,6 +200,8 @@ function provenanceDepuis(
    UN APPEL AU TÉLÉPHONE, PAS UN MEET. Un restaurateur est debout en cuisine,
    sur son cell : un appel lui demande moins qu'une visio. Le titre de
    l'événement porte donc le numéro à composer, et c'est Guillaume qui appelle.
+   Ce titre et cette description sont AUSSI ceux de l'invitation que reçoit le
+   resto : ils doivent se lire des deux côtés (pas de « Appeler Jean »).
    (Pour remettre un lien Meet : `conferenceDataVersion=1` dans l'URL et un
    bloc `conferenceData.createRequest` dans le corps.)
 
@@ -218,11 +220,11 @@ export async function creerRendezVous(
   const fin = new Date(debut.getTime() + DUREE_MIN * 60_000);
 
   const titre = reservation.restaurant
-    ? `Appeler ${reservation.nom} (${reservation.restaurant}) · ${reservation.telephone}`
-    : `Appeler ${reservation.nom} · ${reservation.telephone}`;
+    ? `Appel Resto Action · ${reservation.nom} (${reservation.restaurant}) · ${reservation.telephone}`
+    : `Appel Resto Action · ${reservation.nom} · ${reservation.telephone}`;
 
   const lignes = [
-    `Demandé depuis le site, ${reservation.langue === "en" ? "en anglais" : "en français"}. C'est TOI qui appelles, au ${reservation.telephone}.`,
+    `Demandé depuis le site, ${reservation.langue === "en" ? "en anglais" : "en français"}. Guillaume appelle au ${reservation.telephone}.`,
     // Toujours présente, même « inconnue » : c'est en la voyant à chaque
     // fois que Guillaume prend l'habitude de la lire.
     `Provenance : ${decrireProvenance(reservation.provenance)}`,

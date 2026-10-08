@@ -6,7 +6,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Phone,
-  Video,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Buoy from "@/components/Buoy";
@@ -79,7 +78,6 @@ export default function Agenda({ t }: { t: Textes }) {
   const [champs, setChamps] = useState(CHAMPS_VIDES);
   const [piege, setPiege] = useState("");
   const [erreur, setErreur] = useState<CleErreur | null>(null);
-  const [meet, setMeet] = useState<string | null>(null);
 
   /* La clé de regroupement est en `en-CA` — donc « 2026-09-14 » — même du côté
      français : elle ne s'affiche jamais, elle sert à trier et à comparer. Une
@@ -331,7 +329,6 @@ export default function Agenda({ t }: { t: Textes }) {
         }
         return;
       }
-      setMeet((donnees.meet as string | null) ?? null);
       setEtape("confirme");
     } catch {
       setErreur("reseau");
@@ -649,17 +646,6 @@ export default function Agenda({ t }: { t: Textes }) {
           <p className="max-w-sm text-sm text-ink/60">
             {t.agenda.confirmeTexte.replace("{courriel}", champs.courriel)}
           </p>
-          {meet && (
-            <a
-              href={meet}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-2 rounded-full border-2 border-bone px-6 py-3 font-black transition-colors hover:border-brand hover:text-brand"
-            >
-              <Video className="size-4" />
-              {t.agenda.meet}
-            </a>
-          )}
         </div>
       )}
     </div>

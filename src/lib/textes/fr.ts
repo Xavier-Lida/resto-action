@@ -214,6 +214,7 @@ export const FR = {
       exempleAlt: "L'app de Bistro Habibi qui défile : accueil, menu, compte et panier",
       attente: "L'app de Bistro Habibi",
       decide: "Déjà décidé?",
+      vieprivee: "Tes coordonnées servent seulement à te faire ta maquette et à te joindre.",
       reserver: "Réserver ma place fondateur",
       merciTitre: "C'est noté, {prenom}!",
       merciTexte:
@@ -368,7 +369,7 @@ export const FR = {
     etapes: [
       {
         titre: "Tu réserves ta place",
-        texte: "500 $, remboursables jusqu'à la signature du contrat.",
+        texte: "500 $, remboursables jusqu'au lancement de ton app.",
         alt: "La mascotte Resto Action écoute au téléphone",
       },
       {
@@ -555,6 +556,7 @@ export const FR = {
       bouton: "Payer {total} et réserver",
       envoi: "Ouverture du paiement…",
       securite: "Paiement sécurisé par Stripe. On ne voit jamais ton numéro de carte.",
+      vieprivee: "Tes coordonnées servent seulement à monter ton app et à te joindre.",
       annule:
         "Le paiement a été annulé : ta place n'est pas encore réservée. Tu peux réessayer quand tu veux.",
     },
@@ -787,7 +789,6 @@ export const FR = {
     // Gabarit : le composant y insère l'adresse donnée par le visiteur.
     confirmeTexte:
       "L'invitation vient de partir à {courriel}. Guillaume t'appelle à l'heure prévue.",
-    meet: "Ouvrir le Google Meet",
     erreurs: {
       invalide: "Il manque quelque chose. Revérifie tes coordonnées.",
       pris: "Quelqu'un vient de prendre cette heure. Choisis-en une autre.",

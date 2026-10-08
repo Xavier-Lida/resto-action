@@ -68,6 +68,16 @@ export const CONTACT: Paire = {
   priorite: 0.8,
 };
 
+/* /reserver : là où mènent tous les boutons « Réserver ma place fondateur ».
+   Une page de conversion qu'on veut trouvable, juste derrière /contact. Sa
+   page de remerciement, elle, reste hors du plan (noindex). */
+export const RESERVATION: Paire = {
+  fr: "/reserver",
+  en: "/en/reserve",
+  frequence: "monthly",
+  priorite: 0.8,
+};
+
 export const CONFIDENTIALITE: Paire = {
   fr: "/confidentialite",
   en: "/en/privacy",
@@ -127,6 +137,7 @@ export const PAIRES: Paire[] = [
   BLOGUE,
   ...ARTICLES_PAIRES,
   CONTACT,
+  RESERVATION,
   CONFIDENTIALITE,
 ];
 

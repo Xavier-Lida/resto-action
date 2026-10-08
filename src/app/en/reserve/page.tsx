@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import FormulaireFondateur from "@/components/FormulaireFondateur";
+import { RESERVATION, hreflang } from "@/lib/routes";
 import { EN } from "@/lib/textes/en";
 
 // La version anglaise de /reserver : mêmes étapes, mêmes paramètres.
 export const metadata: Metadata = {
   title: EN.reservation.metaTitre,
   description: EN.reservation.metaDescription,
-  alternates: { canonical: "/en/reserve", languages: { "fr-CA": "/reserver", "en-CA": "/en/reserve" } },
+  alternates: { canonical: "/en/reserve", languages: hreflang(RESERVATION) },
 };
 
 export default async function Reserve({

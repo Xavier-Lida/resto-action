@@ -108,6 +108,7 @@ export const EN: Textes = {
       exempleAlt: "Bistro Habibi's app scrolling: home, menu, account and cart",
       attente: "Bistro Habibi's app",
       decide: "Already decided?",
+      vieprivee: "Your details are used only to build your mockup and reach you.",
       reserver: "Reserve my founder spot",
       merciTitre: "Got it, {prenom}!",
       merciTexte:
@@ -246,7 +247,7 @@ export const EN: Textes = {
     etapes: [
       {
         titre: "You reserve your spot",
-        texte: "$500, refundable until the contract is signed.",
+        texte: "$500, refundable until your app launches.",
         alt: "The Resto Action mascot listening on the phone",
       },
       {
@@ -449,6 +450,7 @@ export const EN: Textes = {
       bouton: "Pay {total} and reserve",
       envoi: "Opening checkout…",
       securite: "Secure payment by Stripe. We never see your card number.",
+      vieprivee: "Your details are used only to build your app and reach you.",
       annule: "Payment was cancelled: your spot isn't reserved yet. Try again whenever you're ready.",
     },
     erreurs: {
@@ -615,7 +617,6 @@ export const EN: Textes = {
     confirmeTitre: "You're booked.",
     confirmeTexte:
       "The invite just went out to {courriel}. Guillaume will call you at that time.",
-    meet: "Open the Google Meet",
     erreurs: {
       invalide: "Something's missing. Double-check your details.",
       pris: "Someone just took that time. Pick another one.",

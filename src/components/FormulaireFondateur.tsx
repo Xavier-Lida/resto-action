@@ -153,7 +153,7 @@ export default function FormulaireFondateur({
   }
 
   return (
-    <main className="min-h-svh bg-white p-3 md:p-5 lg:p-6">
+    <main lang={t.htmlLang} className="min-h-svh bg-white p-3 md:p-5 lg:p-6">
       <div className="grid min-h-[calc(100svh-1.5rem)] overflow-hidden rounded-[2rem] bg-bone md:min-h-[calc(100svh-2.5rem)] lg:min-h-[calc(100svh-3rem)] lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:rounded-[3rem]">
         {/* ─── Le formulaire ─── */}
         <div className="flex flex-col px-5 py-6 md:px-12 md:py-10">
@@ -452,6 +452,12 @@ export default function FormulaireFondateur({
               libelle={t.hero.pasPret}
               className="mt-6 self-start text-sm font-bold text-ink/70 underline underline-offset-4 hover:text-brand"
             />
+            <p className="mt-4 text-xs text-ink/50">
+              {r.paiement.vieprivee}{" "}
+              <a href={t.pied.confidentialiteHref} className="underline underline-offset-4 hover:text-brand">
+                {t.pied.confidentialite}
+              </a>
+            </p>
           </form>
         </div>
 

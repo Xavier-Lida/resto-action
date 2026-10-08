@@ -14,7 +14,7 @@ import { CITY } from "@/lib/site";
 
    La date est ISO et non écrite en toutes lettres : la page la formate dans sa
    propre langue, comme le pied de page fait pour MISE_A_JOUR. */
-export const POLITIQUE_MAJ = "2026-09-27";
+export const POLITIQUE_MAJ = "2026-10-08";
 
 export const CONFIDENTIALITE_FR = {
   metaTitre: "Politique de confidentialité",
@@ -28,7 +28,7 @@ export const CONFIDENTIALITE_FR = {
   recueillis: {
     titre: "Renseignements recueillis",
     texte:
-      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site ne dépose des témoins (cookies) de mesure d'audience que si vous l'acceptez, comme décrit juste en dessous. Le seul endroit où vous nous donnez des renseignements personnels, c'est la prise de rendez-vous, décrite dans la section suivante. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
+      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site ne dépose des témoins (cookies) de mesure d'audience que si vous l'acceptez, comme décrit juste en dessous. Vous nous donnez des renseignements personnels à trois endroits seulement : la prise de rendez-vous, la demande de maquette et la réservation d'une place fondateur, décrites dans les sections suivantes. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
   },
 
   /* Suit src/app/api/agenda/route.ts et src/lib/crm.ts : ce qui est demandé au
@@ -38,6 +38,16 @@ export const CONFIDENTIALITE_FR = {
     titre: "Quand vous prenez rendez-vous",
     texte:
       "Pour réserver un appel, on vous demande votre nom, votre courriel, votre téléphone et, si vous le voulez, le nom de votre restaurant et un message. Ces renseignements servent à une seule chose : préparer l'appel et y donner suite. Ils sont inscrits dans notre agenda (Google Agenda, qui vous envoie l'invitation) et dans notre outil de suivi des clients, hébergé au Canada et accessible à nos deux cofondateurs seulement. On y joint le lien par lequel vous êtes arrivé sur le site (par exemple une vidéo YouTube), retenu le temps de votre visite, pour savoir d'où viennent nos clients. On ne les vend pas, on ne les loue pas, et on ne s'en sert pas pour de la publicité. On les supprime sur simple demande : écrivez-nous à l'adresse ci-dessous.",
+  },
+
+  /* Suit src/app/api/maquette/route.ts, src/app/api/fondateur/route.ts,
+     src/lib/stripe.ts et src/lib/crm.ts (signalerFondateur). Si l'un de ces
+     formulaires gagne un champ, ou si le paiement quitte Stripe, ce
+     paragraphe devient faux. */
+  fondateur: {
+    titre: "Quand vous demandez une maquette ou réservez une place fondateur",
+    texte:
+      "Pour une maquette gratuite, on vous demande le nom de votre restaurant, votre nom, votre courriel, votre cellulaire, votre ville et, si vous le voulez, le lien de votre menu. Pour réserver une place fondateur, on demande les mêmes coordonnées, puis le lien de votre menu, le service que vous offrez (livraison ou cueillette), les plateformes que vous utilisez et votre volume de commandes. Ces renseignements servent à préparer votre maquette ou votre app et à vous joindre. Ils sont inscrits dans notre agenda (Google Agenda) et dans notre outil de suivi des clients décrit plus haut, avec le lien par lequel vous êtes arrivé sur le site. Le paiement est traité par Stripe : votre numéro de carte va directement chez eux, on ne le voit jamais. Stripe nous transmet votre nom, votre courriel, votre adresse de facturation et le montant payé, et conserve les données de paiement selon sa propre politique. Les factures et les reçus sont gardés aussi longtemps que la loi fiscale l'exige ; le reste est supprimé sur simple demande.",
   },
 
   statistiques: {
@@ -95,13 +105,19 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   recueillis: {
     titre: "Information we collect",
     texte:
-      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies only if you accept them, as described just below. The only place you give us personal information is when you book a call, described in the next section. If you call or write to us, we use your contact details for one thing only: getting back to you.",
+      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies only if you accept them, as described just below. You give us personal information in three places only: booking a call, requesting a mockup, and reserving a founder spot, described in the following sections. If you call or write to us, we use your contact details for one thing only: getting back to you.",
   },
 
   rendezVous: {
     titre: "When you book a call",
     texte:
       "To book a call, we ask for your name, email and phone number and, if you like, your restaurant's name and a message. That information is used for one thing: preparing the call and following up on it. It is recorded in our calendar (Google Calendar, which sends you the invitation) and in our client follow-up tool, hosted in Canada and accessible to our two co-founders only. We attach the link that brought you to the site (a YouTube video, for instance), remembered for the duration of your visit, so we know where our clients come from. We do not sell it, rent it, or use it for advertising. We delete it on request: write to us at the address below.",
+  },
+
+  fondateur: {
+    titre: "When you request a mockup or reserve a founder spot",
+    texte:
+      "For a free mockup, we ask for your restaurant's name, your name, email, cell number, city and, if you like, a link to your menu. To reserve a founder spot, we ask for the same contact details, then a link to your menu, the service you offer (delivery or pickup), the platforms you use and your order volume. That information is used to prepare your mockup or your app and to reach you. It is recorded in our calendar (Google Calendar) and in the client follow-up tool described above, along with the link that brought you to the site. Payment is processed by Stripe: your card number goes straight to them and we never see it. Stripe sends us your name, email, billing address and the amount paid, and keeps payment data under its own policy. Invoices and receipts are kept as long as tax law requires; everything else is deleted on request.",
   },
 
   statistiques: {

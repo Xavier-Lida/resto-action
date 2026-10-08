@@ -31,7 +31,7 @@ export default async function PageMerciFondateur({
     new Intl.NumberFormat(t.htmlLang, { style: "currency", currency: "CAD" }).format(cents / 100);
 
   return (
-    <main className="min-h-svh bg-bone px-3 py-6 md:px-6 md:py-10">
+    <main lang={t.htmlLang} className="min-h-svh bg-bone px-3 py-6 md:px-6 md:py-10">
       <div className="mx-auto max-w-5xl">
         <Link href={t.racine || "/"} className="inline-block">
           <Image
