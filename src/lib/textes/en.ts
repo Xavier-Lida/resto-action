@@ -478,6 +478,8 @@ export const EN: Textes = {
         "You launch, and we start your Facebook and Instagram ads, paid by us.",
       ],
       retour: "Back to home",
+      paye: "Paid today",
+      question: "Questions before then? Call us at",
     },
   },
 
