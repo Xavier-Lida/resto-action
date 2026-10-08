@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
-import { PHONE_DISPLAY } from "@/lib/site";
+import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 import { lireSession } from "@/lib/stripe";
 import type { Textes } from "@/lib/textes/fr";
 
@@ -47,7 +47,9 @@ export default async function PageMerciFondateur({
             width={1012}
             height={128}
             priority
-            className="h-7 w-auto object-contain md:h-8"
+            // Le logo « blanc » garde « Action » en rouge, invisible sur le
+            // rouge : on le passe au blanc pur.
+            className="h-7 w-auto object-contain brightness-0 invert md:h-8"
           />
         </Link>
 
@@ -59,6 +61,20 @@ export default async function PageMerciFondateur({
             {titre}
           </h1>
           <p className="mt-5 text-lg text-white/85">{texte}</p>
+
+          {/* Le reçu en une ligne : ce qui a été payé, et la garantie de
+              remboursement, pour qu'il n'ait pas à fouiller ses courriels. */}
+          {paye && s.amount_total !== null && (
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-3xl bg-white/10 px-6 py-5 ring-1 ring-white/20">
+              <div>
+                <p className="text-xs font-black uppercase tracking-widest text-white/60">{m.paye}</p>
+                <p className="font-display text-3xl font-black">
+                  {new Intl.NumberFormat(t.htmlLang, { style: "currency", currency: "CAD" }).format(s.amount_total / 100)}
+                </p>
+              </div>
+              <p className="max-w-xs text-sm font-bold text-white/80">{t.hero.condition}</p>
+            </div>
+          )}
 
           {paye && (
             <div className="mt-10 rounded-3xl bg-white p-6 text-ink md:p-8">
@@ -76,9 +92,16 @@ export default async function PageMerciFondateur({
             </div>
           )}
 
+          <p className="mt-8 text-white/80">
+            {m.question}{" "}
+            <a href={PHONE_HREF} className="font-black text-white underline underline-offset-4">
+              {PHONE_DISPLAY}
+            </a>
+          </p>
+
           <Link
             href={t.racine || "/"}
-            className="mt-10 inline-flex items-center rounded-full bg-white px-7 py-4 text-lg font-black text-ink shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5"
+            className="mt-8 inline-flex items-center rounded-full bg-white px-7 py-4 text-lg font-black text-ink shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5"
           >
             {m.retour}
           </Link>

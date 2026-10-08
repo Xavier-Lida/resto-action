@@ -586,6 +586,8 @@ export const FR = {
         "Tu lances, et on part tes pubs Facebook et Instagram, payées par nous.",
       ],
       retour: "Retour à l'accueil",
+      paye: "Payé aujourd'hui",
+      question: "Une question d'ici là? Appelle-nous au",
     },
   },
 
