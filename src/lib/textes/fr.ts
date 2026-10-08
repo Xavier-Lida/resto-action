@@ -381,7 +381,7 @@ export const FR = {
     },
     garde: "gardés par année au lieu de les donner aux plateformes",
     hypotheses:
-      "Estimation, pas une garantie. Argent gardé : 30 % de frais de plateforme typiques, comparés à notre abonnement à 200 $ par mois et à 10 % de commission sur toutes les commandes. Ventes en plus : 5 % de plus par facture grâce aux suggestions, 1 commande sur 20 de plus grâce aux rappels et aux paniers récupérés, 1 sur 20 de plus grâce à Google. Avis : 1 commande sur 20. Les noms et les avis qui défilent sont des exemples. Avant taxes et frais de carte.",
+      "Estimation, pas une garantie. Argent gardé : 30 % de frais de plateforme typiques, comparés à notre abonnement à 200 $ par mois et à notre commission en livraison, 10 % (en cueillette, c'est 5 %, donc tu gardes encore plus). Ventes en plus (chiffre d'affaires, aucun frais ajouté sur les suggestions) : 5 % de plus par facture grâce aux suggestions, 1 commande sur 20 de plus grâce aux rappels et aux paniers récupérés, 1 sur 20 de plus grâce à Google. Avis : 1 commande sur 20. Les noms et les avis qui défilent sont des exemples. Avant taxes et frais de carte.",
     reserver: "Réserver ma place fondateur",
   },
 
