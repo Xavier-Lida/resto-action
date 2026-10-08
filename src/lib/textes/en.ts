@@ -344,34 +344,37 @@ export const EN: Textes = {
 
   offre: {
     surTitre: "Founder offer",
-    titre: "Your setup for $500. The only time it will be this price.",
-    apresAvant: "After the founder spots:",
-    apresPrix: "$1,000",
-    inclusTitre: "Everything included",
+    titre: "New customers from the first month. Not just savings.",
+    sousTitre: "We don't give you a discount. We invest in your growth.",
+    pub: {
+      montant: "$300",
+      titre: "of advertising, paid by us",
+      texte:
+        "For your first 3 months, we launch and run your Facebook and Instagram ads at the hours people get hungry: before lunch and before dinner. Every customer who orders becomes YOUR customer, in YOUR database.",
+    },
+    inclusTitre: "What's included",
     inclus: [
-      "Your web and mobile app, in your name",
-      "Delivery by our local drivers",
-      "Your points and text reminders",
-      "Your customer list, which belongs to you",
-      "Your Google profile, optimized",
-      "We install and train your team",
+      "Your ordering app in your name, on the web and on mobile",
+      "Your Google profile, optimized so people find you",
+      "Text and email reminders that bring customers back",
+      "Delivery by our drivers",
+      "$300 of ads run by us for 3 months",
     ],
     garantie: {
       titre: "90-day guarantee",
-      texte:
-        "If the orders on your app haven't saved you at least what you paid us, compared with your real platform fees, we refund your subscription and our commissions.",
-      note: "One condition: you completed the redirection steps we give you. Setup and equipment excluded.",
+      texte: "If you don't get back what it cost you, we refund you.",
+      note: "Compared with your real platform fees: we refund the subscription and our commissions. One condition: you completed the redirection steps we give you. Setup and equipment excluded.",
     },
-    coutsTitre: "What you pay, in full",
+    coutsTitre: "The price, in full",
     couts: [
-      { quand: "Today", quoi: "$500", detail: "Refundable until launch" },
-      { quand: "At installation", quoi: "$495", detail: "Tablet, stand, counter sign and 500 inserts" },
-      { quand: "First 3 months", quoi: "$100 / month", detail: "50% off the subscription" },
-      { quand: "After that", quoi: "$200 / month", detail: "The monthly subscription" },
-      { quand: "On orders", quoi: "5% · 10%", detail: "Pickup · delivery, on food only" },
+      { quand: "Today · setup", quoi: "$500", barre: "$1,000", detail: "Founder price. It goes up to $1,000 after. Refundable until launch." },
+      { quand: "At installation · equipment", quoi: "$495", detail: "Tablet, stand, counter sign and 500 inserts" },
+      { quand: "Every month · subscription", quoi: "$200 / month", detail: "Your $300 of ads is on top, paid by us, for the first 3 months" },
+      { quand: "On orders · commission", quoi: "5% · 10%", detail: "Pickup · delivery, on food. On Uber or DoorDash, it's up to 30%." },
     ],
     taxes: "Taxes and card fees extra.",
     reserver: "Reserve my founder spot",
+    condition: "$500 reservation, refundable before launch.",
   },
   reservation: {
     metaTitre: "Reserve your founder spot | Resto Action",
@@ -409,7 +412,7 @@ export const EN: Textes = {
     },
     offre: {
       titre: "Your founder spot",
-      texte: "$500 today, and the founder price is yours. Here is everything you will pay, no surprises.",
+      texte: "$500 today: your founder price, plus $300 of ads paid by us for 3 months. Here is everything you will pay, no surprises.",
       accord:
         "I've read everything I will pay. I understand my $500 is refundable until my app launches.",
     },
@@ -447,7 +450,7 @@ export const EN: Textes = {
         "We call you within 24 hours to plan your installation.",
         "We build your app with your menu, photos and colours.",
         "We install the tablet and train your team.",
-        "You launch, and your customers order from you.",
+        "You launch, and we start your Facebook and Instagram ads, paid by us.",
       ],
       retour: "Back to home",
     },
@@ -538,11 +541,23 @@ export const EN: Textes = {
       },
       {
         q: "Do you take a commission?",
-        a: "Yes, a small one: 5% on pickup and 10% on delivery, on food only. The platforms take up to 30%. And what really matters is your customer list: it's yours, you reach out whenever you want, and nobody takes it from you.",
+        a: "Yes, a small one: 5% on pickup and 10% on delivery, on food only. The platforms take up to 30%.",
       },
       {
         q: "How much does it cost?",
-        a: "For founding restaurants: $500 setup instead of $1,000, $495 for equipment at installation (tablet, stand, counter sign and inserts), $100 a month for the first 3 months, then $200 a month. Plus 5% on pickup and 10% on delivery. Taxes extra. The $500 is refundable until launch.",
+        a: "For founding restaurants: $500 setup instead of $1,000, $495 for equipment at installation (tablet, stand, counter sign and inserts), and a $200 monthly subscription. Plus 5% on pickup and 10% on delivery. Taxes extra. On top of that, we pay for $300 of Facebook and Instagram ads for you during your first 3 months. The $500 is refundable until launch.",
+      },
+      {
+        q: "Why no discount?",
+        a: "A discount saves you $300 once. $300 of well-placed ads brings you new customers who order again for months. We'd rather put that money where it pays you back.",
+      },
+      {
+        q: "And after the 3 months?",
+        a: "You can keep the ads going with your own budget. We run them for you and take nothing from your ad budget: we make money when you sell more.",
+      },
+      {
+        q: "Who keeps the customers?",
+        a: "You do. Every customer who orders through your app is in your database. You reach out whenever you want. On the platforms, your customers belong to them.",
       },
       {
         q: "Where are you? Who do you serve?",

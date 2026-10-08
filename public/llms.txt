@@ -19,10 +19,19 @@ Ton app de commande web et mobile, à ton nom, pour les restos indépendants du 
 Les deux. Tes clients commandent sur ton site, directement dans le navigateur, sans rien télécharger : c'est ton app web. Tes habitués, eux, téléchargent ton app mobile à ton nom, sur iPhone et Android. Même menu, même compte, mêmes points.
 
 ### Vous prenez une commission?
-Oui, mais petite : 5 % sur la cueillette et 10 % sur la livraison, calculés sur la nourriture seulement. Les plateformes, elles, prennent jusqu'à 30 %. Et ce qui compte vraiment, c'est ta liste de clients : elle est à toi, tu les relances quand tu veux, et personne ne te les prend.
+Oui, mais petite : 5 % sur la cueillette et 10 % sur la livraison, calculés sur la nourriture seulement. Les plateformes, elles, prennent jusqu'à 30 %.
 
 ### Combien ça coûte?
-Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), 100 $ par mois les 3 premiers mois, puis 200 $ par mois. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. Les 500 $ sont remboursables jusqu'au lancement.
+Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), et 200 $ par mois d'abonnement. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. En prime, on paye 300 $ de pub Facebook et Instagram pour toi pendant tes 3 premiers mois. Les 500 $ sont remboursables jusqu'au lancement.
+
+### Pourquoi pas de rabais?
+Un rabais te fait sauver 300 $ une fois. 300 $ de pub bien placée t'amène des nouveaux clients qui recommandent pendant des mois. On aime mieux mettre cet argent là où il te rapporte.
+
+### Et après les 3 mois?
+Tu peux continuer la pub avec ton propre budget. On la gère pour toi et on ne prend rien sur ton budget de pub : on gagne quand tu vends plus.
+
+### Qui garde les clients?
+Toi. Chaque client qui commande par ton app est dans ta base de données. Tu les relances quand tu veux. Sur les plateformes, tes clients leur appartiennent.
 
 ### Vous êtes où? Vous servez qui?
 On est basés à Trois-Rivières, en Mauricie, et on travaille avec des restaurants indépendants partout au Québec.

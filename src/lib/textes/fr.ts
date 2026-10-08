@@ -446,34 +446,38 @@ export const FR = {
      contrat et au bon d'accord ; la garantie est à valider par l'avocat. */
   offre: {
     surTitre: "Offre fondateur",
-    titre: "Ta mise en service à 500 $. La seule fois à ce prix-là.",
-    apresAvant: "Après les places fondateurs :",
-    apresPrix: "1 000 $",
-    inclusTitre: "Tout est inclus",
+    titre: "Des nouveaux clients dès le premier mois. Pas juste des économies.",
+    sousTitre: "On ne te fait pas de rabais. On investit dans ta croissance.",
+    // L'avantage fondateur : 300 $ de pub payée par nous, au lieu d'un rabais.
+    pub: {
+      montant: "300 $",
+      titre: "de publicité payée par nous",
+      texte:
+        "Pendant tes 3 premiers mois, on lance et on gère tes pubs Facebook et Instagram aux heures où les gens ont faim : avant le dîner et avant le souper. Chaque client qui commande devient TON client, dans TA base de données.",
+    },
+    inclusTitre: "Ce qui est inclus",
     inclus: [
-      "Ton app web et mobile, à ton nom",
-      "La livraison par nos livreurs d'ici",
-      "Tes points et tes rappels par texto",
-      "Ta liste de clients, qui t'appartient",
-      "Ta fiche Google optimisée",
-      "On installe et on forme ton équipe",
+      "Ton app de commande à ton nom, sur le web et sur mobile",
+      "Ta fiche Google optimisée pour qu'on te trouve",
+      "Les rappels SMS et courriel qui font revenir tes clients",
+      "La livraison avec nos livreurs",
+      "300 $ de pub gérée par nous pendant 3 mois",
     ],
     garantie: {
       titre: "Garantie 90 jours",
-      texte:
-        "Si les commandes sur ton app ne t'ont pas fait économiser au moins ce que tu nous as payé, comparé à tes vrais frais de plateforme, on te rembourse ton abonnement et nos commissions.",
-      note: "Une condition : avoir fait les étapes de redirection qu'on te donne. Mise en service et équipement exclus.",
+      texte: "Si tu ne récupères pas ce que ça t'a coûté, on te rembourse.",
+      note: "Comparé à tes vrais frais de plateforme : on te rembourse l'abonnement et nos commissions. Une condition : avoir fait les étapes de redirection qu'on te donne. Mise en service et équipement exclus.",
     },
-    coutsTitre: "Ce que tu payes, au complet",
+    coutsTitre: "Le prix, au complet",
     couts: [
-      { quand: "Aujourd'hui", quoi: "500 $", detail: "Remboursable jusqu'au lancement" },
-      { quand: "À l'installation", quoi: "495 $", detail: "Tablette, support, chevalet et 500 encarts" },
-      { quand: "Les 3 premiers mois", quoi: "100 $ / mois", detail: "50 % de rabais sur l'abonnement" },
-      { quand: "Ensuite", quoi: "200 $ / mois", detail: "L'abonnement mensuel" },
-      { quand: "Sur les commandes", quoi: "5 % · 10 %", detail: "Cueillette · livraison, sur la nourriture seulement" },
+      { quand: "Aujourd'hui · mise en service", quoi: "500 $", barre: "1 000 $", detail: "Prix fondateur. Il passe ensuite à 1 000 $. Remboursable jusqu'au lancement." },
+      { quand: "À l'installation · équipement", quoi: "495 $", detail: "Tablette, support, chevalet et 500 encarts" },
+      { quand: "Chaque mois · abonnement", quoi: "200 $ / mois", detail: "Tes 300 $ de pub sont en plus, payés par nous, les 3 premiers mois" },
+      { quand: "Sur les commandes · commission", quoi: "5 % · 10 %", detail: "Cueillette · livraison, sur la nourriture. Sur Uber ou DoorDash, c'est jusqu'à 30 %." },
     ],
     taxes: "Taxes et frais de carte en sus.",
     reserver: "Réserver ma place fondateur",
+    condition: "Réservation de 500 $, remboursable avant le lancement.",
   },
   // Le formulaire de réservation fondateur (/reserver) et sa page de merci.
   reservation: {
@@ -512,7 +516,7 @@ export const FR = {
     },
     offre: {
       titre: "Ta place fondateur",
-      texte: "500 $ aujourd'hui, et le prix fondateur est à toi. Voici tout ce que tu vas payer, sans surprise.",
+      texte: "500 $ aujourd'hui : ton prix fondateur, et 300 $ de pub payée par nous pendant 3 mois. Voici tout ce que tu vas payer, sans surprise.",
       accord:
         "J'ai lu ce que je vais payer au complet. Je comprends que mes 500 $ sont remboursables jusqu'au lancement de mon app.",
     },
@@ -552,7 +556,7 @@ export const FR = {
         "On t'appelle dans les 24 h pour planifier ton installation.",
         "On bâtit ton app avec ton menu, tes photos et tes couleurs.",
         "On installe la tablette et on forme ton équipe.",
-        "Tu lances, et tes clients commandent chez toi.",
+        "Tu lances, et on part tes pubs Facebook et Instagram, payées par nous.",
       ],
       retour: "Retour à l'accueil",
     },
@@ -680,11 +684,23 @@ export const FR = {
       },
       {
         q: "Vous prenez une commission?",
-        a: "Oui, mais petite : 5 % sur la cueillette et 10 % sur la livraison, calculés sur la nourriture seulement. Les plateformes, elles, prennent jusqu'à 30 %. Et ce qui compte vraiment, c'est ta liste de clients : elle est à toi, tu les relances quand tu veux, et personne ne te les prend.",
+        a: "Oui, mais petite : 5 % sur la cueillette et 10 % sur la livraison, calculés sur la nourriture seulement. Les plateformes, elles, prennent jusqu'à 30 %.",
       },
       {
         q: "Combien ça coûte?",
-        a: "Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), 100 $ par mois les 3 premiers mois, puis 200 $ par mois. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. Les 500 $ sont remboursables jusqu'au lancement.",
+        a: "Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), et 200 $ par mois d'abonnement. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. En prime, on paye 300 $ de pub Facebook et Instagram pour toi pendant tes 3 premiers mois. Les 500 $ sont remboursables jusqu'au lancement.",
+      },
+      {
+        q: "Pourquoi pas de rabais?",
+        a: "Un rabais te fait sauver 300 $ une fois. 300 $ de pub bien placée t'amène des nouveaux clients qui recommandent pendant des mois. On aime mieux mettre cet argent là où il te rapporte.",
+      },
+      {
+        q: "Et après les 3 mois?",
+        a: "Tu peux continuer la pub avec ton propre budget. On la gère pour toi et on ne prend rien sur ton budget de pub : on gagne quand tu vends plus.",
+      },
+      {
+        q: "Qui garde les clients?",
+        a: "Toi. Chaque client qui commande par ton app est dans ta base de données. Tu les relances quand tu veux. Sur les plateformes, tes clients leur appartiennent.",
       },
       {
         q: "Vous êtes où? Vous servez qui?",
