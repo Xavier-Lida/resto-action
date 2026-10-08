@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check, Lock, Mail, ShieldCheck } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
+import LienPasPret from "@/components/LienPasPret";
 import DemoApp from "@/components/DemoApp";
 import { formaterTelephone } from "@/lib/telephone";
 import { lireProvenance } from "@/lib/provenance";
@@ -448,12 +449,11 @@ export default function FormulaireFondateur({
 
             <p className="mt-6 text-sm text-ink/60">
               {r.aide}{" "}
-              <Link
-                href={`${t.racine}/contact`}
+              <LienPasPret
+                t={t}
+                libelle={r.aideLien}
                 className="font-bold text-ink underline underline-offset-4 hover:text-brand"
-              >
-                {r.aideLien}
-              </Link>
+              />
             </p>
           </form>
         </div>

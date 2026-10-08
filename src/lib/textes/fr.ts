@@ -263,7 +263,13 @@ export const FR = {
     // {reste} et {total} viennent de PLACES_FONDATEURS (site.ts).
     places: "Il reste {reste} places dans ta ville",
     reserver: "Réserver ma place fondateur",
-    pasPret: "Pas prêt? Appel gratuit de 30 min",
+    pasPret: "Pas encore prêt?",
+    // La fenêtre qui s'ouvre de « Pas encore prêt? » : l'agenda de Guillaume.
+    appel: {
+      titre: "Pas encore prêt? Prenons 30 minutes.",
+      texte: "Choisis un moment qui te va. On regarde tes chiffres ensemble, sans pression.",
+      fermer: "Fermer",
+    },
     video: {
       titre: "Resto Action : ta propre app de commande, ta clientèle t'appartient",
       lire: "Lire la vidéo « Ta propre app de commande, ta clientèle t'appartient »",
@@ -551,8 +557,8 @@ export const FR = {
       titre: "L'app de {nom}, faite à la main",
       texte: "Comme celle de Bistro Habibi : ton logo, ton menu, tes photos. Pas un modèle.",
     },
-    aide: "Une question avant de réserver ?",
-    aideLien: "Appel gratuit de 30 min",
+    aide: "Une question avant de réserver?",
+    aideLien: "Parlons-en",
     merci: {
       metaTitre: "Ta place est réservée | Resto Action",
       titre: "C'est réservé, {nom} !",

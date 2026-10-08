@@ -154,7 +154,12 @@ export const EN: Textes = {
     },
     places: "Only {reste} spots left in your city",
     reserver: "Reserve my founder spot",
-    pasPret: "Not ready? Free 30-min call",
+    pasPret: "Not ready yet?",
+    appel: {
+      titre: "Not ready yet? Let's take 30 minutes.",
+      texte: "Pick a time that works for you. We'll look at your numbers together, no pressure.",
+      fermer: "Close",
+    },
     video: {
       titre: "Resto Action: your own ordering app, your customers belong to you",
       lire: "Play the video “Your own ordering app” (in French)",
@@ -447,7 +452,7 @@ export const EN: Textes = {
       texte: "Like Bistro Habibi's: your logo, your menu, your photos. Not a template.",
     },
     aide: "Questions before you reserve?",
-    aideLien: "Free 30-min call",
+    aideLien: "Let's talk",
     merci: {
       metaTitre: "Your spot is reserved | Resto Action",
       titre: "You're in, {nom}!",
