@@ -81,3 +81,59 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
     );
   }
 }
+
+/* ─── Les restos fondateurs ───
+
+   Deux moments sont annoncés au CRM :
+     « prospect » dès l'étape 1 du formulaire /reserver (le resto a laissé son
+       nom et son téléphone, même s'il ne paye jamais : c'est un lead chaud à
+       rappeler, et sa ville dit où recruter des livreurs) ;
+     « paye » quand Stripe confirme le paiement (webhook).
+
+   MÊMES RÈGLES QUE signalerReservation : ne lève jamais, appelée dans
+   `after()`, et ne fait rien sans configuration. L'adresse est distincte
+   (CRM_FONDATEUR_URL) parce que le CRM n'a pas encore de route pour ça : tant
+   que Xavier ne l'a pas ajoutée, la variable reste vide et rien ne casse. Les
+   paiements, eux, restent toujours visibles dans Stripe. */
+export type EvenementFondateur = {
+  etape: "prospect" | "paye";
+  prospect: {
+    nom: string;
+    courriel: string;
+    telephone: string;
+    restaurant: string;
+    ville: string;
+    langue: "fr" | "en";
+  };
+  app?: { couleur: string; service: string };
+  qualification?: { plateformes: string; commandes: string };
+  paiement?: { session: string; montant: number | null; devise: string };
+  provenance?: Provenance;
+};
+
+export async function signalerFondateur(e: EvenementFondateur): Promise<void> {
+  const url = process.env.CRM_FONDATEUR_URL;
+  const secret = process.env.CRM_INGESTION_SECRET;
+  if (!url || !secret) return;
+
+  try {
+    const reponse = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secret}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ type: "fondateur", ...e }),
+      signal: AbortSignal.timeout(DELAI_MS),
+      cache: "no-store",
+    });
+    if (!reponse.ok) {
+      console.error("[crm] fondateur refusé :", reponse.status);
+    }
+  } catch (erreur) {
+    console.error(
+      "[crm] fondateur non transmis :",
+      erreur instanceof Error ? erreur.name : "erreur inconnue",
+    );
+  }
+}

@@ -6,7 +6,7 @@ import IconeYoutube from "@/components/IconeYoutube";
 import LecteurVideo from "@/components/LecteurVideo";
 import {
   LINKEDIN_URL,
-  RESERVATION_URL,
+  cheminReservation,
   VIDEO_ACCUEIL,
   YOUTUBE_ABONNEMENT_URL,
 } from "@/lib/site";
@@ -38,7 +38,7 @@ function IconeLinkedIn({ className }: { className?: string }) {
    L'ancien H1 tournant (TitreTournant) et la carte « Parle à Guillaume » ont
    quitté le héro ; le composant TitreTournant reste dans le dépôt. */
 export default function Hero({ t }: { t: Textes }) {
-  const reserver = RESERVATION_URL ?? `${t.racine}/contact`;
+  const reserver = cheminReservation(t.racine);
 
   return (
     <section id="top" className="bg-white p-3 md:p-5 lg:p-6">

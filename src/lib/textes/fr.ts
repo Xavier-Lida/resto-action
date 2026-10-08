@@ -352,7 +352,7 @@ export const FR = {
       titre: "Avec ton app",
       points: [
         "Tu gardes ta marge",
-        "Ton client est à toi, tu le relances",
+        "Ton client est à toi, l'app le fait revenir toute seule",
         "Des livreurs d'ici, l'argent reste au Québec",
       ],
     },
@@ -438,7 +438,7 @@ export const FR = {
     },
     coutsTitre: "Ce que tu payes, au complet",
     couts: [
-      { quand: "Aujourd'hui", quoi: "500 $", detail: "Remboursable jusqu'à la signature du contrat" },
+      { quand: "Aujourd'hui", quoi: "500 $", detail: "Remboursable jusqu'au lancement" },
       { quand: "À l'installation", quoi: "495 $", detail: "Tablette, support, chevalet et 500 encarts" },
       { quand: "Les 3 premiers mois", quoi: "100 $ / mois", detail: "50 % de rabais sur l'abonnement" },
       { quand: "Ensuite", quoi: "200 $ / mois", detail: "L'abonnement mensuel" },
@@ -446,6 +446,88 @@ export const FR = {
     ],
     taxes: "Taxes et frais de carte en sus.",
     reserver: "Réserver ma place fondateur",
+  },
+  // Le formulaire de réservation fondateur (/reserver) et sa page de merci.
+  reservation: {
+    metaTitre: "Réserve ta place fondateur | Resto Action",
+    metaDescription:
+      "Réserve ta place fondateur Resto Action en 4 étapes : ton resto, ton app, l'offre, puis le paiement. 500 $ remboursables jusqu'au lancement.",
+    retour: "Retour au site",
+    etape: "Étape {n} sur 4",
+    etapes: ["Ton resto", "Ton app", "L'offre", "Réservation"],
+    suivant: "Continuer",
+    precedent: "Retour",
+    resto: {
+      titre: "Parle-nous de ton resto",
+      texte: "On bâtit ton app à ton nom. Ça prend 2 minutes.",
+      restaurant: "Nom du resto",
+      exempleResto: "Ex. : Pizzeria du Coin",
+      ville: "Ville",
+      exempleVille: "Ex. : Trois-Rivières",
+      nom: "Ton nom",
+      courriel: "Courriel",
+      telephone: "Téléphone",
+    },
+    app: {
+      titre: "Ton app, à ton image",
+      texte: "Choisis ta couleur. Le menu, les photos et le reste, on les monte avec toi à l'installation.",
+      couleur: "Ta couleur",
+      service: "Ce que tu offres",
+      services: {
+        livraison: "Livraison et cueillette",
+        cueillette: "Cueillette seulement",
+      },
+      plateformes: "Tu es sur quelles plateformes en ce moment ?",
+      listePlateformes: ["Uber Eats", "DoorDash", "SkipTheDishes", "Aucune"],
+      commandes: "Combien de commandes par semaine passent par ces plateformes ?",
+      listeCommandes: ["Moins de 50", "50 à 150", "150 à 300", "Plus de 300", "Je ne sais pas"],
+    },
+    offre: {
+      titre: "Ta place fondateur",
+      texte: "500 $ aujourd'hui, et le prix fondateur est à toi. Voici tout ce que tu vas payer, sans surprise.",
+      accord:
+        "J'ai lu ce que je vais payer au complet. Je comprends que mes 500 $ sont remboursables jusqu'au lancement de mon app.",
+    },
+    paiement: {
+      titre: "On réserve ta place",
+      texte: "Tu passes au paiement sécurisé de Stripe. Ta facture, avec la TPS et la TVQ, arrive par courriel.",
+      recap: "Ta réservation",
+      ligne: "Place fondateur",
+      tps: "TPS (5 %)",
+      tvq: "TVQ (9,975 %)",
+      total: "Total aujourd'hui",
+      bouton: "Payer {total} et réserver",
+      envoi: "Ouverture du paiement…",
+      securite: "Paiement sécurisé par Stripe. On ne voit jamais ton numéro de carte.",
+      annule:
+        "Le paiement a été annulé : ta place n'est pas encore réservée. Tu peux réessayer quand tu veux.",
+    },
+    erreurs: {
+      invalide: "Il manque une info, ou le courriel n'est pas valide.",
+      accord: "Coche la case pour continuer.",
+      trop: "Trop d'essais d'un coup. Réessaie dans quelques minutes.",
+      config: "Le paiement en ligne n'est pas encore ouvert. Appelle-nous au {tel}, on réserve ta place au téléphone.",
+      stripe: "Le paiement n'a pas pu s'ouvrir. Réessaie, ou appelle-nous au {tel}.",
+    },
+    apercuDefaut: "Ton resto",
+    aide: "Une question avant de réserver ?",
+    aideLien: "Appel gratuit de 30 min",
+    merci: {
+      metaTitre: "Ta place est réservée | Resto Action",
+      titre: "C'est réservé, {nom} !",
+      titreGenerique: "Merci !",
+      texte: "Ta place fondateur pour {resto} est à toi. Ta facture est partie à {courriel}.",
+      texteGenerique:
+        "Si ton paiement est passé, ta facture est dans ta boîte courriel. Un doute ? Appelle-nous au {tel}.",
+      suiteTitre: "La suite",
+      suite: [
+        "On t'appelle dans les 24 h pour planifier ton installation.",
+        "On bâtit ton app avec ton menu, tes photos et tes couleurs.",
+        "On installe la tablette et on forme ton équipe.",
+        "Tu lances, et tes clients commandent chez toi.",
+      ],
+      retour: "Retour à l'accueil",
+    },
   },
 
   histoire: {

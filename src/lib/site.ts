@@ -98,9 +98,11 @@ export const VIDEO_ACCUEIL = {
 
 /* LE BOUTON « RÉSERVER MA PLACE FONDATEUR ».
 
-   Le lien de paiement Stripe (500 $ + taxes) va ici dès qu'il existe. Tant
-   que c'est `null`, le bouton mène à la page de contact. */
-export const RESERVATION_URL: string | null = null;
+   Tous mènent au formulaire en 4 étapes (/reserver, ou /en/reserve), qui
+   finit sur le paiement Stripe. `racine` est celle des textes : "" ou "/en". */
+export function cheminReservation(racine: string): string {
+  return racine === "/en" ? "/en/reserve" : "/reserver";
+}
 
 /* LES PLACES FONDATEURS : 10 PAR VILLE (la limite suit le recrutement des
    livreurs). Le site ne connaît pas la ville du visiteur : il affiche donc le

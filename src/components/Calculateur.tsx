@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, MessageCircle, RotateCcw, Star } from "lucide-react";
 import Buoy from "@/components/Buoy";
-import { RESERVATION_URL } from "@/lib/site";
+import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 /* LE CALCULATEUR ANIMÉ.
@@ -126,7 +126,7 @@ export default function Calculateur({ t }: { t: Textes }) {
   const vAvis = useCompte(avisAn, cle, 2300, actif);
   const vGarde = useCompte(garde, cle, 3200, actif);
 
-  const reserver = RESERVATION_URL ?? `${t.racine}/contact`;
+  const reserver = cheminReservation(t.racine);
   const d = (s: number) => ({ animationDelay: `${s}s` });
 
   return (
