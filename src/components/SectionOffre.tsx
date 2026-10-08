@@ -6,8 +6,9 @@ import type { Textes } from "@/lib/textes/fr";
 
 /* L'OFFRE FONDATEUR.
 
-   À gauche, ce qu'on gagne : le prix fondateur (et le prix d'après, barré),
-   tout ce qui est inclus, la garantie. À droite, une carte blanche qui dit ce
+   À gauche, ce qu'on gagne : la promesse (des nouveaux clients, pas juste des
+   économies), les 300 $ de pub payée par nous AU LIEU D'UN RABAIS, tout ce
+   qui est inclus, la garantie. À droite, une carte blanche qui dit ce
    qu'on paye AU COMPLET, étape par étape, puis le compteur de places et le
    bouton. Tout afficher d'avance est voulu : un resto qui découvre un coût au
    contrat demande son remboursement.
@@ -33,12 +34,19 @@ export default function SectionOffre({ t }: { t: Textes }) {
             <h2 className="mt-6 font-display text-4xl font-black leading-[1.02] tracking-tight md:text-6xl">
               {o.titre}
             </h2>
-            <p className="mt-5 text-lg text-white/70">
-              {o.apresAvant}{" "}
-              <span className="font-black text-white/90 line-through decoration-brand decoration-2">
-                {o.apresPrix}
-              </span>
-            </p>
+            <p className="mt-5 text-xl font-bold text-white/80">{o.sousTitre}</p>
+
+            {/* L'AVANTAGE FONDATEUR : 300 $ DE PUB AU LIEU D'UN RABAIS. C'est
+                le morceau qui doit sauter aux yeux, d'où le gros montant. */}
+            <div className="mt-8 flex flex-col gap-4 rounded-3xl bg-brand p-6 md:flex-row md:items-center md:gap-6 md:p-7">
+              <p className="shrink-0 font-display text-6xl font-black leading-none tracking-tight md:text-7xl">
+                {o.pub.montant}
+              </p>
+              <div>
+                <p className="font-display text-xl font-black leading-tight">{o.pub.titre}</p>
+                <p className="mt-2 leading-relaxed text-white/90">{o.pub.texte}</p>
+              </div>
+            </div>
 
             <p className="mt-10 text-xs font-black uppercase tracking-widest text-white/50">
               {o.inclusTitre}
@@ -70,25 +78,33 @@ export default function SectionOffre({ t }: { t: Textes }) {
                 {o.coutsTitre}
               </p>
               <ol className="relative mt-6 grid list-none gap-6 border-l-2 border-ink/10 pl-6">
-                {o.couts.map(({ quand, quoi, detail }, k) => (
-                  <li key={quand} className="relative">
-                    <span
-                      aria-hidden="true"
-                      className={`absolute -left-[1.95rem] top-1 size-3.5 rounded-full ring-4 ring-white ${
-                        k === 0 ? "bg-brand" : "bg-ink/25"
-                      }`}
-                    />
-                    <p className="text-sm font-bold text-ink/55">{quand}</p>
-                    <p
-                      className={`font-display font-black leading-tight ${
-                        k === 0 ? "text-4xl text-brand" : "text-xl"
-                      }`}
-                    >
-                      {quoi}
-                    </p>
-                    <p className="mt-0.5 text-sm text-ink/65">{detail}</p>
-                  </li>
-                ))}
+                {o.couts.map((c, k) => {
+                  const { quand, quoi, detail } = c;
+                  return (
+                    <li key={quand} className="relative">
+                      <span
+                        aria-hidden="true"
+                        className={`absolute -left-[1.95rem] top-1 size-3.5 rounded-full ring-4 ring-white ${
+                          k === 0 ? "bg-brand" : "bg-ink/25"
+                        }`}
+                      />
+                      <p className="text-sm font-bold text-ink/55">{quand}</p>
+                      <p
+                        className={`font-display font-black leading-tight ${
+                          k === 0 ? "text-4xl text-brand" : "text-xl"
+                        }`}
+                      >
+                        {quoi}
+                        {"barre" in c && c.barre && (
+                          <span className="ml-3 align-middle text-xl text-ink/35 line-through decoration-brand decoration-2">
+                            {c.barre}
+                          </span>
+                        )}
+                      </p>
+                      <p className="mt-0.5 text-sm text-ink/65">{detail}</p>
+                    </li>
+                  );
+                })}
               </ol>
               <p className="mt-6 text-xs text-ink/50">{o.taxes}</p>
 
@@ -100,6 +116,7 @@ export default function SectionOffre({ t }: { t: Textes }) {
                 {o.reserver}
                 <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
               </a>
+              <p className="mt-3 text-center text-sm font-bold text-ink/60">{o.condition}</p>
             </div>
           </Reveal>
         </div>
