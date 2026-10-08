@@ -1,7 +1,7 @@
 import { ArrowRight, Check, ShieldCheck } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import Reveal from "@/components/Reveal";
-import { RESERVATION_URL } from "@/lib/site";
+import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 /* L'OFFRE FONDATEUR.
@@ -16,7 +16,7 @@ import type { Textes } from "@/lib/textes/fr";
    garantie est à faire valider par l'avocat avant la mise en ligne. */
 export default function SectionOffre({ t }: { t: Textes }) {
   const o = t.offre;
-  const reserver = RESERVATION_URL ?? `${t.racine}/contact`;
+  const reserver = cheminReservation(t.racine);
 
   return (
     <section id="offre" className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6">

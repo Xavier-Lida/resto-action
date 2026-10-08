@@ -1,7 +1,7 @@
 import { ArrowRight, Check, X } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import Reveal from "@/components/Reveal";
-import { RESERVATION_URL } from "@/lib/site";
+import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 /* PLATEFORMES CONTRE TON APP — ET LE GROS BOUTON.
@@ -13,7 +13,7 @@ import type { Textes } from "@/lib/textes/fr";
    forte, le bouton doit y être impossible à manquer. */
 export default function SectionPlateformes({ t }: { t: Textes }) {
   const p = t.plateformes;
-  const reserver = RESERVATION_URL ?? `${t.racine}/contact`;
+  const reserver = cheminReservation(t.racine);
 
   return (
     <section id="plateformes" className="bg-white">
