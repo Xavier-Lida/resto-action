@@ -84,11 +84,11 @@ export const FR = {
 
      L'og-titre, lui, est lu par un humain dans son fil : il garde la voix. */
   meta: {
-    titre: "Resto Action | Plateforme web pour restaurants indépendants",
-    description: `Visibilité Google, commandes en ligne sans commission, clients qui reviennent. La plateforme des restos indépendants du Québec. ${PHONE_DISPLAY}.`,
-    ogTitre: "Resto Action | On règle les vrais problèmes des restos indépendants",
+    titre: "Resto Action | App web et mobile pour restaurants indépendants",
+    description: `Ton app de commande web et mobile, à ton nom. Sans les 30 % des plateformes, visible dans Google, avec des clients qui reviennent. Pour les restos indépendants du Québec. ${PHONE_DISPLAY}.`,
+    ogTitre: "Resto Action | Ton app de commande web et mobile, à ton nom",
     ogDescription:
-      "On commence par t'écouter. On trouve ce qui gruge ton resto, pis on le règle avec toi.",
+      "Tes clients commandent chez toi, pas sur Uber. Ton app web et mobile, des livreurs d'ici, et ta liste de clients qui t'appartient.",
     ogLocale: "fr_CA",
   },
 
@@ -152,7 +152,7 @@ export const FR = {
     fixe: "Les restos indépendants du Québec nous appellent pour",
     variantes: [
       "sortir enfin dans Google.",
-      "vendre en ligne sans commission.",
+      "vendre en ligne sans donner 30 %.",
       "faire revenir leurs clients.",
       "avoir leur propre app.",
     ],
@@ -174,7 +174,7 @@ export const FR = {
        même ordre à chaque fois. */
     promesses: [
       "Visible dans Google",
-      "Commandes sans commission",
+      "Commandes sans les 30 %",
       "Clients qui reviennent",
       "Ton app à ton nom",
     ],
@@ -260,7 +260,7 @@ export const FR = {
       },
       {
         onglet: "Plus de ventes en ligne",
-        surTitre: "Des commandes sans commission",
+        surTitre: "Des commandes sans les 30 % des plateformes",
         titre: "Une commande en ligne qui donne le goût d'ajouter",
       },
       {
@@ -644,15 +644,19 @@ export const FR = {
     items: [
       {
         q: "C'est quoi, Resto Action?",
-        a: `Resto Action, c'est une plateforme web pour les restaurants indépendants du Québec, bâtie à Trois-Rivières : visibilité dans Google, commandes en ligne sans commission, relances de tes clients et ton app à ton nom.`,
+        a: "Ton app de commande web et mobile, à ton nom, pour les restos indépendants du Québec. Bâtie à Trois-Rivières. Tes clients commandent chez toi plutôt que sur Uber Eats ou DoorDash, et on s'occupe du reste : ta fiche Google, les relances par texto qui les font revenir, et la livraison par des livreurs d'ici.",
       },
       {
-        q: "Quels genres de problèmes vous réglez?",
-        a: "Des commissions qui grugent tes marges, des clients que tu n'arrives pas à rejoindre, de la visibilité, des outils qui te coûtent trop cher. Peu importe le problème, on commence par t'écouter.",
+        q: "C'est une app mobile ou un site web?",
+        a: "Les deux. Tes clients commandent sur ton site, directement dans le navigateur, sans rien télécharger : c'est ton app web. Tes habitués, eux, téléchargent ton app mobile à ton nom, sur iPhone et Android. Même menu, même compte, mêmes points.",
+      },
+      {
+        q: "Vous prenez une commission?",
+        a: "Oui, mais petite : 5 % sur la cueillette et 10 % sur la livraison, calculés sur la nourriture seulement. Les plateformes, elles, prennent jusqu'à 30 %. Et ce qui compte vraiment, c'est ta liste de clients : elle est à toi, tu les relances quand tu veux, et personne ne te les prend.",
       },
       {
         q: "Combien ça coûte?",
-        a: `Ça dépend de ton resto et de ton problème. Appelle-nous au ${PHONE_DISPLAY}, on regarde ça ensemble en 30 minutes, chiffres en main.`,
+        a: "Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), 100 $ par mois les 3 premiers mois, puis 200 $ par mois. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. Les 500 $ sont remboursables jusqu'au lancement.",
       },
       {
         q: "Vous êtes où? Vous servez qui?",
@@ -660,7 +664,7 @@ export const FR = {
       },
       {
         q: "Comment on commence?",
-        a: `Tu nous appelles au ${PHONE_DISPLAY}, tu nous écris, ou tu cédules ton appel directement sur le site. Trente minutes pour regarder ensemble ce qui gruge ton resto. Pas de pression, pas de contrat de 40 pages.`,
+        a: `Tu réserves ta place fondateur en ligne : 4 étapes, 2 minutes, 500 $ remboursables jusqu'au lancement. On t'appelle dans les 24 h pour planifier ton installation. Pas prêt? Appelle-nous au ${PHONE_DISPLAY} ou prends un appel gratuit de 30 minutes.`,
       },
       /* LES QUATRE QUESTIONS DE LONGUE TRAÎNE ONT DÉMÉNAGÉ. Elles étaient ici
          — commissions de livraison, fiche Google, avis, délais — et portaient
@@ -804,7 +808,7 @@ export const FR = {
     // visible sous le H1 : un balisage qui promet autre chose que la page est
     // pire que pas de balisage du tout.
     definition:
-      "Resto Action, c'est une plateforme québécoise pour les restaurants indépendants : on te rend visible dans Google, on prend tes commandes en ligne sans commission, on fait revenir tes clients, et on te donne ton app à ton nom.",
+      "Resto Action, c'est l'app de commande web et mobile des restos indépendants du Québec : à ton nom, sans les 30 % des plateformes, avec ta visibilité dans Google, des relances qui font revenir tes clients et la livraison par des livreurs d'ici.",
     zoneServie: "Québec, Canada",
   },
 };

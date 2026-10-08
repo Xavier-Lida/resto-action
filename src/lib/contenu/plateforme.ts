@@ -9,8 +9,8 @@ import type { Bloc } from "@/lib/contenu/blocs";
    CE QUI N'EST PAS ÉCRIT ICI, ET POURQUOI :
 
    - Aucun prix. L'offre est en cours de finalisation. Le MODÈLE, lui, est
-     nommé (pas de commission au pourcentage) : c'est l'argument commercial, et
-     il ne réclame aucun montant.
+     nommé (5 % ou 10 % au lieu des 30 % des plateformes) : c'est l'argument
+     commercial. Les montants de l'offre fondateur vivent sur l'accueil.
    - Aucune mention du système de caisse maison en cours de certification. Un
      système d'enregistrement des ventes s'annonce QUAND Revenu Québec l'a
      certifié, pas avant. La section « Ça se branche sur ce que tu as déjà »
@@ -24,13 +24,13 @@ export const PLATEFORME_FR = {
   slug: "/plateforme",
   metaTitre: "La plateforme pour restaurants indépendants",
   metaDescription:
-    "Visibilité Google, commandes en ligne sans commission, relances de tes clients et app à ton nom. Les quatre morceaux de la plateforme Resto Action, et comment ils se branchent sur ce que tu as déjà.",
+    "Ton app web et mobile à ton nom, commandes en ligne sans les 30 % des plateformes, visibilité Google et relances de tes clients. Les quatre morceaux de la plateforme Resto Action, et comment ils se branchent sur ce que tu as déjà.",
 
   filNom: "La plateforme",
   surTitre: "Ce qu'on vend, à plat",
   titre: "La plateforme des restos indépendants du Québec",
   intro:
-    "Quatre morceaux qui travaillent ensemble : ta visibilité dans Google, tes commandes en ligne sans commission, les relances qui font revenir tes clients, et ton application à ton nom. Une seule plateforme, branchée sur ce que tu as déjà.",
+    "Quatre morceaux qui travaillent ensemble : ta visibilité dans Google, tes commandes en ligne sans les 30 % des plateformes, les relances qui font revenir tes clients, et ton app web et mobile à ton nom. Une seule plateforme, branchée sur ce que tu as déjà.",
 
   // Le nom du service tel que déclaré aux moteurs (JSON-LD).
   typeService: "Plateforme web et marketing pour restaurants",
@@ -79,7 +79,7 @@ export const PLATEFORME_FR = {
       t: "tableau",
       entetes: ["", "Par une app de livraison", "Sur ta plateforme"],
       lignes: [
-        ["Commission par commande", "Un pourcentage de chaque vente", "Aucune"],
+        ["Commission par commande", "Jusqu'à 30 %", "5 % en cueillette, 10 % en livraison"],
         ["Le client", "Appartient à l'application", "Est le tien"],
         ["Son courriel, son historique", "Tu ne les as pas", "Dans tes données"],
         [
@@ -87,13 +87,13 @@ export const PLATEFORME_FR = {
           "Souvent gonflés pour absorber la commission",
           "Les tiens, tels quels",
         ],
-        ["Si tu arrêtes demain", "Tu repars de zéro", "Tu gardes tout"],
+        ["Si tu arrêtes demain", "Tu repars de zéro", "Tu gardes ta liste de clients"],
       ],
     },
     {
       t: "p",
       texte:
-        "On ne te dira pas de fermer tes comptes de livraison. Pour bien du monde, ça reste une source de commandes. On te dit qu'elle ne devrait pas être **la seule**, et que chaque commande qui passe par chez toi plutôt que par eux est une commande à pleine marge.",
+        "On ne te dira pas de fermer tes comptes de livraison. Pour bien du monde, ça reste une source de commandes. On te dit qu'elle ne devrait pas être **la seule**, et que chaque commande qui passe par chez toi plutôt que par eux est une commande où tu gardes presque toute ta marge, et le client.",
     },
 
     { t: "h2", texte: "Comment ça commence" },
@@ -172,13 +172,13 @@ export const PLATEFORME_EN: Plateforme = {
   slug: "/en/platform",
   metaTitre: "The platform for independent restaurants",
   metaDescription:
-    "Google visibility, online ordering with no commission, customer follow-ups and an app under your own name. The four pieces of the Resto Action platform, and how they plug into what you already have.",
+    "Your own web and mobile app, online ordering without the platforms' 30%, Google visibility and customer follow-ups. The four pieces of the Resto Action platform, and how they plug into what you already have.",
 
   filNom: "The platform",
   surTitre: "What we sell, plainly",
   titre: "The platform for Quebec's independent restaurants",
   intro:
-    "Four pieces working together: your visibility on Google, your online orders with no commission, the follow-ups that bring customers back, and your own app under your own name. One platform, plugged into what you already have.",
+    "Four pieces working together: your visibility on Google, your online orders without the platforms' 30%, the follow-ups that bring customers back, and your own web and mobile app. One platform, plugged into what you already have.",
 
   typeService: "Web and marketing platform for restaurants",
 
@@ -223,17 +223,17 @@ export const PLATEFORME_EN: Plateforme = {
       t: "tableau",
       entetes: ["", "Through a delivery app", "On your platform"],
       lignes: [
-        ["Commission per order", "A cut of every sale", "None"],
+        ["Commission per order", "Up to 30%", "5% pickup, 10% delivery"],
         ["The customer", "Belongs to the app", "Is yours"],
         ["Their email, their history", "You don't have them", "In your data"],
         ["Your prices", "Often inflated to absorb the commission", "Yours, as they are"],
-        ["If you stop tomorrow", "You start from zero", "You keep everything"],
+        ["If you stop tomorrow", "You start from zero", "You keep your customer list"],
       ],
     },
     {
       t: "p",
       texte:
-        "We won't tell you to close your delivery accounts. For plenty of restaurants they're a real source of orders. We're telling you they shouldn't be **the only one**, and that every order coming through your own channel is an order at full margin.",
+        "We won't tell you to close your delivery accounts. For plenty of restaurants they're a real source of orders. We're telling you they shouldn't be **the only one**, and that every order coming through your own channel is an order where you keep nearly all your margin, and the customer.",
     },
 
     { t: "h2", texte: "How it starts" },
