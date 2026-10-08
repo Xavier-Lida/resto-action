@@ -73,7 +73,7 @@ export default function SectionPlateformes({ t }: { t: Textes }) {
               <BarrePlaces modele={t.hero.places} />
               <p className="text-sm font-semibold text-white/85">{p.sous}</p>
             </div>
-            <BoutonReserver href={reserver} libelle={p.reserver} ton="blanc" taille="xl" />
+            <BoutonReserver href={reserver} libelle={p.reserver} ton="blanc" taille="xl" pasPret={t.hero.pasPret} />
           </div>
         </Reveal>
       </div>
