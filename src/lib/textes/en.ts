@@ -89,7 +89,7 @@ export const EN: Textes = {
       bouton: "See my app",
     },
     condition: "$500 reservation, refundable until launch",
-    places: "{reste} of {total} spots left in your city",
+    places: "Only {reste} spots left in your city",
     reserver: "Reserve my founder spot",
     pasPret: "Not ready? Free 30-min call",
     video: {
