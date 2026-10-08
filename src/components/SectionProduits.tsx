@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import DemoApp from "@/components/DemoApp";
+import DemoTablette from "@/components/DemoTablette";
 import type { Textes } from "@/lib/textes/fr";
 
 /* TROIS APPS, UN SEUL SYSTÈME — EN ONGLETS QUI TOURNENT SEULS.
@@ -119,13 +120,19 @@ export default function SectionProduits({ t }: { t: Textes }) {
             </div>
 
             <div id="produits-demo" role="tabpanel" className="flex justify-center">
-              <DemoApp
-                key={app.demo}
-                demo={app.demo}
-                alt={app.alt}
-                attente={t.produits.attente}
-                className="[--demo-w:17rem] sm:[--demo-w:20rem]"
-              />
+              {/* La cuisine travaille sur une tablette, pas un téléphone : sa
+                  démo est dessinée en HTML (DemoTablette), pas en captures. */}
+              {app.demo === "cuisine" ? (
+                <DemoTablette key={app.demo} t={t} />
+              ) : (
+                <DemoApp
+                  key={app.demo}
+                  demo={app.demo}
+                  alt={app.alt}
+                  attente={t.produits.attente}
+                  className="[--demo-w:17rem] sm:[--demo-w:20rem]"
+                />
+              )}
             </div>
           </div>
         </div>

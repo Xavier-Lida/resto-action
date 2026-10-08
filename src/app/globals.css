@@ -1301,3 +1301,74 @@ img {
     display: none;
   }
 }
+
+/* LA DÉMO DE LA TABLETTE (DemoTablette) : une carte qui entre, l'alerte qui
+   s'ouvre, la cloche qui sonne, la nouvelle commande qui clignote, le bouton
+   Accepter qui s'enfonce. */
+.tab-entre {
+  animation: tab-entre 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes tab-entre {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tab-fond {
+  animation: tab-fond 0.3s ease-out both;
+}
+@keyframes tab-fond {
+  from {
+    opacity: 0;
+  }
+}
+.tab-cloche {
+  animation: tab-cloche 0.9s ease-in-out infinite;
+  transform-origin: 50% 10%;
+}
+@keyframes tab-cloche {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(16deg);
+  }
+  30% {
+    transform: rotate(-14deg);
+  }
+  45% {
+    transform: rotate(8deg);
+  }
+}
+.tab-vive {
+  animation: tab-vive 1s ease-in-out infinite;
+}
+@keyframes tab-vive {
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 48, 8, 0.35);
+  }
+}
+.tab-appui {
+  animation: tab-appui 0.9s ease-in-out 0.3s both;
+}
+@keyframes tab-appui {
+  40% {
+    transform: scale(0.95);
+    filter: brightness(0.9);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-entre,
+  .tab-fond,
+  .tab-cloche,
+  .tab-vive,
+  .tab-appui {
+    animation: none;
+  }
+}

@@ -326,6 +326,40 @@ export const EN: Textes = {
   produits: {
     titre: "Three apps, one system.",
     attente: "Preview coming",
+    tablette: {
+      alt: "Kitchen tablet demo: a new order comes in, gets accepted, moves to preparation, then to the driver",
+      resto: "Bistro Habibi",
+      ouvert: "Open",
+      onglets: ["Orders", "Menu", "Settings"],
+      colonnes: { nouvelles: "New", preparation: "Preparing", pretes: "Ready" },
+      nouvelle: "New order",
+      livraison: "Delivery",
+      cueillette: "Pickup",
+      articles: "items",
+      accepter: "Accept",
+      prete: "Ready",
+      tempsPrep: "Prep time",
+      minutes: "min",
+      pretDans: "Ready in {n} min",
+      livreurArrive: "Ali arrives in 2 min",
+      remis: "Handed to driver",
+      jour: "Today: {n} orders · {montant}",
+      commande: {
+        numero: "#1043",
+        client: "Marie-Ève L.",
+        total: "$46.48",
+        plats: [
+          { qte: 2, nom: "Panuozzo Habibi", note: "Spicy sauce" },
+          { qte: 1, nom: "House fries", note: "" },
+          { qte: 1, nom: "Coca-Cola", note: "" },
+        ],
+      },
+      autres: [
+        { numero: "#1042", client: "Sophie T.", mode: "livraison", articles: 2 },
+        { numero: "#1041", client: "Jean-François B.", mode: "cueillette", articles: 3 },
+      ],
+      prete1: { numero: "#1039", client: "Karim D." },
+    },
 
     apps: [
       {
