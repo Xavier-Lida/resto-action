@@ -572,9 +572,10 @@ export const FR = {
     },
     merci: {
       metaTitre: "Ta place est réservée | Resto Action",
-      titre: "C'est réservé, {nom} !",
+      titre: "Ta place est réservée.",
+      etiquette: "Place fondateur · {resto}",
       titreGenerique: "Merci !",
-      texte: "Ta place fondateur pour {resto} est à toi. Ta facture est partie à {courriel}.",
+      texte: "Merci {prenom}! Ta facture est partie à {courriel}.",
       texteGenerique:
         "Si ton paiement est passé, ta facture est dans ta boîte courriel. Un doute ? Appelle-nous au {tel}.",
       suiteTitre: "La suite",
