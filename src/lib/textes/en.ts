@@ -465,9 +465,10 @@ export const EN: Textes = {
     },
     merci: {
       metaTitre: "Your spot is reserved | Resto Action",
-      titre: "You're in, {nom}!",
+      titre: "Your spot is reserved.",
+      etiquette: "Founder spot · {resto}",
       titreGenerique: "Thank you!",
-      texte: "Your founder spot for {resto} is yours. Your invoice was sent to {courriel}.",
+      texte: "Thanks {prenom}! Your invoice was sent to {courriel}.",
       texteGenerique: "If your payment went through, your invoice is in your inbox. Not sure? Call us at {tel}.",
       suiteTitre: "What's next",
       suite: [
