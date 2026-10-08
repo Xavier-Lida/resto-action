@@ -226,11 +226,15 @@ export default function Resultats({
 
             Le rail gris occupe toute la colonne, le trait rouge le remplit sur
             la durée de l'onglet : c'est la minuterie rendue visible. */}
+        {/* À PARTIR DE lg : LES ONGLETS À GAUCHE, LE PANNEAU À DROITE. Les
+            onglets s'empilent en cartes, le panneau garde son texte (et son
+            lien) au-dessus de la maquette. En dessous de lg, rien ne change. */}
+        <div className="lg:mt-14 lg:grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-8">
         <div
           role="tablist"
           aria-label={t.resultats.tablistAria}
           onKeyDown={auClavier}
-          className="mt-12 grid gap-x-6 gap-y-5 md:mt-14 md:grid-cols-4"
+          className="mt-12 grid gap-x-6 gap-y-5 md:mt-14 md:grid-cols-4 lg:mt-0 lg:grid-cols-1 lg:content-center lg:gap-3"
         >
           {ONGLETS.map((o, i) => (
             <button
@@ -245,12 +249,12 @@ export default function Resultats({
               aria-controls={`panneau-${o.cle}`}
               tabIndex={i === cible ? 0 : -1}
               onClick={() => activer(i)}
-              className={`group text-left ${
-                i === cible ? "" : "sr-only md:not-sr-only"
+              className={`group text-left lg:rounded-2xl lg:p-5 lg:transition-colors ${
+                i === cible ? "lg:bg-bone" : "sr-only md:not-sr-only lg:hover:bg-bone/60"
               }`}
             >
               <span
-                className={`block text-sm font-bold transition-colors md:text-base ${
+                className={`block text-sm font-bold transition-colors md:text-base lg:font-display lg:text-xl lg:font-black ${
                   i === cible
                     ? "text-ink"
                     : "text-ink/35 group-hover:text-ink/60"
@@ -293,7 +297,7 @@ export default function Resultats({
           aria-labelledby={`onglet-${courant.cle}`}
           tabIndex={0}
           style={{ "--res-duree": `${courant.duree}ms` } as CSSProperties}
-          className={`relative mt-8 flex min-h-[32rem] overflow-hidden rounded-[2rem] md:min-h-[30rem] lg:min-h-[34rem] lg:rounded-[3rem] ${courant.panneau} ${
+          className={`relative mt-8 flex min-h-[32rem] overflow-hidden rounded-[2rem] md:min-h-[30rem] lg:mt-0 lg:min-h-[40rem] lg:rounded-[3rem] ${courant.panneau} ${
             courant.clair ? "text-white" : "text-ink"
           }`}
         >
@@ -323,7 +327,7 @@ export default function Resultats({
           {/* flex-1 + items-center : le contenu est centré verticalement dans
               le panneau quelle que soit la maquette, plutôt que collé en haut. */}
           <div
-            className={`relative flex flex-1 flex-col justify-center gap-12 p-8 md:p-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:p-16 ${
+            className={`relative flex flex-1 flex-col justify-center gap-12 p-8 md:p-12 lg:gap-8 lg:p-12 ${
               sort ? "res-contenu-sortie" : "res-contenu"
             }`}
           >
@@ -364,13 +368,15 @@ export default function Resultats({
             </div>
 
             {courant.maquette && (
-              <div className="flex justify-center lg:justify-end">
+              <div className="flex justify-center">
                 {/* enVue garde les maquettes au repos tant que la section
                     n'est pas à l'écran. */}
                 {enVue && courant.maquette}
               </div>
             )}
           </div>
+        </div>
+
         </div>
 
         {/* Points et flèches, TÉLÉPHONE SEULEMENT : sur la capture d'Owner

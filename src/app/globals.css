@@ -1227,3 +1227,20 @@ img {
     animation: none;
   }
 }
+@keyframes calc-barre {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.calc-barre {
+  transform-origin: bottom;
+  animation: calc-barre 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .calc-barre {
+    animation: none;
+  }
+}

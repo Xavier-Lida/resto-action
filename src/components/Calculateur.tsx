@@ -1,25 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, MessageSquare, RotateCcw, Star, UserPlus } from "lucide-react";
+import { ArrowRight, MessageCircle, RotateCcw, Star } from "lucide-react";
+import Buoy from "@/components/Buoy";
 import { RESERVATION_URL } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
 /* LE CALCULATEUR ANIMÉ.
 
-   Le resto entre ses commandes en ligne par mois et sa facture moyenne. Quand
-   la section arrive à l'écran, trois cartes s'animent : sa liste de clients qui
-   grossit nom par nom, des ventes qu'il n'aurait jamais eues qui apparaissent,
-   et des avis Google qui entrent après un texto. Dessous, le montant gardé par
-   année, puis le gros bouton.
+   Le resto règle ses commandes en ligne par mois et sa facture moyenne. Quand
+   la section arrive à l'écran, trois petites scènes s'animent, dessinées comme
+   de vrais écrans : sa liste de clients qui se remplit (et un graphique qui
+   monte), des notifications de commandes qu'il n'aurait jamais eues, puis un
+   texto automatique suivi d'avis Google. Dessous, le montant gardé par année
+   et le gros bouton.
 
-   LES CHIFFRES. Les mêmes hypothèses que la mention affichée sous les cartes —
-   tout changement ici doit s'y refléter :
+   LES CHIFFRES suivent les hypothèses écrites sous les cartes — tout
+   changement ici doit s'y refléter :
      - plateformes : FRAIS_PLATEFORME de la facture ;
      - nous : ABONNEMENT par mois + COMMISSION de la facture ;
      - ventes en plus : 1 commande sur 20 (rappel texto, panier récupéré) ;
      - avis : 1 commande sur 20.
-   Les noms, montants et avis qui défilent sont des exemples d'illustration. */
+   Les noms, avis et montants qui défilent sont des exemples d'illustration. */
 
 const FRAIS_PLATEFORME = 0.3;
 const ABONNEMENT = 200;
@@ -27,9 +29,17 @@ const COMMISSION = 0.1;
 const PART_VENTES_EN_PLUS = 1 / 20;
 const PART_AVIS = 1 / 20;
 
-/* Un nombre qui roule de 0 à sa cible, sur `duree` ms, après `delai` ms. Il
-   repart de 0 à chaque nouvelle `cle` (rejouer) ou nouvelle cible (curseur).
-   Mouvement réduit : la cible tout de suite. */
+const PASTILLES = ["#ffd9cf", "#d7e9ff", "#d9f0e3", "#fff0bf"];
+const initiales = (nom: string) =>
+  nom
+    .split(/\s+/)
+    .map((m) => m[0])
+    .join("")
+    .slice(0, 2);
+
+/* Un nombre qui roule de 0 à sa cible, après `delai` ms. Il repart à chaque
+   nouvelle `cle` (rejouer) ou nouvelle cible (curseur). Mouvement réduit : la
+   cible tout de suite. */
 function useCompte(cible: number, cle: number, delai: number, actif: boolean) {
   const [v, setV] = useState(0);
   useEffect(() => {
@@ -39,7 +49,8 @@ function useCompte(cible: number, cle: number, delai: number, actif: boolean) {
     const debut = performance.now() + (reduit ? 0 : delai);
     let raf = 0;
     const pas = (maintenant: number) => {
-      const p = duree === 0 ? 1 : Math.min(1, Math.max(0, (maintenant - debut) / duree));
+      const p =
+        duree === 0 ? 1 : Math.min(1, Math.max(0, (maintenant - debut) / duree));
       setV(Math.round(cible * (1 - Math.pow(1 - p, 3))));
       if (p < 1) raf = requestAnimationFrame(pas);
     };
@@ -47,6 +58,16 @@ function useCompte(cible: number, cle: number, delai: number, actif: boolean) {
     return () => cancelAnimationFrame(raf);
   }, [cible, cle, delai, actif]);
   return actif ? v : 0;
+}
+
+function Etoiles({ className = "size-3.5" }: { className?: string }) {
+  return (
+    <span className="flex gap-0.5" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((k) => (
+        <Star key={k} className={`${className} fill-[#f5b301] text-[#f5b301]`} />
+      ))}
+    </span>
+  );
 }
 
 export default function Calculateur({ t }: { t: Textes }) {
@@ -57,7 +78,7 @@ export default function Calculateur({ t }: { t: Textes }) {
   const [actif, setActif] = useState(false);
   const boite = useRef<HTMLDivElement>(null);
 
-  // L'animation part la première fois que les cartes arrivent à l'écran.
+  // L'animation part la première fois que les scènes arrivent à l'écran.
   useEffect(() => {
     const el = boite.current;
     if (!el) return;
@@ -96,7 +117,6 @@ export default function Calculateur({ t }: { t: Textes }) {
   const vGarde = useCompte(garde, cle, 3200, actif);
 
   const reserver = RESERVATION_URL ?? `${t.racine}/contact`;
-  // Un délai d'apparition, en secondes, seulement une fois l'animation partie.
   const d = (s: number) => ({ animationDelay: `${s}s` });
 
   return (
@@ -108,7 +128,7 @@ export default function Calculateur({ t }: { t: Textes }) {
         <p className="mt-3 text-lg text-ink/70">{c.sousTitre}</p>
 
         {/* Les deux curseurs */}
-        <div className="mt-10 grid gap-8 rounded-[2rem] bg-white p-6 md:grid-cols-2 md:p-8">
+        <div className="mt-10 grid gap-8 rounded-[2rem] bg-white p-6 shadow-sm md:grid-cols-2 md:p-8">
           <label className="flex flex-col gap-3">
             <span className="flex items-baseline justify-between gap-4 font-bold">
               {c.commandes}
@@ -145,10 +165,14 @@ export default function Calculateur({ t }: { t: Textes }) {
           </label>
         </div>
 
-        {/* Les trois cartes animées. La `key` les remonte pour rejouer. */}
+        {/* Les trois scènes. La `key` les remonte pour rejouer. */}
         <div ref={boite} key={cle} className="mt-5 grid gap-5 lg:grid-cols-3">
-          {/* 1. La liste de clients */}
-          <div className="flex flex-col rounded-[2rem] bg-ink p-7 text-white">
+          {/* 1. LA LISTE DE CLIENTS — un petit tableau de bord */}
+          <div className="relative flex flex-col overflow-hidden rounded-[2rem] bg-ink p-7 text-white">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-brand/25 blur-3xl"
+            />
             <p className="text-xs font-black uppercase tracking-widest text-white/50">
               {c.liste.titre}
             </p>
@@ -156,26 +180,47 @@ export default function Calculateur({ t }: { t: Textes }) {
               {nombre.format(vListe)}
             </p>
             <p className="mt-1 text-sm text-white/60">{c.liste.unite}</p>
-            <ul className="mt-6 grid list-none gap-2">
-              {actif &&
-                c.liste.noms.map((nom, i) => (
-                  <li
-                    key={nom}
-                    style={d(0.3 + i * 0.35)}
-                    className="calc-entre flex items-center gap-3 rounded-xl bg-white/10 px-3 py-2 text-sm"
-                  >
-                    <span className="grid size-7 place-items-center rounded-full bg-brand">
-                      <UserPlus className="size-3.5" aria-hidden="true" />
-                    </span>
-                    <span className="font-bold">{nom}</span>
-                    <span className="text-white/60">{c.liste.ajoute}</span>
-                  </li>
-                ))}
-            </ul>
+
+            <div className="mt-6 rounded-2xl bg-white/[0.07] p-3 ring-1 ring-white/10">
+              <ul className="grid list-none gap-1.5">
+                {actif &&
+                  c.liste.noms.map((nom, i) => (
+                    <li
+                      key={nom}
+                      style={d(0.3 + i * 0.35)}
+                      className="calc-entre flex items-center gap-3 rounded-xl px-2 py-1.5"
+                    >
+                      <span
+                        className="grid size-8 shrink-0 place-items-center rounded-full text-xs font-black text-ink"
+                        style={{ background: PASTILLES[i % PASTILLES.length] }}
+                      >
+                        {initiales(nom)}
+                      </span>
+                      <span className="flex-1 text-sm font-bold">{nom}</span>
+                      <span className="rounded-full bg-brand/90 px-2 py-0.5 text-[0.7rem] font-black">
+                        {c.liste.ajoute}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+
+            <p className="mt-6 text-xs font-bold text-white/50">{c.liste.mois}</p>
+            <div aria-hidden="true" className="mt-2 flex h-20 items-end gap-1">
+              {Array.from({ length: 12 }, (_, i) => (
+                <span
+                  key={i}
+                  style={{ height: `${((i + 1) / 12) * 100}%`, ...d(0.4 + i * 0.07) }}
+                  className={`flex-1 rounded-t-md ${
+                    i === 11 ? "bg-brand" : "bg-white/25"
+                  } ${actif ? "calc-barre" : "scale-y-0"}`}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* 2. Les ventes en plus */}
-          <div className="flex flex-col rounded-[2rem] bg-white p-7">
+          {/* 2. LES VENTES EN PLUS — des notifications de commande */}
+          <div className="relative flex flex-col overflow-hidden rounded-[2rem] bg-white p-7 shadow-sm">
             <p className="text-xs font-black uppercase tracking-widest text-ink/50">
               {c.ventes.titre}
             </p>
@@ -183,77 +228,104 @@ export default function Calculateur({ t }: { t: Textes }) {
               {argent.format(vVentes)}
             </p>
             <p className="mt-1 text-sm text-ink/60">{c.ventes.unite}</p>
-            <ul className="mt-6 grid list-none gap-2">
+
+            <div className="mt-6 grid gap-2.5 rounded-[1.75rem] bg-gradient-to-b from-[#f4efe9] to-[#ece4da] p-3">
               {actif &&
                 c.ventes.evenements.map(({ texte, montant }, i) => (
-                  <li
+                  <div
                     key={texte}
-                    style={d(1.3 + i * 0.45)}
-                    className="calc-entre flex items-center justify-between gap-3 rounded-xl bg-bone px-3 py-2 text-sm"
+                    style={d(1.3 + i * 0.5)}
+                    className="calc-entre flex items-start gap-3 rounded-2xl bg-white/90 p-3 shadow-[0_6px_18px_-8px_rgb(25_25_25/0.35)] backdrop-blur"
                   >
-                    <span className="flex items-center gap-2">
-                      <MessageSquare className="size-4 text-brand" aria-hidden="true" />
-                      {texte}
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white ring-1 ring-ink/10">
+                      <Buoy className="w-6" />
                     </span>
-                    <span className="font-black text-[#1f6b45]">{montant}</span>
-                  </li>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-baseline justify-between gap-2">
+                        <span className="text-xs font-black">{c.ventes.notification}</span>
+                        <span className="text-sm font-black text-[#1f6b45]">
+                          {montant}
+                        </span>
+                      </span>
+                      <span className="mt-0.5 block text-xs leading-snug text-ink/65">
+                        {texte}
+                      </span>
+                    </span>
+                  </div>
                 ))}
-            </ul>
+            </div>
           </div>
 
-          {/* 3. Les avis Google */}
-          <div className="flex flex-col rounded-[2rem] bg-white p-7">
+          {/* 3. LES AVIS GOOGLE — un texto, puis les avis qui entrent */}
+          <div className="relative flex flex-col overflow-hidden rounded-[2rem] bg-white p-7 shadow-sm">
             <p className="text-xs font-black uppercase tracking-widest text-ink/50">
               {c.avis.titre}
             </p>
-            <p className="mt-3 flex items-center gap-2 font-display text-5xl font-black tabular-nums">
-              {nombre.format(vAvis)}
-              <Star className="size-8 fill-[#f5b301] text-[#f5b301]" aria-hidden="true" />
+            <p className="mt-3 flex items-center gap-3 font-display text-5xl font-black tabular-nums">
+              +{nombre.format(vAvis)}
+              <Etoiles className="size-5" />
             </p>
             <p className="mt-1 text-sm text-ink/60">{c.avis.unite}</p>
+
             {actif && (
-              <div className="mt-6 grid gap-2">
-                <p
-                  style={d(2.3)}
-                  className="calc-entre max-w-[90%] rounded-2xl rounded-bl-sm bg-bone px-3 py-2 text-sm"
-                >
-                  {c.avis.sms}
-                </p>
-                {c.avis.extraits.map((extrait, i) => (
-                  <div
-                    key={extrait}
-                    style={d(2.8 + i * 0.4)}
-                    className="calc-entre rounded-xl border border-ink/10 px-3 py-2 text-sm"
-                  >
-                    <span className="flex gap-0.5" aria-label="5/5">
-                      {[0, 1, 2, 3, 4].map((k) => (
-                        <Star
-                          key={k}
-                          className="size-3.5 fill-[#f5b301] text-[#f5b301]"
-                          aria-hidden="true"
-                        />
-                      ))}
-                    </span>
-                    <span className="mt-1 block font-semibold">« {extrait} »</span>
-                  </div>
-                ))}
+              <div className="mt-6 grid gap-2.5">
+                <div style={d(2.3)} className="calc-entre">
+                  <p className="mb-1 flex items-center gap-1.5 text-[0.7rem] font-bold text-ink/45">
+                    <MessageCircle className="size-3" aria-hidden="true" />
+                    {c.avis.texto}
+                  </p>
+                  <p className="max-w-[92%] rounded-2xl rounded-bl-md bg-[#e9e9eb] px-3.5 py-2 text-sm leading-snug">
+                    {c.avis.sms}
+                  </p>
+                </div>
+                {c.avis.extraits.map((extrait, i) => {
+                  const auteur = c.avis.auteurs[i] ?? "";
+                  return (
+                    <div
+                      key={extrait}
+                      style={d(2.9 + i * 0.45)}
+                      className="calc-entre flex gap-3 rounded-2xl border border-ink/10 p-3"
+                    >
+                      <span
+                        className="grid size-8 shrink-0 place-items-center rounded-full text-xs font-black"
+                        style={{ background: PASTILLES[(i + 1) % PASTILLES.length] }}
+                      >
+                        {initiales(auteur)}
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-center justify-between gap-2">
+                          <span className="text-xs font-black">{auteur}</span>
+                          <span className="text-[0.7rem] text-ink/45">{c.avis.quand}</span>
+                        </span>
+                        <span className="mt-0.5 block">
+                          <Etoiles className="size-3" />
+                        </span>
+                        <span className="mt-1 block text-sm">{extrait}</span>
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
         </div>
 
         {/* Le résultat et le bouton */}
-        <div className="mt-5 flex flex-col items-start justify-between gap-6 rounded-[2rem] bg-hero p-8 text-white md:flex-row md:items-center md:p-10">
-          <div>
-            <p className="font-display text-4xl font-black tabular-nums md:text-6xl">
+        <div className="relative mt-5 flex flex-col items-start justify-between gap-6 overflow-hidden rounded-[2rem] bg-hero p-8 text-white md:flex-row md:items-center md:p-10">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-white/10 blur-3xl"
+          />
+          <div className="relative">
+            <p className="font-display text-5xl font-black tabular-nums md:text-7xl">
               {argent.format(vGarde)}
             </p>
             <p className="mt-2 font-semibold text-white/85">{c.garde}</p>
           </div>
-          <div className="flex flex-col items-start gap-3">
+          <div className="relative flex flex-col items-start gap-3">
             <a
               href={reserver}
-              className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-black text-ink shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 active:translate-y-1 active:shadow-none md:text-xl"
+              className="group inline-flex items-center gap-3 rounded-full bg-white px-9 py-5 text-xl font-black text-ink shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
             >
               {c.reserver}
               <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
