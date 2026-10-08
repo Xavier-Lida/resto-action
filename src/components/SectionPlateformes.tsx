@@ -1,8 +1,9 @@
-import { ArrowRight, Check, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import Reveal from "@/components/Reveal";
 import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
+import BoutonReserver from "@/components/BoutonReserver";
 
 /* PLATEFORMES CONTRE TON APP — ET LE GROS BOUTON.
 
@@ -72,13 +73,7 @@ export default function SectionPlateformes({ t }: { t: Textes }) {
               <BarrePlaces modele={t.hero.places} />
               <p className="text-sm font-semibold text-white/85">{p.sous}</p>
             </div>
-            <a
-              href={reserver}
-              className="group inline-flex items-center gap-3 rounded-full bg-white px-9 py-5 text-xl font-black text-ink shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_7px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none md:text-2xl"
-            >
-              {p.reserver}
-              <ArrowRight className="size-6 transition-transform group-hover:translate-x-1" />
-            </a>
+            <BoutonReserver href={reserver} libelle={p.reserver} ton="blanc" taille="xl" />
           </div>
         </Reveal>
       </div>

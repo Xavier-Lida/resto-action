@@ -351,27 +351,27 @@ export const EN: Textes = {
       montant: "$300",
       titre: "of advertising, paid by us",
       texte:
-        "For your first 3 months, we launch and run your Facebook and Instagram ads at the hours people get hungry: before lunch and before dinner. Every customer who orders becomes YOUR customer, in YOUR database.",
+        "For your first 3 months, we run your Facebook and Instagram ads, right before mealtimes. Every new customer is yours.",
     },
     inclusTitre: "What's included",
     inclus: [
-      "Your ordering app in your name, on the web and on mobile",
-      "Your Google profile, optimized so people find you",
-      "Text and email reminders that bring customers back",
+      "Your web and mobile app, in your name",
+      "Your Google profile, optimized",
+      "Text and email reminders",
       "Delivery by our drivers",
-      "$300 of ads run by us for 3 months",
+      "$300 of ads, run by us",
     ],
     garantie: {
       titre: "90-day guarantee",
       texte: "If you don't get back what it cost you, we refund you.",
-      note: "Compared with your real platform fees: we refund the subscription and our commissions. One condition: you completed the redirection steps we give you. Setup and equipment excluded.",
+      note: "Subscription and commissions refunded, if you followed our steps.",
     },
     coutsTitre: "The price, in full",
     couts: [
-      { quand: "Today · setup", quoi: "$500", barre: "$1,000", detail: "Founder price. It goes up to $1,000 after. Refundable until launch." },
-      { quand: "At installation · equipment", quoi: "$495", detail: "Tablet, stand, counter sign and 500 inserts" },
-      { quand: "Every month · subscription", quoi: "$200 / month", detail: "Your $300 of ads is on top, paid by us, for the first 3 months" },
-      { quand: "On orders · commission", quoi: "5% · 10%", detail: "Pickup · delivery, on food. On Uber or DoorDash, it's up to 30%." },
+      { quand: "Today", quoi: "$500", barre: "$1,000", detail: "Setup, founder price" },
+      { quand: "At installation", quoi: "$495", detail: "Tablet, stand and inserts" },
+      { quand: "Every month", quoi: "$200", detail: "Subscription" },
+      { quand: "Per order", quoi: "5% · 10%", detail: "Pickup · delivery (Uber: up to 30%)" },
     ],
     taxes: "Taxes and card fees extra.",
     reserver: "Reserve my founder spot",
@@ -469,29 +469,11 @@ export const EN: Textes = {
   histoire: {
     titre: "Our story",
     linkedinDe: "{nom}'s LinkedIn profile",
-    jalons: [
-      {
-        titre: "Restaurants are closing",
-        texte:
-          "Every birthday in Guillaume's family was celebrated at the same restaurant. Same table, same owner. In 2020 it closed, like hundreds of others in Quebec.",
-        alt: "Guillaume Therrien, co-founder of Resto Action",
-        legende: "Guillaume",
-      },
-      {
-        titre: "Tech leaves them out",
-        texte:
-          "The same tools that power the big chains stay out of reach for the shop around the corner: too expensive, too complicated, never built for it. Xavier is building to change that.",
-        alt: "Xavier Lida, co-founder of Resto Action",
-        legende: "Xavier",
-      },
-      {
-        titre: "Young people in Action",
-        texte:
-          "They met at the École d'entrepreneurship de Beauce. Guillaume pitched the idea and the team came together on the spot. They won the CEED Challenge and decided to act.",
-        alt: "CEED Challenge 2026 certificate, 1st place, awarded to Guillaume Therrien for Resto Action",
-        legende: "1st place, CEED Challenge 2026",
-      },
-    ],
+    ceed: {
+      titre: "1st place, CEED Challenge 2026",
+      texte: "The team came together at the École d'entrepreneurship de Beauce. We won, and we decided to act.",
+      alt: "CEED Challenge 2026 certificate, 1st place, awarded to Guillaume Therrien for Resto Action",
+    },
     convictions: {
       titre: "What we believe",
       fondateurs: [

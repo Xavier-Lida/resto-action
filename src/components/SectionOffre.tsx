@@ -1,8 +1,9 @@
-import { ArrowRight, Check, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import Reveal from "@/components/Reveal";
 import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
+import BoutonReserver from "@/components/BoutonReserver";
 
 /* L'OFFRE FONDATEUR.
 
@@ -109,14 +110,13 @@ export default function SectionOffre({ t }: { t: Textes }) {
               <p className="mt-6 text-xs text-ink/50">{o.taxes}</p>
 
               <BarrePlaces modele={t.hero.places} ton="sombre" className="mt-6" />
-              <a
+              <BoutonReserver
                 href={reserver}
-                className="group mt-5 flex w-full items-center justify-center gap-3 rounded-full bg-brand px-6 py-5 text-lg font-black text-white shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
-              >
-                {o.reserver}
-                <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-              </a>
-              <p className="mt-3 text-center text-sm font-bold text-ink/60">{o.condition}</p>
+                libelle={o.reserver}
+                pleineLargeur
+                sous={o.condition}
+                className="mt-5 text-ink"
+              />
             </div>
           </Reveal>
         </div>

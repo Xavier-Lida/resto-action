@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, MessageCircle, RotateCcw, Star } from "lucide-react";
+import { MessageCircle, RotateCcw, Star } from "lucide-react";
 import Buoy from "@/components/Buoy";
 import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
+import BoutonReserver from "@/components/BoutonReserver";
 
 /* LE CALCULATEUR ANIMÉ.
 
@@ -333,13 +334,7 @@ export default function Calculateur({ t }: { t: Textes }) {
             <p className="mt-2 font-semibold text-white/85">{c.garde}</p>
           </div>
           <div className="relative flex flex-col items-start gap-3">
-            <a
-              href={reserver}
-              className="group inline-flex items-center gap-3 rounded-full bg-white px-9 py-5 text-xl font-black text-ink shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
-            >
-              {c.reserver}
-              <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-            </a>
+            <BoutonReserver href={reserver} libelle={c.reserver} ton="blanc" taille="xl" />
             <button
               type="button"
               onClick={() => {

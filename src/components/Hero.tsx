@@ -11,6 +11,7 @@ import {
   YOUTUBE_ABONNEMENT_URL,
 } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
+import BoutonReserver from "@/components/BoutonReserver";
 
 // Glyphe LinkedIn (lucide-react ne fournit plus d'icônes de marques).
 function IconeLinkedIn({ className }: { className?: string }) {
@@ -99,12 +100,7 @@ export default function Hero({ t }: { t: Textes }) {
             </div>
 
             <div className="animate-hero delay-3 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <a
-                href={reserver}
-                className="inline-flex items-center rounded-full bg-white px-7 py-4 text-lg font-black text-ink shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none"
-              >
-                {t.hero.reserver}
-              </a>
+              <BoutonReserver href={reserver} libelle={t.hero.reserver} ton="blanc" />
               <Link
                 href={`${t.racine}/contact`}
                 className="font-bold underline underline-offset-4 transition hover:text-white/80"

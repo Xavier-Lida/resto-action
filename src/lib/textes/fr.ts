@@ -454,27 +454,27 @@ export const FR = {
       montant: "300 $",
       titre: "de publicité payée par nous",
       texte:
-        "Pendant tes 3 premiers mois, on lance et on gère tes pubs Facebook et Instagram aux heures où les gens ont faim : avant le dîner et avant le souper. Chaque client qui commande devient TON client, dans TA base de données.",
+        "Tes 3 premiers mois, on gère tes pubs Facebook et Instagram, juste avant les repas. Chaque nouveau client est à toi.",
     },
     inclusTitre: "Ce qui est inclus",
     inclus: [
-      "Ton app de commande à ton nom, sur le web et sur mobile",
-      "Ta fiche Google optimisée pour qu'on te trouve",
-      "Les rappels SMS et courriel qui font revenir tes clients",
-      "La livraison avec nos livreurs",
-      "300 $ de pub gérée par nous pendant 3 mois",
+      "Ton app web et mobile, à ton nom",
+      "Ta fiche Google optimisée",
+      "Rappels SMS et courriel",
+      "Livraison par nos livreurs",
+      "300 $ de pub, gérée par nous",
     ],
     garantie: {
       titre: "Garantie 90 jours",
       texte: "Si tu ne récupères pas ce que ça t'a coûté, on te rembourse.",
-      note: "Comparé à tes vrais frais de plateforme : on te rembourse l'abonnement et nos commissions. Une condition : avoir fait les étapes de redirection qu'on te donne. Mise en service et équipement exclus.",
+      note: "Abonnement et commissions remboursés, si tu as suivi nos étapes.",
     },
     coutsTitre: "Le prix, au complet",
     couts: [
-      { quand: "Aujourd'hui · mise en service", quoi: "500 $", barre: "1 000 $", detail: "Prix fondateur. Il passe ensuite à 1 000 $. Remboursable jusqu'au lancement." },
-      { quand: "À l'installation · équipement", quoi: "495 $", detail: "Tablette, support, chevalet et 500 encarts" },
-      { quand: "Chaque mois · abonnement", quoi: "200 $ / mois", detail: "Tes 300 $ de pub sont en plus, payés par nous, les 3 premiers mois" },
-      { quand: "Sur les commandes · commission", quoi: "5 % · 10 %", detail: "Cueillette · livraison, sur la nourriture. Sur Uber ou DoorDash, c'est jusqu'à 30 %." },
+      { quand: "Aujourd'hui", quoi: "500 $", barre: "1 000 $", detail: "Mise en service, prix fondateur" },
+      { quand: "À l'installation", quoi: "495 $", detail: "Tablette, support et encarts" },
+      { quand: "Chaque mois", quoi: "200 $", detail: "Abonnement" },
+      { quand: "Par commande", quoi: "5 % · 10 %", detail: "Cueillette · livraison (Uber : jusqu'à 30 %)" },
     ],
     taxes: "Taxes et frais de carte en sus.",
     reserver: "Réserver ma place fondateur",
@@ -577,29 +577,12 @@ export const FR = {
     // Gabarit, pas fonction : le dictionnaire traverse des composants
     // clients, qui n'acceptent que des données sérialisables.
     linkedinDe: "Profil LinkedIn de {nom}",
-    jalons: [
-      {
-        titre: "Les restos ferment",
-        texte:
-          "Chaque anniversaire de la famille de Guillaume se fêtait au même restaurant. Même table, même propriétaire. En 2020, il a fermé, comme des centaines d'autres au Québec.",
-        alt: "Guillaume Therrien, cofondateur de Resto Action",
-        legende: "Guillaume",
-      },
-      {
-        titre: "La techno les oublie",
-        texte:
-          "Les mêmes outils qui propulsent les grandes chaînes restent hors de portée du commerce du coin : trop chers, trop compliqués, jamais pensés pour lui. Xavier bâtit pour que ça change.",
-        alt: "Xavier Lida, cofondateur de Resto Action",
-        legende: "Xavier",
-      },
-      {
-        titre: "Des jeunes en Action",
-        texte:
-          "Rencontre à l'École d'entrepreneurship de Beauce. Guillaume y présente l'idée, l'équipe se forme sur-le-champ. Ils gagnent le Défi CEED et décident d'agir.",
-        alt: "Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action",
-        legende: "1re position au Défi CEED 2026",
-      },
-    ],
+    // La reconnaissance, en une ligne, à côté des deux cofondateurs.
+    ceed: {
+      titre: "1re position au Défi CEED 2026",
+      texte: "L'équipe s'est formée à l'École d'entrepreneurship de Beauce. On a gagné, et on a décidé d'agir.",
+      alt: "Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action",
+    },
     convictions: {
       titre: "Ce en quoi on croit",
       fondateurs: [

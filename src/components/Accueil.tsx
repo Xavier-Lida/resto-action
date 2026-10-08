@@ -1,5 +1,6 @@
 import Image from "next/image";
 import BarreNav from "@/components/BarreNav";
+import BarreReservation from "@/components/BarreReservation";
 import BoutonAbonnement from "@/components/BoutonAbonnement";
 import Calculateur from "@/components/Calculateur";
 import Footer from "@/components/Footer";
@@ -22,11 +23,13 @@ import {
   FONDATEURS,
   LINKEDIN_URL,
   PHONE_E164,
+  PLACES_FONDATEURS,
   POSTAL_CODE,
   SITE_URL,
   STREET,
   VIDEO_HISTOIRE,
   YOUTUBE_URL,
+  cheminReservation,
 } from "@/lib/site";
 
 /* La page d'accueil, une seule fois pour les deux langues. Les routes
@@ -39,13 +42,23 @@ import {
    sous-arbre — c'est ce que suivent les lecteurs d'écran pour changer de voix. */
 
 /* Les vignettes ne se traduisent pas ; elles s'apparient par rang aux étapes
-   et aux jalons du dictionnaire. */
+   et aux cofondateurs du dictionnaire. */
 const IMAGES_APPROCHE = [
   "/mascotte-ecoute.webp",
   "/mascotte-creuse.webp",
   "/mascotte-regle.webp",
 ];
 
+// Glyphe LinkedIn (lucide-react ne fournit plus d'icônes de marques).
+function IconeLinkedIn({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.555V9h3.564v11.452z" />
+    </svg>
+  );
+}
+
+/* Les deux cofondateurs, puis le certificat du Défi CEED. */
 const IMAGES_HISTOIRE = [
   {
     src: "/guillaume.jpg",
@@ -237,9 +250,10 @@ export default function Accueil({
         {/* ─── L'offre fondateur ─── */}
         <SectionOffre t={t} />
 
-        {/* ─── Notre histoire ─── */}
-        {/* Trois jalons en colonnes bordées de rouge, photos noir et blanc,
-            légendes manuscrites. */}
+        {/* ─── Ce en quoi on croit ─── */}
+        {/* Court, exprès : les deux cofondateurs (photo cliquable vers leur
+            LinkedIn) et leurs convictions en une ligne chacune, puis le Défi
+            CEED à côté. L'ancien récit en trois jalons faisait trop de texte. */}
         <section
           id="histoire"
           className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6"
@@ -247,117 +261,69 @@ export default function Accueil({
           <div className="rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
             <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
               <Reveal>
-                <h2 className="max-w-3xl font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
-                  {t.histoire.titre}
+                <h2 className="font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
+                  {t.histoire.convictions.titre}
                 </h2>
               </Reveal>
 
-              <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-                {t.histoire.jalons.map(({ titre, texte, alt, legende }, i) => {
-                  const image = IMAGES_HISTOIRE[i];
-                  const figure = (
-                    <figure>
-                      <div className="w-fit overflow-hidden rounded-lg">
-                        <Image
-                          draggable={false}
-                          src={image.src}
-                          alt={alt}
-                          width={image.width}
-                          height={image.height}
-                          className={`object-cover transition duration-500 ${
-                            image.lien
-                              ? "aspect-[3/4] w-40 grayscale group-hover:grayscale-0"
-                              : "w-52"
-                          }`}
-                        />
-                      </div>
-                      <figcaption className="mt-3 font-script text-xl text-white transition-colors group-hover:text-brand">
-                        {legende}
-                      </figcaption>
-                    </figure>
-                  );
-                  return (
-                    <Reveal key={titre} delay={i as 0 | 1 | 2}>
-                      <div className="h-full border-l-2 border-brand pl-6">
-                        <h3 className="font-display text-lg font-bold md:text-xl">
-                          {titre}
-                        </h3>
-                        <p className="mt-3 text-sm leading-relaxed text-white/70">
-                          {texte}
-                        </p>
-                        <div className="mt-6">
-                          {image.lien ? (
-                            <a
-                              href={image.lien}
-                              target="_blank"
-                              rel="noopener"
-                              aria-label={t.histoire.linkedinDe.replace("{nom}", legende)}
-                              className="group inline-block"
-                            >
-                              {figure}
-                            </a>
-                          ) : (
-                            figure
-                          )}
-                        </div>
-                      </div>
-                    </Reveal>
-                  );
-                })}
-              </div>
+              <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)]">
+                <div className="grid gap-6 md:grid-cols-2">
+                  {t.histoire.convictions.fondateurs.map((f, i) => {
+                    const image = IMAGES_HISTOIRE[i];
+                    return (
+                      <Reveal key={f.nom} delay={(i + 1) as 1 | 2}>
+                        <article className="group h-full rounded-[2rem] bg-white/[0.05] p-5 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.08]">
+                          <a
+                            href={image.lien ?? undefined}
+                            target="_blank"
+                            rel="noopener"
+                            aria-label={t.histoire.linkedinDe.replace("{nom}", f.nom)}
+                            className="relative block overflow-hidden rounded-2xl"
+                          >
+                            <Image
+                              draggable={false}
+                              src={image.src}
+                              alt={f.alt}
+                              width={image.width}
+                              height={image.height}
+                              className="aspect-[4/3] w-full object-cover object-top grayscale transition duration-500 group-hover:scale-[1.03] group-hover:grayscale-0"
+                            />
+                            <span className="absolute bottom-3 right-3 grid size-11 place-items-center rounded-full bg-white text-[#0a66c2] shadow-lg transition group-hover:scale-110">
+                              <IconeLinkedIn className="size-5" />
+                            </span>
+                          </a>
+                          <p className="mt-5 font-display text-2xl font-black">{f.nom}</p>
+                          <p className="text-sm text-white/60">{f.role}</p>
+                          <ul className="mt-5 grid list-none gap-2.5">
+                            {f.points.map((point) => (
+                              <li key={point.titre} className="flex items-start gap-3 font-bold leading-snug">
+                                <span className="mt-1.5 size-2 shrink-0 rounded-full bg-brand" />
+                                {point.titre}
+                              </li>
+                            ))}
+                          </ul>
+                        </article>
+                      </Reveal>
+                    );
+                  })}
+                </div>
 
-              {/* CE EN QUOI ON CROIT, À LA OWNER : chaque cofondateur porte ses
-                  convictions, avec sa photo. Les cartes se soulèvent au
-                  survol et leurs points entrent l'un après l'autre. */}
-              <Reveal>
-                <h3 className="mt-24 font-display text-2xl font-black leading-tight tracking-tight md:text-4xl">
-                  {t.histoire.convictions.titre}
-                </h3>
-              </Reveal>
-              <div className="mt-10 grid gap-6 md:grid-cols-2">
-                {t.histoire.convictions.fondateurs.map((f, i) => {
-                  const image = IMAGES_HISTOIRE[i];
-                  return (
-                    <Reveal key={f.nom} delay={(i + 1) as 1 | 2}>
-                      <article className="group h-full rounded-[2rem] bg-white/[0.05] p-7 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.08] md:p-8">
-                        <header className="flex items-center gap-4">
-                          <Image
-                            draggable={false}
-                            src={image.src}
-                            alt={f.alt}
-                            width={image.width}
-                            height={image.height}
-                            className="size-16 rounded-full object-cover grayscale transition duration-500 group-hover:grayscale-0"
-                          />
-                          <div>
-                            <p className="font-display text-xl font-black">{f.nom}</p>
-                            <p className="text-sm text-white/60">{f.role}</p>
-                          </div>
-                        </header>
-                        <ol className="mt-7 grid list-none gap-5">
-                          {f.points.map((point, k) => (
-                            <li
-                              key={point.titre}
-                              className="flex gap-4 border-l-2 border-brand/40 pl-4 transition-colors duration-300 group-hover:border-brand"
-                            >
-                              <span className="font-display text-sm font-black text-brand">
-                                {String(k + 1).padStart(2, "0")}
-                              </span>
-                              <div>
-                                <p className="font-display text-lg font-black leading-snug">
-                                  {point.titre}
-                                </p>
-                                <p className="mt-1 text-sm leading-relaxed text-white/70">
-                                  {point.texte}
-                                </p>
-                              </div>
-                            </li>
-                          ))}
-                        </ol>
-                      </article>
-                    </Reveal>
-                  );
-                })}
+                <Reveal delay={2}>
+                  <aside className="flex h-full flex-col rounded-[2rem] bg-white p-5 text-ink">
+                    <Image
+                      draggable={false}
+                      src={IMAGES_HISTOIRE[2].src}
+                      alt={t.histoire.ceed.alt}
+                      width={IMAGES_HISTOIRE[2].width}
+                      height={IMAGES_HISTOIRE[2].height}
+                      className="w-full rounded-2xl object-cover"
+                    />
+                    <p className="mt-5 font-display text-2xl font-black leading-tight">
+                      {t.histoire.ceed.titre}
+                    </p>
+                    <p className="mt-2 text-ink/70">{t.histoire.ceed.texte}</p>
+                  </aside>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -422,6 +388,14 @@ export default function Accueil({
 
         <DonneesStructurees json={jsonLd} />
       </main>
+      <BarreReservation
+        href={cheminReservation(t.racine)}
+        libelle={t.hero.reserver}
+        places={t.hero.places.replace(
+          "{reste}",
+          String(Math.max(0, PLACES_FONDATEURS.total - PLACES_FONDATEURS.prises)),
+        )}
+      />
       <Footer t={t} />
     </>
   );
