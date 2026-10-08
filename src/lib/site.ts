@@ -107,7 +107,7 @@ export const RESERVATION_URL: string | null = null;
    compteur d'une ville neuve. Quand une ville se remplit, le compteur par ville
    viendra du formulaire. SE MET À JOUR À LA MAIN : un compteur qui ment tue la
    confiance au lieu de créer l'élan. */
-export const PLACES_FONDATEURS = { total: 10, prises: 0 };
+export const PLACES_FONDATEURS = { total: 10, prises: 2 };
 
 /* LES DEUX FONDATEURS, à un seul endroit.
 
