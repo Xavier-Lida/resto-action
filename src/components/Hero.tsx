@@ -60,13 +60,16 @@ export default function Hero({ t }: { t: Textes }) {
           <ArrowDown className="absolute left-1/2 top-1.5 size-5 -translate-x-1/2 animate-bounce text-white" />
         </Link>
 
-        <div className="mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 px-5 pt-14 md:px-8 md:pt-16 lg:grid-cols-2 lg:gap-14 lg:pb-28">
+        {/* La colonne de la vidéo est plus large que celle du texte (7 contre 5) et
+            le conteneur s'élargit sur grand écran : à 1440 px, la vidéo passe
+            d'environ 515 px à 750 px de large, assez pour lire les sous-titres. */}
+        <div className="mx-auto grid w-full max-w-[90rem] flex-1 items-center gap-10 px-5 pt-14 md:px-8 md:pt-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:pb-28">
           <div className="flex flex-col gap-6">
             <p className="animate-hero delay-1 self-start rounded-full bg-white/15 px-4 py-2 text-sm font-bold">
               {t.hero.badge}
             </p>
 
-            <h1 className="animate-hero delay-1 font-display text-5xl font-black leading-[0.95] tracking-tight md:text-7xl">
+            <h1 className="animate-hero delay-1 font-display text-5xl font-black leading-[0.95] tracking-tight md:text-7xl lg:text-6xl xl:text-7xl">
               {t.hero.titre.map((ligne) => (
                 <span key={ligne} className="block">
                   {ligne}
