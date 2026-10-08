@@ -5,9 +5,9 @@ import BoutonReserver from "@/components/BoutonReserver";
 
 /* LA BARRE « RÉSERVER » QUI SUIT LE VISITEUR.
 
-   Elle n'apparaît que quand AUCUN autre bouton Réserver n'est à l'écran (le
-   héro, la bande des plateformes, le calculateur, l'offre : tous portent
-   `data-cta-reserver`). Deux boutons à la fois se feraient concurrence ; avec
+   Elle n'apparaît que quand AUCUNE section qui a son propre bouton Réserver
+   n'est à l'écran (le héro, la bande des plateformes, le calculateur, l'offre :
+   leurs boutons portent `data-cta-reserver`). Deux boutons à la fois se feraient concurrence ; avec
    elle, il y en a toujours un à un pouce, jamais deux.
 
    En bas à droite sur ordinateur (la bannière des témoins occupe le bas à
@@ -22,12 +22,17 @@ export default function BarreReservation({
   /** La phrase « Il reste X places… », déjà remplie. */
   places: string;
 }) {
-  // Les boutons Réserver de la page qui sont à l'écran, en ce moment.
+  // Les sections avec un bouton Réserver qui sont à l'écran, en ce moment.
   const [enVue, setEnVue] = useState<Set<Element>>(new Set());
   const [pret, setPret] = useState(false);
 
   useEffect(() => {
-    const boutons = document.querySelectorAll("[data-cta-reserver]");
+    // On observe la SECTION de chaque bouton, pas le bouton seul : dans
+    // l'offre, le calculateur ou la bande Uber, le bouton est en bas, et la
+    // barre apparaissait pendant qu'on lisait le haut de la section.
+    const boutons = new Set(
+      Array.from(document.querySelectorAll("[data-cta-reserver]"), (b) => b.closest("section") ?? b),
+    );
     const obs = new IntersectionObserver((entrees) => {
       setEnVue((avant) => {
         const apres = new Set(avant);
