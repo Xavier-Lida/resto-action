@@ -86,9 +86,36 @@ export const EN: Textes = {
     recherche: {
       libelle: "Your restaurant's name",
       exemple: "Find your restaurant (e.g. Chez Paul diner)",
-      bouton: "See my app",
+      bouton: "My free mockup",
     },
     condition: "$500 reservation, refundable until launch",
+    maquette: {
+      titre: "A mockup for {nom}, made by hand.",
+      texte:
+        "We build a real mockup of your app, not a template: your logo, your menu, your photos. Free, no commitment, and it lands by text within 24 hours.",
+      inclus: ["Your logo and colours", "Your real menu, with your prices", "Your photos, not stock pictures"],
+      nom: "Your name",
+      cell: "Your cell",
+      ville: "City",
+      menu: "Link to your menu or website",
+      facultatif: "optional",
+      bouton: "Get my mockup",
+      envoi: "Sending…",
+      exemple: "The one we built for Bistro Habibi",
+      exempleAlt: "Bistro Habibi's app scrolling: home, menu, account and cart",
+      attente: "Bistro Habibi's app",
+      decide: "Already decided?",
+      reserver: "Reserve my founder spot",
+      merciTitre: "Got it, {prenom}!",
+      merciTexte:
+        "We'll text you the mockup for {nom} within 24 hours. If we have a question about your menu, we'll call.",
+      merciReserver: "Reserve my spot while they last",
+      erreurs: {
+        invalide: "Your name, cell or city is missing.",
+        trop: "Too many tries at once. Try again in a few minutes.",
+        autre: "That didn't go through. Call or text us at {tel} and we'll take care of it.",
+      },
+    },
     generateur: {
       etapes: ["Your name and colours", "Your menu", "Your loyalty points"],
       enCours: "Building {nom}'s app…",
