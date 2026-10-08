@@ -258,7 +258,7 @@ export const EN: Textes = {
     },
     garde: "kept per year instead of going to the platforms",
     hypotheses:
-      "An estimate, not a guarantee. Money kept: typical 30% platform fees, compared with our $200 monthly subscription and a 10% commission on every order. Extra sales: orders 5% bigger thanks to suggestions, 1 more order in 20 from reminders and recovered carts, 1 more in 20 from Google. Reviews: 1 order in 20. The names and reviews shown are examples. Before taxes and card fees.",
+      "An estimate, not a guarantee. Money kept: typical 30% platform fees, compared with our $200 monthly subscription and our 10% delivery commission (pickup is 5%, so you keep even more). Extra sales (revenue, no added fee on suggestions): orders 5% bigger thanks to suggestions, 1 more order in 20 from reminders and recovered carts, 1 more in 20 from Google. Reviews: 1 order in 20. The names and reviews shown are examples. Before taxes and card fees.",
     reserver: "Reserve my founder spot",
   },
 
