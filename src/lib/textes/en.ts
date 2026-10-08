@@ -338,6 +338,32 @@ export const EN: Textes = {
         legende: "1st place, CEED Challenge 2026",
       },
     ],
+    convictions: {
+      titre: "What we believe",
+      fondateurs: [
+        {
+          nom: "Guillaume",
+          role: "Co-founder · sales and field",
+          alt: "Guillaume Therrien, co-founder of Resto Action",
+          points: [
+            { titre: "Your margins first.", texte: "Every dollar a platform takes from you, we want to give back." },
+            { titre: "Happy customers who come back.", texte: "A satisfied customer orders again. That is what keeps a restaurant alive." },
+            { titre: "Real people in the field.", texte: "We come to you, we speak French, and you have a real number to call." },
+            { titre: "Sales you wouldn't have had.", texte: "Google, texts, points: we go after new orders, not just the ones from Uber." },
+          ],
+        },
+        {
+          nom: "Xavier",
+          role: "Co-founder · technology",
+          alt: "Xavier Lida, co-founder of Resto Action",
+          points: [
+            { titre: "Everything optimized.", texte: "Every screen and every ordering step is built to be fast and to sell more." },
+            { titre: "Reliable systems.", texte: "The order comes in, your kitchen sees it, the driver picks it up. No stress." },
+            { titre: "Always improving.", texte: "We keep refining your tools, based on what we see in our restaurants." },
+          ],
+        },
+      ],
+    },
   },
 
   chaine: {

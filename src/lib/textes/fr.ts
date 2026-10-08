@@ -440,6 +440,53 @@ export const FR = {
         legende: "1re position au Défi CEED 2026",
       },
     ],
+    convictions: {
+      titre: "Ce en quoi on croit",
+      fondateurs: [
+        {
+          nom: "Guillaume",
+          role: "Cofondateur · ventes et terrain",
+          alt: "Guillaume Therrien, cofondateur de Resto Action",
+          points: [
+            {
+              titre: "Tes marges d'abord.",
+              texte: "Chaque dollar qu'une plateforme te prend, on veut te le rendre.",
+            },
+            {
+              titre: "Des clients contents qui reviennent.",
+              texte: "Un client satisfait commande encore. C'est ça qui fait vivre un resto.",
+            },
+            {
+              titre: "Des humains sur le terrain.",
+              texte: "On vient chez vous, on parle français, et tu as un vrai numéro à appeler.",
+            },
+            {
+              titre: "Des ventes que tu n'aurais pas eues.",
+              texte: "Google, textos, points : on va chercher des commandes nouvelles, pas juste celles d'Uber.",
+            },
+          ],
+        },
+        {
+          nom: "Xavier",
+          role: "Cofondateur · technologie",
+          alt: "Xavier Lida, cofondateur de Resto Action",
+          points: [
+            {
+              titre: "Tout est optimisé.",
+              texte: "Chaque écran et chaque étape de commande sont pensés pour aller vite et vendre plus.",
+            },
+            {
+              titre: "Des systèmes fiables.",
+              texte: "La commande arrive, ta cuisine la voit, le livreur la prend. Sans stress.",
+            },
+            {
+              titre: "Toujours en amélioration.",
+              texte: "On perfectionne tes outils en continu, à partir de ce qu'on voit dans nos restos.",
+            },
+          ],
+        },
+      ],
+    },
   },
 
   /* LA SECTION DE LA CHAÎNE YOUTUBE. Elle ne montre pas une vidéo, elle vend un

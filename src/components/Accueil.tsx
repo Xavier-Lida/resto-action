@@ -1,10 +1,7 @@
 import Image from "next/image";
-import { Phone, Mail } from "lucide-react";
-import Agenda from "@/components/Agenda";
 import BarreNav from "@/components/BarreNav";
 import BoutonAbonnement from "@/components/BoutonAbonnement";
 import Calculateur from "@/components/Calculateur";
-import Buoy from "@/components/Buoy";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import IconeYoutube from "@/components/IconeYoutube";
@@ -24,9 +21,7 @@ import {
   EMAIL,
   FONDATEURS,
   LINKEDIN_URL,
-  PHONE_DISPLAY,
   PHONE_E164,
-  PHONE_HREF,
   POSTAL_CODE,
   SITE_URL,
   STREET,
@@ -310,6 +305,60 @@ export default function Accueil({
                   );
                 })}
               </div>
+
+              {/* CE EN QUOI ON CROIT, À LA OWNER : chaque cofondateur porte ses
+                  convictions, avec sa photo. Les cartes se soulèvent au
+                  survol et leurs points entrent l'un après l'autre. */}
+              <Reveal>
+                <h3 className="mt-24 font-display text-2xl font-black leading-tight tracking-tight md:text-4xl">
+                  {t.histoire.convictions.titre}
+                </h3>
+              </Reveal>
+              <div className="mt-10 grid gap-6 md:grid-cols-2">
+                {t.histoire.convictions.fondateurs.map((f, i) => {
+                  const image = IMAGES_HISTOIRE[i];
+                  return (
+                    <Reveal key={f.nom} delay={(i + 1) as 1 | 2}>
+                      <article className="group h-full rounded-[2rem] bg-white/[0.05] p-7 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.08] md:p-8">
+                        <header className="flex items-center gap-4">
+                          <Image
+                            draggable={false}
+                            src={image.src}
+                            alt={f.alt}
+                            width={image.width}
+                            height={image.height}
+                            className="size-16 rounded-full object-cover grayscale transition duration-500 group-hover:grayscale-0"
+                          />
+                          <div>
+                            <p className="font-display text-xl font-black">{f.nom}</p>
+                            <p className="text-sm text-white/60">{f.role}</p>
+                          </div>
+                        </header>
+                        <ol className="mt-7 grid list-none gap-5">
+                          {f.points.map((point, k) => (
+                            <li
+                              key={point.titre}
+                              className="flex gap-4 border-l-2 border-brand/40 pl-4 transition-colors duration-300 group-hover:border-brand"
+                            >
+                              <span className="font-display text-sm font-black text-brand">
+                                {String(k + 1).padStart(2, "0")}
+                              </span>
+                              <div>
+                                <p className="font-display text-lg font-black leading-snug">
+                                  {point.titre}
+                                </p>
+                                <p className="mt-1 text-sm leading-relaxed text-white/70">
+                                  {point.texte}
+                                </p>
+                              </div>
+                            </li>
+                          ))}
+                        </ol>
+                      </article>
+                    </Reveal>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
@@ -367,54 +416,9 @@ export default function Accueil({
         {/* ─── FAQ ─── */}
         <SectionFaq id="faq" titre={t.faq.titre} items={t.faq.items} centre />
 
-        {/* ─── CTA final / Contact ─── */}
-        {/* Le rouge de la hero, le pitch à gauche, l'agenda compact à droite. */}
-        <section id="contact" className="bg-hero text-white">
-          <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
-            {/* 3:5 ET NON 1:1, PARCE QUE L'AGENDA A BESOIN DE PLUS QUE LE TEXTE.
-                À moitié-moitié, la carte de l'agenda tombait à 528 px, dont
-                464 px de contenu : de quoi déclencher sa disposition à deux
-                colonnes sans pouvoir la tenir, et des cases de mois de 22 px.
-                Le ratio est calé sur le PIRE CAS, l'écran de 1024 px où `lg:`
-                s'applique tout juste : l'agenda y reçoit 580 px, soit 516 px
-                de contenu — au-dessus du seuil de 512 px du composant. Tout
-                écran plus large ne fait qu'améliorer les deux colonnes. */}
-            <div className="grid items-center gap-10 lg:grid-cols-[3fr_5fr] lg:gap-14">
-              <Reveal>
-                <div>
-                  <Buoy className="mb-6 w-16" />
-                  <h2 className="max-w-md font-display text-3xl md:text-5xl font-black leading-tight tracking-tight">
-                    {t.contact.titre}
-                  </h2>
-                  <p className="mt-4 max-w-md text-lg text-white/85">
-                    {t.contact.texte}
-                  </p>
-                  <a
-                    href={PHONE_HREF}
-                    className="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-black text-ink transition hover:bg-ink hover:text-white active:scale-95"
-                  >
-                    <Phone className="size-5" />
-                    {PHONE_DISPLAY}
-                  </a>
-                  <p className="mt-6 text-sm text-white/70">
-                    {t.contact.signature}
-                  </p>
-                  <a
-                    href={`mailto:${EMAIL}`}
-                    className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-white/85 transition hover:text-white"
-                  >
-                    <Mail className="size-4" />
-                    {EMAIL}
-                  </a>
-                </div>
-              </Reveal>
-
-              <Reveal delay={1}>
-                <Agenda t={t} />
-              </Reveal>
-            </div>
-          </div>
-        </section>
+        {/* La section « Parlons de ton resto » (agenda) a quitté l'accueil :
+            chaque bouton mène déjà à la réservation ou à /contact, qui garde
+            l'agenda complet. */}
 
         <DonneesStructurees json={jsonLd} />
       </main>
