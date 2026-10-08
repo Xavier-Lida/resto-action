@@ -191,9 +191,37 @@ export const FR = {
     recherche: {
       libelle: "Nom de ton resto",
       exemple: "Trouve ton resto (ex. Casse-croûte Chez Paul)",
-      bouton: "Voir mon app",
+      bouton: "Ma maquette gratuite",
     },
     condition: "Réservation 500 $ remboursable jusqu'au lancement",
+    // La demande de maquette gratuite, faite à la main, qui s'ouvre du champ.
+    maquette: {
+      titre: "La maquette de {nom}, faite à la main.",
+      texte:
+        "On te monte une vraie maquette de ton app, pas un modèle : ton logo, ton menu, tes photos. Gratuite, sans engagement, et tu la reçois par texto d'ici 24 h.",
+      inclus: ["Ton logo et tes couleurs", "Ton vrai menu, avec tes prix", "Tes photos, pas des photos d'exemple"],
+      nom: "Ton nom",
+      cell: "Ton cell",
+      ville: "Ville",
+      menu: "Lien de ton menu ou de ton site",
+      facultatif: "facultatif",
+      bouton: "Recevoir ma maquette",
+      envoi: "Envoi…",
+      exemple: "Celle qu'on a faite pour Bistro Habibi",
+      exempleAlt: "L'app de Bistro Habibi qui défile : accueil, menu, compte et panier",
+      attente: "L'app de Bistro Habibi",
+      decide: "Déjà décidé?",
+      reserver: "Réserver ma place fondateur",
+      merciTitre: "C'est noté, {prenom}!",
+      merciTexte:
+        "On te texte la maquette de {nom} d'ici 24 h. Si on a une question sur ton menu, on t'appelle.",
+      merciReserver: "Réserver ma place pendant qu'il en reste",
+      erreurs: {
+        invalide: "Il manque ton nom, ton cell ou ta ville.",
+        trop: "Trop d'essais d'un coup. Réessaie dans quelques minutes.",
+        autre: "Ça n'a pas passé. Appelle-nous ou texte-nous au {tel}, on s'en occupe.",
+      },
+    },
     // L'aperçu d'app généré à partir du nom tapé dans le champ.
     generateur: {
       etapes: ["Ton nom et tes couleurs", "Ton menu", "Ton programme de points"],
