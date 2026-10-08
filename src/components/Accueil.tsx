@@ -65,14 +65,18 @@ const IMAGES_HISTOIRE = [
     width: 675,
     height: 900,
     lien: FONDATEURS.guillaume.linkedin,
+    // Le cadrage 4:3 garde le visage : il est dans le haut de la photo.
+    position: "object-[50%_30%]",
   },
   {
     src: "/xavier.webp",
     width: 512,
     height: 683,
     lien: FONDATEURS.xavier.linkedin,
+    // Ici, le visage est au milieu de la photo.
+    position: "object-[50%_65%]",
   },
-  { src: "/ceed.jpeg", width: 1086, height: 1018, lien: null },
+  { src: "/ceed.jpeg", width: 1086, height: 1018, lien: null, position: "" },
 ];
 
 /* `fonctionnalites` arrive du fichier de route, comme pour PagePlateforme : la
@@ -286,7 +290,7 @@ export default function Accueil({
                               alt={f.alt}
                               width={image.width}
                               height={image.height}
-                              className="aspect-[4/3] w-full object-cover object-top grayscale transition duration-500 group-hover:scale-[1.03] group-hover:grayscale-0"
+                              className={`aspect-[4/3] w-full object-cover ${image.position} grayscale transition duration-500 group-hover:scale-[1.03] group-hover:grayscale-0`}
                             />
                             <span className="absolute bottom-3 right-3 grid size-11 place-items-center rounded-full bg-white text-[#0a66c2] shadow-lg transition group-hover:scale-110">
                               <IconeLinkedIn className="size-5" />

@@ -4,6 +4,7 @@ import BarrePlaces from "@/components/BarrePlaces";
 import GenerateurApp from "@/components/GenerateurApp";
 import IconeYoutube from "@/components/IconeYoutube";
 import LecteurVideo from "@/components/LecteurVideo";
+import LienPasPret from "@/components/LienPasPret";
 import {
   LINKEDIN_URL,
   cheminReservation,
@@ -101,12 +102,11 @@ export default function Hero({ t }: { t: Textes }) {
 
             <div className="animate-hero delay-3 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonReserver href={reserver} libelle={t.hero.reserver} ton="blanc" />
-              <Link
-                href={`${t.racine}/contact`}
+              <LienPasPret
+                t={t}
+                libelle={t.hero.pasPret}
                 className="font-bold underline underline-offset-4 transition hover:text-white/80"
-              >
-                {t.hero.pasPret}
-              </Link>
+              />
             </div>
           </div>
 

@@ -18,6 +18,7 @@ export default function BoutonReserver({
   taille = "lg",
   pleineLargeur = false,
   sous,
+  flottant = false,
   className = "",
 }: {
   href: string;
@@ -26,6 +27,10 @@ export default function BoutonReserver({
   taille?: "md" | "lg" | "xl";
   pleineLargeur?: boolean;
   sous?: string;
+  /** Le bouton de la barre qui suit le visiteur (BarreReservation). Les
+      autres portent `data-cta-reserver` : quand l'un d'eux est à l'écran,
+      la barre se cache, pour ne jamais montrer deux boutons à la fois. */
+  flottant?: boolean;
   className?: string;
 }) {
   const couleurs =
@@ -41,7 +46,10 @@ export default function BoutonReserver({
   const rond = { md: "size-8", lg: "size-10 md:size-11", xl: "size-11 md:size-12" }[taille];
 
   return (
-    <div className={`${pleineLargeur ? "w-full" : "inline-flex"} flex-col items-center gap-2 ${className}`}>
+    <div
+      data-cta-reserver={flottant ? undefined : ""}
+      className={`${pleineLargeur ? "w-full" : "inline-flex"} flex-col items-center gap-2 ${className}`}
+    >
       <a
         href={href}
         className={`cta-brille group relative flex items-center justify-between rounded-full font-black shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_7px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none ${couleurs} ${dimensions} ${pleineLargeur ? "w-full" : ""}`}

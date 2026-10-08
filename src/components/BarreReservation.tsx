@@ -5,10 +5,10 @@ import BoutonReserver from "@/components/BoutonReserver";
 
 /* LA BARRE « RÉSERVER » QUI SUIT LE VISITEUR.
 
-   Elle apparaît dès que le héro (et son bouton) sort de l'écran, et se retire
-   quand l'offre fondateur est à l'écran : celle-ci a déjà son gros bouton,
-   deux boutons côte à côte se feraient concurrence. Le bouton est donc
-   toujours à un pouce, sans jamais se doubler.
+   Elle n'apparaît que quand AUCUN autre bouton Réserver n'est à l'écran (le
+   héro, la bande des plateformes, le calculateur, l'offre : tous portent
+   `data-cta-reserver`). Deux boutons à la fois se feraient concurrence ; avec
+   elle, il y en a toujours un à un pouce, jamais deux.
 
    En bas à droite sur ordinateur (la bannière des témoins occupe le bas à
    gauche), pleine largeur au téléphone. */
@@ -22,24 +22,28 @@ export default function BarreReservation({
   /** La phrase « Il reste X places… », déjà remplie. */
   places: string;
 }) {
-  const [heroVisible, setHeroVisible] = useState(true);
-  const [offreVisible, setOffreVisible] = useState(false);
+  // Les boutons Réserver de la page qui sont à l'écran, en ce moment.
+  const [enVue, setEnVue] = useState<Set<Element>>(new Set());
+  const [pret, setPret] = useState(false);
 
   useEffect(() => {
-    const hero = document.getElementById("top");
-    const offre = document.getElementById("offre");
+    const boutons = document.querySelectorAll("[data-cta-reserver]");
     const obs = new IntersectionObserver((entrees) => {
-      for (const e of entrees) {
-        if (e.target === hero) setHeroVisible(e.isIntersecting);
-        if (e.target === offre) setOffreVisible(e.isIntersecting);
-      }
+      setEnVue((avant) => {
+        const apres = new Set(avant);
+        for (const e of entrees) {
+          if (e.isIntersecting) apres.add(e.target);
+          else apres.delete(e.target);
+        }
+        return apres;
+      });
+      setPret(true);
     });
-    if (hero) obs.observe(hero);
-    if (offre) obs.observe(offre);
+    boutons.forEach((b) => obs.observe(b));
     return () => obs.disconnect();
   }, []);
 
-  const visible = !heroVisible && !offreVisible;
+  const visible = pret && enVue.size === 0;
 
   return (
     <div
@@ -55,7 +59,7 @@ export default function BarreReservation({
         </span>
         <span className="hidden sm:inline">{places}</span>
       </span>
-      <BoutonReserver href={href} libelle={libelle} taille="md" />
+      <BoutonReserver href={href} libelle={libelle} taille="md" flottant />
     </div>
   );
 }
