@@ -74,7 +74,7 @@ export const EN: Textes = {
       "An app of your own",
     ],
     carteTitre: "Talk to Guillaume",
-    carteSousTitre: "A 30-minute call.",
+    carteSousTitre: "A quick call.",
     guillaumeAlt: "Guillaume Therrien, co-founder of Resto Action",
     badge: "Made in Trois-Rivières, for local restaurants",
     titre: ["Your customers.", "Your sales.", "Your app."],
@@ -156,7 +156,7 @@ export const EN: Textes = {
     reserver: "Reserve my founder spot",
     pasPret: "Not ready yet?",
     appel: {
-      titre: "Not ready yet? Let's take 30 minutes.",
+      titre: "Not ready yet? Let's talk.",
       texte: "Pick a time that works for you. We'll look at your numbers together, no pressure.",
       fermer: "Close",
     },
@@ -562,7 +562,7 @@ export const EN: Textes = {
       },
       {
         q: "How do we start?",
-        a: `Reserve your founder spot online: 4 steps, 2 minutes, $500 refundable until launch. We call you within 24 hours to plan your installation. Not ready? Call us at ${PHONE_DISPLAY} or book a free 30-minute call.`,
+        a: `Reserve your founder spot online: 4 steps, 2 minutes, $500 refundable until launch. We call you within 24 hours to plan your installation. Not ready? Call us at ${PHONE_DISPLAY} or book a quick call with Guillaume.`,
       },
     ],
   },
@@ -570,13 +570,13 @@ export const EN: Textes = {
   contact: {
     titre: "Let's talk about your restaurant.",
     texte:
-      "A 30-minute call is enough to see what Resto Action can do for your restaurant.",
+      "A quick call is enough to see what Resto Action can do for your restaurant.",
     signature: "Guillaume Therrien · Resto Action",
   },
 
   agenda: {
     chargement: "One moment, opening the calendar…",
-    duree: "30 minutes with Guillaume, over Google Meet.",
+    duree: "A quick call with Guillaume, over Google Meet.",
     fuseau: "Eastern time",
     choisirJour: "Which day?",
     choisirHeure: "What time?",
@@ -618,13 +618,13 @@ export const EN: Textes = {
   pageContact: {
     metaTitre: "Contact us",
     metaDescription:
-      "Two ways to reach Resto Action: book a 30-minute call with Guillaume, or call us directly at 819 944-4661.",
+      "Two ways to reach Resto Action: book a quick call with Guillaume, or call us directly at 819 944-4661.",
     surtitre: "We answer fast",
     titre: "Let's talk about your restaurant.",
     rdv: {
       titre: "Book a call",
       texte:
-        "Pick your time in the calendar. Thirty minutes with Guillaume, no pressure and no commitment.",
+        "Pick your time in the calendar. A quick call with Guillaume, no pressure and no commitment.",
       bouton: "Pick my time",
     },
     tel: {

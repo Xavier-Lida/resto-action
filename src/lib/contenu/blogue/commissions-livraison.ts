@@ -108,7 +108,7 @@ export const COMMISSIONS: PaireArticle = {
       {
         t: "p",
         texte:
-          "Si tu veux qu'on fasse le calcul ensemble, [appelle-nous](/contact). Trente minutes, tes chiffres en main. On te dit ce qu'on voit, même quand ce qu'on voit c'est que le problème est ailleurs.",
+          "Si tu veux qu'on fasse le calcul ensemble, [appelle-nous](/contact). Un court appel, tes chiffres en main. On te dit ce qu'on voit, même quand ce qu'on voit c'est que le problème est ailleurs.",
       },
     ],
   },
@@ -208,7 +208,7 @@ export const COMMISSIONS: PaireArticle = {
       {
         t: "p",
         texte:
-          "If you want us to run the numbers with you, [give us a call](/en/contact). Thirty minutes, your figures in hand. We'll tell you what we see, even when what we see is that the problem is somewhere else.",
+          "If you want us to run the numbers with you, [give us a call](/en/contact). A quick call, your figures in hand. We'll tell you what we see, even when what we see is that the problem is somewhere else.",
       },
     ],
   },

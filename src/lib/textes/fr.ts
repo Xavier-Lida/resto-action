@@ -179,7 +179,7 @@ export const FR = {
       "Ton app à ton nom",
     ],
     carteTitre: "Parle à Guillaume",
-    carteSousTitre: "Un appel de 30 minutes.",
+    carteSousTitre: "Un court appel.",
     guillaumeAlt: "Guillaume Therrien, cofondateur de Resto Action",
     badge: "Fait à Trois-Rivières, pour les restos d'ici",
     titre: ["Tes clients.", "Tes ventes.", "Ton app."],
@@ -266,7 +266,7 @@ export const FR = {
     pasPret: "Pas encore prêt?",
     // La fenêtre qui s'ouvre de « Pas encore prêt? » : l'agenda de Guillaume.
     appel: {
-      titre: "Pas encore prêt? Prenons 30 minutes.",
+      titre: "Pas encore prêt? Parlons-en.",
       texte: "Choisis un moment qui te va. On regarde tes chiffres ensemble, sans pression.",
       fermer: "Fermer",
     },
@@ -707,7 +707,7 @@ export const FR = {
       },
       {
         q: "Comment on commence?",
-        a: `Tu réserves ta place fondateur en ligne : 4 étapes, 2 minutes, 500 $ remboursables jusqu'au lancement. On t'appelle dans les 24 h pour planifier ton installation. Pas prêt? Appelle-nous au ${PHONE_DISPLAY} ou prends un appel gratuit de 30 minutes.`,
+        a: `Tu réserves ta place fondateur en ligne : 4 étapes, 2 minutes, 500 $ remboursables jusqu'au lancement. On t'appelle dans les 24 h pour planifier ton installation. Pas prêt? Appelle-nous au ${PHONE_DISPLAY} ou prends un court appel avec Guillaume.`,
       },
       /* LES QUATRE QUESTIONS DE LONGUE TRAÎNE ONT DÉMÉNAGÉ. Elles étaient ici
          — commissions de livraison, fiche Google, avis, délais — et portaient
@@ -730,7 +730,7 @@ export const FR = {
   contact: {
     titre: "Parlons de ton resto.",
     texte:
-      "Un appel de 30 minutes suffit pour voir ce que Resto Action peut faire pour ton resto.",
+      "Un court appel suffit pour voir ce que Resto Action peut faire pour ton resto.",
     signature: "Guillaume Therrien · Resto Action",
   },
 
@@ -743,7 +743,7 @@ export const FR = {
      de ce fichier oblige à les traduire tous. */
   agenda: {
     chargement: "Un instant, on ouvre l'agenda…",
-    duree: "30 minutes avec Guillaume, par Google Meet.",
+    duree: "Un court appel avec Guillaume, par Google Meet.",
     fuseau: "Heure de l'Est",
     choisirJour: "Quel jour ?",
     choisirHeure: "Quelle heure ?",
@@ -793,13 +793,13 @@ export const FR = {
   pageContact: {
     metaTitre: "Nous contacter",
     metaDescription:
-      "Deux façons de joindre Resto Action : céduler un appel de 30 minutes avec Guillaume, ou nous appeler directement au 819 944-4661.",
+      "Deux façons de joindre Resto Action : céduler un court appel avec Guillaume, ou nous appeler directement au 819 944-4661.",
     surtitre: "On répond vite",
     titre: "Parlons de ton resto.",
     rdv: {
       titre: "Céduler un appel",
       texte:
-        "Choisis ton heure dans l'agenda. Trente minutes avec Guillaume, sans pression et sans engagement.",
+        "Choisis ton heure dans l'agenda. Un court appel avec Guillaume, sans pression et sans engagement.",
       bouton: "Choisir mon heure",
     },
     tel: {
