@@ -184,15 +184,15 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
   commandes: {
     slug: "/plateforme/commandes-en-ligne",
     filNom: "Commandes en ligne",
-    metaTitre: "Commandes en ligne sans commission",
+    metaTitre: "Commandes en ligne sans les 30 % des plateformes",
     metaDescription:
-      "Prendre tes commandes en ligne sans donner un pourcentage de chaque vente, sans changer ta caisse, et en gardant les clients qui commandent. Comment ça marche, et ce que ça demande de ton côté.",
+      "Prendre tes commandes en ligne sur ton app web et mobile, sans donner 30 % de chaque vente, sans changer ta caisse, et en gardant les clients qui commandent. Comment ça marche, et ce que ça demande de ton côté.",
     surTitre: "Plus de ventes en ligne",
-    titre: "Des commandes en ligne qui ne te coûtent pas de commission",
+    titre: "Des commandes en ligne qui ne te coûtent pas 30 %",
     intro:
-      "Chaque commande qui passe par une app de livraison te laisse une part de la vente et garde le client. Voici à quoi ressemble l'autre chemin : la commande arrive chez toi, à pleine marge, et le client devient le tien.",
+      "Chaque commande qui passe par une app de livraison te laisse une part de la vente et garde le client. Voici à quoi ressemble l'autre chemin : la commande arrive chez toi, presque à pleine marge, et le client devient le tien.",
     resume:
-      "La commande passe par toi. Aucune commission, et le client reste le tien.",
+      "La commande passe par ton app. 5 % ou 10 % au lieu de 30 %, et le client reste le tien.",
     typeService: "Commande en ligne pour restaurants",
     blocs: [
       { t: "h2", texte: "Ce que coûte vraiment une commande d'app" },
@@ -205,7 +205,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         t: "tableau",
         entetes: ["", "Commande d'app", "Commande directe"],
         lignes: [
-          ["Ce qui te reste", "La vente moins la commission", "La vente"],
+          ["Ce qui te reste", "La vente moins jusqu'à 30 %", "La vente moins 5 % ou 10 %"],
           ["Qui a le courriel du client", "L'application", "Toi"],
           ["Qui décide des prix affichés", "Toi, sous pression de la commission", "Toi"],
           ["Qui peut le faire revenir", "L'application", "Toi"],
@@ -280,11 +280,11 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "C'est quoi la différence avec DoorDash ou Uber Eats?",
-          a: "Sur ces plateformes-là, une part de chaque commande s'en va en commission et le client appartient à l'application. Chez nous, la commande passe par ton site et ton app : le client est à toi, le montant aussi.",
+          a: "Sur ces plateformes-là, jusqu'à 30 % de chaque commande s'en va en commission, et le client appartient à l'application. Chez nous, la commande passe par ton app web et mobile : on prend 5 % en cueillette et 10 % en livraison, et le client est à toi.",
         },
         {
           q: "Et la livraison, vous la faites?",
-          a: "On branche la commande, pas les livreurs. Bien des restos gardent leur propre livraison ou n'offrent que la cueillette : c'est souvent là que la marge est la meilleure.",
+          a: "Oui, avec des livreurs d'ici : c'est 10 % de la commande, sur la nourriture seulement. Si tu fais seulement de la cueillette, c'est 5 %.",
         },
       ],
     },
@@ -644,14 +644,14 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
   commandes: {
     slug: "/en/platform/online-ordering",
     filNom: "Online ordering",
-    metaTitre: "Online ordering with no commission",
+    metaTitre: "Online ordering without the platforms' 30%",
     metaDescription:
-      "Take your orders online without handing over a cut of every sale, without changing your point of sale, and keep the customers who order. How it works, and what it asks of you.",
+      "Take your orders online through your own web and mobile app, without handing over 30% of every sale, without changing your point of sale, and keep the customers who order. How it works, and what it asks of you.",
     surTitre: "More online sales",
-    titre: "Online ordering that doesn't cost you a commission",
+    titre: "Online ordering that doesn't cost you 30%",
     intro:
-      "Every order through a delivery app leaves part of the sale behind and keeps the customer. Here's what the other road looks like: the order comes to you, at full margin, and the customer becomes yours.",
-    resume: "The order comes through you. No commission, and the customer stays yours.",
+      "Every order through a delivery app leaves part of the sale behind and keeps the customer. Here's what the other road looks like: the order comes to you, at nearly full margin, and the customer becomes yours.",
+    resume: "The order comes through your app. 5% or 10% instead of 30%, and the customer stays yours.",
     typeService: "Online ordering for restaurants",
     blocs: [
       { t: "h2", texte: "What an app order really costs" },
@@ -664,7 +664,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         t: "tableau",
         entetes: ["", "App order", "Direct order"],
         lignes: [
-          ["What's left for you", "The sale minus the commission", "The sale"],
+          ["What's left for you", "The sale minus up to 30%", "The sale minus 5% or 10%"],
           ["Who has the customer's email", "The app", "You"],
           ["Who sets the listed prices", "You, under commission pressure", "You"],
           ["Who can bring them back", "The app", "You"],
@@ -739,11 +739,11 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "How is this different from DoorDash or Uber Eats?",
-          a: "On those platforms, a cut of every order goes to commission and the customer belongs to the app. With us, the order goes through your own site and your own app: the customer is yours, and so is the money.",
+          a: "On those platforms, up to 30% of every order goes to commission, and the customer belongs to the app. With us, the order goes through your own web and mobile app: we take 5% on pickup and 10% on delivery, and the customer is yours.",
         },
         {
           q: "Do you handle delivery?",
-          a: "We connect the ordering, not the drivers. Plenty of restaurants keep their own delivery or offer pickup only: that's often where the margin is best.",
+          a: "Yes, with local drivers: it's 10% of the order, on food only. If you only do pickup, it's 5%.",
         },
       ],
     },

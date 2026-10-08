@@ -21,12 +21,12 @@ export const EN: Textes = {
      voix. L'ancien title faisait 68 signes et se faisait couper en SERP ;
      celui-ci en fait 54 et dit enfin « platform ». */
   meta: {
-    titre: "Resto Action | Web platform for independent restaurants",
-    description: `Google visibility, online ordering with no commission, customers who come back. The platform for Quebec's independent restaurants. ${PHONE_DISPLAY}.`,
+    titre: "Resto Action | Web and mobile app for independent restaurants",
+    description: `Your own web and mobile ordering app. Without the platforms' 30%, found on Google, with customers who come back. For Quebec's independent restaurants. ${PHONE_DISPLAY}.`,
     ogTitre:
       "Resto Action | We fix what's actually hurting independent restaurants",
     ogDescription:
-      "We start by listening. We find what's eating your restaurant, and we fix it with you.",
+      "Your customers order from you, not from Uber. Your web and mobile app, local drivers, and a customer list that belongs to you.",
     ogLocale: "en_CA",
   },
 
@@ -60,7 +60,7 @@ export const EN: Textes = {
     fixe: "Quebec's independent restaurants call us to",
     variantes: [
       "finally show up on Google.",
-      "sell online without the commission.",
+      "sell online without giving up 30%.",
       "get their customers coming back.",
       "get an app of their own.",
     ],
@@ -69,7 +69,7 @@ export const EN: Textes = {
   hero: {
     promesses: [
       "Found on Google",
-      "Orders without commission",
+      "Orders without the 30%",
       "Customers who come back",
       "An app of your own",
     ],
@@ -148,7 +148,7 @@ export const EN: Textes = {
       },
       {
         onglet: "More online sales",
-        surTitre: "Orders without the commission",
+        surTitre: "Orders without the platforms' 30%",
         titre: "Online ordering that makes people want to add one more",
       },
       {
@@ -503,15 +503,19 @@ export const EN: Textes = {
     items: [
       {
         q: "What is Resto Action?",
-        a: "Resto Action is a web platform for Quebec's independent restaurants, built in Trois-Rivières: Google visibility, online ordering with no commission, customer follow-ups, and an app under your own name.",
+        a: "Your own web and mobile ordering app, under your name, for Quebec's independent restaurants. Built in Trois-Rivières. Your customers order from you instead of Uber Eats or DoorDash, and we handle the rest: your Google listing, text reminders that bring them back, and delivery by local drivers.",
       },
       {
-        q: "What kinds of problems do you fix?",
-        a: "Commissions eating your margins, customers you can't reach, visibility, tools that cost you too much. Whatever the problem, we start by listening.",
+        q: "Is it a mobile app or a website?",
+        a: "Both. Customers order on your site, right in the browser, nothing to download: that's your web app. Your regulars download your mobile app under your name, on iPhone and Android. Same menu, same account, same points.",
+      },
+      {
+        q: "Do you take a commission?",
+        a: "Yes, a small one: 5% on pickup and 10% on delivery, on food only. The platforms take up to 30%. And what really matters is your customer list: it's yours, you reach out whenever you want, and nobody takes it from you.",
       },
       {
         q: "How much does it cost?",
-        a: `It depends on your restaurant and your problem. Call us at ${PHONE_DISPLAY}, we'll look at it together in 30 minutes, numbers in hand.`,
+        a: "For founding restaurants: $500 setup instead of $1,000, $495 for equipment at installation (tablet, stand, counter sign and inserts), $100 a month for the first 3 months, then $200 a month. Plus 5% on pickup and 10% on delivery. Taxes extra. The $500 is refundable until launch.",
       },
       {
         q: "Where are you? Who do you serve?",
@@ -519,7 +523,7 @@ export const EN: Textes = {
       },
       {
         q: "How do we start?",
-        a: `You call us at ${PHONE_DISPLAY}, you write to us, or you book your call right here on the site. Thirty minutes to look together at what's eating your restaurant. No pressure, no 40-page contract.`,
+        a: `Reserve your founder spot online: 4 steps, 2 minutes, $500 refundable until launch. We call you within 24 hours to plan your installation. Not ready? Call us at ${PHONE_DISPLAY} or book a free 30-minute call.`,
       },
     ],
   },
@@ -616,7 +620,7 @@ export const EN: Textes = {
 
   donnees: {
     definition:
-      "Resto Action is a Quebec platform for independent restaurants: we get you found on Google, we take your online orders without the commission, we bring your customers back, and we give you an app under your own name.",
+      "Resto Action is the web and mobile ordering app for Quebec's independent restaurants: under your own name, without the platforms' 30%, with Google visibility, follow-ups that bring customers back, and delivery by local drivers.",
     zoneServie: "Quebec, Canada",
   },
 };
