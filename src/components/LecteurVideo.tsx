@@ -105,6 +105,10 @@ export default function LecteurVideo({
       rel: "0",
       enablejsapi: "1",
       hl,
+      /* Elle joue sans son : on force les sous-titres de YouTube, dans la
+         langue de la page s'il en a, pour qu'on comprenne sans le son. */
+      cc_load_policy: "1",
+      cc_lang_pref: hl,
     });
     return (
       <div
