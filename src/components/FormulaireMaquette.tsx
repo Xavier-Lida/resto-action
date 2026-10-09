@@ -19,11 +19,14 @@ export default function FormulaireMaquette({
   t,
   restaurant: restaurantInitial = "",
   demanderRestaurant = false,
+  lieu = null,
   titreId,
 }: {
   t: Textes;
   restaurant?: string;
   demanderRestaurant?: boolean;
+  /** La fiche Google choisie dans l'aperçu automatique, s'il y en a une. */
+  lieu?: { id: string; adresse: string } | null;
   titreId: string;
 }) {
   const m = t.hero.maquette;
@@ -57,6 +60,8 @@ export default function FormulaireMaquette({
         body: JSON.stringify({
           restaurant: nomResto,
           ...champs,
+          lieuId: lieu?.id,
+          adresse: lieu?.adresse,
           piege,
           langue: t.htmlLang.startsWith("en") ? "en" : "fr",
           provenance: lireProvenance() ?? undefined,

@@ -226,6 +226,19 @@ export const FR = {
         autre: "Ça n'a pas passé. Appelle-nous ou texte-nous au {tel}, on s'en occupe.",
       },
     },
+    // L'aperçu automatique, fait avec la fiche Google du resto (ApercuResto).
+    apercu: {
+      etiquette: "Aperçu automatique",
+      chargement: "On cherche ta fiche Google…",
+      choisir: "C'est lequel?",
+      note: "Fait tout seul avec ta fiche Google. Ta vraie maquette, avec ton menu et tes prix, est faite à la main et t'arrive en 48 h.",
+      aucun: "On n'a pas trouvé ta fiche Google. Voici l'app qu'on a faite pour Bistro Habibi :",
+      couleur: "Essaie une couleur",
+      avis: "avis Google",
+      commander: "Commander",
+      vedette: "En vedette",
+      points: "Tes points de fidélité",
+    },
     // L'aperçu d'app généré à partir du nom tapé dans le champ.
     generateur: {
       etapes: ["Ton nom et tes couleurs", "Ton menu", "Ton programme de points"],

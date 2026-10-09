@@ -120,6 +120,18 @@ export const EN: Textes = {
         autre: "That didn't go through. Call or text us at {tel} and we'll take care of it.",
       },
     },
+    apercu: {
+      etiquette: "Automatic preview",
+      chargement: "Looking up your Google listing…",
+      choisir: "Which one is it?",
+      note: "Built automatically from your Google listing. Your real mockup, with your menu and prices, is made by hand and arrives within 48 hours.",
+      aucun: "We couldn't find your Google listing. Here's the app we built for Bistro Habibi:",
+      couleur: "Try a colour",
+      avis: "Google reviews",
+      commander: "Order",
+      vedette: "Featured",
+      points: "Your loyalty points",
+    },
     generateur: {
       etapes: ["Your name and colours", "Your menu", "Your loyalty points"],
       enCours: "Building {nom}'s app…",

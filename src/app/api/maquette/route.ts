@@ -50,6 +50,9 @@ export async function POST(requete: NextRequest): Promise<Response> {
     telephone: texte(corps.telephone, 40),
     ville: texte(corps.ville, 80),
     menu: texte(corps.menu, 300),
+    // La fiche Google choisie dans l'aperçu automatique : facultative.
+    lieuId: /^[A-Za-z0-9_-]{5,300}$/.test(texte(corps.lieuId, 300)) ? texte(corps.lieuId, 300) : "",
+    adresse: texte(corps.adresse, 200),
     langue: corps.langue === "en" ? ("en" as const) : ("fr" as const),
     provenance: assainirProvenance(corps.provenance),
   };

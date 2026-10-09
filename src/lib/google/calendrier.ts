@@ -370,6 +370,8 @@ export type DemandeMaquette = {
   telephone: string;
   ville: string;
   menu: string;
+  lieuId: string;
+  adresse: string;
   langue: "fr" | "en";
   provenance?: Provenance;
 };
@@ -387,6 +389,8 @@ export async function creerDemandeMaquette(d: DemandeMaquette): Promise<void> {
     `Courriel : ${d.courriel}`,
     `Cell : ${d.telephone}`,
     d.menu ? `Menu / site : ${d.menu}` : "Menu / site : pas donné, à trouver (Google, Facebook)",
+    d.adresse ? `Adresse (fiche Google) : ${d.adresse}` : null,
+    d.lieuId ? `Fiche Google : https://www.google.com/maps/place/?q=place_id:${d.lieuId}` : null,
   ];
   await appeler(
     `/calendars/${encodeURIComponent(calendrierRdv())}/events?sendUpdates=none`,
@@ -394,7 +398,7 @@ export async function creerDemandeMaquette(d: DemandeMaquette): Promise<void> {
       method: "POST",
       body: JSON.stringify({
         summary: `Maquette à livrer : ${d.restaurant} (${d.ville})`,
-        description: lignes.join("\n"),
+        description: lignes.filter((l) => l !== null).join("\n"),
         start: { dateTime: echeance.toISOString() },
         end: { dateTime: fin.toISOString() },
         reminders: { useDefault: false, overrides: [{ method: "popup", minutes: 120 }] },
