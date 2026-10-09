@@ -8,6 +8,7 @@ import BarrePlaces from "@/components/BarrePlaces";
 import LienPasPret from "@/components/LienPasPret";
 import ModalePasPret from "@/components/ModalePasPret";
 import DemoApp from "@/components/DemoApp";
+import InfoLancement from "@/components/InfoLancement";
 import { formaterTelephone } from "@/lib/telephone";
 import { lireProvenance } from "@/lib/provenance";
 import { PHONE_DISPLAY } from "@/lib/site";
@@ -207,6 +208,7 @@ export default function FormulaireFondateur({
             <div key={etape} className="calc-entre flex-1">
               {etape === 0 && (
                 <Etape titre={r.resto.titre} texte={r.resto.texte}>
+                  <InfoLancement t={t} compact className="mb-5" />
                   <div className="grid gap-3 sm:grid-cols-2">
                     <Champ
                       etiquette={r.resto.restaurant}
@@ -329,6 +331,7 @@ export default function FormulaireFondateur({
 
               {etape === 2 && (
                 <Etape titre={r.offre.titre} texte={r.offre.texte}>
+                  <InfoLancement t={t} className="mb-5" />
                   <ol className="relative list-none rounded-3xl bg-white p-5 md:p-6">
                     {t.offre.couts.map((c, i) => (
                       <li key={c.quand} className="relative flex gap-4 pb-5 last:pb-0">
@@ -377,6 +380,7 @@ export default function FormulaireFondateur({
 
               {etape === 3 && (
                 <Etape titre={r.paiement.titre} texte={r.paiement.texte}>
+                  <InfoLancement t={t} compact className="mb-5" />
                   <div className="rounded-3xl bg-white p-5 md:p-6">
                     <p className="text-xs font-black uppercase tracking-widest text-ink/50">{r.paiement.recap}</p>
                     <p className="mt-2 font-display text-xl font-black">{champs.restaurant}</p>

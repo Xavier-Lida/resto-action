@@ -373,13 +373,13 @@ export const FR = {
         alt: "La mascotte Resto Action écoute au téléphone",
       },
       {
-        titre: "On bâtit ton app et on l'installe",
-        texte: "Ton app web et mobile à tes couleurs, la tablette pour ta cuisine, et on forme ton équipe.",
+        titre: "On prépare ton app avec toi",
+        texte: "Ton menu, tes photos et tes couleurs pendant la préparation du lancement. Les tests de commande et de facturation restent à valider.",
         alt: "La mascotte Resto Action examine une facture à la loupe",
       },
       {
         titre: "Tes clients commandent chez toi",
-        texte: "En cueillette ou en livraison par nos livreurs. Ta liste de clients grandit à chaque commande.",
+        texte: "Après les validations et la confirmation de ta date de mise en service, on installe, on forme ton équipe et on active les commandes.",
         alt: "La mascotte Resto Action lève le pouce, problème réglé",
       },
     ],
@@ -499,18 +499,28 @@ export const FR = {
     },
   },
 
+  lancement: {
+    titre: "Pré-lancement · offre fondateur",
+    accroche: "Pré-lancement avec deux restaurants partenaires. Les tests restent à valider avant la mise en service.",
+    resume: "Tu réserves pendant la préparation du lancement avec deux restaurants partenaires. La date de mise en service reste à confirmer après les tests. Aucun abonnement pendant l'attente.",
+    texte: "Nous préparons le lancement de Resto Action avec deux restaurants partenaires. Le parcours de commande et la facturation doivent encore être testés et validés avant l'ouverture des commandes payantes.",
+    date: "Ta réservation permet de préparer ton app au tarif fondateur. La date de mise en service sera confirmée avec toi après les validations nécessaires.",
+    abonnement: "Ton abonnement, tes trois mois de publicité et ta garantie de 90 jours commencent à la mise en ligne de ton app.",
+    remboursement: "Les 500 $ de mise en service, plus taxes, sont remboursables sur demande écrite jusqu'à la mise en ligne.",
+  },
+
   /* L'OFFRE FONDATEUR. Les montants et la garantie doivent rester identiques au
      contrat et au bon d'accord ; la garantie est à valider par l'avocat. */
   offre: {
     surTitre: "Offre fondateur",
-    titre: "Des nouveaux clients dès le premier mois. Pas juste des économies.",
+    titre: "Offre fondateur : préparons ton lancement.",
     sousTitre: "On ne te fait pas de rabais. On investit dans ta croissance.",
     // L'avantage fondateur : 300 $ de pub payée par nous, au lieu d'un rabais.
     pub: {
       montant: "300 $",
       titre: "de publicité payée par nous",
       texte:
-        "Tes 3 premiers mois, on gère tes pubs Facebook et Instagram, juste avant les repas. Chaque nouveau client est à toi.",
+        "Pendant tes 3 premiers mois après la mise en ligne, on gère tes pubs Facebook et Instagram, juste avant les repas. Chaque nouveau client est à toi.",
     },
     inclusTitre: "Ce qui est inclus",
     inclus: [
@@ -522,25 +532,25 @@ export const FR = {
     ],
     garantie: {
       titre: "Garantie 90 jours",
-      texte: "Si tu ne récupères pas ce que ça t'a coûté, on te rembourse.",
-      note: "Abonnement et commissions remboursés, si tu as suivi nos étapes.",
+      texte: "Si tes économies ne couvrent pas ton abonnement, on te rembourse ton abonnement et nos commissions.",
+      note: "Sur tes 90 premiers jours en ligne, si tu restes les 90 jours et que tu as suivi nos étapes. Mise en service et équipement exclus.",
     },
     coutsTitre: "Le prix, au complet",
     couts: [
       { quand: "Aujourd'hui", quoi: "500 $", barre: "1 000 $", detail: "Mise en service, prix fondateur" },
       { quand: "À l'installation", quoi: "495 $", detail: "Tablette, support et encarts" },
-      { quand: "Chaque mois", quoi: "200 $", detail: "Abonnement" },
+      { quand: "Chaque mois, dès la mise en ligne", quoi: "200 $", detail: "Abonnement, rien pendant l'attente" },
       { quand: "Par commande", quoi: "5 % · 10 %", detail: "Cueillette · livraison (Uber : jusqu'à 30 %)" },
     ],
     taxes: "Taxes et frais de carte en sus.",
     reserver: "Réserver ma place fondateur",
-    condition: "Réservation de 500 $, remboursable avant le lancement.",
+    condition: "Pré-réservation de 500 $, remboursable jusqu'à la mise en ligne. Date de lancement à confirmer.",
   },
   // Le formulaire de réservation fondateur (/reserver) et sa page de merci.
   reservation: {
     metaTitre: "Réserve ta place fondateur | Resto Action",
     metaDescription:
-      "Réserve ta place fondateur Resto Action en 4 étapes : ton resto, ton app, l'offre, puis le paiement. 500 $ remboursables jusqu'au lancement.",
+      "Prépare le lancement de ton app au tarif fondateur. Tests avec deux restaurants partenaires, date à confirmer et 500 $ remboursables jusqu'à la mise en ligne.",
     retour: "Retour au site",
     etape: "Étape {n} sur 4",
     etapes: ["Ton resto", "Ton app", "L'offre", "Réservation"],
@@ -548,7 +558,7 @@ export const FR = {
     precedent: "Retour",
     resto: {
       titre: "Parle-nous de ton resto",
-      texte: "On bâtit ton app à ton nom. Ça prend 2 minutes.",
+      texte: "Prépare ton app à ton nom. La réservation prend 2 minutes; la mise en service suivra la validation des tests.",
       restaurant: "Nom du resto",
       exempleResto: "Ex. : Pizzeria du Coin",
       ville: "Ville",
@@ -577,9 +587,9 @@ export const FR = {
     },
     offre: {
       titre: "Ta place fondateur",
-      texte: "500 $ aujourd'hui : ton prix fondateur, et 300 $ de pub payée par nous pendant 3 mois. Voici tout ce que tu vas payer, sans surprise.",
+      texte: "500 $ aujourd'hui pour préparer ton app au tarif fondateur. Tes 300 $ de publicité et ton abonnement commencent à la mise en ligne. Voici le prix au complet.",
       accord:
-        "J'ai lu ce que je vais payer au complet. Je comprends que mes 500 $ sont remboursables jusqu'au lancement de mon app.",
+        "J'ai lu le prix au complet. Je comprends que le lancement dépend encore de la validation des tests, sans date ferme confirmée, et que ma réservation n'active pas les commandes. Mes 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne; aucun abonnement n'est facturé pendant l'attente.",
     },
     paiement: {
       titre: "On réserve ta place",
@@ -618,12 +628,15 @@ export const FR = {
         "Si ton paiement est passé, ta facture est dans ta boîte courriel. Un doute ? Appelle-nous au {tel}.",
       suiteTitre: "La suite",
       suite: [
+        "On t'appelle dans les 24 h pour faire le point sur ton restaurant et préparer la suite.",
         "Ta maquette arrive par courriel dans les 48 h.",
-        "On t'appelle pour planifier ton installation.",
         "On bâtit ton app avec ton menu, tes photos et tes couleurs.",
-        "On installe la tablette et on forme ton équipe.",
-        "Tu lances, et on part tes pubs Facebook et Instagram, payées par nous.",
+        "Après validation des tests de commande et de facturation, on confirme avec toi la date de mise en service et l'installation.",
+        "À la mise en ligne, ton abonnement commence, avec tes trois mois de publicité et ta garantie de 90 jours.",
       ],
+      suiviTitre: "Fais le point avec Guillaume",
+      suiviTexte: "Tu peux choisir un créneau pour parler de ta réservation, des éléments à préparer et de l'avancement du lancement.",
+      suiviBouton: "Choisir mon appel de suivi",
       retour: "Retour à l'accueil",
       paye: "Payé aujourd'hui",
       question: "Une question d'ici là? Appelle-nous au",
@@ -735,11 +748,11 @@ export const FR = {
       },
       {
         q: "Vous prenez une commission?",
-        a: "Oui, mais petite : 5 % sur la cueillette et 10 % sur la livraison, calculés sur la nourriture seulement. Les plateformes, elles, prennent jusqu'à 30 %.",
+        a: "Oui, mais petite : 5 % sur la cueillette et 10 % sur la livraison, calculés sur les aliments et boissons seulement. Les plateformes, elles, prennent jusqu'à 30 %.",
       },
       {
         q: "Combien ça coûte?",
-        a: "Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), et 200 $ par mois d'abonnement. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. En prime, on paye 300 $ de pub Facebook et Instagram pour toi pendant tes 3 premiers mois. Les 500 $ sont remboursables jusqu'au lancement.",
+        a: "Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), et 200 $ par mois d'abonnement à partir de la mise en ligne. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. Aucun abonnement pendant l'attente. Les 300 $ de pub Facebook et Instagram sont dépensés pendant les trois premiers mois après la mise en ligne. Les 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne.",
       },
       {
         q: "Pourquoi pas de rabais?",
@@ -758,8 +771,16 @@ export const FR = {
         a: "On est basés à Trois-Rivières, en Mauricie, et on travaille avec des restaurants indépendants partout au Québec.",
       },
       {
+        q: "Est-ce que mon app sera active dès ma réservation?",
+        a: "Non. Nous préparons le lancement avec deux restaurants partenaires. Les tests de commande, de fonctionnement avec les caisses et de facturation obligatoire doivent encore être terminés et validés avant l'ouverture des commandes payantes. Ta réservation permet de préparer ton app au tarif fondateur. La date de mise en service de ton restaurant sera confirmée avec toi après les validations nécessaires; aucune date ferme n'est encore garantie.",
+      },
+      {
+        q: "Qu'est-ce qui se passe après mon paiement?",
+        a: "Tu arrives sur une confirmation avec les prochaines étapes et un lien pour choisir un appel de suivi avec Guillaume. On t'appelle dans les 24 h pour faire le point; ta maquette est prévue par courriel dans les 48 h. On prépare ton menu, tes photos et tes couleurs avec toi. L'installation et l'activation seront planifiées après validation des tests. Aucun abonnement n'est facturé pendant l'attente; tu peux demander par écrit le remboursement des 500 $ jusqu'à la mise en ligne.",
+      },
+      {
         q: "Comment on commence?",
-        a: `Tu réserves ta place fondateur en ligne : 4 étapes, 2 minutes, 500 $ remboursables jusqu'au lancement. On t'appelle dans les 24 h pour planifier ton installation. Pas prêt? Appelle-nous au ${PHONE_DISPLAY} ou prends un court appel avec Guillaume.`,
+        a: `Tu réserves ta place fondateur en ligne : 4 étapes, 2 minutes, 500 $ remboursables jusqu'à la mise en ligne. On t'appelle dans les 24 h pour préparer ton app et faire le point sur les tests avant de confirmer une date de lancement. Pas prêt? Appelle-nous au ${PHONE_DISPLAY} ou prends un court appel avec Guillaume.`,
       },
       /* LES QUATRE QUESTIONS DE LONGUE TRAÎNE ONT DÉMÉNAGÉ. Elles étaient ici
          — commissions de livraison, fiche Google, avis, délais — et portaient

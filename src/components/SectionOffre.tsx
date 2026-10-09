@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 import BoutonReserver from "@/components/BoutonReserver";
+import InfoLancement from "@/components/InfoLancement";
 
 /* L'OFFRE FONDATEUR.
 
@@ -75,6 +76,7 @@ export default function SectionOffre({ t }: { t: Textes }) {
 
           <Reveal delay={1}>
             <div className="rounded-[2rem] bg-white p-7 text-ink shadow-2xl md:p-8">
+              <InfoLancement t={t} className="mb-7" />
               <p className="text-xs font-black uppercase tracking-widest text-ink/50">
                 {o.coutsTitre}
               </p>

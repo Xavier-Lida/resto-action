@@ -160,8 +160,8 @@ export async function creerSessionFondateur(
               ? `Place fondateur Resto Action · ${d.restaurant}`
               : `Resto Action founding spot · ${d.restaurant}`,
             description: fr
-              ? "Mise en service au prix fondateur. Remboursable jusqu'au lancement."
-              : "Setup at the founding price. Refundable until launch.",
+              ? "Pré-réservation au prix fondateur. Mise en service après validation des tests, date à confirmer. Remboursable sur demande écrite jusqu'à la mise en ligne."
+              : "Pre-launch reservation at the founder price. Activation after successful testing, date to be confirmed. Refundable on written request until your app goes live.",
           },
         },
       },
@@ -181,8 +181,8 @@ export async function creerSessionFondateur(
     custom_text: {
       submit: {
         message: fr
-          ? "Remboursable jusqu'au lancement de ton app. On te contacte dans les 24 h pour la suite."
-          : "Refundable until your app launches. We'll reach out within 24 hours.",
+          ? "Pré-lancement avec deux restaurants partenaires : tests à valider et date de mise en service à confirmer. Aucun abonnement pendant l'attente. 500 $ remboursables sur demande écrite jusqu'à la mise en ligne. On te contacte dans les 24 h pour la suite."
+          : "Pre-launch with two restaurant partners: testing must be validated and your launch date confirmed. No subscription while you wait. $500 refundable on written request until your app goes live. We'll reach out within 24 hours.",
       },
     },
     success_url: `${origine}${chemin}/${fr ? "merci" : "thanks"}?session={CHECKOUT_SESSION_ID}`,

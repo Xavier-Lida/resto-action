@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 import { lireSession } from "@/lib/stripe";
 import type { Textes } from "@/lib/textes/fr";
+import InfoLancement from "@/components/InfoLancement";
 
 /* LA PAGE OÙ STRIPE RAMÈNE LE RESTO APRÈS LE PAIEMENT.
 
@@ -76,6 +77,7 @@ export default async function PageMerciFondateur({
 
             {/* ─── La suite ─── */}
             <section className="calc-entre rounded-[2rem] bg-white p-7 md:p-10" style={{ animationDelay: "0.15s" }}>
+              <InfoLancement t={t} className="mb-7" />
               <p className="text-xs font-black uppercase tracking-widest text-brand">{m.suiteTitre}</p>
               <ol className="relative mt-6 grid list-none gap-5 border-l-2 border-bone pl-6">
                 {m.suite.map((etape, i) => (
@@ -91,6 +93,15 @@ export default async function PageMerciFondateur({
                   </li>
                 ))}
               </ol>
+
+              <div className="mt-7 rounded-2xl bg-bone p-5">
+                <p className="font-black">{m.suiviTitre}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/75">{m.suiviTexte}</p>
+                <Link href={`${t.racine}/contact`} className="mt-4 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-brand">
+                  {m.suiviBouton}
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
+              </div>
 
               <p className="mt-8 text-ink/70">
                 {m.question}{" "}

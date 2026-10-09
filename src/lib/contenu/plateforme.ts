@@ -11,11 +11,9 @@ import type { Bloc } from "@/lib/contenu/blocs";
    - Aucun prix. L'offre est en cours de finalisation. Le MODÈLE, lui, est
      nommé (5 % ou 10 % au lieu des 30 % des plateformes) : c'est l'argument
      commercial. Les montants de l'offre fondateur vivent sur l'accueil.
-   - Aucune mention du système de caisse maison en cours de certification. Un
-     système d'enregistrement des ventes s'annonce QUAND Revenu Québec l'a
-     certifié, pas avant. La section « Ça se branche sur ce que tu as déjà »
-     est écrite pour accueillir la phrase le jour venu, sans rien réécrire
-     autour.
+   - Le lancement reste soumis aux tests de commande et de facturation avec
+     deux restaurants partenaires. Ne pas annoncer de certification obtenue
+     ni de délai ferme tant que le fonctionnement n'est pas validé.
    - Aucun résultat client, aucun témoignage, aucun chiffre de performance :
      il n'y a pas encore de mandat livré. Inventer une preuve sociale est la
      seule chose qui puisse coûter plus cher que de ne pas en avoir. */
@@ -150,7 +148,7 @@ export const PLATEFORME_FR = {
       },
       {
         q: "Ça prend combien de temps avant de voir des résultats?",
-        a: "Ton site et tes commandes en ligne partent en quelques semaines. La visibilité dans Google, elle, se bâtit sur quelques mois. Méfie-toi de quiconque te promet la première position pour la semaine prochaine.",
+        a: "Nous préparons le lancement avec deux restaurants partenaires. Les tests de commande et de facturation restent à terminer et à valider. Ta date de mise en service sera confirmée après les validations nécessaires; aucun abonnement ne commence pendant l'attente. La visibilité dans Google, elle, se bâtit sur quelques mois.",
       },
       {
         q: "Vous travaillez avec quels restos?",
@@ -287,7 +285,7 @@ export const PLATEFORME_EN: Plateforme = {
       },
       {
         q: "How long before I see results?",
-        a: "Your site and your online ordering go live within a few weeks. Google visibility builds over a few months. Be wary of anyone promising you the top spot by next week.",
+        a: "We're preparing for launch with two restaurant partners. Ordering and billing tests still need to be completed and validated. Your launch date will be confirmed after the necessary validations; no subscription starts while you wait. Google visibility builds over a few months.",
       },
       {
         q: "What restaurants do you work with?",

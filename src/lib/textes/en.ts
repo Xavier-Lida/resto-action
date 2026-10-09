@@ -251,13 +251,13 @@ export const EN: Textes = {
         alt: "The Resto Action mascot listening on the phone",
       },
       {
-        titre: "We build your app and install it",
-        texte: "Your web and mobile app in your colours, the kitchen tablet, and we train your team.",
+        titre: "We prepare your app with you",
+        texte: "Your menu, photos and colours while we prepare for launch. Ordering and billing tests still need to be validated.",
         alt: "The Resto Action mascot examining an invoice with a magnifying glass",
       },
       {
         titre: "Your customers order from you",
-        texte: "Pickup or delivery by our drivers. Your customer list grows with every order.",
+        texte: "After validation and confirmation of your launch date, we install your equipment, train your team and activate ordering.",
         alt: "The Resto Action mascot giving a thumbs up, problem solved",
       },
     ],
@@ -395,15 +395,25 @@ export const EN: Textes = {
     ],
   },
 
+  lancement: {
+    titre: "Pre-launch · founder offer",
+    accroche: "Preparing for launch with two restaurant partners. Testing must be validated before activation.",
+    resume: "You're reserving while we prepare for launch with two restaurant partners. Your launch date will be confirmed after testing. No subscription charges while you wait.",
+    texte: "We're preparing Resto Action's launch with two restaurant partners. The ordering and billing process still needs to be tested and validated before paid orders can open.",
+    date: "Your reservation lets us prepare your app at the founder price. We'll confirm your launch date with you once the necessary validations are complete.",
+    abonnement: "Your subscription, three months of advertising and 90-day guarantee begin when your app goes live.",
+    remboursement: "The $500 setup payment, plus taxes, is refundable on written request until your app goes live.",
+  },
+
   offre: {
     surTitre: "Founder offer",
-    titre: "New customers from the first month. Not just savings.",
+    titre: "Founder offer: let's prepare your launch.",
     sousTitre: "We don't give you a discount. We invest in your growth.",
     pub: {
       montant: "$300",
       titre: "of advertising, paid by us",
       texte:
-        "For your first 3 months, we run your Facebook and Instagram ads, right before mealtimes. Every new customer is yours.",
+        "For your first 3 months after your app goes live, we run your Facebook and Instagram ads, right before mealtimes. Every new customer is yours.",
     },
     inclusTitre: "What's included",
     inclus: [
@@ -415,24 +425,24 @@ export const EN: Textes = {
     ],
     garantie: {
       titre: "90-day guarantee",
-      texte: "If you don't get back what it cost you, we refund you.",
-      note: "Subscription and commissions refunded, if you followed our steps.",
+      texte: "If your savings don't cover your subscription, we refund your subscription and our commissions.",
+      note: "Over your first 90 days live, if you stay the full 90 days and followed our steps. Setup and equipment excluded.",
     },
     coutsTitre: "The price, in full",
     couts: [
       { quand: "Today", quoi: "$500", barre: "$1,000", detail: "Setup, founder price" },
       { quand: "At installation", quoi: "$495", detail: "Tablet, stand and inserts" },
-      { quand: "Every month", quoi: "$200", detail: "Subscription" },
+      { quand: "Monthly, starting at launch", quoi: "$200", detail: "Subscription, nothing while you wait" },
       { quand: "Per order", quoi: "5% · 10%", detail: "Pickup · delivery (Uber: up to 30%)" },
     ],
     taxes: "Taxes and card fees extra.",
     reserver: "Reserve my founder spot",
-    condition: "$500 reservation, refundable before launch.",
+    condition: "$500 pre-launch reservation, refundable until your app goes live. Launch date to be confirmed.",
   },
   reservation: {
     metaTitre: "Reserve your founder spot | Resto Action",
     metaDescription:
-      "Reserve your Resto Action founder spot in 4 steps: your restaurant, your app, the offer, then payment. $500, refundable until launch.",
+      "Prepare your app at the founder price. Testing with two restaurant partners, launch date to be confirmed, and $500 refundable until your app goes live.",
     retour: "Back to site",
     etape: "Step {n} of 4",
     etapes: ["Your restaurant", "Your app", "The offer", "Reservation"],
@@ -440,7 +450,7 @@ export const EN: Textes = {
     precedent: "Back",
     resto: {
       titre: "Tell us about your restaurant",
-      texte: "We build an app with your name on it. Takes 2 minutes.",
+      texte: "Prepare an app with your name on it. Reserving takes 2 minutes; activation follows successful testing.",
       restaurant: "Restaurant name",
       exempleResto: "E.g. Corner Pizzeria",
       ville: "City",
@@ -469,9 +479,9 @@ export const EN: Textes = {
     },
     offre: {
       titre: "Your founder spot",
-      texte: "$500 today: your founder price, plus $300 of ads paid by us for 3 months. Here is everything you will pay, no surprises.",
+      texte: "$500 today to prepare your app at the founder price. Your $300 of advertising and your subscription start when your app goes live. Here is the full price.",
       accord:
-        "I've read everything I will pay. I understand my $500 is refundable until my app launches.",
+        "I've read the full price. I understand launch still depends on successful testing, with no firm date confirmed, and that my reservation does not activate ordering. My $500 is refundable on written request until my app goes live; no subscription is charged while I wait.",
     },
     paiement: {
       titre: "Let's reserve your spot",
@@ -508,12 +518,15 @@ export const EN: Textes = {
       texteGenerique: "If your payment went through, your invoice is in your inbox. Not sure? Call us at {tel}.",
       suiteTitre: "What's next",
       suite: [
+        "We call you within 24 hours to discuss your restaurant and prepare the next steps.",
         "Your mockup arrives by email within 48 hours.",
-        "We call you to plan your installation.",
         "We build your app with your menu, photos and colours.",
-        "We install the tablet and train your team.",
-        "You launch, and we start your Facebook and Instagram ads, paid by us.",
+        "After ordering and billing tests are validated, we confirm your launch date and installation with you.",
+        "When your app goes live, your subscription, three months of advertising and 90-day guarantee begin.",
       ],
+      suiviTitre: "Check in with Guillaume",
+      suiviTexte: "Choose a time to discuss your reservation, what to prepare and progress toward launch.",
+      suiviBouton: "Choose my follow-up call",
       retour: "Back to home",
       paye: "Paid today",
       question: "Questions before then? Call us at",
@@ -587,11 +600,11 @@ export const EN: Textes = {
       },
       {
         q: "Do you take a commission?",
-        a: "Yes, a small one: 5% on pickup and 10% on delivery, on food only. The platforms take up to 30%.",
+        a: "Yes, a small one: 5% on pickup and 10% on delivery, on food and drinks only. The platforms take up to 30%.",
       },
       {
         q: "How much does it cost?",
-        a: "For founding restaurants: $500 setup instead of $1,000, $495 for equipment at installation (tablet, stand, counter sign and inserts), and a $200 monthly subscription. Plus 5% on pickup and 10% on delivery. Taxes extra. On top of that, we pay for $300 of Facebook and Instagram ads for you during your first 3 months. The $500 is refundable until launch.",
+        a: "For founding restaurants: $500 setup instead of $1,000, $495 for equipment at installation (tablet, stand, counter sign and inserts), and a $200 monthly subscription starting when your app goes live. Plus 5% on pickup and 10% on delivery. Taxes extra. No subscription while you wait. The $300 of Facebook and Instagram ads is spent during the first three months after launch. The $500 is refundable on written request until your app goes live.",
       },
       {
         q: "Why no discount?",
@@ -610,8 +623,16 @@ export const EN: Textes = {
         a: "We're based in Trois-Rivières, in the Mauricie region, and we work with independent restaurants all across Quebec.",
       },
       {
+        q: "Will my app be active as soon as I reserve?",
+        a: "No. We're preparing for launch with two restaurant partners. Ordering, point-of-sale compatibility and mandatory billing tests still need to be completed and validated before paid orders can open. Your reservation lets us prepare your app at the founder price. We'll confirm your restaurant's launch date with you after the necessary validations; no firm date is guaranteed yet.",
+      },
+      {
+        q: "What happens after I pay?",
+        a: "You reach a confirmation page with the next steps and a link to choose a follow-up call with Guillaume. We call you within 24 hours to check in; your mockup is scheduled by email within 48 hours. We prepare your menu, photos and colours with you. Installation and activation will be planned after testing is validated. No subscription is charged while you wait; you can request your $500 refund in writing until your app goes live.",
+      },
+      {
         q: "How do we start?",
-        a: `Reserve your founder spot online: 4 steps, 2 minutes, $500 refundable until launch. We call you within 24 hours to plan your installation. Not ready? Call us at ${PHONE_DISPLAY} or book a quick call with Guillaume.`,
+        a: `Reserve your founder spot online: 4 steps, 2 minutes, $500 refundable until your app goes live. We call you within 24 hours to prepare your app and discuss testing before confirming a launch date. Not ready? Call us at ${PHONE_DISPLAY} or book a quick call with Guillaume.`,
       },
     ],
   },
