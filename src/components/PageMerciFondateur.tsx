@@ -72,6 +72,18 @@ export default async function PageMerciFondateur({
                     <p className="mt-2 text-sm font-bold text-white/75">{t.hero.condition}</p>
                   </div>
                 )}
+
+                {/* LE LIEN VERS SON DOSSIER : là où il suit son app jusqu'au lancement. */}
+                <div className="mt-8 border-t border-white/20 pt-6">
+                  <Link
+                    href={`${t.racine === "/en" ? "/en/status" : "/dossier"}/${session}`}
+                    className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 font-black text-ink transition hover:-translate-y-0.5"
+                  >
+                    {t.reservation.dossier.voir}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </Link>
+                  <p className="mt-2 text-sm text-white/75">{t.reservation.dossier.voirTexte}</p>
+                </div>
               </div>
             </section>
 

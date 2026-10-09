@@ -1,5 +1,6 @@
 import { after, type NextRequest } from "next/server";
 import { signalerFondateur } from "@/lib/crm";
+import { SITE_URL } from "@/lib/site";
 import { signatureValide, type SessionCheckout } from "@/lib/stripe";
 
 /* LES AVIS DE STRIPE.
@@ -51,7 +52,12 @@ export async function POST(requete: NextRequest): Promise<Response> {
           },
           app: { menu: m.menu ?? "", service: m.service ?? "" },
           qualification: { plateformes: m.plateformes ?? "", commandes: m.commandes ?? "" },
-          paiement: { session: s.id, montant: s.amount_total, devise: s.currency },
+          paiement: {
+            session: s.id,
+            montant: s.amount_total,
+            devise: s.currency,
+            dossier: `${SITE_URL}${m.langue === "en" ? "/en/status" : "/dossier"}/${s.id}`,
+          },
         }),
       );
     }

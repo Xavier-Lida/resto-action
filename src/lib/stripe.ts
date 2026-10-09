@@ -201,6 +201,57 @@ export async function lireSession(id: string): Promise<SessionCheckout | null> {
   }
 }
 
+/* ─── Le dossier du resto (page /dossier/[session]) ───
+
+   Le suivi d'un resto fondateur vit dans les MÉTADONNÉES DE SON CLIENT STRIPE,
+   modifiables à la main dans le tableau de bord Stripe (Clients → le resto →
+   Métadonnées → Modifier). Aucune base de données de plus. Les clés :
+     etape           1 à 7, le nombre d'étapes terminées (voir les textes
+                     reservation.dossier.etapes) ; 1 = place réservée
+     date_lancement  texte libre, ex. « 18 novembre 2026 »
+     prochain_point  texte libre, ex. « Jeudi 16 oct., 10 h »
+     message         un mot de l'équipe, affiché tel quel
+     mis_a_jour      texte libre, ex. « 9 oct. 2026 »
+
+   La clé Stripe du site doit pouvoir LIRE les clients (permission
+   « Customers : Lecture » sur la clé limitée). */
+export type DossierFondateur = {
+  restaurant: string;
+  ville: string;
+  etape: number;
+  dateLancement: string | null;
+  prochainPoint: string | null;
+  message: string | null;
+  misAJour: string | null;
+};
+
+type SessionAvecClient = SessionCheckout & {
+  customer: { metadata?: Record<string, string> } | string | null;
+};
+
+export async function lireDossier(id: string): Promise<DossierFondateur | null> {
+  if (!/^cs_(test|live)_[A-Za-z0-9]{10,200}$/.test(id)) return null;
+  try {
+    const s = await appeler<SessionAvecClient>("GET", `/checkout/sessions/${id}?expand[]=customer`);
+    if (s.payment_status !== "paid" || s.metadata?.type !== "fondateur") return null;
+    const meta = typeof s.customer === "object" && s.customer ? (s.customer.metadata ?? {}) : {};
+    const texte = (cle: string) => (meta[cle]?.trim() ? meta[cle].trim().slice(0, 500) : null);
+    const etape = Math.min(7, Math.max(1, Number.parseInt(meta.etape ?? "1", 10) || 1));
+    return {
+      restaurant: s.metadata.restaurant ?? "",
+      ville: s.metadata.ville ?? "",
+      etape,
+      dateLancement: texte("date_lancement"),
+      prochainPoint: texte("prochain_point"),
+      message: texte("message"),
+      misAJour: texte("mis_a_jour"),
+    };
+  } catch (erreur) {
+    console.error("[stripe] dossier illisible :", erreur instanceof Error ? erreur.message : erreur);
+    return null;
+  }
+}
+
 /* ─── La signature des webhooks ───
 
    L'en-tête Stripe-Signature ressemble à « t=1700000000,v1=abc…,v1=def… ».

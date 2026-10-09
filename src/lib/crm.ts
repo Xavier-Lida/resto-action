@@ -108,7 +108,8 @@ export type EvenementFondateur = {
   };
   app?: { menu: string; service: string };
   qualification?: { plateformes: string; commandes: string };
-  paiement?: { session: string; montant: number | null; devise: string };
+  /** `dossier` : le lien privé de sa page de suivi, à lui envoyer. */
+  paiement?: { session: string; montant: number | null; devise: string; dossier: string };
   maquette?: { menu: string };
   provenance?: Provenance;
 };
