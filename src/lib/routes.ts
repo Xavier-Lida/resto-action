@@ -85,6 +85,15 @@ export const CONFIDENTIALITE: Paire = {
   priorite: 0.3,
 };
 
+/* Les conditions de la place fondateur, liées depuis la case à cocher de
+   /reserver et depuis les courriels du dossier. */
+export const CONDITIONS: Paire = {
+  fr: "/conditions-fondateur",
+  en: "/en/founder-terms",
+  frequence: "yearly",
+  priorite: 0.3,
+};
+
 export const PLATEFORME: Paire = {
   fr: PLATEFORME_FR.slug,
   en: PLATEFORME_EN.slug,
@@ -139,6 +148,7 @@ export const PAIRES: Paire[] = [
   CONTACT,
   RESERVATION,
   CONFIDENTIALITE,
+  CONDITIONS,
 ];
 
 /* La paire d'une fonctionnalité, pour ses balises hreflang. */

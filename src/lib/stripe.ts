@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { CONDITIONS_VERSION } from "@/lib/contenu/conditions-fondateur";
 
 /* STRIPE, SANS LA LIBRAIRIE.
 
@@ -140,6 +141,8 @@ export async function creerSessionFondateur(
     commandes: d.commandes,
     langue: d.langue,
     source: d.source,
+    // La version des conditions acceptées en cochant la case (conditions-fondateur.ts).
+    conditions: CONDITIONS_VERSION,
   };
 
   return appeler<SessionCheckout>("POST", "/checkout/sessions", {
@@ -171,7 +174,12 @@ export async function creerSessionFondateur(
        ses crédits de taxe. */
     invoice_creation: {
       enabled: true,
-      invoice_data: { metadata },
+      invoice_data: {
+        metadata,
+        footer: fr
+          ? "Conditions de la place fondateur : https://www.restoaction.ca/conditions-fondateur"
+          : "Founder spot terms: https://www.restoaction.ca/en/founder-terms",
+      },
     },
     payment_intent_data: {
       description: `Place fondateur · ${d.restaurant} (${d.ville})`,
@@ -197,6 +205,25 @@ export async function lireSession(id: string): Promise<SessionCheckout | null> {
     return await appeler<SessionCheckout>("GET", `/checkout/sessions/${id}`);
   } catch (erreur) {
     console.error("[stripe] session illisible :", erreur instanceof Error ? erreur.message : erreur);
+    return null;
+  }
+}
+
+/** La session fondateur payée d'un client Stripe, pour retrouver le lien de
+    son dossier quand ses métadonnées changent (webhook customer.updated).
+    Demande « Checkout Sessions : Lecture » sur la clé limitée. */
+export async function sessionFondateurDuClient(client: string): Promise<SessionCheckout | null> {
+  if (!/^cus_[A-Za-z0-9]{6,100}$/.test(client)) return null;
+  try {
+    const liste = await appeler<{ data: SessionCheckout[] }>(
+      "GET",
+      `/checkout/sessions?customer=${client}&limit=10`,
+    );
+    return (
+      liste.data.find((s) => s.payment_status === "paid" && s.metadata?.type === "fondateur") ?? null
+    );
+  } catch (erreur) {
+    console.error("[stripe] sessions du client illisibles :", erreur instanceof Error ? erreur.message : erreur);
     return null;
   }
 }

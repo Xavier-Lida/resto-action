@@ -492,8 +492,11 @@ export const EN: Textes = {
     offre: {
       titre: "Your founder spot",
       texte: "$500 today to prepare your app at the founder price. Your $300 of advertising and your subscription start when your app goes live. Here is the full price.",
+      conditions: "Read the founder spot terms",
+      // Même chemin que CONDITIONS dans src/lib/routes.ts.
+      conditionsHref: "/en/founder-terms",
       accord:
-        "I've read the full price. I understand launch still depends on successful testing, with no firm date confirmed, and that my reservation does not activate ordering. My $500 is refundable on written request until my app goes live; no subscription is charged while I wait.",
+        "I've read the full price and I accept the founder spot terms. I understand launch still depends on successful testing, with no firm date confirmed, and that my reservation does not activate ordering. My $500 is refundable on written request until my app goes live; no subscription is charged while I wait.",
     },
     paiement: {
       titre: "Let's reserve your spot",

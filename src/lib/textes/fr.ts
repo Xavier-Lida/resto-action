@@ -601,8 +601,11 @@ export const FR = {
     offre: {
       titre: "Ta place fondateur",
       texte: "500 $ aujourd'hui pour préparer ton app au tarif fondateur. Tes 300 $ de publicité et ton abonnement commencent à la mise en ligne. Voici le prix au complet.",
+      conditions: "Lire les conditions de la place fondateur",
+      // Même chemin que CONDITIONS dans src/lib/routes.ts.
+      conditionsHref: "/conditions-fondateur",
       accord:
-        "J'ai lu le prix au complet. Je comprends que le lancement dépend encore de la validation des tests, sans date ferme confirmée, et que ma réservation n'active pas les commandes. Mes 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne; aucun abonnement n'est facturé pendant l'attente.",
+        "J'ai lu le prix au complet et j'accepte les conditions de la place fondateur. Je comprends que le lancement dépend encore de la validation des tests, sans date ferme confirmée, et que ma réservation n'active pas les commandes. Mes 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne; aucun abonnement n'est facturé pendant l'attente.",
     },
     paiement: {
       titre: "On réserve ta place",

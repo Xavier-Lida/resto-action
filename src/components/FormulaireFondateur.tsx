@@ -375,6 +375,15 @@ export default function FormulaireFondateur({
                     />
                     <span className="text-sm font-bold leading-relaxed">{r.offre.accord}</span>
                   </label>
+                  {/* Les conditions complètes, ouvertes à côté pour ne pas perdre le formulaire. */}
+                  <a
+                    href={r.offre.conditionsHref}
+                    target="_blank"
+                    rel="noopener"
+                    className="mt-3 inline-block text-sm font-bold text-ink underline hover:text-brand"
+                  >
+                    {r.offre.conditions}
+                  </a>
                 </Etape>
               )}
 
