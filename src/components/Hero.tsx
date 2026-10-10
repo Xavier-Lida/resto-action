@@ -94,6 +94,7 @@ export default function Hero({ t }: { t: Textes }) {
             <GenerateurApp t={t} />
 
             <div className="animate-hero delay-3 flex flex-col gap-2">
+              <p className="text-sm font-bold leading-relaxed text-white">{t.lancement.accroche}</p>
               <BarrePlaces modele={t.hero.places} />
               <p className="text-sm font-semibold text-white/85">
                 {t.hero.condition}

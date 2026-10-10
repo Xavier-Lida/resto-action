@@ -284,7 +284,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Et la livraison, vous la faites?",
-          a: "Oui, avec des livreurs d'ici : c'est 10 % de la commande, sur la nourriture seulement. Si tu fais seulement de la cueillette, c'est 5 %.",
+          a: "Oui, avec des livreurs d'ici : c'est 10 % de la commande, sur les aliments et boissons seulement. Si tu fais seulement de la cueillette, c'est 5 %.",
         },
       ],
     },
@@ -743,7 +743,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Do you handle delivery?",
-          a: "Yes, with local drivers: it's 10% of the order, on food only. If you only do pickup, it's 5%.",
+          a: "Yes, with local drivers: it's 10% of the order, on food and drinks only. If you only do pickup, it's 5%.",
         },
       ],
     },

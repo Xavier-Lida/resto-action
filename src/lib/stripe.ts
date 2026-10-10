@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { CONDITIONS_VERSION } from "@/lib/contenu/conditions-fondateur";
 
 /* STRIPE, SANS LA LIBRAIRIE.
 
@@ -140,6 +141,8 @@ export async function creerSessionFondateur(
     commandes: d.commandes,
     langue: d.langue,
     source: d.source,
+    // La version des conditions acceptées en cochant la case (conditions-fondateur.ts).
+    conditions: CONDITIONS_VERSION,
   };
 
   return appeler<SessionCheckout>("POST", "/checkout/sessions", {
@@ -160,8 +163,8 @@ export async function creerSessionFondateur(
               ? `Place fondateur Resto Action · ${d.restaurant}`
               : `Resto Action founding spot · ${d.restaurant}`,
             description: fr
-              ? "Mise en service au prix fondateur. Remboursable jusqu'au lancement."
-              : "Setup at the founding price. Refundable until launch.",
+              ? "Pré-réservation au prix fondateur. Mise en service après validation des tests, date à confirmer. Remboursable sur demande écrite jusqu'à la mise en ligne."
+              : "Pre-launch reservation at the founder price. Activation after successful testing, date to be confirmed. Refundable on written request until your app goes live.",
           },
         },
       },
@@ -171,7 +174,12 @@ export async function creerSessionFondateur(
        ses crédits de taxe. */
     invoice_creation: {
       enabled: true,
-      invoice_data: { metadata },
+      invoice_data: {
+        metadata,
+        footer: fr
+          ? "Conditions de la place fondateur : https://www.restoaction.ca/conditions-fondateur"
+          : "Founder spot terms: https://www.restoaction.ca/en/founder-terms",
+      },
     },
     payment_intent_data: {
       description: `Place fondateur · ${d.restaurant} (${d.ville})`,
@@ -181,8 +189,8 @@ export async function creerSessionFondateur(
     custom_text: {
       submit: {
         message: fr
-          ? "Remboursable jusqu'au lancement de ton app. On te contacte dans les 24 h pour la suite."
-          : "Refundable until your app launches. We'll reach out within 24 hours.",
+          ? "Pré-lancement avec deux restaurants partenaires : tests à valider et date de mise en service à confirmer. Aucun abonnement pendant l'attente. 500 $ remboursables sur demande écrite jusqu'à la mise en ligne. On te contacte dans les 24 h pour la suite."
+          : "Pre-launch with two restaurant partners: testing must be validated and your launch date confirmed. No subscription while you wait. $500 refundable on written request until your app goes live. We'll reach out within 24 hours.",
       },
     },
     success_url: `${origine}${chemin}/${fr ? "merci" : "thanks"}?session={CHECKOUT_SESSION_ID}`,
@@ -197,6 +205,76 @@ export async function lireSession(id: string): Promise<SessionCheckout | null> {
     return await appeler<SessionCheckout>("GET", `/checkout/sessions/${id}`);
   } catch (erreur) {
     console.error("[stripe] session illisible :", erreur instanceof Error ? erreur.message : erreur);
+    return null;
+  }
+}
+
+/** La session fondateur payée d'un client Stripe, pour retrouver le lien de
+    son dossier quand ses métadonnées changent (webhook customer.updated).
+    Demande « Checkout Sessions : Lecture » sur la clé limitée. */
+export async function sessionFondateurDuClient(client: string): Promise<SessionCheckout | null> {
+  if (!/^cus_[A-Za-z0-9]{6,100}$/.test(client)) return null;
+  try {
+    const liste = await appeler<{ data: SessionCheckout[] }>(
+      "GET",
+      `/checkout/sessions?customer=${client}&limit=10`,
+    );
+    return (
+      liste.data.find((s) => s.payment_status === "paid" && s.metadata?.type === "fondateur") ?? null
+    );
+  } catch (erreur) {
+    console.error("[stripe] sessions du client illisibles :", erreur instanceof Error ? erreur.message : erreur);
+    return null;
+  }
+}
+
+/* ─── Le dossier du resto (page /dossier/[session]) ───
+
+   Le suivi d'un resto fondateur vit dans les MÉTADONNÉES DE SON CLIENT STRIPE,
+   modifiables à la main dans le tableau de bord Stripe (Clients → le resto →
+   Métadonnées → Modifier). Aucune base de données de plus. Les clés :
+     etape           1 à 7, le nombre d'étapes terminées (voir les textes
+                     reservation.dossier.etapes) ; 1 = place réservée
+     date_lancement  texte libre, ex. « 18 novembre 2026 »
+     prochain_point  texte libre, ex. « Jeudi 16 oct., 10 h »
+     message         un mot de l'équipe, affiché tel quel
+     mis_a_jour      texte libre, ex. « 9 oct. 2026 »
+
+   La clé Stripe du site doit pouvoir LIRE les clients (permission
+   « Customers : Lecture » sur la clé limitée). */
+export type DossierFondateur = {
+  restaurant: string;
+  ville: string;
+  etape: number;
+  dateLancement: string | null;
+  prochainPoint: string | null;
+  message: string | null;
+  misAJour: string | null;
+};
+
+type SessionAvecClient = SessionCheckout & {
+  customer: { metadata?: Record<string, string> } | string | null;
+};
+
+export async function lireDossier(id: string): Promise<DossierFondateur | null> {
+  if (!/^cs_(test|live)_[A-Za-z0-9]{10,200}$/.test(id)) return null;
+  try {
+    const s = await appeler<SessionAvecClient>("GET", `/checkout/sessions/${id}?expand[]=customer`);
+    if (s.payment_status !== "paid" || s.metadata?.type !== "fondateur") return null;
+    const meta = typeof s.customer === "object" && s.customer ? (s.customer.metadata ?? {}) : {};
+    const texte = (cle: string) => (meta[cle]?.trim() ? meta[cle].trim().slice(0, 500) : null);
+    const etape = Math.min(7, Math.max(1, Number.parseInt(meta.etape ?? "1", 10) || 1));
+    return {
+      restaurant: s.metadata.restaurant ?? "",
+      ville: s.metadata.ville ?? "",
+      etape,
+      dateLancement: texte("date_lancement"),
+      prochainPoint: texte("prochain_point"),
+      message: texte("message"),
+      misAJour: texte("mis_a_jour"),
+    };
+  } catch (erreur) {
+    console.error("[stripe] dossier illisible :", erreur instanceof Error ? erreur.message : erreur);
     return null;
   }
 }

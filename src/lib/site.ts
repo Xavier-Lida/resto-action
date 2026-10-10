@@ -68,7 +68,7 @@ export const GA_MESURE_ID = "G-V8EERCZE9G";
    Le format d'affichage n'est PAS écrit ici : le pied de page la formate selon
    la langue de la page (`toLocaleDateString`), sinon il faudrait maintenir
    « 17 août 2026 » et « August 17, 2026 » en parallèle et les laisser dériver. */
-export const MISE_A_JOUR = "2026-09-04";
+export const MISE_A_JOUR = "2026-10-09";
 
 /* LA VIDÉO « NOTRE HISTOIRE », celle que met de l'avant la section YouTube de
    l'accueil.

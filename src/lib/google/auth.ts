@@ -19,7 +19,11 @@ import { createSign } from "node:crypto";
    vraie adresse, et le Meet s'ouvre sous sa licence. C'est aussi pour ça que
    ce montage exige Workspace et ne marcherait pas avec un Gmail ordinaire. */
 
-const PORTEE = "https://www.googleapis.com/auth/calendar";
+/* Deux portées, chacune à cocher dans la délégation Workspace (console
+   d'admin → Sécurité → Contrôles des API → Délégation à l'échelle du domaine) :
+   l'agenda, et l'envoi de courriels au nom de GOOGLE_SUJET (dossier fondateur). */
+export const PORTEE_AGENDA = "https://www.googleapis.com/auth/calendar";
+export const PORTEE_COURRIEL = "https://www.googleapis.com/auth/gmail.send";
 const JETON_URL = "https://oauth2.googleapis.com/token";
 
 /* Les pannes qu'on sait nommer. Le code voyage jusqu'au navigateur, qui
@@ -60,12 +64,13 @@ function base64url(valeur: string): string {
    Une instance chaude qui enchaîne les visiteurs ne re-signe pas un JWT et ne
    refait pas d'aller-retour vers Google à chaque chargement de page. Une
    instance froide en refait un — c'est un appel, pas un problème. */
-let cache: { jeton: string; expire: number } | null = null;
+const caches = new Map<string, { jeton: string; expire: number }>();
 
-export async function jetonAcces(): Promise<string> {
+export async function jetonAcces(portee: string = PORTEE_AGENDA): Promise<string> {
   const maintenant = Math.floor(Date.now() / 1000);
   // Soixante secondes de marge : un jeton qui expire pendant le vol de la
   // requête donnerait un 401 impossible à reproduire.
+  const cache = caches.get(portee);
   if (cache && cache.expire > maintenant + 60) return cache.jeton;
 
   const compte = requis("GOOGLE_SA_COURRIEL");
@@ -79,7 +84,7 @@ export async function jetonAcces(): Promise<string> {
     JSON.stringify({
       iss: compte,
       sub: sujet,
-      scope: PORTEE,
+      scope: portee,
       aud: JETON_URL,
       iat: maintenant,
       exp: maintenant + 3600,
@@ -112,9 +117,9 @@ export async function jetonAcces(): Promise<string> {
     access_token: string;
     expires_in: number;
   };
-  cache = {
+  caches.set(portee, {
     jeton: donnees.access_token,
     expire: maintenant + donnees.expires_in,
-  };
-  return cache.jeton;
+  });
+  return donnees.access_token;
 }

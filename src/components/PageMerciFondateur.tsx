@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 import { lireSession } from "@/lib/stripe";
 import type { Textes } from "@/lib/textes/fr";
+import InfoLancement from "@/components/InfoLancement";
 
 /* LA PAGE OÙ STRIPE RAMÈNE LE RESTO APRÈS LE PAIEMENT.
 
@@ -71,11 +72,24 @@ export default async function PageMerciFondateur({
                     <p className="mt-2 text-sm font-bold text-white/75">{t.hero.condition}</p>
                   </div>
                 )}
+
+                {/* LE LIEN VERS SON DOSSIER : là où il suit son app jusqu'au lancement. */}
+                <div className="mt-8 border-t border-white/20 pt-6">
+                  <Link
+                    href={`${t.racine === "/en" ? "/en/status" : "/dossier"}/${session}`}
+                    className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 font-black text-ink transition hover:-translate-y-0.5"
+                  >
+                    {t.reservation.dossier.voir}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </Link>
+                  <p className="mt-2 text-sm text-white/75">{t.reservation.dossier.voirTexte}</p>
+                </div>
               </div>
             </section>
 
             {/* ─── La suite ─── */}
             <section className="calc-entre rounded-[2rem] bg-white p-7 md:p-10" style={{ animationDelay: "0.15s" }}>
+              <InfoLancement t={t} className="mb-7" />
               <p className="text-xs font-black uppercase tracking-widest text-brand">{m.suiteTitre}</p>
               <ol className="relative mt-6 grid list-none gap-5 border-l-2 border-bone pl-6">
                 {m.suite.map((etape, i) => (
@@ -91,6 +105,15 @@ export default async function PageMerciFondateur({
                   </li>
                 ))}
               </ol>
+
+              <div className="mt-7 rounded-2xl bg-bone p-5">
+                <p className="font-black">{m.suiviTitre}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/75">{m.suiviTexte}</p>
+                <Link href={`${t.racine}/contact`} className="mt-4 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-brand">
+                  {m.suiviBouton}
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
+              </div>
 
               <p className="mt-8 text-ink/70">
                 {m.question}{" "}
