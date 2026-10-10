@@ -56,7 +56,7 @@ export const CONDITIONS_FR = {
     {
       titre: "7. Tes 300 $ de publicité",
       texte:
-        "Nous payons et gérons 300 $ de publicité Facebook et Instagram pour ton resto, dépensés sur tes 3 premiers mois après la mise en ligne. Ce budget n'est pas remis en argent, ni crédité sur ta facture, ni reporté : si tu mets fin au service avant la fin des 3 mois, la partie non dépensée est simplement annulée.",
+        "Nous payons et gérons 300 $ de publicité Facebook et Instagram pour ton resto, dépensés sur tes 3 premiers mois après la mise en ligne. Ce budget n'est pas remis en argent, ni crédité sur ta facture, ni reporté. Si tu mets fin au service avant la fin de ces 3 mois, la publicité réellement dépensée pour ton resto jusqu'à ton départ t'est facturée, jusqu'à un maximum de 300 $, et la partie non dépensée est annulée. Le détail des dépenses t'est fourni sur demande.",
     },
     {
       titre: "8. La garantie de 90 jours",
@@ -122,7 +122,7 @@ export const CONDITIONS_EN: ConditionsFondateur = {
     {
       titre: "7. Your $300 in ads",
       texte:
-        "We pay for and manage $300 of Facebook and Instagram ads for your restaurant, spent over your first 3 months after go-live. This budget is not paid out in cash, credited on your invoice or carried over: if you end the service before the 3 months are up, the unspent part is simply cancelled.",
+        "We pay for and manage $300 of Facebook and Instagram ads for your restaurant, spent over your first 3 months after go-live. This budget is not paid out in cash, credited on your invoice or carried over. If you end the service before these 3 months are up, the advertising actually spent for your restaurant up to your departure is billed to you, up to a maximum of $300, and the unspent part is cancelled. A breakdown of the spending is available on request.",
     },
     {
       titre: "8. The 90-day guarantee",
