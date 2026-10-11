@@ -53,18 +53,18 @@ export default function BoutonReserver({
   return (
     <div
       data-cta-reserver={flottant ? undefined : ""}
-      className={`${pleineLargeur ? "w-full" : "inline-flex"} flex-col items-center gap-2 ${className}`}
+      className={`${pleineLargeur ? "flex w-full" : "inline-flex"} flex-col items-center gap-2 ${className}`}
     >
       <a
         href={href}
         className={`cta-brille group relative flex items-center justify-between rounded-full font-black shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_7px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none ${couleurs} ${dimensions} ${pleineLargeur ? "w-full" : ""}`}
       >
-        <span className={pleineLargeur ? "flex-1 text-center" : ""}>{libelle}</span>
+        <span className={`whitespace-nowrap ${pleineLargeur ? "flex-1 text-center" : ""}`}>{libelle}</span>
         <span className={`grid shrink-0 place-items-center rounded-full transition-transform group-hover:translate-x-1 ${pastille} ${rond}`}>
           <ArrowRight className="size-5" aria-hidden="true" />
         </span>
       </a>
-      {sous && <p className="text-center text-sm font-bold opacity-75">{sous}</p>}
+      {sous && <p className="mt-1 text-center text-sm font-semibold opacity-60">{sous}</p>}
       {pasPret && (
         <LienPasPret libelle={pasPret} className="text-sm font-bold underline underline-offset-4 opacity-80 transition hover:opacity-100" />
       )}

@@ -193,7 +193,7 @@ export const FR = {
       exemple: "Trouve ton resto (ex. Casse-croûte Chez Paul)",
       bouton: "Ma maquette gratuite",
     },
-    condition: "Réservation 500 $ remboursable jusqu'au lancement",
+    condition: "Pré-lancement · 500 $ remboursables jusqu'à la mise en ligne",
     // La demande de maquette gratuite, faite à la main, qui s'ouvre du champ.
     maquette: {
       titre: "La maquette de {nom}, faite à la main.",
@@ -526,7 +526,7 @@ export const FR = {
      contrat et au bon d'accord ; la garantie est à valider par l'avocat. */
   offre: {
     surTitre: "Offre fondateur",
-    titre: "Offre fondateur : préparons ton lancement.",
+    titre: "Préparons ton lancement.",
     sousTitre: "On ne te fait pas de rabais. On investit dans ta croissance.",
     // L'avantage fondateur : 300 $ de pub payée par nous, au lieu d'un rabais.
     pub: {
@@ -557,7 +557,9 @@ export const FR = {
     ],
     taxes: "Taxes et frais de carte en sus.",
     reserver: "Réserver ma place fondateur",
-    condition: "Pré-réservation de 500 $, remboursable jusqu'à la mise en ligne. Date de lancement à confirmer.",
+    // Le bouton de la carte de prix : la carte dit déjà « offre fondateur ».
+    reserverCourt: "Réserver ma place",
+    condition: "500 $ remboursables jusqu'à la mise en ligne",
   },
   // Le formulaire de réservation fondateur (/reserver) et sa page de merci.
   reservation: {

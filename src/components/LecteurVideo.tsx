@@ -83,6 +83,45 @@ export default function LecteurVideo({
     return () => obs.disconnect();
   }, [auto, accepte]);
 
+  /* LE VOILE DES PREMIÈRES SECONDES. Même sans commandes, YouTube affiche
+     son titre et ses gros boutons quelques secondes à chaque départ (début,
+     boucle, reprise après une pause). On garde la miniature par-dessus tant
+     que la vidéo ne joue pas depuis 3,5 s, le temps que YouTube les retire.
+     L'état vient de l'API de l'iframe (message « listening » envoyé au
+     chargement, puis onStateChange / infoDelivery). */
+  const [voile, setVoile] = useState(true);
+  const dernierEtat = useRef<number | null>(null);
+  useEffect(() => {
+    if (!demarre || lance) return;
+    let minuterie: number | undefined;
+    const surMessage = (e: MessageEvent) => {
+      if (e.origin !== ORIGINE || e.source !== lecteur.current?.contentWindow) return;
+      let d: { event?: string; info?: unknown } | null = null;
+      try {
+        d = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+      } catch {
+        return;
+      }
+      const info = d?.info as { playerState?: number } | number | undefined;
+      const etat =
+        d?.event === "onStateChange" && typeof info === "number"
+          ? info
+          : d?.event === "infoDelivery" && typeof info === "object"
+            ? info?.playerState
+            : undefined;
+      if (typeof etat !== "number" || etat === dernierEtat.current) return;
+      dernierEtat.current = etat;
+      window.clearTimeout(minuterie);
+      if (etat === 1) minuterie = window.setTimeout(() => setVoile(false), 3500);
+      else setVoile(true);
+    };
+    window.addEventListener("message", surMessage);
+    return () => {
+      window.removeEventListener("message", surMessage);
+      window.clearTimeout(minuterie);
+    };
+  }, [demarre, lance]);
+
   useEffect(() => {
     if (!demarre || lance) return;
     lecteur.current?.contentWindow?.postMessage(
@@ -127,7 +166,21 @@ export default function LecteurVideo({
           allowFullScreen
           referrerPolicy="strict-origin-when-cross-origin"
           tabIndex={-1}
+          onLoad={(e) =>
+            e.currentTarget.contentWindow?.postMessage(
+              JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
+              ORIGINE,
+            )
+          }
           className="pointer-events-none absolute inset-0 size-full border-0"
+        />
+        <Image
+          draggable={false}
+          src={miniature}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 760px, 100vw"
+          className={`pointer-events-none object-cover transition-opacity duration-500 ${voile ? "opacity-100" : "opacity-0"}`}
         />
         {/* UN VOILE PAR-DESSUS L'IFRAME. YouTube affiche son gros bouton
             pause, le titre et ses liens dès que la souris passe sur le

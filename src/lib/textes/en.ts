@@ -88,7 +88,7 @@ export const EN: Textes = {
       exemple: "Find your restaurant (e.g. Chez Paul diner)",
       bouton: "My free mockup",
     },
-    condition: "$500 reservation, refundable until launch",
+    condition: "Pre-launch · $500 refundable until your app goes live",
     maquette: {
       titre: "A mockup for {nom}, made by hand.",
       titreGenerique: "Your free mockup, made by hand.",
@@ -419,7 +419,7 @@ export const EN: Textes = {
 
   offre: {
     surTitre: "Founder offer",
-    titre: "Founder offer: let's prepare your launch.",
+    titre: "Let's prepare your launch.",
     sousTitre: "We don't give you a discount. We invest in your growth.",
     pub: {
       montant: "$300",
@@ -449,7 +449,8 @@ export const EN: Textes = {
     ],
     taxes: "Taxes and card fees extra.",
     reserver: "Reserve my founder spot",
-    condition: "$500 pre-launch reservation, refundable until your app goes live. Launch date to be confirmed.",
+    reserverCourt: "Reserve my spot",
+    condition: "$500 refundable until your app goes live",
   },
   reservation: {
     metaTitre: "Reserve your founder spot | Resto Action",
