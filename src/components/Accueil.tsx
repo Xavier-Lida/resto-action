@@ -176,15 +176,6 @@ export default function Accueil({
         {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
         <Resultats t={t} fonctionnalites={fonctionnalites} />
 
-        {/* ─── L'offre fondateur ─── */}
-        <SectionOffre t={t} />
-
-        {/* ─── Plateformes contre ton app, et le gros bouton ─── */}
-        <SectionPlateformes t={t} />
-
-        {/* ─── Le calculateur animé ─── */}
-        <Calculateur t={t} />
-
         {/* ─── Notre approche ─── */}
         <section id="approche" className="bg-white">
           <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -266,6 +257,15 @@ export default function Accueil({
             </Reveal>
           </div>
         </section>
+
+        {/* ─── L'offre fondateur ─── */}
+        <SectionOffre t={t} />
+
+        {/* ─── Plateformes contre ton app, et le gros bouton ─── */}
+        <SectionPlateformes t={t} />
+
+        {/* ─── Le calculateur animé ─── */}
+        <Calculateur t={t} />
 
         {/* ─── Nos produits : onglets qui tournent seuls (SectionProduits) ─── */}
         <SectionProduits t={t} />
