@@ -176,9 +176,6 @@ export default function Accueil({
         {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
         <Resultats t={t} fonctionnalites={fonctionnalites} />
 
-        {/* ─── Nos produits : onglets qui tournent seuls (SectionProduits) ─── */}
-        <SectionProduits t={t} />
-
         {/* ─── L'offre fondateur ─── */}
         <SectionOffre t={t} />
 
@@ -269,6 +266,9 @@ export default function Accueil({
             </Reveal>
           </div>
         </section>
+
+        {/* ─── Nos produits : onglets qui tournent seuls (SectionProduits) ─── */}
+        <SectionProduits t={t} />
 
         {/* ─── Ce en quoi on croit ─── */}
         {/* Court, exprès : les deux cofondateurs (photo cliquable vers leur

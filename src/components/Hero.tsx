@@ -75,10 +75,33 @@ export default function Hero({ t }: { t: Textes }) {
             <div className="relative h-[27rem] overflow-hidden sm:h-[31rem] lg:h-[34rem]">
               <div
                 aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 top-16 overflow-hidden rounded-[2rem] bg-hero lg:top-24 lg:rounded-[3rem]"
+                className="absolute inset-x-0 bottom-0 top-16 overflow-hidden rounded-[2rem] bg-gradient-to-br from-hero via-hero to-brand lg:top-24 lg:rounded-[3rem]"
               >
-                <div className="absolute -left-24 -top-24 size-80 rounded-full bg-white/10 blur-3xl" />
-                <div className="absolute -bottom-32 -right-16 size-96 rounded-full bg-brand/60 blur-3xl" />
+                {/* Le motif : des cercles fins qui rayonnent depuis le bas du
+                    téléphone, comme des ondes, et une lueur douce derrière lui. */}
+                <div className="absolute left-1/2 top-1/2 size-[26rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-white/15 blur-3xl" />
+                <svg
+                  className="absolute left-1/2 top-full h-[320%] w-auto max-w-none -translate-x-1/2 -translate-y-1/2"
+                  viewBox="0 0 1000 1000"
+                  fill="none"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  {[140, 230, 320, 410, 500, 590, 680, 770, 860, 950].map((r, k) => (
+                    <circle
+                      key={r}
+                      cx="500"
+                      cy="500"
+                      r={r / 2}
+                      stroke="white"
+                      strokeOpacity={0.28 - k * 0.022}
+                      strokeWidth="1.2"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  ))}
+                </svg>
+                <div
+                  className="absolute inset-0 opacity-[0.18] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_70%)]"
+                />
               </div>
               <div className="relative flex justify-center">
                 <DemoApp
