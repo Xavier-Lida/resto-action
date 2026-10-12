@@ -63,7 +63,7 @@ export default function GenerateurApp({ t }: { t: Textes }) {
           setOuvert(true);
           void chercher(nom);
         }}
-        className="animate-hero delay-2 flex max-w-xl flex-wrap gap-2 rounded-2xl bg-white p-2"
+        className="animate-hero delay-2 flex w-full max-w-xl flex-wrap gap-2 rounded-2xl bg-white p-2 shadow-xl shadow-ink/10 ring-1 ring-ink/10"
       >
         <label htmlFor="hero-resto" className="sr-only">
           {t.hero.recherche.libelle}
