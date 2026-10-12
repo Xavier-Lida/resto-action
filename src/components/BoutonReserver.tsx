@@ -44,7 +44,7 @@ export default function BoutonReserver({
       : "bg-white text-ink [--brille:rgba(255,48,8,0.18)]";
   const pastille = ton === "rouge" ? "bg-white text-brand" : "bg-brand text-white";
   const dimensions = {
-    md: "gap-3 py-2.5 pl-5 pr-2.5 text-base",
+    md: "gap-3 py-2.5 pl-4 pr-2.5 text-sm sm:pl-5 sm:text-base",
     lg: "gap-4 py-3 pl-7 pr-3 text-lg md:text-xl",
     xl: "gap-4 py-3.5 pl-8 pr-3.5 text-xl md:text-2xl",
   }[taille];
@@ -57,9 +57,9 @@ export default function BoutonReserver({
     >
       <a
         href={href}
-        className={`cta-brille group relative flex items-center justify-between rounded-full font-black shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_7px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none ${couleurs} ${dimensions} ${pleineLargeur ? "w-full" : ""}`}
+        className={`cta-brille group relative flex max-w-full items-center justify-between rounded-full font-black shadow-[0_5px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 hover:shadow-[0_7px_0_0_var(--ombre-cta)] active:translate-y-1 active:shadow-none ${couleurs} ${dimensions} ${pleineLargeur ? "w-full" : ""}`}
       >
-        <span className={`whitespace-nowrap ${pleineLargeur ? "flex-1 text-center" : ""}`}>{libelle}</span>
+        <span className={`min-w-0 ${pleineLargeur ? "flex-1 whitespace-nowrap text-center" : ""}`}>{libelle}</span>
         <span className={`grid shrink-0 place-items-center rounded-full transition-transform group-hover:translate-x-1 ${pastille} ${rond}`}>
           <ArrowRight className="size-5" aria-hidden="true" />
         </span>

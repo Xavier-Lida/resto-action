@@ -15,7 +15,7 @@
 export const CONDITIONS_VERSION = "2026-10-10";
 
 export const CONDITIONS_FR = {
-  metaTitre: "Conditions de la place fondateur | Resto Action",
+  metaTitre: "Conditions de la place fondateur",
   metaDescription:
     "Ce que comprend la place fondateur Resto Action : 500 $ remboursables jusqu'à la mise en ligne, aucun abonnement pendant l'attente, 300 $ de publicité et garantie de 90 jours.",
   surTitre: "Place fondateur",
@@ -81,7 +81,7 @@ export const CONDITIONS_FR = {
 export type ConditionsFondateur = typeof CONDITIONS_FR;
 
 export const CONDITIONS_EN: ConditionsFondateur = {
-  metaTitre: "Founder spot terms | Resto Action",
+  metaTitre: "Founder spot terms",
   metaDescription:
     "What the Resto Action founder spot includes: $500 refundable until launch, no subscription while you wait, $300 in ads and a 90-day guarantee.",
   surTitre: "Founder spot",

@@ -44,6 +44,15 @@ html {
   }
 }
 
+/* Rien ne doit élargir la page sur téléphone : un seul élément trop large
+   (un bouton, un halo décoratif) et toute la page glisse de gauche à droite
+   au défilement. `clip` coupe sans créer de zone de défilement, donc les
+   éléments collants (barre de navigation) continuent de marcher. */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: #ffffff;
   color: var(--color-ink);

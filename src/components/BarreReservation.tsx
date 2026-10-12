@@ -64,7 +64,7 @@ export default function BarreReservation({
         </span>
         <span className="hidden sm:inline">{places}</span>
       </span>
-      <BoutonReserver href={href} libelle={libelle} taille="md" flottant />
+      <BoutonReserver href={href} libelle={libelle} taille="md" flottant className="min-w-0" />
     </div>
   );
 }
