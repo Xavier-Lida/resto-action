@@ -77,7 +77,8 @@ export const EN: Textes = {
     carteSousTitre: "A quick call.",
     guillaumeAlt: "Guillaume Therrien, co-founder of Resto Action",
     badge: "Made in Trois-Rivières, for local restaurants",
-    titre: ["Your customers.", "Your sales.", "Your app."],
+    titre: ["Your app.", "Your sales.", "Your customers."],
+    appHabibi: "Bistro Habibi's app, built by us",
     puces: [
       "Web + mobile app in your name",
       "Delivery by our local drivers",

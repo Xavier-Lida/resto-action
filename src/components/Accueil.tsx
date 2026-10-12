@@ -28,6 +28,7 @@ import {
   POSTAL_CODE,
   SITE_URL,
   STREET,
+  VIDEO_ACCUEIL,
   VIDEO_HISTOIRE,
   YOUTUBE_URL,
   cheminReservation,
@@ -172,6 +173,21 @@ export default function Accueil({
         {/* ─── Héro — carte encadrée, marque géante, bouée 3D ─── */}
         <Hero t={t} />
 
+        {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
+        <Resultats t={t} fonctionnalites={fonctionnalites} />
+
+        {/* ─── Nos produits : onglets qui tournent seuls (SectionProduits) ─── */}
+        <SectionProduits t={t} />
+
+        {/* ─── L'offre fondateur ─── */}
+        <SectionOffre t={t} />
+
+        {/* ─── Plateformes contre ton app, et le gros bouton ─── */}
+        <SectionPlateformes t={t} />
+
+        {/* ─── Le calculateur animé ─── */}
+        <Calculateur t={t} />
+
         {/* ─── Notre approche ─── */}
         <section id="approche" className="bg-white">
           <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -237,23 +253,22 @@ export default function Accueil({
                 ))}
               </ol>
             </div>
+
+            {/* La vidéo qui était dans le héro : elle explique la démarche,
+                sa place est ici, avec les trois étapes. */}
+            <Reveal>
+              <div className="mx-auto mt-20 max-w-3xl">
+                <LecteurVideo
+                  id={VIDEO_ACCUEIL.id}
+                  miniature={VIDEO_ACCUEIL.miniature}
+                  titre={t.hero.video.titre}
+                  lire={t.hero.video.lire}
+                  langue={t.htmlLang}
+                />
+              </div>
+            </Reveal>
           </div>
         </section>
-
-        {/* ─── Plateformes contre ton app, et le gros bouton ─── */}
-        <SectionPlateformes t={t} />
-
-        {/* ─── Le calculateur animé ─── */}
-        <Calculateur t={t} />
-
-        {/* ─── Résultats — onglets à minuterie et maquettes animées ─── */}
-        <Resultats t={t} fonctionnalites={fonctionnalites} />
-
-        {/* ─── Nos produits : onglets qui tournent seuls (SectionProduits) ─── */}
-        <SectionProduits t={t} />
-
-        {/* ─── L'offre fondateur ─── */}
-        <SectionOffre t={t} />
 
         {/* ─── Ce en quoi on croit ─── */}
         {/* Court, exprès : les deux cofondateurs (photo cliquable vers leur

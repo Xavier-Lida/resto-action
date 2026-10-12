@@ -3,12 +3,12 @@ import { ArrowDown } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import GenerateurApp from "@/components/GenerateurApp";
 import IconeYoutube from "@/components/IconeYoutube";
-import LecteurVideo from "@/components/LecteurVideo";
+import DemoApp from "@/components/DemoApp";
+import TitreRoulant from "@/components/TitreRoulant";
 import LienPasPret from "@/components/LienPasPret";
 import {
   LINKEDIN_URL,
   cheminReservation,
-  VIDEO_ACCUEIL,
   YOUTUBE_ABONNEMENT_URL,
 } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
@@ -48,7 +48,7 @@ export default function Hero({ t }: { t: Textes }) {
         {/* Languette basse : une bosse rouge qui sort de la carte vers le
             bas, la flèche blanche logée dedans */}
         <Link
-          href={`${t.racine}/#approche`}
+          href={`${t.racine}/#resultats`}
           aria-label={t.nav.descendre}
           className="absolute left-1/2 top-full z-30 -mt-px -translate-x-1/2"
         >
@@ -62,35 +62,42 @@ export default function Hero({ t }: { t: Textes }) {
           <ArrowDown className="absolute left-1/2 top-1.5 size-5 -translate-x-1/2 animate-bounce text-white" />
         </Link>
 
-        {/* La colonne de la vidéo est plus large que celle du texte (7 contre 5) et
-            le conteneur s'élargit sur grand écran : à 1440 px, la vidéo passe
-            d'environ 515 px à 750 px de large, assez pour lire les sous-titres. */}
-        <div className="mx-auto grid w-full max-w-[90rem] flex-1 items-center gap-10 px-5 pt-14 md:px-8 md:pt-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:pb-28">
-          <div className="flex flex-col gap-6">
+        {/* L'ORDRE, COMME OWNER.COM. Au téléphone : le titre qui roule, l'app de
+            Bistro Habibi qui défile, puis la maquette gratuite et le bouton.
+            À l'ordi : le texte à gauche, l'app à droite sur toute la hauteur. */}
+        <div className="mx-auto grid w-full max-w-[90rem] flex-1 items-center gap-8 px-5 pt-12 md:px-8 md:pt-16 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-x-12 lg:gap-y-6 lg:pb-28">
+          <div className="flex flex-col gap-5 lg:col-start-1 lg:row-start-1 lg:self-end">
             <p className="animate-hero delay-1 self-start rounded-full bg-white/15 px-4 py-2 text-sm font-bold">
               {t.hero.badge}
             </p>
 
-            <h1 className="animate-hero delay-1 font-display text-5xl font-black leading-[0.95] tracking-tight md:text-7xl lg:text-6xl xl:text-7xl">
-              {t.hero.titre.map((ligne) => (
-                <span key={ligne} className="block">
-                  {ligne}
-                </span>
-              ))}
-            </h1>
+            <TitreRoulant
+              lignes={t.hero.titre}
+              className="animate-hero delay-1 font-display text-[11vw] font-black leading-[1.02] tracking-tight sm:text-7xl xl:text-8xl"
+            />
 
-            <ul className="animate-hero delay-2 flex list-none flex-wrap gap-2">
+            <ul className="animate-hero delay-2 hidden list-none flex-wrap gap-2 sm:flex">
               {t.hero.puces.map((puce) => (
-                <li
-                  key={puce}
-                  className="rounded-full bg-white/15 px-3 py-1.5 text-sm font-bold"
-                >
+                <li key={puce} className="rounded-full bg-white/15 px-3 py-1.5 text-sm font-bold">
                   {puce}
                 </li>
               ))}
             </ul>
+          </div>
 
-            {/* « TROUVE TON RESTO » : l'aperçu de l'app au nom du resto. */}
+          {/* L'app de Bistro Habibi, qui défile seule. */}
+          <figure className="animate-hero delay-2 flex flex-col items-center gap-3 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <DemoApp
+              demo="client"
+              alt={t.hero.maquette.exempleAlt}
+              attente={t.hero.maquette.attente}
+              className="[--demo-w:15rem] sm:[--demo-w:17rem] xl:[--demo-w:19rem]"
+            />
+            <figcaption className="text-sm font-bold text-white/75">{t.hero.appHabibi}</figcaption>
+          </figure>
+
+          <div className="flex flex-col gap-5 lg:col-start-1 lg:row-start-2 lg:self-start">
+            {/* « TROUVE TON RESTO » : la maquette gratuite au nom du resto. */}
             <GenerateurApp t={t} />
 
             <div className="animate-hero delay-3 flex flex-col gap-2">
@@ -105,17 +112,6 @@ export default function Hero({ t }: { t: Textes }) {
                 className="font-bold underline underline-offset-4 transition hover:text-white/80"
               />
             </div>
-          </div>
-
-          <div className="animate-hero delay-4">
-            <LecteurVideo
-              auto
-              id={VIDEO_ACCUEIL.id}
-              miniature={VIDEO_ACCUEIL.miniature}
-              titre={t.hero.video.titre}
-              lire={t.hero.video.lire}
-              langue={t.htmlLang}
-            />
           </div>
         </div>
 

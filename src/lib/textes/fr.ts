@@ -182,7 +182,9 @@ export const FR = {
     carteSousTitre: "Un court appel.",
     guillaumeAlt: "Guillaume Therrien, cofondateur de Resto Action",
     badge: "Fait à Trois-Rivières, pour les restos d'ici",
-    titre: ["Tes clients.", "Tes ventes.", "Ton app."],
+    titre: ["Ton app.", "Tes ventes.", "Tes clients."],
+    // Sous l'app de Bistro Habibi qui défile dans le héro.
+    appHabibi: "L'app de Bistro Habibi, faite par nous",
     puces: [
       "App web + mobile à ton nom",
       "Livraison par nos livreurs d'ici",
