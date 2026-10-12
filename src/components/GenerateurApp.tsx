@@ -80,7 +80,7 @@ export default function GenerateurApp({ t }: { t: Textes }) {
         />
         <button
           type="submit"
-          className="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 font-black text-white transition hover:bg-ink active:scale-95"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 font-black text-white transition hover:bg-ink active:scale-95 sm:w-auto"
         >
           <Search className="size-4" aria-hidden="true" />
           {t.hero.recherche.bouton}

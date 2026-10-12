@@ -33,7 +33,7 @@ export default function BarrePlaces({
         aria-valuemax={total}
         aria-valuenow={reste}
         aria-label={texte}
-        className={`h-2.5 w-32 shrink-0 overflow-hidden rounded-full ${fond}`}
+        className={`h-2.5 w-20 shrink-0 overflow-hidden rounded-full sm:w-32 ${fond}`}
       >
         <div className={`h-full rounded-full ${plein}`} style={{ width: `${pct}%` }} />
       </div>
