@@ -707,6 +707,7 @@ export const FR = {
     },
     convictions: {
       titre: "Ce en quoi on croit",
+      origine: "Deux gars de Trois-Rivières qui bâtissent pour les restos d'ici.",
       fondateurs: [
         {
           nom: "Guillaume",

@@ -284,6 +284,9 @@ export default function Accueil({
                 <h2 className="font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
                   {t.histoire.convictions.titre}
                 </h2>
+                {/* D'où on vient : dit ici, avec nos visages, plutôt qu'en
+                    pastille en haut de la page. */}
+                <p className="mt-3 text-lg text-white/60">{t.histoire.convictions.origine}</p>
               </Reveal>
 
               <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)]">

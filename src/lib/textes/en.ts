@@ -590,6 +590,7 @@ export const EN: Textes = {
     },
     convictions: {
       titre: "What we believe",
+      origine: "Two guys from Trois-Rivières, building for local restaurants.",
       fondateurs: [
         {
           nom: "Guillaume",

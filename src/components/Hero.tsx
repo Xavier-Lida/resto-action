@@ -9,7 +9,7 @@ import type { Textes } from "@/lib/textes/fr";
 
 /* LE HÉRO, INSPIRÉ D'OWNER.COM.
 
-   Sur fond blanc, tout centré : d'où on vient, le titre qui roule (« Ton app.
+   Sur fond blanc, tout centré : le titre qui roule (« Ton app.
    Tes ventes. Tes clients. »), une ligne de ce qui est inclus, puis l'app de
    Bistro Habibi qui défile dans un téléphone posé sur un grand panneau rouge,
    coupé au bas du panneau.
@@ -23,14 +23,10 @@ export default function Hero({ t }: { t: Textes }) {
   return (
     <section id="top" className="bg-white px-3 pt-10 md:px-5 md:pt-16 lg:px-6">
       <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
-        <p className="animate-hero delay-1 inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2 text-sm font-bold text-brand">
-          <span aria-hidden="true" className="size-2 rounded-full bg-brand" />
-          {t.hero.badge}
-        </p>
 
         <TitreRoulant
           lignes={t.hero.titre}
-          className="animate-hero delay-1 mt-6 font-display text-[12vw] font-black leading-[1.02] tracking-tight text-ink sm:text-7xl lg:text-8xl"
+          className="animate-hero delay-1 font-display text-[12vw] font-black leading-[1.02] tracking-tight text-ink sm:text-7xl lg:text-8xl"
         />
 
         <ul className="animate-hero delay-2 mt-5 hidden max-w-2xl list-none sm:flex flex-wrap items-center justify-center lg:max-w-none gap-x-3 gap-y-1 text-base font-semibold text-ink/60 md:text-lg">

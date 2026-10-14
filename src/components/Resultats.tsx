@@ -153,8 +153,15 @@ export default function Resultats({
   useEffect(() => {
     const el = section.current;
     if (!el) return;
+    /* À CHAQUE ENTRÉE À L'ÉCRAN, LE PANNEAU REPART DU DÉBUT. Sans ça, la
+       maquette du premier onglet jouait dès le chargement de la page, hors
+       écran : le visiteur arrivait sur la fin de l'animation (la fiche seule
+       sur un panneau vide) et croyait qu'elle n'avait pas chargé. */
     const observateur = new IntersectionObserver(
-      ([entree]) => setEnVue(entree.isIntersecting),
+      ([entree]) => {
+        setEnVue(entree.isIntersecting);
+        if (entree.isIntersecting) setCycle((c) => c + 1);
+      },
       { threshold: 0.25 }
     );
     observateur.observe(el);
