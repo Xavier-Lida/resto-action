@@ -377,6 +377,7 @@ export const EN: Textes = {
     apps: [
       {
         demo: "client",
+        court: "Customers",
         etiquette: "Your customers' app",
         titre: "An app under your name, not a middleman's",
         texte: [
@@ -386,6 +387,7 @@ export const EN: Textes = {
       },
       {
         demo: "cuisine",
+        court: "Kitchen",
         etiquette: "Your kitchen's app",
         titre: "Resto Action",
         texte: [
@@ -398,6 +400,7 @@ export const EN: Textes = {
       },
       {
         demo: "livreur",
+        court: "Drivers",
         etiquette: "Your drivers' app",
         titre: "Resto Go",
         texte: [

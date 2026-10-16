@@ -22,6 +22,8 @@ type Bout = string | { statut: string };
 
 const APPS: {
   demo: string;
+  // Le libellé des pastilles du carrousel au cellulaire (SectionProduits).
+  court: string;
   etiquette: string;
   titre: string;
   texte: Bout[];
@@ -29,6 +31,7 @@ const APPS: {
 }[] = [
   {
     demo: "client",
+    court: "Clients",
     etiquette: "L'app de tes clients",
     titre: "Une app à ton nom, pas à celui d'un intermédiaire",
     texte: [
@@ -38,6 +41,7 @@ const APPS: {
   },
   {
     demo: "cuisine",
+    court: "Cuisine",
     etiquette: "L'app de ta cuisine",
     titre: "Resto Action",
     texte: [
@@ -52,6 +56,7 @@ const APPS: {
   },
   {
     demo: "livreur",
+    court: "Livreurs",
     etiquette: "L'app de tes livreurs",
     titre: "Resto Go",
     texte: [

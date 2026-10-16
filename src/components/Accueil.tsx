@@ -295,13 +295,13 @@ export default function Accueil({
                     const image = IMAGES_HISTOIRE[i];
                     return (
                       <Reveal key={f.nom} delay={(i + 1) as 1 | 2}>
-                        <article className="group h-full rounded-[2rem] bg-white/[0.05] p-5 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.08]">
+                        <article className="group h-full rounded-[2rem] bg-white/[0.05] p-5 ring-1 ring-white/10 lg:transition lg:duration-300 lg:hover:-translate-y-1 lg:hover:bg-white/[0.08]">
                           <a
                             href={image.lien ?? undefined}
                             target="_blank"
                             rel="noopener"
                             aria-label={t.histoire.linkedinDe.replace("{nom}", f.nom)}
-                            className="relative block overflow-hidden rounded-2xl"
+                            className="relative block overflow-hidden rounded-2xl [-webkit-mask-image:-webkit-radial-gradient(white,black)] [isolation:isolate]"
                           >
                             <Image
                               draggable={false}
@@ -309,7 +309,7 @@ export default function Accueil({
                               alt={f.alt}
                               width={image.width}
                               height={image.height}
-                              className={`aspect-[4/3] w-full object-cover ${image.position} grayscale transition duration-500 group-hover:scale-[1.03] group-hover:grayscale-0`}
+                              className={`aspect-[4/3] w-full object-cover ${image.position} grayscale lg:transition lg:duration-500 lg:group-hover:scale-[1.03] lg:group-hover:grayscale-0`}
                             />
                             <span className="absolute bottom-3 right-3 grid size-11 place-items-center rounded-full bg-white text-[#0a66c2] shadow-lg transition group-hover:scale-110">
                               <IconeLinkedIn className="size-5" />

@@ -1278,6 +1278,35 @@ img {
   }
 }
 
+/* Le carrousel des trois apps au cellulaire (SectionProduits) : la carte
+   arrive du côté où on va. */
+@keyframes produits-glisse-droite {
+  from {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes produits-glisse-gauche {
+  from {
+    opacity: 0;
+    transform: translateX(-2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.produits-glisse-droite {
+  animation: produits-glisse-droite 450ms var(--res-glisse) both;
+}
+.produits-glisse-gauche {
+  animation: produits-glisse-gauche 450ms var(--res-glisse) both;
+}
+
 /* LE REFLET DU BOUTON RÉSERVER (BoutonReserver). Une bande claire traverse le
    bouton, puis il se repose : 1 passage aux 4 secondes environ. La couleur du
    reflet vient de --brille, posée par le bouton selon son ton. */
