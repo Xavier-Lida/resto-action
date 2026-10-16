@@ -349,9 +349,14 @@ export default function Calculateur({ t }: { t: Textes }) {
           </div>
         </div>
 
-        <p className="mt-4 max-w-3xl text-xs leading-relaxed text-ink/55">
-          {c.hypotheses}
-        </p>
+        {/* Les hypothèses restent là, repliées : un long paragraphe gris sous
+            le calculateur faisait mur de texte. */}
+        <details className="mt-4 max-w-3xl text-xs leading-relaxed text-ink/55">
+          <summary className="cursor-pointer font-semibold underline underline-offset-2">
+            {c.hypothesesVoir}
+          </summary>
+          <p className="mt-2">{c.hypotheses}</p>
+        </details>
       </div>
     </section>
   );

@@ -318,7 +318,7 @@ export default function Accueil({
                           <p className="mt-5 font-display text-2xl font-black">{f.nom}</p>
                           <p className="text-sm text-white/60">{f.role}</p>
                           <ul className="mt-5 grid list-none gap-2.5">
-                            {f.points.map((point) => (
+                            {f.points.slice(0, 2).map((point) => (
                               <li key={point.titre} className="flex items-start gap-3 font-bold leading-snug">
                                 <span className="mt-1.5 size-2 shrink-0 rounded-full bg-brand" />
                                 {point.titre}

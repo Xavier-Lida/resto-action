@@ -1,20 +1,15 @@
 import { Check, X } from "lucide-react";
-import BarrePlaces from "@/components/BarrePlaces";
 import Reveal from "@/components/Reveal";
-import { cheminReservation } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
-import BoutonReserver from "@/components/BoutonReserver";
 
-/* PLATEFORMES CONTRE TON APP — ET LE GROS BOUTON.
+/* PLATEFORMES CONTRE TON APP.
 
    Trois mots-chocs par colonne, en gros : ça se lit d'un coup d'œil, sans
    paragraphe. La colonne des plateformes est barrée de croix, la nôtre cochée.
-   Dessous, la réservation prend toute la largeur, dans le rouge du héro, avec
-   le compteur de places : c'est l'endroit de la page où l'envie est la plus
-   forte, le bouton doit y être impossible à manquer. */
+   Le gros bloc Réserver qui suivait est retiré : l'offre fondateur, juste au-
+   dessus, a déjà le sien, et la barre flottante prend le relais. */
 export default function SectionPlateformes({ t }: { t: Textes }) {
   const p = t.plateformes;
-  const reserver = cheminReservation(t.racine);
 
   return (
     <section id="plateformes" className="bg-white">
@@ -67,15 +62,6 @@ export default function SectionPlateformes({ t }: { t: Textes }) {
           </Reveal>
         </div>
 
-        <Reveal delay={2}>
-          <div className="mt-5 flex flex-col items-start justify-between gap-6 rounded-[2rem] bg-hero p-8 text-white md:flex-row md:items-center md:p-10">
-            <div className="flex flex-col gap-3">
-              <BarrePlaces modele={t.hero.places} />
-              <p className="text-sm font-semibold text-white/85">{p.sous}</p>
-            </div>
-            <BoutonReserver href={reserver} libelle={p.reserver} ton="blanc" taille="xl" pasPret={t.hero.pasPret} />
-          </div>
-        </Reveal>
       </div>
     </section>
   );

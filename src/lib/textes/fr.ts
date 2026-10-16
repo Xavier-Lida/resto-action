@@ -35,7 +35,7 @@ const APPS: {
     etiquette: "L'app de tes clients",
     titre: "Une app à ton nom, pas à celui d'un intermédiaire",
     texte: [
-      "Ton menu, tes photos, tes couleurs, ton programme de points. Le client choisit, commande en livraison ou en cueillette, et retrouve ses commandes passées. Sur son écran d'accueil, c'est ton nom qui reste.",
+      "Ton menu, tes couleurs, tes points. Sur l'écran de ton client, c'est ton nom qui reste.",
     ],
     alt: "Démonstration de l'application de commande Bistro Habibi",
   },
@@ -45,13 +45,13 @@ const APPS: {
     etiquette: "L'app de ta cuisine",
     titre: "Resto Action",
     texte: [
-      "Les commandes arrivent, sonnent, et se suivent du ",
+      "Les commandes arrivent et se suivent du ",
       { statut: "nouveau" },
       " jusqu'au ",
       { statut: "livrée" },
       // Aucune puce ne termine une phrase : le point tomberait après le
       // rembourrage de la pastille, et se lirait comme une espace avant point.
-      " dans la même file. Un plat en rupture se retire en un geste. Les heures, la pause du service, les frais de livraison se règlent de la même place.",
+      " dans une seule file.",
     ],
   },
   {
@@ -60,7 +60,7 @@ const APPS: {
     etiquette: "L'app de tes livreurs",
     titre: "Resto Go",
     texte: [
-      "Tes livreurs voient les courses arriver et en prennent une. L'adresse s'ouvre dans Plans, le client est à un appel. Toi, tu sais où en est chaque livraison sans avoir à appeler personne.",
+      "Tes livreurs prennent les courses. Toi, tu sais où en est chaque livraison.",
     ],
     alt: "Démonstration de l'application des livreurs Resto Go",
   },
@@ -389,17 +389,17 @@ export const FR = {
     etapes: [
       {
         titre: "Tu réserves ta place",
-        texte: "500 $, remboursables jusqu'au lancement de ton app.",
+        texte: "500 $, remboursables jusqu'au lancement.",
         alt: "La mascotte Resto Action écoute au téléphone",
       },
       {
         titre: "On prépare ton app avec toi",
-        texte: "Ton menu, tes photos et tes couleurs pendant la préparation du lancement. Les tests de commande et de facturation restent à valider.",
+        texte: "Ton menu, tes photos, tes couleurs.",
         alt: "La mascotte Resto Action examine une facture à la loupe",
       },
       {
         titre: "Tes clients commandent chez toi",
-        texte: "Après les validations et la confirmation de ta date de mise en service, on installe, on forme ton équipe et on active les commandes.",
+        texte: "Après les tests, on installe et on forme ton équipe.",
         alt: "La mascotte Resto Action lève le pouce, problème réglé",
       },
     ],
@@ -464,6 +464,8 @@ export const FR = {
       quand: "il y a 1 jour",
     },
     garde: "gardés par année au lieu de les donner aux plateformes",
+    // Repliées sous le calculateur : on les ouvre au besoin.
+    hypothesesVoir: "Estimation, pas une garantie. Voir les hypothèses",
     hypotheses:
       "Estimation, pas une garantie. Argent gardé : 30 % de frais de plateforme typiques, comparés à notre abonnement à 200 $ par mois et à notre commission en livraison, 10 % (en cueillette, c'est 5 %, donc tu gardes encore plus). Ventes en plus (chiffre d'affaires, aucun frais ajouté sur les suggestions) : 5 % de plus par facture grâce aux suggestions, 1 commande sur 20 de plus grâce aux rappels et aux paniers récupérés, 1 sur 20 de plus grâce à Google. Avis : 1 commande sur 20. Les noms et les avis qui défilent sont des exemples. Avant taxes et frais de carte.",
     reserver: "Réserver ma place fondateur",
@@ -522,7 +524,7 @@ export const FR = {
   lancement: {
     titre: "Pré-lancement · offre fondateur",
     accroche: "Pré-lancement avec deux restaurants partenaires. Les tests restent à valider avant la mise en service.",
-    resume: "Tu réserves pendant la préparation du lancement avec deux restaurants partenaires. La date de mise en service reste à confirmer après les tests. Aucun abonnement pendant l'attente.",
+    resume: "Tests en cours avec deux restos partenaires. Date de mise en service à confirmer. Aucun abonnement d'ici là.",
     texte: "Nous préparons le lancement de Resto Action avec deux restaurants partenaires. Le parcours de commande et la facturation doivent encore être testés et validés avant l'ouverture des commandes payantes.",
     date: "Ta réservation permet de préparer ton app au tarif fondateur. La date de mise en service sera confirmée avec toi après les validations nécessaires.",
     abonnement: "Ton abonnement, tes trois mois de publicité et ta garantie de 90 jours commencent à la mise en ligne de ton app.",
@@ -540,7 +542,7 @@ export const FR = {
       montant: "300 $",
       titre: "de publicité payée par nous",
       texte:
-        "Pendant tes 3 premiers mois après la mise en ligne, on gère tes pubs Facebook et Instagram, juste avant les repas. Chaque nouveau client est à toi.",
+        "Tes 3 premiers mois en ligne, on gère tes pubs Facebook et Instagram.",
     },
     inclusTitre: "Ce qui est inclus",
     inclus: [
@@ -707,7 +709,7 @@ export const FR = {
     // La reconnaissance, en une ligne, à côté des deux cofondateurs.
     ceed: {
       titre: "1re position au Défi CEED 2026",
-      texte: "L'équipe s'est formée à l'École d'entrepreneurship de Beauce. On a gagné, et on a décidé d'agir.",
+      texte: "École d'entrepreneurship de Beauce.",
       alt: "Certificat du Défi CEED 2026, 1re position, remis à Guillaume Therrien pour Resto Action",
     },
     convictions: {
@@ -777,7 +779,7 @@ export const FR = {
     surTitre: "Notre chaîne YouTube",
     titre: "La suite se passe sur YouTube",
     texte:
-      "On y raconte pourquoi Resto Action existe, et comment un resto indépendant reprend le contrôle de ses commandes, de ses marges et de ses clients. Commence par notre histoire, puis abonne-toi pour ne pas manquer la suite.",
+      "Pourquoi Resto Action existe, en 5 minutes.",
     abonner: "S'abonner à la chaîne",
     video: {
       titre:

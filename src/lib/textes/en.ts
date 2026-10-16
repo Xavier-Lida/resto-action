@@ -260,17 +260,17 @@ export const EN: Textes = {
     etapes: [
       {
         titre: "You reserve your spot",
-        texte: "$500, refundable until your app launches.",
+        texte: "$500, refundable until launch.",
         alt: "The Resto Action mascot listening on the phone",
       },
       {
         titre: "We prepare your app with you",
-        texte: "Your menu, photos and colours while we prepare for launch. Ordering and billing tests still need to be validated.",
+        texte: "Your menu, your photos, your colours.",
         alt: "The Resto Action mascot examining an invoice with a magnifying glass",
       },
       {
         titre: "Your customers order from you",
-        texte: "After validation and confirmation of your launch date, we install your equipment, train your team and activate ordering.",
+        texte: "After testing, we install and train your team.",
         alt: "The Resto Action mascot giving a thumbs up, problem solved",
       },
     ],
@@ -331,6 +331,7 @@ export const EN: Textes = {
       quand: "1 day ago",
     },
     garde: "kept per year instead of going to the platforms",
+    hypothesesVoir: "An estimate, not a guarantee. See the assumptions",
     hypotheses:
       "An estimate, not a guarantee. Money kept: typical 30% platform fees, compared with our $200 monthly subscription and our 10% delivery commission (pickup is 5%, so you keep even more). Extra sales (revenue, no added fee on suggestions): orders 5% bigger thanks to suggestions, 1 more order in 20 from reminders and recovered carts, 1 more in 20 from Google. Reviews: 1 order in 20. The names and reviews shown are examples. Before taxes and card fees.",
     reserver: "Reserve my founder spot",
@@ -381,7 +382,7 @@ export const EN: Textes = {
         etiquette: "Your customers' app",
         titre: "An app under your name, not a middleman's",
         texte: [
-          "Your menu, your photos, your colours, your points programme. Customers browse, order for delivery or pickup, and find their past orders. On their home screen, it's your name that stays.",
+          "Your menu, your colours, your points. On your customer's screen, your name stays.",
         ],
         alt: "Demonstration of the Bistro Habibi ordering app",
       },
@@ -391,11 +392,11 @@ export const EN: Textes = {
         etiquette: "Your kitchen's app",
         titre: "Resto Action",
         texte: [
-          "Orders come in, ring, and move from ",
+          "Orders come in and move from ",
           { statut: "new" },
           " through to ",
           { statut: "delivered" },
-          " in one queue. A sold-out dish comes off the menu in one tap. Hours, service pauses and delivery fees are set from the same place.",
+          " in one queue.",
         ],
       },
       {
@@ -404,7 +405,7 @@ export const EN: Textes = {
         etiquette: "Your drivers' app",
         titre: "Resto Go",
         texte: [
-          "Your drivers watch runs come in and claim one. The address opens in Maps, the customer is one call away. And you know where every delivery stands without calling anyone.",
+          "Your drivers claim runs. You know where every delivery stands.",
         ],
         alt: "Demonstration of the Resto Go drivers' app",
       },
@@ -414,7 +415,7 @@ export const EN: Textes = {
   lancement: {
     titre: "Pre-launch · founder offer",
     accroche: "Preparing for launch with two restaurant partners. Testing must be validated before activation.",
-    resume: "You're reserving while we prepare for launch with two restaurant partners. Your launch date will be confirmed after testing. No subscription charges while you wait.",
+    resume: "Testing underway with two partner restaurants. Launch date to be confirmed. No subscription until then.",
     texte: "We're preparing Resto Action's launch with two restaurant partners. The ordering and billing process still needs to be tested and validated before paid orders can open.",
     date: "Your reservation lets us prepare your app at the founder price. We'll confirm your launch date with you once the necessary validations are complete.",
     abonnement: "Your subscription, three months of advertising and 90-day guarantee begin when your app goes live.",
@@ -429,7 +430,7 @@ export const EN: Textes = {
       montant: "$300",
       titre: "of advertising, paid by us",
       texte:
-        "For your first 3 months after your app goes live, we run your Facebook and Instagram ads, right before mealtimes. Every new customer is yours.",
+        "Your first 3 months live, we run your Facebook and Instagram ads.",
     },
     inclusTitre: "What's included",
     inclus: [
@@ -588,7 +589,7 @@ export const EN: Textes = {
     linkedinDe: "{nom}'s LinkedIn profile",
     ceed: {
       titre: "1st place, CEED Challenge 2026",
-      texte: "The team came together at the École d'entrepreneurship de Beauce. We won, and we decided to act.",
+      texte: "École d'entrepreneurship de Beauce.",
       alt: "CEED Challenge 2026 certificate, 1st place, awarded to Guillaume Therrien for Resto Action",
     },
     convictions: {
@@ -624,7 +625,7 @@ export const EN: Textes = {
     surTitre: "Our YouTube channel",
     titre: "The story continues on YouTube",
     texte:
-      "It's where we tell why Resto Action exists, and how an independent restaurant takes back control of its orders, its margins and its customers. Start with our story, then subscribe so you don't miss what comes next.",
+      "Why Resto Action exists, in 5 minutes.",
     abonner: "Subscribe to the channel",
     video: {
       titre:
