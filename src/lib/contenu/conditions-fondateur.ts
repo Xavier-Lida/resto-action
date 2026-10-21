@@ -61,7 +61,7 @@ export const CONDITIONS_FR = {
     {
       titre: "8. La garantie de 90 jours",
       texte:
-        "Si, sur tes 90 premiers jours en ligne, les économies réalisées grâce à ton app ne couvrent pas ton abonnement, on te rembourse ton abonnement et nos commissions de cette période. Conditions : rester client les 90 jours complets et, dans les 7 jours suivant la mise en ligne, rendre visibles le chevalet NFC et les encarts, puis mettre le lien de ton app sur ta fiche Google et tes réseaux sociaux. Aucun minimum de ventes n'est exigé. Le calcul se fait à la fin des 90 jours, à partir des commandes passées par ton app. La mise en service (500 $) et l'équipement (495 $) ne sont pas couverts. Si tu mets fin au service avant 90 jours, la garantie ne s'applique pas.",
+        "À la fin de tes 90 premiers jours en ligne, on calcule les frais que les plateformes de livraison t'auraient facturés sur toutes les commandes réelles passées par ton app, nouvelles comme redirigées, à tes taux réels sur ces plateformes. Si ce montant est plus petit que les abonnements que tu nous as payés pendant ces 90 jours, on te rembourse ces abonnements. Les commissions de Resto Action ne sont ni déduites de ce calcul ni remboursées. Conditions : rester client les 90 jours complets et, dans les 7 jours suivant la mise en ligne, rendre visibles le chevalet NFC et les encarts, puis mettre le lien de ton app sur ta fiche Google et tes réseaux sociaux. Aucun minimum de ventes ni de part de livraison n'est exigé. La mise en service (500 $), l'équipement (495 $) et nos commissions ne sont pas couverts. Si tu mets fin au service avant 90 jours, la garantie ne s'applique pas.",
     },
     {
       titre: "9. Le contrat de service",
@@ -127,7 +127,7 @@ export const CONDITIONS_EN: ConditionsFondateur = {
     {
       titre: "8. The 90-day guarantee",
       texte:
-        "If, over your first 90 days live, the savings made through your app do not cover your subscription, we refund your subscription and our commissions for that period. Conditions: stay a customer for the full 90 days and, within 7 days of go-live, make the NFC stand and inserts visible and put your app link on your Google profile and social media. No minimum sales required. The calculation is done at the end of the 90 days, based on orders placed through your app. The setup fee ($500) and equipment ($495) are not covered. If you end the service before 90 days, the guarantee does not apply.",
+        "At the end of your first 90 days live, we calculate the fees the delivery platforms would have charged you on all actual orders placed through your app, new and redirected, at your real rates on those platforms. If that amount is lower than the subscriptions you paid us during those 90 days, we refund those subscriptions. Resto Action commissions are neither deducted from this calculation nor refunded. Conditions: stay a customer for the full 90 days and, within 7 days of go-live, make the NFC stand and inserts visible and put your app link on your Google profile and social media. No minimum sales or delivery share required. The setup fee ($500), equipment ($495) and our commissions are not covered. If you end the service before 90 days, the guarantee does not apply.",
     },
     {
       titre: "9. The service agreement",

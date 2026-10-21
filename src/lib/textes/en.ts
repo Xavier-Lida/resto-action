@@ -443,8 +443,8 @@ export const EN: Textes = {
     ],
     garantie: {
       titre: "90-day guarantee",
-      texte: "If your savings don't cover your subscription, we refund your subscription and our commissions.",
-      note: "Over your first 90 days live, if you stay the full 90 days and followed our steps. Setup and equipment excluded.",
+      texte: "If the platforms would have cost you less than your subscription on your orders, we refund your subscription.",
+      note: "Over your first 90 days live, if you stay the full 90 days and complete the launch steps. Resto Action commissions, setup and equipment excluded.",
     },
     coutsTitre: "The price, in full",
     couts: [

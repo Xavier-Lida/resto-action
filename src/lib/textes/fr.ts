@@ -533,7 +533,8 @@ export const FR = {
   },
 
   /* L'OFFRE FONDATEUR. Les montants et la garantie doivent rester identiques au
-     contrat et au bon d'accord ; la garantie est à valider par l'avocat. */
+     contrat et au bon d'accord. Garantie (formule B, oct. 2026) : seul
+     l'abonnement est remboursé, commissions Resto Action exclues. */
   offre: {
     surTitre: "Offre fondateur",
     titre: "Préparons ton lancement.",
@@ -555,8 +556,8 @@ export const FR = {
     ],
     garantie: {
       titre: "Garantie 90 jours",
-      texte: "Si tes économies ne couvrent pas ton abonnement, on te rembourse ton abonnement et nos commissions.",
-      note: "Sur tes 90 premiers jours en ligne, si tu restes les 90 jours et que tu as suivi nos étapes. Mise en service et équipement exclus.",
+      texte: "Si les plateformes t'auraient coûté moins cher que ton abonnement sur tes commandes, on te rembourse ton abonnement.",
+      note: "Sur tes 90 premiers jours en ligne, si tu restes les 90 jours et fais les étapes de lancement. Commissions Resto Action, mise en service et équipement exclus.",
     },
     coutsTitre: "Le prix, au complet",
     couts: [
