@@ -473,7 +473,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Il faut aussi un compte de développeur à ton nom, chez Apple comme chez Google : c'est ce qui fait que l'app t'appartient vraiment, et que tu la gardes le jour où tu ne travailles plus avec nous. On s'occupe des démarches, mais les comptes restent les tiens.",
+          "Il faut aussi un compte de développeur à ton nom, chez Apple comme chez Google : c'est ton nom que tes clients voient dans les magasins d'apps. On s'occupe des démarches, et les comptes restent les tiens. Si tu arrêtes avec nous un jour, l'app cesse de fonctionner, mais tu gardes tes comptes, tes données, ta liste de clients et l'équipement payé.",
       },
 
       { t: "h2", texte: "Ce que ça demande pour marcher" },
@@ -932,7 +932,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "You also need a developer account in your own name, with both Apple and Google: that's what makes the app genuinely yours, and what lets you keep it the day you stop working with us. We handle the paperwork, but the accounts stay yours.",
+          "You also need a developer account in your own name, with both Apple and Google: it's your name customers see in the app stores. We handle the paperwork, and the accounts stay yours. If you ever stop working with us, the app stops working, but you keep your accounts, your data, your customer list and the equipment you paid for.",
       },
 
       { t: "h2", texte: "What it takes to work" },

@@ -12,7 +12,7 @@
 
    Les montants doivent rester identiques à `offre` et `lancement` dans
    src/lib/textes/fr.ts et en.ts. */
-export const CONDITIONS_VERSION = "2026-10-10";
+export const CONDITIONS_VERSION = "2026-10-21";
 
 export const CONDITIONS_FR = {
   metaTitre: "Conditions de la place fondateur",
@@ -46,7 +46,7 @@ export const CONDITIONS_FR = {
     {
       titre: "5. Remboursement des 500 $",
       texte:
-        "Tes 500 $ et les taxes payées sont remboursables en entier, sur simple demande écrite (courriel), en tout temps jusqu'à la mise en ligne de ton app. Le remboursement est fait sur le moyen de paiement utilisé, dans les 10 jours ouvrables suivant ta demande. Une fois ton app en ligne, ces frais de mise en service ne sont plus remboursables.",
+        "Tes 500 $ et les taxes payées sont remboursables en entier, sur simple demande écrite (courriel), en tout temps jusqu'à la mise en ligne de ton app. Le remboursement est fait sur le moyen de paiement utilisé, dans les 15 jours suivant ta demande, sans retenue de frais. Une fois ton app en ligne, ces frais de mise en service ne sont plus remboursables.",
     },
     {
       titre: "6. Si le lancement n'a pas lieu",
@@ -56,12 +56,12 @@ export const CONDITIONS_FR = {
     {
       titre: "7. Tes 300 $ de publicité",
       texte:
-        "Nous payons et gérons 300 $ de publicité Facebook et Instagram pour ton resto, dépensés sur tes 3 premiers mois après la mise en ligne. Ce budget n'est pas remis en argent, ni crédité sur ta facture, ni reporté. Si tu mets fin au service avant la fin de ces 3 mois, la publicité réellement dépensée pour ton resto jusqu'à ton départ t'est facturée, jusqu'à un maximum de 300 $, et la partie non dépensée est annulée. Le détail des dépenses t'est fourni sur demande.",
+        "Nous payons et gérons 300 $ de publicité Facebook et Instagram pour ton resto, dépensés sur tes 3 premiers mois après la mise en ligne. Ce budget n'est pas remis en argent, ni crédité sur ta facture, ni reporté. Si tu mets fin au service avant la fin de ces 3 mois, la publicité réellement dépensée pour ton resto jusqu'à ton départ t'est facturée, jusqu'à un maximum de 300 $, et la partie non dépensée est annulée, sauf si tu pars à cause d'un manquement de notre part ou si la garantie de 90 jours t'est accordée : rien ne t'est alors facturé. Le détail des dépenses t'est fourni sur demande.",
     },
     {
       titre: "8. La garantie de 90 jours",
       texte:
-        "Si, sur tes 90 premiers jours en ligne, les économies réalisées grâce à ton app ne couvrent pas ton abonnement, on te rembourse ton abonnement et nos commissions de cette période. Conditions : rester client les 90 jours complets et avoir suivi les étapes de lancement convenues avec toi à l'appel de démarrage. Le calcul se fait avec toi à la fin des 90 jours, à partir des commandes passées par ton app. La mise en service (500 $) et l'équipement (495 $) ne sont pas couverts. Si tu mets fin au service avant 90 jours, la garantie ne s'applique pas.",
+        "Si, sur tes 90 premiers jours en ligne, les économies réalisées grâce à ton app ne couvrent pas ton abonnement, on te rembourse ton abonnement et nos commissions de cette période. Conditions : rester client les 90 jours complets et, dans les 7 jours suivant la mise en ligne, rendre visibles le chevalet NFC et les encarts, puis mettre le lien de ton app sur ta fiche Google et tes réseaux sociaux. Aucun minimum de ventes n'est exigé. Le calcul se fait à la fin des 90 jours, à partir des commandes passées par ton app. La mise en service (500 $) et l'équipement (495 $) ne sont pas couverts. Si tu mets fin au service avant 90 jours, la garantie ne s'applique pas.",
     },
     {
       titre: "9. Le contrat de service",
@@ -112,7 +112,7 @@ export const CONDITIONS_EN: ConditionsFondateur = {
     {
       titre: "5. Refund of the $500",
       texte:
-        "Your $500 and the taxes paid are fully refundable on simple written request (email), at any time until your app goes live. The refund goes back to the payment method used, within 10 business days of your request. Once your app is live, this setup fee is no longer refundable.",
+        "Your $500 and the taxes paid are fully refundable on simple written request (email), at any time until your app goes live. The refund goes back to the payment method used, within 15 days of your request, with no fees withheld. Once your app is live, this setup fee is no longer refundable.",
     },
     {
       titre: "6. If the launch does not happen",
@@ -122,12 +122,12 @@ export const CONDITIONS_EN: ConditionsFondateur = {
     {
       titre: "7. Your $300 in ads",
       texte:
-        "We pay for and manage $300 of Facebook and Instagram ads for your restaurant, spent over your first 3 months after go-live. This budget is not paid out in cash, credited on your invoice or carried over. If you end the service before these 3 months are up, the advertising actually spent for your restaurant up to your departure is billed to you, up to a maximum of $300, and the unspent part is cancelled. A breakdown of the spending is available on request.",
+        "We pay for and manage $300 of Facebook and Instagram ads for your restaurant, spent over your first 3 months after go-live. This budget is not paid out in cash, credited on your invoice or carried over. If you end the service before these 3 months are up, the advertising actually spent for your restaurant up to your departure is billed to you, up to a maximum of $300, and the unspent part is cancelled, unless you leave because of a failure on our part or the 90-day guarantee is granted: then nothing is billed. A breakdown of the spending is available on request.",
     },
     {
       titre: "8. The 90-day guarantee",
       texte:
-        "If, over your first 90 days live, the savings made through your app do not cover your subscription, we refund your subscription and our commissions for that period. Conditions: stay a customer for the full 90 days and follow the launch steps agreed with you at the kickoff call. The calculation is done with you at the end of the 90 days, based on orders placed through your app. The setup fee ($500) and equipment ($495) are not covered. If you end the service before 90 days, the guarantee does not apply.",
+        "If, over your first 90 days live, the savings made through your app do not cover your subscription, we refund your subscription and our commissions for that period. Conditions: stay a customer for the full 90 days and, within 7 days of go-live, make the NFC stand and inserts visible and put your app link on your Google profile and social media. No minimum sales required. The calculation is done at the end of the 90 days, based on orders placed through your app. The setup fee ($500) and equipment ($495) are not covered. If you end the service before 90 days, the guarantee does not apply.",
     },
     {
       titre: "9. The service agreement",

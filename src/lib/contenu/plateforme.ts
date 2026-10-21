@@ -208,7 +208,7 @@ export const PLATEFORME_EN: Plateforme = {
       t: "encadre",
       titre: "We look before we sell you anything",
       texte:
-        "The thirty-minute call is exactly for that: seeing what you have, what works, and what isn't worth replacing. Sometimes we tell you to leave a piece alone.",
+        "The short call is exactly for that: seeing what you have, what works, and what isn't worth replacing. Sometimes we tell you to leave a piece alone.",
     },
 
     { t: "h2", texte: "Why not just use a delivery app?" },
