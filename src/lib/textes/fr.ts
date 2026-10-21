@@ -200,7 +200,7 @@ export const FR = {
       exemple: "Trouve ton resto (ex. Casse-croûte Chez Paul)",
       bouton: "Ma maquette gratuite",
     },
-    condition: "Pré-lancement · 500 $ remboursables jusqu'à la mise en ligne",
+    condition: "Pré-lancement · remboursable jusqu'à la mise en ligne",
     // La demande de maquette gratuite, faite à la main, qui s'ouvre du champ.
     maquette: {
       titre: "La maquette de {nom}, faite à la main.",
@@ -282,9 +282,10 @@ export const FR = {
       reserver: "Réserver l'app de {nom}",
       fermer: "Fermer l'aperçu",
     },
-    // {prises} et {total} viennent de PLACES_FONDATEURS (site.ts).
-    // {reste} et {total} viennent de PLACES_FONDATEURS (site.ts).
-    places: "Il reste {reste} places dans ta ville",
+    // La limite, sans compteur : un « il reste X » ne connaît pas la ville du
+    // visiteur et se met à jour à la main. Le prix est la vraie raison d'agir.
+    places: "10 places fondateurs par ville",
+    placesPrix: "500 $ au lieu de 1 000 $",
     reserver: "Réserver ma place fondateur",
     pasPret: "Pas encore prêt?",
     // La fenêtre qui s'ouvre de « Pas encore prêt? » : l'agenda de Guillaume.

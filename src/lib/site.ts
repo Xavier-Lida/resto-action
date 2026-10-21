@@ -104,12 +104,6 @@ export function cheminReservation(racine: string): string {
   return racine === "/en" ? "/en/reserve" : "/reserver";
 }
 
-/* LES PLACES FONDATEURS : 10 PAR VILLE (la limite suit le recrutement des
-   livreurs). Le site ne connaît pas la ville du visiteur : il affiche donc le
-   compteur d'une ville neuve. Quand une ville se remplit, le compteur par ville
-   viendra du formulaire. SE MET À JOUR À LA MAIN : un compteur qui ment tue la
-   confiance au lieu de créer l'élan. */
-export const PLACES_FONDATEURS = { total: 10, prises: 2 };
 
 /* LES DEUX FONDATEURS, à un seul endroit.
 

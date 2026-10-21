@@ -24,7 +24,6 @@ import {
   FONDATEURS,
   LINKEDIN_URL,
   PHONE_E164,
-  PLACES_FONDATEURS,
   POSTAL_CODE,
   SITE_URL,
   STREET,
@@ -415,10 +414,7 @@ export default function Accueil({
       <BarreReservation
         href={cheminReservation(t.racine)}
         libelle={t.hero.reserver}
-        places={t.hero.places.replace(
-          "{reste}",
-          String(Math.max(0, PLACES_FONDATEURS.total - PLACES_FONDATEURS.prises)),
-        )}
+        places={t.hero.places}
       />
       <Footer t={t} />
     </>

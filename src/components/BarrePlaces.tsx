@@ -1,43 +1,42 @@
-import { PLACES_FONDATEURS } from "@/lib/site";
+/* « 10 places fondateurs par ville · 500 $ au lieu de 1 000 $ ».
 
-/* « Il reste X places sur Y », avec une barre des places qui restent : elle
-   raccourcit à chaque réservation, l'élan se voit avant de se lire. Le modèle accepte {reste}, {prises} et {total}. Les chiffres viennent de PLACES_FONDATEURS (site.ts), tenus
-   à jour à la main. `ton` choisit les couleurs selon le fond : blanc sur le
-   rouge du héro, encre sur un fond clair. */
+   C'était une barre « Il reste X places dans ta ville » : le site ne connaît pas
+   la ville du visiteur, le chiffre était tenu à la main et faux pour presque
+   tout le monde. On garde la limite, qui est vraie, et le prix, qui est la
+   vraie raison d'agir maintenant, sans compteur.
+
+   Les deux morceaux passent à la ligne proprement au cellulaire au lieu de
+   couper la phrase au milieu. `ton` suit le fond : « clair » pour un texte
+   blanc sur fond foncé, « sombre » pour un texte encre sur fond clair. */
 export default function BarrePlaces({
   modele,
+  prix,
   ton = "clair",
+  aligne = "centre",
   className = "",
 }: {
-  /** La phrase du dictionnaire, avec {prises} et {total}. */
+  /** La limite, ex. « 10 places fondateurs par ville ». */
   modele: string;
+  /** Le prix fondateur, ex. « 500 $ au lieu de 1 000 $ ». */
+  prix?: string;
   ton?: "clair" | "sombre";
+  aligne?: "centre" | "gauche";
   className?: string;
 }) {
-  const { total, prises } = PLACES_FONDATEURS;
-  const reste = Math.max(0, total - prises);
-  // La barre montre ce qui RESTE : elle raccourcit à chaque réservation.
-  const pct = Math.min(100, Math.round((reste / total) * 100));
-  const texte = modele
-    .replace("{reste}", String(reste))
-    .replace("{prises}", String(prises))
-    .replace("{total}", String(total));
-  const fond = ton === "clair" ? "bg-white/25" : "bg-ink/10";
-  const plein = ton === "clair" ? "bg-white" : "bg-brand";
+  const point = ton === "clair" ? "bg-white" : "bg-brand";
+  const second = ton === "clair" ? "text-white/75" : "text-ink/60";
 
   return (
-    <div className={`flex items-center gap-3 text-sm font-black ${className}`}>
-      <div
-        role="progressbar"
-        aria-valuemin={0}
-        aria-valuemax={total}
-        aria-valuenow={reste}
-        aria-label={texte}
-        className={`h-2.5 w-20 shrink-0 overflow-hidden rounded-full sm:w-32 ${fond}`}
-      >
-        <div className={`h-full rounded-full ${plein}`} style={{ width: `${pct}%` }} />
-      </div>
-      <span>{texte}</span>
-    </div>
+    <p
+      className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-black ${
+        aligne === "centre" ? "justify-center text-center" : "justify-start"
+      } ${className}`}
+    >
+      <span className="inline-flex items-center gap-2">
+        <span aria-hidden="true" className={`size-2 shrink-0 rounded-full ${point}`} />
+        {modele}
+      </span>
+      {prix && <span className={`font-semibold ${second}`}>{prix}</span>}
+    </p>
   );
 }

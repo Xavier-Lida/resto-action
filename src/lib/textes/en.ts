@@ -89,7 +89,7 @@ export const EN: Textes = {
       exemple: "Find your restaurant (e.g. Chez Paul diner)",
       bouton: "My free mockup",
     },
-    condition: "Pre-launch · $500 refundable until your app goes live",
+    condition: "Pre-launch · refundable until your app goes live",
     maquette: {
       titre: "A mockup for {nom}, made by hand.",
       titreGenerique: "Your free mockup, made by hand.",
@@ -168,7 +168,8 @@ export const EN: Textes = {
       reserver: "Reserve {nom}'s app",
       fermer: "Close the preview",
     },
-    places: "Only {reste} spots left in your city",
+    places: "10 founder spots per city",
+    placesPrix: "$500 instead of $1,000",
     reserver: "Reserve my founder spot",
     pasPret: "Not ready yet?",
     hesite: {

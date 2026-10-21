@@ -51,7 +51,7 @@ export default function Hero({ t }: { t: Textes }) {
             </div>
 
             <div className="animate-hero delay-3 flex flex-col items-center gap-1.5">
-              <BarrePlaces modele={t.hero.places} ton="sombre" />
+              <BarrePlaces modele={t.hero.places} prix={t.hero.placesPrix} ton="sombre" />
               <p className="text-sm font-semibold text-ink/55">{t.hero.condition}</p>
             </div>
 

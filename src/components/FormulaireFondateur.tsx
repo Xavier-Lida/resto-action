@@ -491,7 +491,7 @@ export default function FormulaireFondateur({
             <figcaption className="text-sm font-bold text-white/70">{t.hero.maquette.exemple}</figcaption>
           </figure>
           <div className="relative w-full max-w-xs">
-            <BarrePlaces modele={t.hero.places} />
+            <BarrePlaces modele={t.hero.places} prix={t.hero.placesPrix} />
           </div>
         </aside>
       </div>
