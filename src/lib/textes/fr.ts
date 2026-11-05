@@ -200,7 +200,7 @@ export const FR = {
       exemple: "Trouve ton resto (ex. Casse-croûte Chez Paul)",
       bouton: "Ma maquette gratuite",
     },
-    condition: "Pré-lancement · remboursable jusqu'à la mise en ligne",
+    condition: "Dépôt de 500 $, crédité sur ta mise en service",
     // La demande de maquette gratuite, faite à la main, qui s'ouvre du champ.
     maquette: {
       titre: "La maquette de {nom}, faite à la main.",
@@ -284,9 +284,9 @@ export const FR = {
     },
     // La limite, sans compteur : un « il reste X » ne connaît pas la ville du
     // visiteur et se met à jour à la main. Le prix est la vraie raison d'agir.
-    places: "10 places fondateurs par ville",
-    placesPrix: "500 $ au lieu de 1 000 $",
-    reserver: "Réserver ma place fondateur",
+    places: "16 restos par mois, pas plus",
+    placesPrix: "Prochaine cohorte : janvier 2027",
+    reserver: "Réserve ta place",
     pasPret: "Pas encore prêt?",
     // La fenêtre qui s'ouvre de « Pas encore prêt? » : l'agenda de Guillaume.
     // La fenêtre « Pas encore prêt? » : deux portes pour ceux qui hésitent.
@@ -294,8 +294,8 @@ export const FR = {
       titre: "Pas encore prêt? Pas de problème.",
       texte: "Deux façons d'avancer à ton rythme, sans engagement.",
       maquette: {
-        titre: "Reçois ta maquette gratuite",
-        texte: "Ton app avec ton logo et ton menu, par courriel dans les 48 h.",
+        titre: "Calcule ce que tu aurais gardé",
+        texte: "Ton relevé de plateforme, ton estimation. Ton vrai chiffre, sans engagement.",
       },
       appel: {
         titre: "Parle à Guillaume",
@@ -523,13 +523,13 @@ export const FR = {
   },
 
   lancement: {
-    titre: "Pré-lancement · offre fondateur",
-    accroche: "Pré-lancement avec deux restaurants partenaires. Les tests restent à valider avant la mise en service.",
-    resume: "Tests en cours avec deux restos partenaires. Date de mise en service à confirmer. Aucun abonnement d'ici là.",
-    texte: "Nous préparons le lancement de Resto Action avec deux restaurants partenaires. Le parcours de commande et la facturation doivent encore être testés et validés avant l'ouverture des commandes payantes.",
-    date: "Ta réservation permet de préparer ton app au tarif fondateur. La date de mise en service sera confirmée avec toi après les validations nécessaires.",
-    abonnement: "Ton abonnement, tes trois mois de publicité et ta garantie de 90 jours commencent à la mise en ligne de ton app.",
-    remboursement: "Les 500 $ de mise en service, plus taxes, sont remboursables sur demande écrite jusqu'à la mise en ligne.",
+    titre: "Le Grand Lancement d'hiver",
+    accroche: "Prochaine cohorte : janvier 2027. On lance au plus 16 restos par mois au Québec.",
+    resume: "Prochaine cohorte : janvier 2027, inscriptions jusqu'au vendredi 18 décembre 2026. Ton dépôt de 500 $ est crédité sur ta mise en service. L'abonnement commence à ta mise en ligne.",
+    texte: "On lance au plus 16 restos par mois au Québec, 4 par semaine, parce qu'on installe et qu'on lance chaque resto nous-mêmes. Pour faire partie de la cohorte de janvier 2027, réserve avant le vendredi 18 décembre 2026.",
+    date: "Il faut 2 semaines pour ton menu, tes photos, ton app, l'impression et l'installation. Après la date limite, tu pars avec la cohorte suivante, un mois plus tard.",
+    abonnement: "Ton abonnement de 200 $ par mois commence à la mise en ligne de ton app, avec tes 3 garanties.",
+    remboursement: "Ta place est réservée avec un dépôt de 500 $, crédité sur ta mise en service de 750 $. [À VALIDER PAR L'AVOCAT : conditions de remboursement du dépôt.]",
   },
 
   /* L'OFFRE FONDATEUR. Les montants et la garantie doivent rester identiques au
@@ -555,28 +555,27 @@ export const FR = {
       "300 $ de pub, gérée par nous",
     ],
     garantie: {
-      titre: "Garantie 90 jours",
-      texte: "Si les plateformes t'auraient coûté moins cher que ton abonnement sur tes commandes, on te rembourse ton abonnement.",
-      note: "Sur tes 90 premiers jours en ligne, si tu restes les 90 jours et fais les étapes de lancement. Commissions Resto Action, mise en service et équipement exclus.",
+      titre: "3 garanties sur tes résultats",
+      texte: "48 h top chrono, L'Imprimante qui chauffe, et Ça se paie ou c'est gratuit : ton app paie son abonnement chaque mois, en économies ou en nouvelles ventes. Sinon, tu ne le paies pas.",
+      note: "Pour les 3 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.",
     },
-    coutsTitre: "Le prix, au complet",
+    coutsTitre: "Le prix, tout compris",
     couts: [
-      { quand: "Aujourd'hui", quoi: "500 $", barre: "1 000 $", detail: "Mise en service, prix fondateur" },
-      { quand: "À l'installation", quoi: "495 $", detail: "Tablette, support et encarts" },
-      { quand: "Chaque mois, dès la mise en ligne", quoi: "200 $", detail: "Abonnement, rien pendant l'attente" },
-      { quand: "Par commande", quoi: "5 % · 10 %", detail: "Cueillette · livraison (Uber : jusqu'à 30 %)" },
+      { quand: "Aujourd'hui", quoi: "500 $", detail: "Dépôt, crédité sur ta mise en service" },
+      { quand: "À ta mise en service", quoi: "750 $", barre: "1 500 $", detail: "Prix du Grand Lancement d'hiver, puis 1 500 $. Ton dépôt de 500 $ est crédité dessus." },
+      { quand: "Chaque mois, dès la mise en ligne", quoi: "200 $", detail: "Abonnement. L'imprimante est offerte." },
+      { quand: "Par commande", quoi: "5 % + 0,30 $ · 10 % + 3,51 $", detail: "Cueillette · livraison, frais de carte inclus" },
     ],
-    taxes: "Taxes et frais de carte en sus.",
-    reserver: "Réserver ma place fondateur",
-    // Le bouton de la carte de prix : la carte dit déjà « offre fondateur ».
-    reserverCourt: "Réserver ma place",
-    condition: "500 $ remboursables jusqu'à la mise en ligne",
+    taxes: "Taxes en sus.",
+    reserver: "Réserve ta place",
+    reserverCourt: "Réserve ta place",
+    condition: "Dépôt de 500 $, crédité sur ta mise en service",
   },
   // Le formulaire de réservation fondateur (/reserver) et sa page de merci.
   reservation: {
-    metaTitre: "Réserve ta place fondateur | Resto Action",
+    metaTitre: "Réserve ta place dans le Grand Lancement d'hiver | Resto Action",
     metaDescription:
-      "Prépare le lancement de ton app au tarif fondateur. Tests avec deux restaurants partenaires, date à confirmer et 500 $ remboursables jusqu'à la mise en ligne.",
+      "Réserve ta place dans la cohorte de janvier 2027 avec un dépôt de 500 $, crédité sur ta mise en service. On lance au plus 16 restos par mois au Québec.",
     retour: "Retour au site",
     etape: "Étape {n} sur 4",
     etapes: ["Ton resto", "Ton app", "L'offre", "Réservation"],
@@ -584,7 +583,7 @@ export const FR = {
     precedent: "Retour",
     resto: {
       titre: "Parle-nous de ton resto",
-      texte: "Prépare ton app à ton nom. La réservation prend 2 minutes; la mise en service suivra la validation des tests.",
+      texte: "Prépare ton app à ton nom. La réservation prend 2 minutes.",
       restaurant: "Nom du resto",
       exempleResto: "Ex. : Pizzeria du Coin",
       ville: "Ville",
@@ -594,13 +593,13 @@ export const FR = {
       telephone: "Téléphone",
     },
     app: {
-      titre: "Ton app, faite à la main",
+      titre: "Ton app à ton nom",
       texte: "On la monte avec ton logo, ton menu et tes photos. Donne-nous de quoi partir, on s'occupe du reste.",
       menu: "Lien de ton menu ou de ton site",
       facultatif: "facultatif",
       exempleMenu: "Ex. : facebook.com/tonresto ou ton site",
       menuAide: "Pas de lien? Pas grave : on trouve ton menu et on te le fait valider.",
-      livraisonMaquette: "Ta maquette t'est envoyée dans les 48 h à {courriel}.",
+      livraisonMaquette: "Après ta réservation, tu nous envoies ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h.",
       service: "Ce que tu offres",
       services: {
         livraison: "Livraison et cueillette",
@@ -612,19 +611,19 @@ export const FR = {
       listeCommandes: ["Moins de 50", "50 à 150", "150 à 300", "Plus de 300", "Je ne sais pas"],
     },
     offre: {
-      titre: "Ta place fondateur",
-      texte: "500 $ aujourd'hui pour préparer ton app au tarif fondateur. Tes 300 $ de publicité et ton abonnement commencent à la mise en ligne. Voici le prix au complet.",
-      conditions: "Lire les conditions de la place fondateur",
+      titre: "Ta place dans le Grand Lancement d'hiver",
+      texte: "500 $ aujourd'hui : ton dépôt, crédité sur ta mise en service. Ton abonnement commence à la mise en ligne. Voici le prix, tout compris.",
+      conditions: "Lire les conditions",
       // Même chemin que CONDITIONS dans src/lib/routes.ts.
       conditionsHref: "/conditions-fondateur",
       accord:
-        "J'ai lu le prix au complet et j'accepte les conditions de la place fondateur. Je comprends que le lancement dépend encore de la validation des tests, sans date ferme confirmée, et que ma réservation n'active pas les commandes. Mes 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne; aucun abonnement n'est facturé pendant l'attente.",
+        "J'ai lu le prix tout compris et j'accepte les conditions. Mon dépôt de 500 $ est crédité sur ma mise en service, et mon abonnement commence à la mise en ligne de mon app. [À VALIDER PAR L'AVOCAT]",
     },
     paiement: {
       titre: "On réserve ta place",
       texte: "Tu passes au paiement sécurisé de Stripe. Ta facture, avec la TPS et la TVQ, arrive par courriel.",
       recap: "Ta réservation",
-      ligne: "Place fondateur",
+      ligne: "Dépôt, crédité sur ta mise en service",
       tps: "TPS (5 %)",
       tvq: "TVQ (9,975 %)",
       total: "Total aujourd'hui",
@@ -644,7 +643,7 @@ export const FR = {
     },
     apercuDefaut: "ton resto",
     apercu: {
-      titre: "L'app de {nom}, faite à la main",
+      titre: "L'app de {nom}, à ton nom",
       texte: "Comme celle de Bistro Habibi : ton logo, ton menu, tes photos. Pas un modèle.",
     },
     // La page de suivi privée du resto après son paiement (/dossier/[session]).
@@ -653,13 +652,13 @@ export const FR = {
       surTitre: "Ton dossier",
       progression: "{n} étapes sur {total}",
       etapes: [
-        { titre: "Place réservée", texte: "Ton paiement de 500 $ est reçu." },
-        { titre: "Appel de démarrage", texte: "On fait le point sur ton resto et sur ce qu'il faut préparer." },
-        { titre: "Ta maquette", texte: "Ton app avec ton logo, ton menu et tes photos, à valider avec toi." },
-        { titre: "Ton menu et tes photos", texte: "On a tout ce qu'il faut pour bâtir ton app." },
-        { titre: "Tests avec nos restos partenaires", texte: "Commande, paiement et facturation validés avant d'ouvrir les commandes." },
-        { titre: "Date de mise en service confirmée", texte: "On fixe avec toi l'installation et la formation." },
-        { titre: "En ligne", texte: "Tes clients commandent chez toi. L'abonnement, la pub et la garantie commencent." },
+        { titre: "Place réservée", texte: "Ton dépôt de 500 $ est reçu." },
+        { titre: "Ton menu, tes photos et tes accès", texte: "Tu nous les envoies dans les 5 jours." },
+        { titre: "Ton app est prête", texte: "48 h après tes accès. Tu valides." },
+        { titre: "Ta date de lancement", texte: "Installation entre deux rushs, formation privée, ton imprimante branchée." },
+        { titre: "Tes 7 premiers jours", texte: "300 $ de pub payés par nous, la tournée des bureaux, un texto chaque soir." },
+        { titre: "Ton premier vendredi", texte: "Quelqu'un de chez nous dans ta cuisine pendant le rush (dans nos villes de départ)." },
+        { titre: "Chaque lundi", texte: "Ton Texto du Lundi : tes commandes, tes nouvelles ventes et l'argent rapporté." },
       ],
       enCours: "En cours",
       prochainPoint: "Prochain point avec nous",
@@ -671,7 +670,7 @@ export const FR = {
       envoyerMenu: "Envoyer mon menu et mes photos",
       appeler: "Appeler Guillaume",
       rembourser: "Demander un remboursement",
-      rembourserNote: "Tes 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne.",
+      rembourserNote: "[À VALIDER PAR L'AVOCAT : conditions de remboursement du dépôt.]",
       introuvable: "Ce dossier est introuvable. Vérifie le lien dans ton courriel, ou appelle-nous au {tel}.",
       sujetMenu: "Menu et photos : {resto}",
       sujetRemboursement: "Demande de remboursement : {resto}",
@@ -681,24 +680,24 @@ export const FR = {
     merci: {
       metaTitre: "Ta place est réservée | Resto Action",
       titre: "Ta place est réservée.",
-      etiquette: "Place fondateur · {resto}",
+      etiquette: "Grand Lancement d'hiver · {resto}",
       titreGenerique: "Merci !",
       texte: "Merci {prenom}! Ta facture est partie à {courriel}.",
       texteGenerique:
         "Si ton paiement est passé, ta facture est dans ta boîte courriel. Un doute ? Appelle-nous au {tel}.",
       suiteTitre: "La suite",
       suite: [
-        "On t'appelle dans les 24 h pour faire le point sur ton restaurant et préparer la suite.",
-        "Ta maquette arrive par courriel dans les 48 h.",
-        "On bâtit ton app avec ton menu, tes photos et tes couleurs.",
-        "Après validation des tests de commande et de facturation, on confirme avec toi la date de mise en service et l'installation.",
-        "À la mise en ligne, ton abonnement commence, avec tes trois mois de publicité et ta garantie de 90 jours.",
+        "Tu nous envoies ton menu, tes photos et tes accès dans les 5 jours.",
+        "Ton app est prête en 48 h. Tu valides.",
+        "À ta date de lancement : installation entre deux rushs (2 h), formation privée, ton imprimante branchée.",
+        "Tes 7 premiers jours : 300 $ de pub payés par nous, la tournée des bureaux, et un texto chaque soir.",
+        "Chaque lundi, ton Texto du Lundi. Ton abonnement commence à la mise en ligne, avec tes 3 garanties.",
       ],
       suiviTitre: "Fais le point avec Guillaume",
       suiviTexte: "Tu peux choisir un créneau pour parler de ta réservation, des éléments à préparer et de l'avancement du lancement.",
       suiviBouton: "Choisir mon appel de suivi",
       retour: "Retour à l'accueil",
-      paye: "Payé aujourd'hui",
+      paye: "Dépôt payé aujourd'hui",
       question: "Une question d'ici là? Appelle-nous au",
     },
   },

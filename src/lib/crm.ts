@@ -96,8 +96,9 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
    que Xavier ne l'a pas ajoutée, la variable reste vide et rien ne casse. Les
    paiements, eux, restent toujours visibles dans Stripe. */
 export type EvenementFondateur = {
-  /** « maquette » : demande de maquette gratuite depuis le héro. */
-  etape: "prospect" | "maquette" | "paye";
+  /** « maquette » : demande de maquette gratuite depuis le héro (ancien parcours).
+      « dossier » : Le Dossier pour ton associé, demandé après le calculateur. */
+  etape: "prospect" | "maquette" | "paye" | "dossier";
   prospect: {
     nom: string;
     courriel: string;
@@ -111,6 +112,8 @@ export type EvenementFondateur = {
   /** `dossier` : le lien privé de sa page de suivi, à lui envoyer. */
   paiement?: { session: string; montant: number | null; devise: string; dossier: string };
   maquette?: { menu: string };
+  /** Les chiffres du relevé et les hypothèses du calcul (src/lib/calcul.ts). */
+  dossier?: unknown;
   provenance?: Provenance;
 };
 

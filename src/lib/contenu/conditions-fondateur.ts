@@ -12,66 +12,66 @@
 
    Les montants doivent rester identiques à `offre` et `lancement` dans
    src/lib/textes/fr.ts et en.ts. */
-export const CONDITIONS_VERSION = "2026-10-21";
+export const CONDITIONS_VERSION = "2026-11-05";
 
 export const CONDITIONS_FR = {
-  metaTitre: "Conditions de la place fondateur",
+  metaTitre: "Conditions du Grand Lancement d'hiver",
   metaDescription:
-    "Ce que comprend la place fondateur Resto Action : 500 $ remboursables jusqu'à la mise en ligne, aucun abonnement pendant l'attente, 300 $ de publicité et garantie de 90 jours.",
-  surTitre: "Place fondateur",
-  titre: "Conditions de la place fondateur",
+    "Ce que comprend ta place dans le Grand Lancement d'hiver : dépôt de 500 $ crédité sur la mise en service, abonnement de 200 $ par mois dès la mise en ligne, et 3 garanties sur tes résultats.",
+  surTitre: "Grand Lancement d'hiver",
+  titre: "Conditions du Grand Lancement d'hiver",
   intro:
-    "Voici, en clair, ce que tu acceptes en réservant ta place fondateur. Resto Action est une marque de Studios LT inc. (Trois-Rivières, Québec), désignée ici par « nous ».",
+    "Voici, en clair, ce que tu acceptes en réservant ta place. Resto Action est une marque de Studios LT inc. (Trois-Rivières, Québec), désignée ici par « nous ». À valider par l'avocat avant la mise en ligne.",
   sections: [
     {
       titre: "1. Ce que tu réserves",
       texte:
-        "Une place fondateur pour un établissement : on prépare ton app web et mobile à ton nom (logo, menu, photos) au tarif fondateur, pendant le pré-lancement. Ta réservation n'active pas les commandes.",
+        "Une place dans la prochaine cohorte du Grand Lancement d'hiver (janvier 2027) pour un établissement. On lance au plus 16 restos par mois au Québec, 4 par semaine. Pour en faire partie, réserve avant le vendredi 18 décembre 2026; après, tu pars avec la cohorte suivante, un mois plus tard.",
     },
     {
-      titre: "2. Le montant",
+      titre: "2. Le dépôt et la mise en service",
       texte:
-        "500 $ plus TPS et TVQ, payés en ligne par Stripe. Ce montant correspond aux frais de mise en service au prix fondateur (prix courant : 1 000 $). Ta facture, avec nos numéros de taxes, t'est envoyée par courriel.",
+        "Ta place est réservée avec un dépôt de 500 $ plus TPS et TVQ, payé en ligne par Stripe et crédité sur ta mise en service. La mise en service est de 750 $ pour le Grand Lancement d'hiver, puis de 1 500 $, une hausse annoncée d'avance. Ta facture, avec nos numéros de taxes, t'est envoyée par courriel. [À ÉCRIRE : conditions de remboursement du dépôt, après validation de l'avocat.]",
     },
     {
-      titre: "3. Pré-lancement et date de mise en service",
+      titre: "3. Le prix, tout compris",
       texte:
-        "Nous préparons le lancement avec deux restaurants partenaires. Le parcours de commande, le paiement et la facturation doivent encore être testés et validés avant l'ouverture des commandes payantes. Aucune date ferme n'est garantie : ta date de mise en service est confirmée avec toi après ces validations.",
+        "Abonnement : 200 $ par mois, dès ta mise en ligne. Livraison : 10 % des aliments et boissons + 3,51 $ par livraison (la course au prix coûtant : ce qu'elle nous coûte, moins les 4,99 $ que paie ton client). Cueillette : 5 % + 0,30 $ par commande. Frais de carte inclus. Aucun minimum de commande. L'imprimante est offerte. Taxes en sus.",
     },
     {
-      titre: "4. Aucun abonnement pendant l'attente",
+      titre: "4. Les 3 garanties",
       texte:
-        "Rien d'autre n'est facturé avant la mise en ligne de ton app. À la mise en ligne : abonnement de 200 $ par mois et commission de 5 % en cueillette et de 10 % en livraison, sur les aliments et boissons, hors taxes, pourboires et frais de livraison. Équipement (tablette, support, encarts) : 495 $ à l'installation. Taxes et frais de carte Stripe en sus.",
+        "48 h top chrono : « Envoie-nous ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h et tu es en ligne à ta date. Sinon, ton premier mois est gratuit. » L'Imprimante qui chauffe : « Si ton app ne reçoit pas 10 commandes dans tes 7 premiers jours, on remet 100 $ de pub chaque semaine, à nos frais, jusqu'à ce que tu les aies. » Ça se paie ou c'est gratuit : « Ton app paie son abonnement chaque mois, en économies ou en nouvelles ventes. Sinon, tu ne le paies pas. » Pour les 3 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.",
     },
     {
-      titre: "5. Remboursement des 500 $",
+      titre: "5. Comment on calcule la 3e garantie",
       texte:
-        "Tes 500 $ et les taxes payées sont remboursables en entier, sur simple demande écrite (courriel), en tout temps jusqu'à la mise en ligne de ton app. Le remboursement est fait sur le moyen de paiement utilisé, dans les 15 jours suivant ta demande, sans retenue de frais. Une fois ton app en ligne, ces frais de mise en service ne sont plus remboursables.",
+        "Chaque mois, on additionne ce que tu as sauvé sur les commandes venues des plateformes (au taux de ton relevé) et 10 $ par commande d'un nouveau client arrivé par un de nos canaux (pub, tournée des bureaux, parrainage, carte-cadeau, fiche Google). Si le total ne couvre pas ton abonnement, tu ne le paies pas ce mois-là.",
     },
     {
-      titre: "6. Si le lancement n'a pas lieu",
+      titre: "6. Ce qui expire à la date limite",
       texte:
-        "Si nous décidons de ne pas lancer le service, ou si ta mise en service devient impossible de notre côté, on te rembourse tes 500 $ et les taxes en entier, sans que tu aies à le demander.",
+        "Si tu signes avant le vendredi 18 décembre 2026 : la pénalité de ton fournisseur actuel est créditée jusqu'à 400 $ sur preuve (Le Crédit de sortie), et ton abonnement de 200 $ par mois est gelé 24 mois (Ton Prix gelé).",
     },
     {
-      titre: "7. Tes 300 $ de publicité",
+      titre: "7. Le Réglage Plateformes",
       texte:
-        "Nous payons et gérons 300 $ de publicité Facebook et Instagram pour ton resto, dépensés sur tes 3 premiers mois après la mise en ligne. Ce budget n'est pas remis en argent, ni crédité sur ta facture, ni reporté. Si tu mets fin au service avant la fin de ces 3 mois, la publicité réellement dépensée pour ton resto jusqu'à ton départ t'est facturée, jusqu'à un maximum de 300 $, et la partie non dépensée est annulée, sauf si tu pars à cause d'un manquement de notre part ou si la garantie de 90 jours t'est accordée : rien ne t'est alors facturé. Le détail des dépenses t'est fourni sur demande.",
+        "On lit tes ententes et on monte tes prix de 10 à 15 % sur les plateformes dès le jour 1, si ton entente le permet. Sur Uber Eats, des prix plus hauts qu'en salle font passer la cueillette de 10 à 15 % : on le vérifie avec toi.",
     },
     {
-      titre: "8. La garantie de 90 jours",
+      titre: "8. Ta clientèle t'appartient",
       texte:
-        "À la fin de tes 90 premiers jours en ligne, on calcule les frais que les plateformes de livraison t'auraient facturés sur toutes les commandes réelles passées par ton app, nouvelles comme redirigées, à tes taux réels sur ces plateformes. Si ce montant est plus petit que les abonnements que tu nous as payés pendant ces 90 jours, on te rembourse ces abonnements. Les commissions de Resto Action ne sont ni déduites de ce calcul ni remboursées. Conditions : rester client les 90 jours complets et, dans les 7 jours suivant la mise en ligne, rendre visibles le chevalet NFC et les encarts, puis mettre le lien de ton app sur ta fiche Google et tes réseaux sociaux. Aucun minimum de ventes ni de part de livraison n'est exigé. La mise en service (500 $), l'équipement (495 $) et nos commissions ne sont pas couverts. Si tu mets fin au service avant 90 jours, la garantie ne s'applique pas.",
+        "Ta liste de clients, ton domaine et ta fiche Google sont à ton nom. Si tu pars, tu les gardes.",
     },
     {
       titre: "9. Le contrat de service",
       texte:
-        "Avant la mise en ligne, tu reçois par courriel le contrat de service complet et son annexe (adresse, zone et plages de livraison) à signer. Il reprend les conditions de cette page pour ta place fondateur. Ta mise en ligne se fait seulement une fois le contrat signé.",
+        "Avant la mise en ligne, tu reçois par courriel le contrat de service complet et son annexe à signer. Il reprend les conditions de cette page. Ta mise en ligne se fait seulement une fois le contrat signé.",
     },
     {
       titre: "10. Ton dossier",
       texte:
-        "Après ton paiement, tu reçois par courriel le lien de ton dossier privé : tu y vois en tout temps où en est ton app, le prochain point avec nous et ta date de mise en service. On t'écrit chaque fois qu'il avance.",
+        "Après ton dépôt, tu reçois par courriel le lien de ton dossier privé : tu y vois en tout temps où en est ton app, le prochain point avec nous et ta date de lancement. On t'écrit chaque fois qu'il avance.",
     },
   ],
   questions: "Une question sur ces conditions? Écris-nous à {courriel} ou appelle-nous au {tel}.",

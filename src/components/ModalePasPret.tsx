@@ -51,7 +51,18 @@ export default function ModalePasPret({ t }: { t: Textes }) {
           </h2>
           <p className="mt-3 text-lg text-ink/70">{h.texte}</p>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <Porte icone={<Sparkles className="size-6" />} titre={h.maquette.titre} texte={h.maquette.texte} onClick={() => setChoix("maquette")} accent />
+            {/* La maquette en 48 h n'est plus promise : cette porte mène au
+                calculateur du relevé, sur la page d'accueil. */}
+            <Porte
+              icone={<Sparkles className="size-6" />}
+              titre={h.maquette.titre}
+              texte={h.maquette.texte}
+              onClick={() => {
+                setOuvert(false);
+                window.location.assign("/#calculateur");
+              }}
+              accent
+            />
             <Porte icone={<Phone className="size-6" />} titre={h.appel.titre} texte={h.appel.texte} onClick={() => setChoix("appel")} />
           </div>
         </>

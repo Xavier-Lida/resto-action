@@ -1410,3 +1410,85 @@ img {
     animation: none;
   }
 }
+
+/* ═══ Le Grand Lancement d'hiver ═══
+   Les visuels des cartes de la pile et « Le Système en images » : SVG et CSS
+   seulement. Les éléments sont dans leur état final par défaut ; la classe
+   `.anime`, posée quand le bloc entre à l'écran (une seule fois, voir
+   AnimerAuDefilement), rejoue l'animation depuis le début. En mouvement
+   réduit, rien ne bouge : l'état final s'affiche. */
+
+@keyframes v-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes v-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes v-pop {
+  0% { opacity: 0; transform: scale(0.6); }
+  70% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes v-slide {
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes v-drop {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes v-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes v-travel {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+@keyframes v-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-44px); }
+}
+/* L'imprimante de cuisine : les billets sortent par le haut. */
+@keyframes ticket {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-96px); }
+}
+@keyframes ticket-fin {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-70px); }
+}
+@keyframes led {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+.v-fade, .v-rise, .v-pop, .v-slide, .v-drop, .v-grow, .v-travel, .v-scroll {
+  --d: 0s;
+  --t: 0.6s;
+}
+/* Hors animation, le billet de la carte est sorti (état final). */
+.imprimante-une-fois .ticket { transform: translateY(-70px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .anime .v-fade { animation: v-fade var(--t) ease-out var(--d) both; }
+  .anime .v-rise { animation: v-rise var(--t) ease-out var(--d) both; }
+  .anime .v-pop { animation: v-pop var(--t) cubic-bezier(0.2, 0.9, 0.3, 1.2) var(--d) both; }
+  .anime .v-slide { animation: v-slide var(--t) ease-out var(--d) both; }
+  .anime .v-drop { animation: v-drop var(--t) cubic-bezier(0.2, 0.9, 0.3, 1.1) var(--d) both; }
+  .anime .v-grow { transform-origin: left; animation: v-grow var(--t) ease-out var(--d) both; }
+  .anime .v-travel { animation: v-travel var(--t) ease-in-out var(--d) both; }
+  .anime .v-scroll { animation: v-scroll var(--t) ease-in-out var(--d) both; }
+
+  /* L'imprimante du haut de page tourne en boucle; celle des cartes, une fois. */
+  .imprimante-boucle .ticket { animation: ticket 2.8s linear infinite; }
+  .imprimante-boucle .ticket-2 { animation-delay: 1.4s; }
+  .imprimante-boucle .led { animation: led 1.4s ease-in-out infinite; }
+  .anime .imprimante-une-fois .ticket { animation: ticket-fin 2.2s ease-out var(--d) both; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+}

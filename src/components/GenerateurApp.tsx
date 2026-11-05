@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import ApercuResto, { COULEURS } from "@/components/ApercuResto";
 import DemoApp from "@/components/DemoApp";
 import FormulaireMaquette from "@/components/FormulaireMaquette";
+import ApercuLancement from "@/components/lancement/ApercuLancement";
 import Modale from "@/components/Modale";
 import type { LieuResto } from "@/lib/places";
 import type { Textes } from "@/lib/textes/fr";
@@ -25,7 +26,11 @@ type Recherche =
   | { etat: "trouve"; lieux: LieuResto[] }
   | { etat: "aucun" };
 
-export default function GenerateurApp({ t }: { t: Textes }) {
+/* `lancement` : le Grand Lancement d'hiver. Le champ et l'aperçu automatique
+   restent; la demande de maquette est remplacée par le calculateur et la
+   réservation (ApercuLancement), et la note sous l'aperçu ne promet plus de
+   maquette en 48 h. */
+export default function GenerateurApp({ t, lancement = false }: { t: Textes; lancement?: boolean }) {
   const m = t.hero.maquette;
   const a = t.hero.apercu;
   const [restaurant, setRestaurant] = useState("");
@@ -75,7 +80,7 @@ export default function GenerateurApp({ t }: { t: Textes }) {
           autoComplete="organization"
           value={restaurant}
           onChange={(e) => setRestaurant(e.target.value)}
-          placeholder={t.hero.recherche.exemple}
+          placeholder={lancement ? "Trouve ton resto (ex. Casse-croûte Chez Paul)" : t.hero.recherche.exemple}
           className="min-w-0 flex-1 basis-56 bg-transparent px-3 py-3 text-base text-ink outline-none placeholder:text-ink/50"
         />
         <button
@@ -83,7 +88,7 @@ export default function GenerateurApp({ t }: { t: Textes }) {
           className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 font-black text-white transition hover:bg-ink active:scale-95 sm:w-auto"
         >
           <Search className="size-4" aria-hidden="true" />
-          {t.hero.recherche.bouton}
+          {lancement ? "Voir l'aperçu de mon app" : t.hero.recherche.bouton}
         </button>
       </form>
 
@@ -95,13 +100,17 @@ export default function GenerateurApp({ t }: { t: Textes }) {
         className="max-w-5xl"
       >
         <div className="grid items-start gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:gap-12">
-          <FormulaireMaquette
-            key={cle}
-            t={t}
-            restaurant={restaurant.trim()}
-            lieu={lieu ? { id: lieu.id, adresse: lieu.adresse } : null}
-            titreId="maquette-titre"
-          />
+          {lancement ? (
+            <ApercuLancement key={cle} nom={restaurant.trim()} titreId="maquette-titre" onFermer={() => setOuvert(false)} />
+          ) : (
+            <FormulaireMaquette
+              key={cle}
+              t={t}
+              restaurant={restaurant.trim()}
+              lieu={lieu ? { id: lieu.id, adresse: lieu.adresse } : null}
+              titreId="maquette-titre"
+            />
+          )}
 
           <div className="mx-auto flex w-full max-w-[18rem] flex-col items-center gap-4 pt-3">
             {recherche.etat === "chargement" && (
@@ -148,7 +157,9 @@ export default function GenerateurApp({ t }: { t: Textes }) {
                     </div>
                   </div>
                 )}
-                <p className="text-center text-xs leading-relaxed text-ink/55">{a.note}</p>
+                <p className="text-center text-xs leading-relaxed text-ink/55">
+                  {lancement ? "Fait tout seul avec ta fiche Google. Ton app, avec ton menu et tes prix, est montée avec toi après ta réservation." : a.note}
+                </p>
               </>
             )}
 
