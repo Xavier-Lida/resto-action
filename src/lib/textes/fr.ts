@@ -528,7 +528,7 @@ export const FR = {
     resume: "Prochaine cohorte : janvier 2027, inscriptions jusqu'au vendredi 18 décembre 2026. Ton dépôt de 500 $ est crédité sur ta mise en service. L'abonnement commence à ta mise en ligne.",
     texte: "On lance au plus 16 restos par mois au Québec, 4 par semaine, parce qu'on installe et qu'on lance chaque resto nous-mêmes. Pour faire partie de la cohorte de janvier 2027, réserve avant le vendredi 18 décembre 2026.",
     date: "Il faut 2 semaines pour ton menu, tes photos, ton app, l'impression et l'installation. Après la date limite, tu pars avec la cohorte suivante, un mois plus tard.",
-    abonnement: "Ton abonnement de 200 $ par mois commence à la mise en ligne de ton app, avec tes 3 garanties.",
+    abonnement: "Ton abonnement de 200 $ par mois commence à la mise en ligne de ton app, avec tes 4 garanties.",
     remboursement: "Ta place est réservée avec un dépôt de 500 $, crédité sur ta mise en service de 750 $. [À VALIDER PAR L'AVOCAT : conditions de remboursement du dépôt.]",
   },
 
@@ -555,9 +555,9 @@ export const FR = {
       "300 $ de pub, gérée par nous",
     ],
     garantie: {
-      titre: "3 garanties sur tes résultats",
-      texte: "48 h top chrono, L'Imprimante qui chauffe, et Ça se paie ou c'est gratuit : ton app paie son abonnement chaque mois, en économies ou en nouvelles ventes. Sinon, tu ne le paies pas.",
-      note: "Pour les 3 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.",
+      titre: "4 garanties sur tes résultats",
+      texte: "48 h top chrono, L'Imprimante qui chauffe, Ça se paie ou c'est gratuit, et L'Argent boomerang : si ton app ne t'a pas rapporté au moins ta mise en service dans tes 90 premiers jours, on te la rembourse.",
+      note: "Pour les 4 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.",
     },
     coutsTitre: "Le prix, tout compris",
     couts: [
@@ -691,7 +691,7 @@ export const FR = {
         "Ton app est prête en 48 h. Tu valides.",
         "À ta date de lancement : installation entre deux rushs (2 h), formation privée, ton imprimante branchée.",
         "Tes 7 premiers jours : 300 $ de pub payés par nous, la tournée des bureaux, et un texto chaque soir.",
-        "Chaque lundi, ton Texto du Lundi. Ton abonnement commence à la mise en ligne, avec tes 3 garanties.",
+        "Chaque lundi, ton Texto du Lundi. Ton abonnement commence à la mise en ligne, avec tes 4 garanties.",
       ],
       suiviTitre: "Fais le point avec Guillaume",
       suiviTexte: "Tu peux choisir un créneau pour parler de ta réservation, des éléments à préparer et de l'avancement du lancement.",

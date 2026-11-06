@@ -1489,6 +1489,32 @@ img {
   .anime .imprimante-une-fois .ticket { animation: ticket-fin 2.2s ease-out var(--d) both; }
 }
 
+/* LE SYSTÈME RELIÉ (accueil) : les lignes qui coulent entre les pièces, les
+   bulles qui apparaissent quand une pièce s'allume, le billet qui sort de
+   l'imprimante et les compteurs qui sautent quand ils montent. */
+@keyframes sys-flux { to { stroke-dashoffset: -28; } }
+@keyframes sys-pop {
+  0% { opacity: 0; transform: translateY(6px) scale(0.92); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes sys-ticket {
+  0% { opacity: 0; transform: translateY(-14px); clip-path: inset(0 0 100% 0); }
+  100% { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+}
+@keyframes sys-compte {
+  0% { transform: scale(1); color: inherit; }
+  40% { transform: scale(1.12); color: #ff6b5e; }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sys-flux { animation: sys-flux 0.9s linear infinite; }
+  .sys-pop { animation: sys-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+  .sys-pop-2 { animation: sys-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.55s both; }
+  .sys-pop-3 { animation: sys-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) 1.2s both; }
+  .sys-ticket { animation: sys-ticket 0.7s ease-out both; }
+  .sys-compte { display: inline-block; animation: sys-compte 0.6s ease-out both; }
+}
+
 @media print {
   .no-print { display: none !important; }
 }

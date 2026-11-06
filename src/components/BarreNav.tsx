@@ -4,6 +4,7 @@ import Link from "next/link";
 import MenuDeroulant from "@/components/MenuDeroulant";
 import MenuMobile from "@/components/MenuMobile";
 import SelecteurLangue from "@/components/SelecteurLangue";
+import { ANGLAIS_ACTIF } from "@/lib/site";
 import { groupesNav } from "@/lib/navigation";
 import type { Textes } from "@/lib/textes/fr";
 
@@ -68,9 +69,11 @@ export default function BarreNav({ t }: { t: Textes }) {
           {/* Le sélecteur en texte, pas en pilule : à côté d'un vrai bouton,
               sa pilule bordée en imitait un second et l'œil hésitait entre les
               deux. Un réglage n'est pas une action. */}
-          <span className="hidden md:block">
-            <SelecteurLangue t={t} ton="barre" />
-          </span>
+          {ANGLAIS_ACTIF && (
+            <span className="hidden md:block">
+              <SelecteurLangue t={t} ton="barre" />
+            </span>
+          )}
           {/* Il mène à /contact, pas à `tel:` — d'où l'absence d'icône
               téléphone, qui promettrait un appel alors que la page offre aussi
               l'agenda. `min-w` calé sur « Nous contacter », plus long que

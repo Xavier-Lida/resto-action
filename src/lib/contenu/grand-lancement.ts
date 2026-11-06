@@ -27,6 +27,7 @@ export const NOMS_GARANTIES = {
   chrono: "48 h top chrono",
   imprimante: "L'Imprimante qui chauffe",
   gratuit: "Ça se paie ou c'est gratuit",
+  boomerang: "L'Argent boomerang",
 } as const;
 
 /** Date provisoire. Guillaume peut l'avancer. Premiers lancements le 1er janvier. */
@@ -309,8 +310,8 @@ export const GROUPES: GroupePieces[] = [
           "Après chaque commande, ton app demande un avis Google à ton client. On te propose une réponse pour chaque avis, et tu l'approuves par texto avant qu'elle soit publiée, surtout pour les avis à 1 ou 2 étoiles. Plus d'avis et une réponse à chacun, c'est une fiche Google plus forte, et plus de commandes directes.",
         valeur: null,
         soumissions: 0,
-        // Disponible = faux tant que Xavier ne l'a pas bâtie.
-        disponible: false,
+        // Promise à la cohorte de janvier 2027 : Xavier la bâtit avant le premier lancement.
+        disponible: true,
       },
       {
         id: "marketing",
@@ -493,10 +494,16 @@ export const GARANTIES: Garantie[] = [
       "Ton app paie son abonnement chaque mois, en économies ou en nouvelles ventes. Sinon, tu ne le paies pas.",
     dependDe: ["texto-lundi"],
   },
+  {
+    id: "boomerang",
+    nom: NOMS_GARANTIES.boomerang,
+    texte:
+      "Si ton app ne t'a pas rapporté au moins ta mise en service dans tes 90 premiers jours, on te la rembourse. Tu gardes ton imprimante, et tu restes ou tu pars : c'est toi qui décides.",
+  },
 ];
 
 export const GARANTIES_CONDITION =
-  "Pour les 3 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.";
+  "Pour les 4 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.";
 
 export const GARANTIES_LIEN_CALCUL = "Comment on calcule la 3e garantie";
 
@@ -610,7 +617,7 @@ export const BONUS_SECTION = {
 };
 
 export const GARANTIES_SECTION = {
-  titre: "3 garanties sur tes résultats",
+  titre: "4 garanties sur tes résultats",
 };
 
 // ───────────────────────── Comparaison ─────────────────────────
@@ -703,7 +710,7 @@ export const PRIX = {
   taxes: "taxes en sus",
   lignes: {
     abonnement: `Abonnement : ${ABONNEMENT} $ par mois, dès ta mise en ligne.`,
-    miseEnService: `Mise en service : ${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, puis ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $, une hausse annoncée d'avance. Ton dépôt de ${DEPOT} $ est crédité dessus.`,
+    miseEnService: `Mise en service : ${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, puis ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $, une hausse annoncée d'avance. Ton dépôt de ${DEPOT} $ est crédité dessus. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
     miseEnServiceFin: DATE_FIN_750 ? `Le ${MISE_EN_SERVICE_ACTUELLE} $ est offert jusqu'au ${DATE_FIN_750}.` : "",
     livraison:
       "Livraison : 10 % des aliments et boissons + 3,51 $ par livraison aujourd'hui (la course au prix coûtant : ce qu'elle nous coûte, moins les 4,99 $ que paie ton client). Ton client paie 4,99 $ de livraison, rien d'autre.",
@@ -864,19 +871,18 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       id: "faq-garanties",
       question: "Et si ça marche pas pour moi?",
-      reponse: `Tu as 3 garanties : ${NOMS_GARANTIES.chrono}, ${NOMS_GARANTIES.imprimante}, et ${NOMS_GARANTIES.gratuit}.`,
+      reponse: `Tu as 4 garanties : ${NOMS_GARANTIES.chrono}, ${NOMS_GARANTIES.imprimante}, ${NOMS_GARANTIES.gratuit}, et ${NOMS_GARANTIES.boomerang}.`,
     },
     {
       id: "faq-calcul-garantie",
       question: "Comment vous calculez la 3e garantie?",
       reponse:
-        "Chaque mois, on additionne ce que tu as sauvé sur les commandes venues des plateformes (au taux de ton relevé) et 10 $ par commande d'un nouveau client arrivé par un de nos canaux (pub, tournée des bureaux, parrainage, carte-cadeau, fiche Google). Si le total ne couvre pas ton abonnement, tu ne le paies pas ce mois-là.",
+        "Chaque mois, on additionne ce que tu as sauvé sur les commandes venues des plateformes (au taux de ton relevé) et 10 $ par commande d'un nouveau client arrivé par un de nos canaux (pub, tournée des bureaux, parrainage, carte-cadeau, fiche Google). Si le total ne couvre pas ton abonnement, tu ne le paies pas ce mois-là. Pour la 4e : si le total de tes 90 premiers jours ne couvre pas ta mise en service, on te la rembourse.",
     },
     {
       id: "faq-mise-en-service",
       question: "C'est quoi, la mise en service, et mon dépôt?",
-      reponse:
-        "[À ÉCRIRE : texte à reprendre de /conditions-fondateur mis à jour, après validation de l'avocat.]",
+      reponse: `C'est ce qui paie l'installation de ton système avant ta mise en ligne : ${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, puis ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $. Ton dépôt de ${DEPOT} $, payé en réservant ta place, est crédité dessus. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
     },
     {
       question: "J'ai peur des mauvais avis.",

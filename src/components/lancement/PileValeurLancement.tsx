@@ -1,14 +1,12 @@
 import Reveal from "@/components/Reveal";
 import { Accordeon } from "@/components/lancement/Accordeon";
 import { AnimerAuDefilement } from "@/components/lancement/AnimerAuDefilement";
-import { Scene } from "@/components/lancement/Scene";
 import { Surtitre } from "@/components/lancement/ui";
 import { Visuel } from "@/components/lancement/visuels";
 import {
   ANCRES,
   PILE,
   REGLE_AVIS,
-  SCENE,
   piecesDisponibles,
   valeurAffichable,
   valeurTotale,
@@ -52,13 +50,6 @@ export default function PileValeurLancement() {
         <Reveal>
           <Surtitre>La pile de valeur</Surtitre>
           <h2 className="mt-4 font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">{PILE.titre}</h2>
-        </Reveal>
-
-        <Reveal>
-          <div className="mt-12 rounded-[2rem] bg-bone p-5 md:p-8 lg:rounded-[3rem] lg:p-10">
-            <h3 className="mb-8 font-display text-xl font-black leading-tight md:text-2xl">{SCENE.titre}</h3>
-            <Scene />
-          </div>
         </Reveal>
 
         <div className="mt-14 space-y-4 md:space-y-14">

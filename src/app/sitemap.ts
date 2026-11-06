@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { MISE_A_JOUR, SITE_URL } from "@/lib/site";
+import { ANGLAIS_ACTIF, MISE_A_JOUR, SITE_URL } from "@/lib/site";
 import { PAIRES, type Paire } from "@/lib/routes";
 
 /* Le plan du site, DÉDUIT du registre des routes.
@@ -21,10 +21,8 @@ import { PAIRES, type Paire } from "@/lib/routes";
 const absolu = (chemin: string) =>
   `${SITE_URL}${chemin === "/" ? "" : chemin}`;
 
-const absolus = ({ fr, en }: Paire) => ({
-  "fr-CA": absolu(fr),
-  "en-CA": absolu(en),
-});
+const absolus = ({ fr, en }: Paire) =>
+  ANGLAIS_ACTIF ? { "fr-CA": absolu(fr), "en-CA": absolu(en) } : { "fr-CA": absolu(fr) };
 
 /* La date annoncée pour une paire : la sienne si elle en a une (les articles
    du blogue), sinon celle de la dernière refonte du site.
@@ -43,9 +41,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: paire.priorite,
       alternates: { languages },
     };
-    return [
-      { url: absolu(paire.fr), ...commun },
-      { url: absolu(paire.en), ...commun },
-    ];
+    const entrees = [{ url: absolu(paire.fr), ...commun }];
+    if (ANGLAIS_ACTIF) entrees.push({ url: absolu(paire.en), ...commun });
+    return entrees;
   });
 }

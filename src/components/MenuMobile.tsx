@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import SelecteurLangue from "@/components/SelecteurLangue";
+import { ANGLAIS_ACTIF } from "@/lib/site";
 import { groupesNav } from "@/lib/navigation";
 import type { Textes } from "@/lib/textes/fr";
 
@@ -136,9 +137,11 @@ export default function MenuMobile({ t }: { t: Textes }) {
                 ))}
               </nav>
 
-              <div className="mt-4 flex justify-center">
-                <SelecteurLangue t={t} ton="menu" />
-              </div>
+              {ANGLAIS_ACTIF && (
+                <div className="mt-4 flex justify-center">
+                  <SelecteurLangue t={t} ton="menu" />
+                </div>
+              )}
               {/* Ce bouton EST l'entrée « Contact » du menu : c'est pour ça
                   qu'elle ne figure plus dans la liste des sections au-dessus. */}
               <Link

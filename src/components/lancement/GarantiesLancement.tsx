@@ -11,8 +11,8 @@ import {
 } from "@/lib/contenu/grand-lancement";
 import { fr } from "@/lib/format";
 
-/* LES 3 GARANTIES. Une carte sombre avec la lueur rouge de l'ancienne offre
-   fondateur, trois cartes blanches, la condition et le lien vers la FAQ. Le
+/* LES 4 GARANTIES. Une carte sombre avec la lueur rouge de l'ancienne offre
+   fondateur, quatre cartes blanches, la condition et le lien vers la FAQ. Le
    texte vient d'une seule source (GARANTIES) : il est identique ici, dans la
    FAQ et dans /conditions-fondateur. */
 export default function GarantiesLancement() {
@@ -29,10 +29,10 @@ export default function GarantiesLancement() {
               {GARANTIES_SECTION.titre}
             </h2>
           </Reveal>
-          <ol className="mt-12 grid list-none gap-5 md:grid-cols-3">
+          <ol className="mt-12 grid list-none gap-5 md:grid-cols-2 lg:grid-cols-4">
             {garanties.map((g, i) => (
               <li key={g.id}>
-                <Reveal delay={i as 0 | 1 | 2}>
+                <Reveal delay={Math.min(i, 3) as 0 | 1 | 2 | 3}>
                   <div className="flex h-full flex-col rounded-[2rem] bg-white p-7 text-ink shadow-2xl">
                     <ShieldCheck className="size-9 text-brand" aria-hidden="true" />
                     <h3 className="mt-5 font-display text-2xl font-black leading-tight">{fr(g.nom)}</h3>

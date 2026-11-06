@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { ANGLAIS_ACTIF } from "@/lib/site";
 import { CLES, FONCTIONNALITES_EN, FONCTIONNALITES_FR } from "@/lib/contenu/fonctionnalites";
 import { PLATEFORME_EN, PLATEFORME_FR } from "@/lib/contenu/plateforme";
 import { ARTICLES, INDEX_EN, INDEX_FR } from "@/lib/contenu/blogue";
@@ -196,8 +197,5 @@ export function equivalentLangue(chemin: string, cible: "fr" | "en"): string {
    dit à Google qu'il s'agit d'une page en deux langues et non de deux pages
    concurrentes. Les écrire à la main de chaque côté, c'était se donner
    l'occasion de les désaccorder. */
-export const hreflang = ({ fr, en }: Paire) => ({
-  "fr-CA": fr,
-  "en-CA": en,
-  "x-default": fr,
-});
+export const hreflang = ({ fr, en }: Paire) =>
+  ANGLAIS_ACTIF ? { "fr-CA": fr, "en-CA": en, "x-default": fr } : { "fr-CA": fr, "x-default": fr };

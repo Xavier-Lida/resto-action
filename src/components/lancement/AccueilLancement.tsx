@@ -16,6 +16,7 @@ import PrixLancement from "@/components/lancement/PrixLancement";
 import ProblemeLancement from "@/components/lancement/ProblemeLancement";
 import QuiOnEstLancement from "@/components/lancement/QuiOnEstLancement";
 import RareteLancement from "@/components/lancement/RareteLancement";
+import SystemeRelie from "@/components/lancement/SystemeRelie";
 import { ANCRES, DATE_COHORTE, FAQ, FIN, disponible } from "@/lib/contenu/grand-lancement";
 import { fr } from "@/lib/format";
 import { noeudFaq } from "@/lib/schema";
@@ -64,6 +65,7 @@ export default function AccueilLancement({ t }: { t: Textes }) {
         <HeroLancement t={t} />
         <ProblemeLancement />
         <MoteursLancement />
+        <SystemeRelie />
         <FriseLancement />
         <CalculateurReleve />
         <PileValeurLancement />

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { ANGLAIS_ACTIF } from "./src/lib/site";
 
 /* LES LIENS COURTS À COLLER DANS LES DESCRIPTIONS.
 
@@ -20,9 +21,27 @@ import type { NextConfig } from "next";
    survit à la navigation vers la page de contact. */
 const CHAINE = "utm_source=youtube&utm_medium=video&utm_campaign=chaine";
 
+/* L'ANGLAIS EN PAUSE : chaque page /en renvoie vers sa jumelle française.
+   307 exprès, pour que le navigateur ne le retienne pas le jour où l'anglais
+   revient. Les articles et les fonctionnalités n'ont pas le même slug dans
+   les deux langues : ils renvoient vers l'index français. */
+const VERS_LE_FRANCAIS = [
+  { source: "/en", destination: "/" },
+  { source: "/en/reserve", destination: "/reserver" },
+  { source: "/en/reserve/thanks", destination: "/reserver/merci" },
+  { source: "/en/founder-terms", destination: "/conditions-fondateur" },
+  { source: "/en/status/:session", destination: "/dossier/:session" },
+  { source: "/en/contact", destination: "/contact" },
+  { source: "/en/privacy", destination: "/confidentialite" },
+  { source: "/en/platform/:rest*", destination: "/plateforme" },
+  { source: "/en/blog/:rest*", destination: "/blogue" },
+  { source: "/en/:rest*", destination: "/" },
+].map((r) => ({ ...r, permanent: false }));
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      ...(ANGLAIS_ACTIF ? [] : VERS_LE_FRANCAIS),
       { source: "/yt", destination: `/?${CHAINE}`, permanent: false },
       {
         source: "/yt/:video([A-Za-z0-9_-]{1,60})",

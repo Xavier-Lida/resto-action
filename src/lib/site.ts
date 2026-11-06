@@ -131,3 +131,10 @@ export type CleFondateur = keyof typeof FONDATEURS;
    dans les DEUX langues, donc sa place est dans les dictionnaires
    (`donnees.definition`), d'où la tire le JSON-LD. La constante française qui
    restait ici n'était plus importée nulle part — deux vérités dont une morte. */
+
+/* L'ANGLAIS EST EN PAUSE pendant le Grand Lancement d'hiver : l'offre n'est
+   pas traduite, et une version anglaise qui vend l'ancienne offre ferait plus
+   de tort que de bien. Tant que c'est faux, /en/* renvoie vers la page
+   française équivalente (next.config.ts), le sélecteur de langue est caché et
+   ni le plan du site ni les balises hreflang n'annoncent l'anglais. */
+export const ANGLAIS_ACTIF = false;
