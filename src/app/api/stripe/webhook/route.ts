@@ -7,7 +7,7 @@ import { sessionFondateurDuClient, signatureValide, type SessionCheckout } from 
 /* LES AVIS DE STRIPE.
 
    Stripe appelle cette adresse quand un paiement aboutit. C'est LA source de
-   vérité d'une place fondateur payée : la page de remerciement, elle, peut ne
+   vérité d'une mise en service payée (à la signature) : la page de remerciement, elle, peut ne
    jamais s'afficher (onglet fermé, réseau coupé).
 
    À configurer dans Stripe → Développeurs → Webhooks :

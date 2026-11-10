@@ -10,8 +10,8 @@ import LienPasPret from "@/components/LienPasPret";
    moins d'animations, voir .cta-brille dans globals.css).
 
    `ton` suit le fond : « blanc » sur le rouge et l'encre, « rouge » sur le
-   blanc. `sous` ajoute une ligne rassurante sous le bouton (« 500 $
-   remboursables… »), là où on se décide. */
+   blanc. `sous` ajoute une ligne rassurante sous le bouton (« Gratuit. On
+   t'appelle… »), là où on se décide. */
 export default function BoutonReserver({
   href,
   libelle,

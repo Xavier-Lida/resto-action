@@ -1,35 +1,46 @@
+"use client";
+
+import { useMemo, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
-import { lireSession } from "@/lib/stripe";
-import type { Textes } from "@/lib/textes/fr";
+import { CLE_MERCI } from "@/components/FormulaireFondateur";
 import InfoLancement from "@/components/InfoLancement";
+import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
+import type { Textes } from "@/lib/textes/fr";
 
-/* LA PAGE OÙ STRIPE RAMÈNE LE RESTO APRÈS LE PAIEMENT.
+/* LA PAGE DE MERCI, APRÈS UNE RÉSERVATION GRATUITE.
 
-   Deux cartes côte à côte : à gauche, la confirmation en rouge (le nom du
-   resto, le montant payé, la condition de remboursement) ; à droite, la suite
-   en étapes. Le titre ne dit plus « C'est réservé, {prénom} » : le prénom
-   coupé du nom complet donnait des « Resto ! » qui ne voulaient rien dire.
+   Deux cartes côte à côte : à gauche, la confirmation en rouge (« C'est noté,
+   {prénom}! » et l'appel dans les 24 h) ; à droite, la suite : les étapes 2 à
+   5 de la frise « Comment ça marche ».
 
-   Elle relit la session chez Stripe et ne confirme la place QUE si le
-   paiement est passé. Sinon (lien partagé, session expirée, Stripe
-   injoignable), un merci générique. Ce n'est pas elle qui enregistre la place :
-   c'est le webhook. */
-export default async function PageMerciFondateur({
-  t,
-  session,
-}: {
-  t: Textes;
-  session: string | undefined;
-}) {
+   Le prénom et le resto arrivent du formulaire par sessionStorage (jamais
+   dans l'adresse). Sans eux (navigation privée, lien partagé), la page dit
+   simplement « C'est noté! ». */
+const lire = () => {
+  try {
+    return sessionStorage.getItem(CLE_MERCI) ?? "";
+  } catch {
+    return "";
+  }
+};
+const sAbonner = () => () => {};
+
+export default function PageMerciFondateur({ t }: { t: Textes }) {
   const m = t.reservation.merci;
-  const s = session ? await lireSession(session) : null;
-  const paye = s?.payment_status === "paid" && s.metadata?.type === "fondateur";
-  const prenom = s?.metadata?.nom?.trim().split(/\s+/)[0] ?? "";
-  const argent = (cents: number) =>
-    new Intl.NumberFormat(t.htmlLang, { style: "currency", currency: "CAD" }).format(cents / 100);
+  const brut = useSyncExternalStore(sAbonner, lire, () => "");
+  const { prenom, resto } = useMemo(() => {
+    try {
+      const v = JSON.parse(brut) as { prenom?: unknown; resto?: unknown };
+      return {
+        prenom: typeof v.prenom === "string" ? v.prenom.slice(0, 60) : "",
+        resto: typeof v.resto === "string" ? v.resto.slice(0, 120) : "",
+      };
+    } catch {
+      return { prenom: "", resto: "" };
+    }
+  }, [brut]);
 
   return (
     <main lang={t.htmlLang} className="min-h-svh bg-bone px-3 py-6 md:px-6 md:py-10">
@@ -46,103 +57,68 @@ export default async function PageMerciFondateur({
           />
         </Link>
 
-        {paye ? (
-          <div className="mt-8 grid gap-4 md:mt-12 lg:grid-cols-2">
-            {/* ─── La confirmation ─── */}
-            <section className="calc-entre relative overflow-hidden rounded-[2rem] bg-hero p-7 text-white md:p-10">
-              <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-white/10 blur-3xl" />
-              <div className="relative">
-                <p className="inline-flex rounded-full bg-white/15 px-4 py-1.5 text-sm font-bold">
-                  {m.etiquette.replace("{resto}", s.metadata.restaurant ?? "")}
-                </p>
-                <span className="mt-8 grid size-14 place-items-center rounded-full bg-white text-hero">
-                  <Check className="size-7" aria-hidden="true" />
-                </span>
-                <h1 className="mt-6 font-display text-4xl font-black leading-[1.05] tracking-tight md:text-5xl">
-                  {m.titre}
-                </h1>
-                <p className="mt-4 text-lg text-white/85">
-                  {m.texte.replace("{prenom}", prenom).replace("{courriel}", s.customer_details?.email ?? "")}
-                </p>
-
-                {s.amount_total !== null && (
-                  <div className="mt-8 border-t border-white/20 pt-6">
-                    <p className="text-xs font-black uppercase tracking-widest text-white/60">{m.paye}</p>
-                    <p className="mt-1 font-display text-4xl font-black">{argent(s.amount_total)}</p>
-                    <p className="mt-2 text-sm font-bold text-white/75">{t.hero.condition}</p>
-                  </div>
-                )}
-
-                {/* LE LIEN VERS SON DOSSIER : là où il suit son app jusqu'au lancement. */}
-                <div className="mt-8 border-t border-white/20 pt-6">
-                  <Link
-                    href={`${t.racine === "/en" ? "/en/status" : "/dossier"}/${session}`}
-                    className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 font-black text-ink transition hover:-translate-y-0.5"
-                  >
-                    {t.reservation.dossier.voir}
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </Link>
-                  <p className="mt-2 text-sm text-white/75">{t.reservation.dossier.voirTexte}</p>
-                </div>
-              </div>
-            </section>
-
-            {/* ─── La suite ─── */}
-            <section className="calc-entre rounded-[2rem] bg-white p-7 md:p-10" style={{ animationDelay: "0.15s" }}>
-              <InfoLancement t={t} className="mb-7" />
-              <p className="text-xs font-black uppercase tracking-widest text-brand">{m.suiteTitre}</p>
-              <ol className="relative mt-6 grid list-none gap-5 border-l-2 border-bone pl-6">
-                {m.suite.map((etape, i) => (
-                  <li key={etape} className="relative">
-                    <span
-                      className={`absolute -left-[2.35rem] top-0 grid size-7 place-items-center rounded-full font-display text-xs font-black ring-4 ring-white ${
-                        i === 0 ? "bg-brand text-white" : "bg-bone text-ink"
-                      }`}
-                    >
-                      {i + 1}
-                    </span>
-                    <p className={`leading-snug ${i === 0 ? "font-black" : "font-bold text-ink/80"}`}>{etape}</p>
-                  </li>
-                ))}
-              </ol>
-
-              <div className="mt-7 rounded-2xl bg-bone p-5">
-                <p className="font-black">{m.suiviTitre}</p>
-                <p className="mt-2 text-sm leading-relaxed text-ink/75">{m.suiviTexte}</p>
-                <Link href={`${t.racine}/contact`} className="mt-4 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-brand">
-                  {m.suiviBouton}
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </Link>
-              </div>
-
-              <p className="mt-8 text-ink/70">
-                {m.question}{" "}
-                <a href={PHONE_HREF} className="font-black text-ink underline underline-offset-4 hover:text-brand">
-                  {PHONE_DISPLAY}
-                </a>
+        <div className="mt-8 grid gap-4 md:mt-12 lg:grid-cols-2">
+          {/* ─── La confirmation ─── */}
+          <section className="calc-entre relative overflow-hidden rounded-[2rem] bg-hero p-7 text-white md:p-10">
+            <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-white/10 blur-3xl" />
+            <div className="relative">
+              <p className="inline-flex rounded-full bg-white/15 px-4 py-1.5 text-sm font-bold">
+                {resto ? m.etiquette.replace("{resto}", resto) : m.etiquetteSansResto}
               </p>
-              <Link
-                href={t.racine || "/"}
-                className="group mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-black text-white transition hover:bg-brand"
-              >
-                {m.retour}
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              <span className="mt-8 grid size-14 place-items-center rounded-full bg-ciel text-white shadow-[0_0_0_6px_rgba(25,211,240,0.25)]">
+                <Check className="size-7" aria-hidden="true" />
+              </span>
+              <h1 className="mt-6 font-display text-4xl font-black leading-[1.05] tracking-tight md:text-5xl">
+                {prenom ? m.titre.replace("{prenom}", prenom) : m.titreSansPrenom}
+              </h1>
+              <p className="mt-4 text-lg text-white/85">{m.texte}</p>
+              <p className="mt-8 border-t border-white/20 pt-6 text-sm font-bold text-white/75">{t.hero.condition}</p>
+            </div>
+          </section>
+
+          {/* ─── La suite ─── */}
+          <section className="calc-entre rounded-[2rem] bg-white p-7 md:p-10" style={{ animationDelay: "0.15s" }}>
+            <InfoLancement t={t} className="mb-7" />
+            <p className="text-xs font-black uppercase tracking-widest text-brand">{m.suiteTitre}</p>
+            <ol className="relative mt-6 grid list-none gap-5 border-l-2 border-bone pl-6">
+              {m.suite.map((etape, i) => (
+                <li key={etape} className="relative">
+                  <span
+                    className={`absolute -left-[2.35rem] top-0 grid size-7 place-items-center rounded-full font-display text-xs font-black ring-4 ring-white ${
+                      i === 0 ? "bg-brand text-white" : "bg-bone text-ink"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <p className={`leading-snug ${i === 0 ? "font-black" : "font-bold text-ink/80"}`}>{etape}</p>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-7 rounded-2xl bg-bone p-5">
+              <p className="font-black">{m.suiviTitre}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink/75">{m.suiviTexte}</p>
+              <Link href={`${t.racine}/contact`} className="mt-4 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-brand">
+                {m.suiviBouton}
+                <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
-            </section>
-          </div>
-        ) : (
-          <section className="calc-entre mt-8 max-w-2xl rounded-[2rem] bg-white p-7 md:mt-12 md:p-10">
-            <h1 className="font-display text-4xl font-black leading-tight tracking-tight">{m.titreGenerique}</h1>
-            <p className="mt-4 text-lg text-ink/70">{m.texteGenerique.replace("{tel}", PHONE_DISPLAY)}</p>
+            </div>
+
+            <p className="mt-8 text-ink/70">
+              {m.question}{" "}
+              <a href={PHONE_HREF} className="font-black text-ink underline underline-offset-4 hover:text-brand">
+                {PHONE_DISPLAY}
+              </a>
+            </p>
             <Link
               href={t.racine || "/"}
-              className="group mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-black text-white transition hover:bg-brand"
+              className="group mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-black text-white transition hover:bg-brand"
             >
               {m.retour}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </section>
-        )}
+        </div>
       </div>
     </main>
   );

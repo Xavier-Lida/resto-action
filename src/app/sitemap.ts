@@ -33,7 +33,7 @@ const absolus = ({ fr, en }: Paire) =>
 const dateDe = (paire: Paire) => paire.modifieLe ?? MISE_A_JOUR;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return PAIRES.flatMap((paire) => {
+  return [...PAIRES.flatMap((paire) => {
     const languages = absolus(paire);
     const commun = {
       lastModified: dateDe(paire),
@@ -44,5 +44,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const entrees = [{ url: absolu(paire.fr), ...commun }];
     if (ANGLAIS_ACTIF) entrees.push({ url: absolu(paire.en), ...commun });
     return entrees;
-  });
+  })];
 }

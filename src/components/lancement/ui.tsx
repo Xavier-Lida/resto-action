@@ -21,13 +21,23 @@ export function AEcrire({ children }: { children: ReactNode }) {
 }
 
 /** Le surtitre d'une section : la pilule rouge sur fond sombre, le gris sur fond clair. */
+/* LA TOUCHE CYAN : toujours petite, toujours à la même place (le point devant
+   chaque surtitre, le mot clé surligné, l'icône de l'IA). Jamais en gros. */
+export function PointCiel() {
+  return <span aria-hidden="true" className="size-2 shrink-0 rounded-full bg-ciel shadow-[0_0_0_3px_rgba(25,211,240,0.25)]" />;
+}
+
 export function Surtitre({ children, ton = "clair" }: { children: ReactNode; ton?: "clair" | "sombre" }) {
   return ton === "sombre" ? (
-    <p className="inline-flex rounded-full bg-brand px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white">
+    <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white">
+      <PointCiel />
       {children}
     </p>
   ) : (
-    <p className="text-xs font-black uppercase tracking-widest text-ink/50">{children}</p>
+    <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-ink/50">
+      <PointCiel />
+      {children}
+    </p>
   );
 }
 

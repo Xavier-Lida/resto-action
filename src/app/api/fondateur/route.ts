@@ -1,21 +1,25 @@
 import { after, type NextRequest } from "next/server";
 import { signalerFondateur } from "@/lib/crm";
+import { courrielReservation, courrielReservationEquipe } from "@/lib/courriels-fondateur";
+import { CONDITIONS_VERSION } from "@/lib/contenu/conditions-fondateur";
+import { envoyerCourriel } from "@/lib/google/courriel";
 import { assainirProvenance, decrireProvenance } from "@/lib/provenance";
-import { ErreurStripe, creerSessionFondateur } from "@/lib/stripe";
 
-/* LA RÉSERVATION FONDATEUR (/reserver).
+/* LA RÉSERVATION GRATUITE (/reserver).
 
    Un seul POST, deux actions :
      « prospect » : l'étape 1 est remplie. On répond tout de suite et on
        prévient le CRM après coup. Le visiteur n'attend jamais le CRM.
-     « paiement » : l'étape 4. On ouvre une session Stripe Checkout et on rend
-       son adresse ; le navigateur y part. Le montant est fixé ICI, côté
-       serveur : rien de ce que le navigateur envoie ne peut le changer.
+     « reservation » : l'étape 4. Plus aucun paiement : la place est réservée
+       gratuitement, et la mise en service se paie à la signature du bon
+       d'accord. La réservation part au CRM (comme les demandes de maquette).
 
-   La confirmation du paiement n'arrive PAS par ici, mais par le webhook
-   (/api/stripe/webhook) : un visiteur qui ferme l'onglet après avoir payé
-   n'atterrit jamais sur la page de remerciement, et son paiement doit quand
-   même compter. */
+   UNE RÉSERVATION NE DOIT PAS SE PERDRE. Si le CRM ne répond pas ou n'est pas
+   configuré, elle part aussi par courriel à l'équipe (GOOGLE_SUJET). Si les
+   deux échouent, le visiteur voit une erreur avec notre numéro.
+
+   Le code Stripe (src/lib/stripe.ts) et le webhook restent en place : ils
+   serviront à encaisser la mise en service à la signature. */
 export const runtime = "nodejs";
 
 const SANS_CACHE = { "Cache-Control": "no-store" };
@@ -30,8 +34,7 @@ function refus(code: string, statut = 400): Response {
 }
 
 /* Le limiteur par IP, partiel comme celui de l'agenda (chaque instance a son
-   compteur). Il amortit les robots ; il ne protège pas l'argent — c'est Stripe
-   qui encaisse, et une session ouverte sans paiement ne coûte rien. */
+   compteur). Il amortit les robots. */
 const tentatives = new Map<string, number[]>();
 function tropDeTentatives(ip: string): boolean {
   const maintenant = Date.now();
@@ -40,6 +43,16 @@ function tropDeTentatives(ip: string): boolean {
   if (tentatives.size > 500) tentatives.clear();
   tentatives.set(ip, recentes);
   return recentes.length > 10;
+}
+
+async function essayerCourriel(envoi: () => Promise<void>, quoi: string): Promise<boolean> {
+  try {
+    await envoi();
+    return true;
+  } catch (erreur) {
+    console.error(`[fondateur] courriel ${quoi} refusé :`, erreur instanceof Error ? erreur.message : erreur);
+    return false;
+  }
 }
 
 export async function POST(requete: NextRequest): Promise<Response> {
@@ -83,9 +96,9 @@ export async function POST(requete: NextRequest): Promise<Response> {
     return Response.json({ ok: true }, { headers: SANS_CACHE });
   }
 
-  if (corps.action !== "paiement") return refus("invalide");
+  if (corps.action !== "reservation") return refus("invalide");
 
-  // L'étape 3 : sans l'accord sur les conditions, pas de paiement.
+  // L'étape 3 : sans la case cochée, pas de réservation.
   if (corps.accord !== true) return refus("accord");
 
   const menu = texte(corps.menu, 300);
@@ -94,24 +107,44 @@ export async function POST(requete: NextRequest): Promise<Response> {
     ? corps.plateformes.map((p) => texte(p, 30)).filter(Boolean).slice(0, 6).join(", ")
     : "";
   const commandes = texte(corps.commandes, 30);
+  // Non cochée par défaut : seul un vrai `true` vaut consentement.
+  const consentementTextos = corps.textos === true;
 
-  try {
-    const session = await creerSessionFondateur(
-      {
-        ...prospect,
-        menu,
-        service,
-        plateformes,
-        commandes,
-        source: decrireProvenance(provenance).slice(0, 450),
-      },
-      new URL(requete.url).origin,
-    );
-    if (!session.url) throw new ErreurStripe("stripe", "session sans adresse");
-    return Response.json({ url: session.url }, { headers: SANS_CACHE });
-  } catch (erreur) {
-    const config = erreur instanceof ErreurStripe && erreur.code === "config";
-    console.error("[fondateur]", erreur instanceof Error ? erreur.message : erreur);
-    return refus(config ? "config" : "stripe", config ? 503 : 502);
-  }
+  const recu = await signalerFondateur({
+    etape: "reservation",
+    prospect,
+    app: { menu, service },
+    qualification: { plateformes, commandes },
+    reservation: { consentementTextos, conditions: CONDITIONS_VERSION },
+    provenance,
+  });
+
+  // Le filet : l'équipe reçoit la réservation par courriel, CRM ou pas.
+  const equipe = await essayerCourriel(
+    () =>
+      envoyerCourriel(
+        courrielReservationEquipe({
+          ...prospect,
+          menu,
+          service,
+          plateformes,
+          commandes,
+          consentementTextos,
+          source: decrireProvenance(provenance),
+          crm: recu,
+        }),
+      ),
+    "à l'équipe",
+  );
+
+  if (!recu && !equipe) return refus("autre", 502);
+
+  // La confirmation au resto part après la réponse : il n'attend pas Gmail.
+  after(() =>
+    essayerCourriel(
+      () => envoyerCourriel(courrielReservation({ a: prospect.courriel, nom: prospect.nom, restaurant: prospect.restaurant, langue })),
+      "de réservation",
+    ),
+  );
+  return Response.json({ ok: true }, { headers: SANS_CACHE });
 }

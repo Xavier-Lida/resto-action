@@ -93,7 +93,7 @@ export const FR = {
     description: `Ton app de commande web et mobile, à ton nom. Sans les 30 % des plateformes, visible dans Google, avec des clients qui reviennent. Pour les restos indépendants du Québec. ${PHONE_DISPLAY}.`,
     ogTitre: "Resto Action | Ton app de commande web et mobile, à ton nom",
     ogDescription:
-      "Tes clients commandent chez toi, pas sur Uber. Ton app web et mobile, des livreurs d'ici, et ta liste de clients qui t'appartient.",
+      "Plus de ventes en ligne. Plus d'argent à la fin du mois. Ton app à ton nom, des nouveaux clients, et moins d'argent laissé aux plateformes.",
     ogLocale: "fr_CA",
   },
 
@@ -192,7 +192,7 @@ export const FR = {
     appHabibi: "L'app de Bistro Habibi, faite par nous",
     puces: [
       "App web + mobile à ton nom",
-      "Livraison par nos livreurs d'ici",
+      "La livraison, sans livreur à gérer",
       "On installe tout, tu n'as rien à faire",
     ],
     recherche: {
@@ -200,14 +200,14 @@ export const FR = {
       exemple: "Trouve ton resto (ex. Casse-croûte Chez Paul)",
       bouton: "Ma maquette gratuite",
     },
-    condition: "Dépôt de 500 $, crédité sur ta mise en service",
+    condition: "Gratuit. On t'appelle pour fixer ta date.",
     // La demande de maquette gratuite, faite à la main, qui s'ouvre du champ.
     maquette: {
       titre: "La maquette de {nom}, faite à la main.",
       titreGenerique: "Ta maquette gratuite, faite à la main.",
       restaurant: "Nom de ton resto",
       texte:
-        "On te monte une vraie maquette de ton app, pas un modèle : ton logo, ton menu, tes photos. Gratuite, sans engagement, et envoyée à ton adresse courriel dans les 48 h.",
+        "On te monte une vraie maquette de ton app, pas un modèle : ton logo, ton menu, tes photos. Gratuite, sans engagement, et envoyée à ton adresse courriel.",
       inclus: ["Ton logo et tes couleurs", "Ton vrai menu, avec tes prix", "Tes photos, pas des photos d'exemple"],
       nom: "Ton nom",
       courriel: "Ton courriel",
@@ -222,11 +222,11 @@ export const FR = {
       attente: "L'app de Bistro Habibi",
       decide: "Déjà décidé?",
       vieprivee: "Tes coordonnées servent seulement à te faire ta maquette et à te joindre.",
-      reserver: "Réserver ma place fondateur",
+      reserver: "Réserver ma place",
       merciTitre: "C'est noté, {prenom}!",
       merciTexte:
-        "La maquette de {nom} t'est envoyée à {courriel} dans les 48 h. Si on a une question sur ton menu, on t'appelle.",
-      merciReserver: "Réserver ma place pendant qu'il en reste",
+        "La maquette de {nom} t'est envoyée à {courriel}. Si on a une question sur ton menu, on t'appelle.",
+      merciReserver: "Réserver ma place",
       erreurs: {
         invalide: "Il manque ton nom, ton courriel, ton cell ou ta ville.",
         trop: "Trop d'essais d'un coup. Réessaie dans quelques minutes.",
@@ -238,7 +238,7 @@ export const FR = {
       etiquette: "Aperçu automatique",
       chargement: "On cherche ta fiche Google…",
       choisir: "C'est lequel?",
-      note: "Fait tout seul avec ta fiche Google. Ta vraie maquette, avec ton menu et tes prix, est faite à la main et t'arrive en 48 h.",
+      note: "Fait tout seul avec ta fiche Google. Ta vraie app, avec ton menu et tes photos, est prête 48 h après que tu nous envoies tes accès.",
       aucun: "On n'a pas trouvé ta fiche Google. Voici l'app qu'on a faite pour Bistro Habibi :",
       couleur: "Essaie une couleur",
       avis: "avis Google",
@@ -324,7 +324,7 @@ export const FR = {
     lire: "En savoir plus",
     onglets: [
       {
-        onglet: "Plus de trafic Google",
+        onglet: "Plus de clients Google",
         surTitre: "Ton référencement, réglé",
         titre: "Ton resto sort enfin dans Google",
       },
@@ -334,7 +334,7 @@ export const FR = {
         titre: "Une commande en ligne qui donne le goût d'ajouter",
       },
       {
-        onglet: "Plus de commandes répétées",
+        onglet: "Plus de clients fidèles",
         surTitre: "Des relances qui travaillent pour toi",
         titre: "Tes clients reviennent sans que tu aies à y penser",
       },
@@ -369,7 +369,7 @@ export const FR = {
     // Le montant est composé autour des colonnes de l'odomètre : « Tu gardes
     // 87,96 $ » en français, « You keep $87.96 » en anglais — le signe change
     // de côté, d'où ces trois morceaux plutôt qu'une seule chaîne.
-    montant: { avant: "Tu gardes ", separateur: ",", apres: " $" },
+    montant: { avant: "Panier · ", separateur: ",", apres: " $" },
     nouvelleCliente: "Nouvelle cliente",
     cliente: "Marie-Ève",
     etapes: [
@@ -390,7 +390,7 @@ export const FR = {
     etapes: [
       {
         titre: "Tu réserves ta place",
-        texte: "500 $, remboursables jusqu'au lancement.",
+        texte: "Gratuit. On t'appelle pour fixer ta date.",
         alt: "La mascotte Resto Action écoute au téléphone",
       },
       {
@@ -409,7 +409,7 @@ export const FR = {
   /* LA COMPARAISON, EN DIX MOTS PAR COLONNE. Peu de texte, gros caractères :
      elle se lit d'un coup d'œil et mène au gros bouton de réservation. */
   plateformes: {
-    titre: "Sur Uber, ton client n'est pas à toi.",
+    titre: "Sur les plateformes, ton client n'est pas à toi.",
     eux: {
       titre: "Sur les plateformes",
       points: [
@@ -423,11 +423,11 @@ export const FR = {
       points: [
         "Tu gardes ta marge",
         "Ton client est à toi, l'app le fait revenir toute seule",
-        "Des livreurs d'ici, l'argent reste au Québec",
+        "Une équipe d'ici, l'argent reste au Québec",
       ],
     },
-    reserver: "Réserver ma place fondateur",
-    sous: "500 $ remboursable jusqu'au lancement",
+    reserver: "Réserver ma place",
+    sous: "Gratuit. On t'appelle pour fixer ta date.",
   },
 
   /* LE CALCULATEUR ANIMÉ. Les noms, montants et avis de l'animation sont des
@@ -469,7 +469,7 @@ export const FR = {
     hypothesesVoir: "Estimation, pas une garantie. Voir les hypothèses",
     hypotheses:
       "Estimation, pas une garantie. Argent gardé : 30 % de frais de plateforme typiques, comparés à notre abonnement à 200 $ par mois et à notre commission en livraison, 10 % (en cueillette, c'est 5 %, donc tu gardes encore plus). Ventes en plus (chiffre d'affaires, aucun frais ajouté sur les suggestions) : 5 % de plus par facture grâce aux suggestions, 1 commande sur 20 de plus grâce aux rappels et aux paniers récupérés, 1 sur 20 de plus grâce à Google. Avis : 1 commande sur 20. Les noms et les avis qui défilent sont des exemples. Avant taxes et frais de carte.",
-    reserver: "Réserver ma place fondateur",
+    reserver: "Réserver ma place",
   },
 
   /* LE CATALOGUE. Trois apps, dont une seule est montrée à l'écran — les deux
@@ -525,33 +525,33 @@ export const FR = {
   lancement: {
     titre: "Le Grand Lancement d'hiver",
     accroche: "Prochaine cohorte : janvier 2027. On lance au plus 16 restos par mois au Québec.",
-    resume: "Prochaine cohorte : janvier 2027, inscriptions jusqu'au vendredi 18 décembre 2026. Ton dépôt de 500 $ est crédité sur ta mise en service. L'abonnement commence à ta mise en ligne.",
-    texte: "On lance au plus 16 restos par mois au Québec, 4 par semaine, parce qu'on installe et qu'on lance chaque resto nous-mêmes. Pour faire partie de la cohorte de janvier 2027, réserve avant le vendredi 18 décembre 2026.",
+    resume: "Prochaine cohorte : janvier 2027, inscriptions jusqu'au vendredi 18 décembre 2026. Ta réservation est gratuite; la mise en service se paie à la signature. L'abonnement commence à ta mise en ligne.",
+    texte: "On lance au plus 16 restos par mois au Québec, 4 par semaine : c'est notre limite, pour lancer chaque resto comme il faut. Pour faire partie de la cohorte de janvier 2027, signe avant le vendredi 18 décembre 2026.",
     date: "Il faut 2 semaines pour ton menu, tes photos, ton app, l'impression et l'installation. Après la date limite, tu pars avec la cohorte suivante, un mois plus tard.",
     abonnement: "Ton abonnement de 200 $ par mois commence à la mise en ligne de ton app, avec tes 4 garanties.",
-    remboursement: "Ta place est réservée avec un dépôt de 500 $, crédité sur ta mise en service de 750 $. [À VALIDER PAR L'AVOCAT : conditions de remboursement du dépôt.]",
+    remboursement: "La mise en service de 750 $ se paie à la signature. Pas encore prêt? Inscris-toi gratuitement : on te garde au courant.",
   },
 
-  /* L'OFFRE FONDATEUR. Les montants et la garantie doivent rester identiques au
+  /* L'OFFRE DU GRAND LANCEMENT. Les montants et la garantie doivent rester identiques au
      contrat et au bon d'accord. Garantie (formule B, oct. 2026) : seul
      l'abonnement est remboursé, commissions Resto Action exclues. */
   offre: {
-    surTitre: "Offre fondateur",
+    surTitre: "Le Grand Lancement d'hiver",
     titre: "Préparons ton lancement.",
     sousTitre: "On ne te fait pas de rabais. On investit dans ta croissance.",
-    // L'avantage fondateur : 300 $ de pub payée par nous, au lieu d'un rabais.
+    // L'avantage du lancement : 300 $ de pub payée par nous, au lieu d'un rabais.
     pub: {
       montant: "300 $",
       titre: "de publicité payée par nous",
       texte:
-        "Tes 3 premiers mois en ligne, on gère tes pubs Facebook et Instagram.",
+        "Tes 7 premiers jours en ligne, on gère ta pub Facebook et Instagram.",
     },
     inclusTitre: "Ce qui est inclus",
     inclus: [
       "Ton app web et mobile, à ton nom",
       "Ta fiche Google optimisée",
       "Rappels SMS et courriel",
-      "Livraison par nos livreurs",
+      "La livraison, sans livreur à gérer",
       "300 $ de pub, gérée par nous",
     ],
     garantie: {
@@ -561,21 +561,20 @@ export const FR = {
     },
     coutsTitre: "Le prix, tout compris",
     couts: [
-      { quand: "Aujourd'hui", quoi: "500 $", detail: "Dépôt, crédité sur ta mise en service" },
-      { quand: "À ta mise en service", quoi: "750 $", barre: "1 500 $", detail: "Prix du Grand Lancement d'hiver, puis 1 500 $. Ton dépôt de 500 $ est crédité dessus." },
+      { quand: "À la signature", quoi: "750 $", detail: "Prix du Grand Lancement d'hiver, puis 1 500 $" },
       { quand: "Chaque mois, dès la mise en ligne", quoi: "200 $", detail: "Abonnement. L'imprimante est offerte." },
       { quand: "Par commande", quoi: "5 % + 0,30 $ · 10 % + 3,51 $", detail: "Cueillette · livraison, frais de carte inclus" },
     ],
     taxes: "Taxes en sus.",
     reserver: "Réserve ta place",
     reserverCourt: "Réserve ta place",
-    condition: "Dépôt de 500 $, crédité sur ta mise en service",
+    condition: "Gratuit. On t'appelle pour fixer ta date.",
   },
-  // Le formulaire de réservation fondateur (/reserver) et sa page de merci.
+  // Le formulaire de réservation gratuite (/reserver) et sa page de merci.
   reservation: {
     metaTitre: "Réserve ta place dans le Grand Lancement d'hiver | Resto Action",
     metaDescription:
-      "Réserve ta place dans la cohorte de janvier 2027 avec un dépôt de 500 $, crédité sur ta mise en service. On lance au plus 16 restos par mois au Québec.",
+      "Réserve ta place gratuitement dans la cohorte de janvier 2027. On lance au plus 16 restos par mois au Québec.",
     retour: "Retour au site",
     etape: "Étape {n} sur 4",
     etapes: ["Ton resto", "Ton app", "L'offre", "Réservation"],
@@ -599,7 +598,7 @@ export const FR = {
       facultatif: "facultatif",
       exempleMenu: "Ex. : facebook.com/tonresto ou ton site",
       menuAide: "Pas de lien? Pas grave : on trouve ton menu et on te le fait valider.",
-      livraisonMaquette: "Après ta réservation, tu nous envoies ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h.",
+      livraisonMaquette: "Après ta signature, tu nous envoies ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h.",
       service: "Ce que tu offres",
       services: {
         livraison: "Livraison et cueillette",
@@ -612,52 +611,50 @@ export const FR = {
     },
     offre: {
       titre: "Ta place dans le Grand Lancement d'hiver",
-      texte: "500 $ aujourd'hui : ton dépôt, crédité sur ta mise en service. Ton abonnement commence à la mise en ligne. Voici le prix, tout compris.",
+      texte: "Réserve gratuitement. La mise en service se paie à la signature, et ton abonnement commence à la mise en ligne. Voici le prix, tout compris.",
       conditions: "Lire les conditions",
       // Même chemin que CONDITIONS dans src/lib/routes.ts.
       conditionsHref: "/conditions-fondateur",
       accord:
-        "J'ai lu le prix tout compris et j'accepte les conditions. Mon dépôt de 500 $ est crédité sur ma mise en service, et mon abonnement commence à la mise en ligne de mon app. [À VALIDER PAR L'AVOCAT]",
+        "J'ai lu le prix tout compris. Ma réservation est gratuite : ma place est confirmée à la signature de mon bon d'accord, et la mise en service se paie à ce moment-là.",
     },
+    // L'étape 4 : plus de paiement. La réservation part au CRM; la mise en
+    // service se paie à la signature du bon d'accord.
     paiement: {
       titre: "On réserve ta place",
-      texte: "Tu passes au paiement sécurisé de Stripe. Ta facture, avec la TPS et la TVQ, arrive par courriel.",
+      texte: "C'est gratuit, sans paiement. On t'appelle dans les 24 h pour fixer ta date et signer ton bon d'accord.",
       recap: "Ta réservation",
-      ligne: "Dépôt, crédité sur ta mise en service",
-      tps: "TPS (5 %)",
-      tvq: "TVQ (9,975 %)",
-      total: "Total aujourd'hui",
-      bouton: "Payer {total} et réserver",
-      envoi: "Ouverture du paiement…",
-      securite: "Paiement sécurisé par Stripe. On ne voit jamais ton numéro de carte.",
+      gratuit: "Gratuit",
+      ligne: "Réservation de ta place",
+      textos:
+        "J'accepte de recevoir des textos de Resto Action au sujet de mon lancement. Je peux me désabonner en tout temps.",
+      bouton: "Réserver ma place",
+      envoi: "Envoi…",
       vieprivee: "Tes coordonnées servent seulement à monter ton app et à te joindre.",
-      annule:
-        "Le paiement a été annulé : ta place n'est pas encore réservée. Tu peux réessayer quand tu veux.",
     },
     erreurs: {
       invalide: "Il manque une info, ou le courriel n'est pas valide.",
       accord: "Coche la case pour continuer.",
       trop: "Trop d'essais d'un coup. Réessaie dans quelques minutes.",
-      config: "Le paiement en ligne n'est pas encore ouvert. Appelle-nous au {tel}, on réserve ta place au téléphone.",
-      stripe: "Le paiement n'a pas pu s'ouvrir. Réessaie, ou appelle-nous au {tel}.",
+      autre: "Ça n'a pas passé. Réessaie, ou appelle-nous au {tel}, on réserve ta place au téléphone.",
     },
     apercuDefaut: "ton resto",
     apercu: {
       titre: "L'app de {nom}, à ton nom",
       texte: "Comme celle de Bistro Habibi : ton logo, ton menu, tes photos. Pas un modèle.",
     },
-    // La page de suivi privée du resto après son paiement (/dossier/[session]).
+    // La page de suivi privée du resto, après la signature et le paiement de sa
+    // mise en service (/dossier/[session]). 6 étapes : le CRM met « etape » de 1 à 6.
     dossier: {
       metaTitre: "Ton dossier | Resto Action",
       surTitre: "Ton dossier",
       progression: "{n} étapes sur {total}",
       etapes: [
-        { titre: "Place réservée", texte: "Ton dépôt de 500 $ est reçu." },
+        { titre: "Bon d'accord signé", texte: "Ton bon d'accord est signé et ta mise en service est payée." },
         { titre: "Ton menu, tes photos et tes accès", texte: "Tu nous les envoies dans les 5 jours." },
         { titre: "Ton app est prête", texte: "48 h après tes accès. Tu valides." },
-        { titre: "Ta date de lancement", texte: "Installation entre deux rushs, formation privée, ton imprimante branchée." },
-        { titre: "Tes 7 premiers jours", texte: "300 $ de pub payés par nous, la tournée des bureaux, un texto chaque soir." },
-        { titre: "Ton premier vendredi", texte: "Quelqu'un de chez nous dans ta cuisine pendant le rush (dans nos villes de départ)." },
+        { titre: "Ta date de lancement", texte: "Ton imprimante branchée en 10 minutes, et ta formation privée d'une heure, en personne." },
+        { titre: "Tes 7 premiers jours", texte: "300 $ de pub payés par nous, nos cartons dans tes sacs, et un texto chaque soir avec tes commandes du jour." },
         { titre: "Chaque lundi", texte: "Ton Texto du Lundi : tes commandes, tes nouvelles ventes et l'argent rapporté." },
       ],
       enCours: "En cours",
@@ -669,35 +666,30 @@ export const FR = {
       actions: "Besoin de quelque chose?",
       envoyerMenu: "Envoyer mon menu et mes photos",
       appeler: "Appeler Guillaume",
-      rembourser: "Demander un remboursement",
-      rembourserNote: "[À VALIDER PAR L'AVOCAT : conditions de remboursement du dépôt.]",
       introuvable: "Ce dossier est introuvable. Vérifie le lien dans ton courriel, ou appelle-nous au {tel}.",
       sujetMenu: "Menu et photos : {resto}",
-      sujetRemboursement: "Demande de remboursement : {resto}",
       voir: "Voir mon dossier",
       voirTexte: "Garde ce lien : tu y vois où en est ton app, en tout temps.",
     },
     merci: {
-      metaTitre: "Ta place est réservée | Resto Action",
-      titre: "Ta place est réservée.",
+      metaTitre: "C'est noté | Resto Action",
+      titre: "C'est noté, {prenom}!",
+      titreSansPrenom: "C'est noté!",
       etiquette: "Grand Lancement d'hiver · {resto}",
-      titreGenerique: "Merci !",
-      texte: "Merci {prenom}! Ta facture est partie à {courriel}.",
-      texteGenerique:
-        "Si ton paiement est passé, ta facture est dans ta boîte courriel. Un doute ? Appelle-nous au {tel}.",
+      etiquetteSansResto: "Grand Lancement d'hiver",
+      texte: "On t'appelle dans les 24 h pour fixer ta date et signer ton bon d'accord.",
       suiteTitre: "La suite",
+      // Les étapes 2 à 5 de la frise « Comment ça marche ».
       suite: [
-        "Tu nous envoies ton menu, tes photos et tes accès dans les 5 jours.",
-        "Ton app est prête en 48 h. Tu valides.",
-        "À ta date de lancement : installation entre deux rushs (2 h), formation privée, ton imprimante branchée.",
-        "Tes 7 premiers jours : 300 $ de pub payés par nous, la tournée des bureaux, et un texto chaque soir.",
-        "Chaque lundi, ton Texto du Lundi. Ton abonnement commence à la mise en ligne, avec tes 4 garanties.",
+        "Tu nous envoies ton menu, tes photos et tes accès : 5 jours.",
+        "Ton app est prête : 48 h.",
+        "Ta date de lancement : ton imprimante branchée en 10 minutes, et ta formation privée d'une heure, en personne.",
+        "Tes 7 premiers jours : 300 $ de pub payés par nous, nos cartons dans tes sacs, et un texto chaque soir avec tes commandes du jour.",
       ],
       suiviTitre: "Fais le point avec Guillaume",
       suiviTexte: "Tu peux choisir un créneau pour parler de ta réservation, des éléments à préparer et de l'avancement du lancement.",
       suiviBouton: "Choisir mon appel de suivi",
       retour: "Retour à l'accueil",
-      paye: "Dépôt payé aujourd'hui",
       question: "Une question d'ici là? Appelle-nous au",
     },
   },
@@ -719,7 +711,7 @@ export const FR = {
       fondateurs: [
         {
           nom: "Guillaume",
-          role: "Cofondateur · ventes et terrain",
+          role: "Cofondateur · ventes et développement des affaires",
           alt: "Guillaume Therrien, cofondateur de Resto Action",
           points: [
             {
@@ -736,13 +728,13 @@ export const FR = {
             },
             {
               titre: "Des ventes que tu n'aurais pas eues.",
-              texte: "Google, textos, points : on va chercher des commandes nouvelles, pas juste celles d'Uber.",
+              texte: "Google, textos, points : on va chercher des commandes nouvelles, pas juste celles des plateformes.",
             },
           ],
         },
         {
           nom: "Xavier",
-          role: "Cofondateur · technologie",
+          role: "Cofondateur · technologie, conception et maintenance",
           alt: "Xavier Lida, cofondateur de Resto Action",
           points: [
             {
@@ -800,7 +792,7 @@ export const FR = {
     items: [
       {
         q: "C'est quoi, Resto Action?",
-        a: "Ton app de commande web et mobile, à ton nom, pour les restos indépendants du Québec. Bâtie à Trois-Rivières. Tes clients commandent chez toi plutôt que sur Uber Eats ou DoorDash, et on s'occupe du reste : ta fiche Google, les relances par texto qui les font revenir, et la livraison par des livreurs d'ici.",
+        a: "Ton app de commande web et mobile, à ton nom, pour les restos indépendants du Québec. Bâtie à Trois-Rivières. Tes clients commandent chez toi plutôt que sur les plateformes, et on s'occupe du reste : ta fiche Google, les relances par texto qui les font revenir, et la livraison sans livreur à gérer.",
       },
       {
         q: "C'est une app mobile ou un site web?",
@@ -812,7 +804,7 @@ export const FR = {
       },
       {
         q: "Combien ça coûte?",
-        a: "Pour les restos fondateurs : 500 $ de mise en service au lieu de 1 000 $, 495 $ d'équipement à l'installation (tablette, support, chevalet et encarts), et 200 $ par mois d'abonnement à partir de la mise en ligne. Plus 5 % en cueillette et 10 % en livraison. Taxes en sus. Aucun abonnement pendant l'attente. Les 300 $ de pub Facebook et Instagram sont dépensés pendant les trois premiers mois après la mise en ligne. Les 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne.",
+        a: "La mise en service est de 750 $ pour le Grand Lancement d'hiver, puis 1 500 $. Elle se paie à la signature; pas de dépôt. Ton imprimante est offerte. Ensuite, 200 $ par mois d'abonnement dès la mise en ligne, plus 5 % + 0,30 $ en cueillette et 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus. Taxes en sus.",
       },
       {
         q: "Pourquoi pas de rabais?",
@@ -835,12 +827,8 @@ export const FR = {
         a: "Non. Nous préparons le lancement avec deux restaurants partenaires. Les tests de commande, de fonctionnement avec les caisses et de facturation obligatoire doivent encore être terminés et validés avant l'ouverture des commandes payantes. Ta réservation permet de préparer ton app au tarif fondateur. La date de mise en service de ton restaurant sera confirmée avec toi après les validations nécessaires; aucune date ferme n'est encore garantie.",
       },
       {
-        q: "Qu'est-ce qui se passe après mon paiement?",
-        a: "Tu arrives sur une confirmation avec les prochaines étapes et un lien pour choisir un appel de suivi avec Guillaume. On t'appelle dans les 24 h pour faire le point; ta maquette est prévue par courriel dans les 48 h. On prépare ton menu, tes photos et tes couleurs avec toi. L'installation et l'activation seront planifiées après validation des tests. Aucun abonnement n'est facturé pendant l'attente; tu peux demander par écrit le remboursement des 500 $ jusqu'à la mise en ligne.",
-      },
-      {
         q: "Comment on commence?",
-        a: `Tu réserves ta place fondateur en ligne : 4 étapes, 2 minutes, 500 $ remboursables jusqu'à la mise en ligne. On t'appelle dans les 24 h pour préparer ton app et faire le point sur les tests avant de confirmer une date de lancement. Pas prêt? Appelle-nous au ${PHONE_DISPLAY} ou prends un court appel avec Guillaume.`,
+        a: `Tu réserves ta place gratuitement en ligne : 4 étapes, 2 minutes. On t'appelle dans les 24 h pour fixer ta date et signer ton bon d'accord. Pas prêt? Appelle-nous au ${PHONE_DISPLAY} ou prends un court appel avec Guillaume.`,
       },
       /* LES QUATRE QUESTIONS DE LONGUE TRAÎNE ONT DÉMÉNAGÉ. Elles étaient ici
          — commissions de livraison, fiche Google, avis, délais — et portaient
@@ -983,7 +971,7 @@ export const FR = {
     // visible sous le H1 : un balisage qui promet autre chose que la page est
     // pire que pas de balisage du tout.
     definition:
-      "Resto Action, c'est l'app de commande web et mobile des restos indépendants du Québec : à ton nom, sans les 30 % des plateformes, avec ta visibilité dans Google, des relances qui font revenir tes clients et la livraison par des livreurs d'ici.",
+      "Resto Action, c'est l'app de commande web et mobile des restos indépendants du Québec : à ton nom, sans les 30 % des plateformes, avec ta visibilité dans Google, des relances qui font revenir tes clients et la livraison sans livreur à gérer.",
     zoneServie: "Québec, Canada",
   },
 };

@@ -42,7 +42,6 @@ export const RESTOS_PAR_SEMAINE = 4;
 export const ABONNEMENT = 200;
 export const MISE_EN_SERVICE_ACTUELLE = 750;
 export const MISE_EN_SERVICE_ENSUITE = 1500;
-export const DEPOT = 500;
 export const PRIX_GELE_MOIS = 24;
 export const CREDIT_SORTIE_MAX = 400;
 export const PUB_LANCEMENT = 300;
@@ -88,18 +87,18 @@ export const VIDEO_GUILLAUME_URL = "";
 export const ANCRES = {
   calculateur: "#calculateur",
   prix: "#prix",
-  faq: "#faq",
+  faq: "/faq",
   garanties: "#garanties",
   commentCaMarche: "#comment-ca-marche",
   reserver: "#reserver",
-  calculGarantie: "#faq-calcul-garantie",
+  calculGarantie: "/faq#faq-calcul-garantie",
 } as const;
 
 export function lienAppel(): string {
   return LIEN_APPEL || PHONE_HREF;
 }
 
-/** La réservation : le formulaire /reserver (dépôt de 500 $ par Stripe). */
+/** La réservation : le formulaire /reserver (gratuit; la mise en service se paie à la signature). */
 export function lienReservation(): string {
   return RESERVATION_URL || "/reserver";
 }
@@ -126,7 +125,6 @@ export type Visuel =
   | "fiche-google"
   | "calendrier"
   | "blitz"
-  | "tournee"
   | "fidelite"
   | "avis"
   | "textos"
@@ -147,6 +145,8 @@ export type Bonus = Piece & {
 export type Garantie = {
   id: keyof typeof NOMS_GARANTIES;
   nom: string;
+  /** La ligne de l'accueil. Le texte complet (texte) s'ouvre en dessous et fait foi. */
+  court: string;
   texte: string;
   dependDe?: string[];
 };
@@ -207,7 +207,7 @@ export const GROUPES: GroupePieces[] = [
         visuel: "fiche-google",
         nom: "L'Installation Clé en main",
         ligne:
-          "Ton app, ton menu, tes photos et ta fiche Google installés en 2 heures, entre deux rushs. Tu valides.",
+          "Ton app, ton menu, tes photos et ta fiche Google montés pour toi. Sur place, ton imprimante est branchée en 10 minutes. Tu valides.",
         valeur: null,
         soumissions: 0,
         disponible: true,
@@ -227,15 +227,6 @@ export const GROUPES: GroupePieces[] = [
         nom: NOM_BLITZ,
         ligne:
           "Affiches, plaques, cartons, publications et 300 $ de pub payés par nous. Ta première commande directe visée en 7 jours.",
-        valeur: null,
-        soumissions: 0,
-        disponible: true,
-      },
-      {
-        id: "premier-vendredi",
-        nom: "Le Premier Vendredi",
-        ligne:
-          "Quelqu'un de chez nous dans ta cuisine à ton premier rush du vendredi (dans nos villes de départ).",
         valeur: null,
         soumissions: 0,
         disponible: true,
@@ -264,16 +255,6 @@ export const GROUPES: GroupePieces[] = [
     id: "nouvelles-ventes",
     titre: "Des nouvelles ventes",
     pieces: [
-      {
-        id: "tournee-bureaux",
-        visuel: "tournee",
-        nom: "La Tournée des bureaux",
-        ligne:
-          "On visite les bureaux et commerces autour de ton resto avec ton menu, pour les commandes de groupe.",
-        valeur: null,
-        soumissions: 0,
-        disponible: true,
-      },
       {
         id: "cartes-cadeaux",
         nom: "Les Cartes-cadeaux",
@@ -310,8 +291,8 @@ export const GROUPES: GroupePieces[] = [
           "Après chaque commande, ton app demande un avis Google à ton client. On te propose une réponse pour chaque avis, et tu l'approuves par texto avant qu'elle soit publiée, surtout pour les avis à 1 ou 2 étoiles. Plus d'avis et une réponse à chacun, c'est une fiche Google plus forte, et plus de commandes directes.",
         valeur: null,
         soumissions: 0,
-        // Promise à la cohorte de janvier 2027 : Xavier la bâtit avant le premier lancement.
-        disponible: true,
+        // Faux tant que Xavier ne l'a pas bâtie : la carte, la FAQ et le Système la cachent.
+        disponible: false,
       },
       {
         id: "marketing",
@@ -410,6 +391,22 @@ export const GROUPES: GroupePieces[] = [
   },
 ];
 
+/* Prête au lancement? Lit GROUPES directement (INDEX_PIECES est défini plus
+   bas). Sert aux phrases qui nomment le parrainage ou les cartes-cadeaux :
+   à faux, elles s'écrivent sans eux. */
+function pret(id: string): boolean {
+  return GROUPES.some((g) => g.pieces.some((p) => p.id === id && p.disponible));
+}
+
+/** ["a", "b", "c"] → « a, b et c ». Les valeurs fausses sont sautées. */
+function enumerer(items: (string | false)[], dernier = " et "): string {
+  const l = items.filter((x): x is string => Boolean(x));
+  return l.length <= 1 ? l.join("") : `${l.slice(0, -1).join(", ")}${dernier}${l[l.length - 1]}`;
+}
+
+/** Les canaux qui amènent un nouveau client, pour les garanties 3 et 4. */
+const CANAUX = enumerer(["pub", pret("parrainage") && "parrainage", pret("cartes-cadeaux") && "carte-cadeau", "fiche Google"], ", ");
+
 // ───────────────────────── Bonus ─────────────────────────
 
 export const BONUS: Bonus[] = [
@@ -476,6 +473,7 @@ export const GARANTIES: Garantie[] = [
   {
     id: "chrono",
     nom: NOMS_GARANTIES.chrono,
+    court: "Pas en ligne à ta date? Ton premier mois est gratuit.",
     texte:
       "Envoie-nous ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h et tu es en ligne à ta date. Sinon, ton premier mois est gratuit.",
     dependDe: ["installation"],
@@ -483,6 +481,7 @@ export const GARANTIES: Garantie[] = [
   {
     id: "imprimante",
     nom: NOMS_GARANTIES.imprimante,
+    court: "Moins de 10 commandes en 7 jours? On remet de la pub à nos frais.",
     texte:
       "Si ton app ne reçoit pas 10 commandes dans tes 7 premiers jours, on remet 100 $ de pub chaque semaine, à nos frais, jusqu'à ce que tu les aies.",
     dependDe: ["blitz"],
@@ -490,6 +489,7 @@ export const GARANTIES: Garantie[] = [
   {
     id: "gratuit",
     nom: NOMS_GARANTIES.gratuit,
+    court: "Ton app ne paie pas son abonnement un mois? Tu ne le paies pas.",
     texte:
       "Ton app paie son abonnement chaque mois, en économies ou en nouvelles ventes. Sinon, tu ne le paies pas.",
     dependDe: ["texto-lundi"],
@@ -497,6 +497,7 @@ export const GARANTIES: Garantie[] = [
   {
     id: "boomerang",
     nom: NOMS_GARANTIES.boomerang,
+    court: "Pas rapporté ta mise en service en 90 jours? On te la rembourse.",
     texte:
       "Si ton app ne t'a pas rapporté au moins ta mise en service dans tes 90 premiers jours, on te la rembourse. Tu gardes ton imprimante, et tu restes ou tu pars : c'est toi qui décides.",
   },
@@ -505,13 +506,22 @@ export const GARANTIES: Garantie[] = [
 export const GARANTIES_CONDITION =
   "Pour les 4 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.";
 
-export const GARANTIES_LIEN_CALCUL = "Comment on calcule la 3e garantie";
+export const GARANTIES_DETAILS = "Lire les 4 garanties au complet";
+
+export const GARANTIES_LIEN_CALCUL = "Comment on calcule la 3e et la 4e garantie";
 
 // ───────────────────────── Haut de page ─────────────────────────
 
 export const HERO = {
   surtitre: NOM_OFFRE,
   h1: "Plus de ventes en ligne. Plus d'argent à la fin du mois.",
+  /** Le titre qui roule dans le haut de page (le H1 complet reste lisible par Google). */
+  titresRoulants: [
+    "Plus de ventes en ligne.",
+    "Plus de nouveaux clients.",
+    "Plus de commandes.",
+    "Plus d'argent.",
+  ],
   /** Version B à tester plus tard. */
   h1VersionB: "On fait monter ton chiffre d'affaires en ligne.",
   sousTitre:
@@ -526,8 +536,9 @@ export const HERO = {
 
 // ───────────────────────── Le problème ─────────────────────────
 
+/** Le problème, en une ligne (bloc 2 de l'accueil). */
 export const PROBLEME =
-  "Tu travailles fort. Trop fort pour ce qui te reste à la fin du mois. Les plateformes prennent de 20 à 30 % de chaque livraison, et tes clients restent les leurs.";
+  "Les plateformes prennent de 20 à 30 % de chaque livraison, et tes clients restent les leurs.";
 
 // ───────────────────────── Les 3 moteurs ─────────────────────────
 
@@ -554,7 +565,7 @@ export const MOTEURS = {
     },
   ],
   effort:
-    "Ce que tu fais, toi : 2 heures pour l'installation et 15 minutes pour ton équipe. Le reste, c'est nous, en français, avec du monde sur le terrain.",
+    "Ce que tu fais, toi : 10 minutes pour l'installation, une heure de formation et 15 minutes pour ton équipe. Le reste, c'est nous, en français.",
 };
 
 // ───────────────────────── Comment ça marche ─────────────────────────
@@ -565,8 +576,8 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
   titre: "Comment ça marche : de ta réservation à ton premier lundi",
   etapes: [
     {
-      titre: "Tu réserves ta place",
-      texte: `dépôt de ${DEPOT} $, crédité sur ta mise en service.`,
+      titre: "Tu réserves ta place gratuitement, puis tu signes avec nous",
+      texte: `mise en service de ${MISE_EN_SERVICE_ACTUELLE} $, imprimante offerte. Pas de dépôt.`,
     },
     {
       titre: "Tu nous envoies ton menu, tes photos et tes accès",
@@ -576,20 +587,14 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
     {
       titre: "Ta date de lancement",
       texte:
-        "installation entre deux rushs (2 h), formation privée, ton imprimante branchée.",
+        "ton imprimante branchée en 10 minutes, et ta formation privée d'une heure, en personne.",
       dependDe: ["installation"],
     },
     {
       titre: "Tes 7 premiers jours",
       texte:
-        "300 $ de pub payés par nous, la tournée des bureaux autour de ton resto, et un texto chaque soir avec tes commandes du jour.",
-      dependDe: ["blitz", "tournee-bureaux"],
-    },
-    {
-      titre: "Ton premier vendredi",
-      texte:
-        "quelqu'un de chez nous dans ta cuisine pendant le rush (dans nos villes de départ).",
-      dependDe: ["premier-vendredi"],
+        "300 $ de pub payés par nous, nos cartons dans tes sacs, et un texto chaque soir avec tes commandes du jour.",
+      dependDe: ["blitz"],
     },
     {
       titre: "Chaque lundi",
@@ -600,10 +605,80 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
   ],
 };
 
+// ─────────────── Tout ce qui est inclus, étape par étape ───────────────
+// Remplace la liste de 19 noms (trop compliquée) ET la frise : chaque étape
+// du lancement dit ce qui se passe, ce que tu fais, et les pièces que tu
+// reçois à ce moment-là. Les pièces sont nommées par leur id (GROUPES ou
+// BONUS) : une pièce à `disponible: false` disparaît toute seule.
+
+export type EtapeInclus = {
+  quand: string;
+  titre: string;
+  toi: string;
+  pieces: string[];
+};
+
+export const ETAPES_INCLUS: { titre: string; sousTitre: string; etapes: EtapeInclus[] } = {
+  titre: "Tout ce qui est inclus, étape par étape",
+  sousTitre: "{n} pièces, dans le même prix. Voici ce que tu reçois, et quand.",
+  etapes: [
+    {
+      quand: "Avant de signer",
+      titre: "Tu vois tes chiffres, gratuitement",
+      toi: "Tu téléverses ton relevé de plateforme. C'est tout.",
+      pieces: ["calcul-releve", "apercu-app", "dossier-associe"],
+    },
+    {
+      quand: "Tu signes",
+      titre: "On monte tout pour toi",
+      toi: `Tu réserves gratuitement, tu signes ton bon d'accord (mise en service de ${MISE_EN_SERVICE_ACTUELLE} $) et tu nous envoies ton menu, tes photos et tes accès dans les 5 jours. Ton app est prête en 48 h.`,
+      pieces: ["installation", "app-a-ton-nom", "menu-qui-vend", "reglage-plateformes", "marketing"],
+    },
+    {
+      quand: "Ta date de lancement",
+      titre: "On vient chez toi",
+      toi: "Tu nous donnes une heure pour ta formation privée. Ton équipe, 15 minutes.",
+      pieces: ["equipement", "zero-double-saisie", "formation-privee", "kit-equipe", "boite-lancement"],
+    },
+    {
+      quand: "Tes 7 premiers jours",
+      titre: "On va chercher tes clients",
+      toi: "Tu laisses tes plaques et ton affiche en place, et tu glisses nos cartons dans tes sacs.",
+      pieces: ["blitz", "livraison-incluse", "cueillette-abord"],
+    },
+    {
+      quand: "Ensuite, chaque semaine",
+      titre: "Ils reviennent, et tu vois ce que ça rapporte",
+      toi: "Tu lis ton Texto du Lundi. Le reste roule tout seul.",
+      pieces: ["texto-lundi", "clients-fideles", "parrainage", "cartes-cadeaux", "departement-en-ligne", "clientele-appartient"],
+    },
+  ],
+};
+
+/** Où mène chaque pièce, quand elle a sa page. */
+export const PAGE_DE_PIECE: Record<string, string> = {
+  "calcul-releve": "/#calculateur",
+  "app-a-ton-nom": "/plateforme/application-mobile",
+  "menu-qui-vend": "/plateforme/menu-qui-vend",
+  "reglage-plateformes": "/plateforme/reglage-plateformes",
+  marketing: "/plateforme/departement-en-ligne",
+  equipement: "/plateforme/imprimante-cuisine",
+  "zero-double-saisie": "/plateforme/imprimante-cuisine",
+  blitz: "/plateforme/pub-du-lancement",
+  "livraison-incluse": "/plateforme/livraison",
+  "cueillette-abord": "/plateforme/livraison",
+  "texto-lundi": "/plateforme/texto-du-lundi",
+  "clients-fideles": "/plateforme/points-recompenses",
+  parrainage: "/plateforme/parrainage-cartes-cadeaux",
+  "cartes-cadeaux": "/plateforme/parrainage-cartes-cadeaux",
+  "departement-en-ligne": "/plateforme/departement-en-ligne",
+};
+
 // ───────────────────────── Pile de valeur ─────────────────────────
 
 export const PILE = {
-  titre: "Tout ce que tu reçois",
+  titre: "Tout ce qui est inclus",
+  sousTitre: "{n} pièces, dans le même prix. Touche un nom pour voir le détail.",
   totalLibelle: "Valeur totale",
   prixLigne: `Ton prix : ${ABONNEMENT} $ par mois, plus nos frais à la commande, et une mise en service de ${MISE_EN_SERVICE_ACTUELLE} $`,
   prixLien: "Voir le prix, tout compris",
@@ -611,9 +686,17 @@ export const PILE = {
 
 // ───────────────────────── Bonus ─────────────────────────
 
+/** Les bonus, en 3 lignes, sous le prix. */
+export const BONUS_COURT: (Dependant & { texte: string; expire: boolean })[] = [
+  { texte: "Ton imprimante, ta Boîte de lancement et ta formation privée : offertes.", expire: false },
+  { texte: `Le Crédit de sortie : la pénalité de ton fournisseur actuel, créditée jusqu'à ${CREDIT_SORTIE_MAX} $.`, expire: true, dependDe: ["credit-sortie"] },
+  { texte: `Ton Prix gelé : ${ABONNEMENT} $ par mois, gelé ${PRIX_GELE_MOIS} mois.`, expire: true, dependDe: ["prix-gele"] },
+];
+
 export const BONUS_SECTION = {
   titre: "En plus : 5 bonus",
   etiquetteExpire: `Si tu signes avant le ${DATE_LIMITE}`,
+  etiquetteCourte: "Signe avant le 18 déc.",
 };
 
 export const GARANTIES_SECTION = {
@@ -642,9 +725,8 @@ export const COMPARAISON = {
   seulCoupTitre: "Ce que tu reçois d'un seul coup chez nous",
   seulCoup: [
     {
-      texte:
-        "Quelqu'un va chercher tes clients : 300 $ de pub payés par nous, la tournée des bureaux, le parrainage.",
-      dependDe: ["blitz", "tournee-bureaux", "parrainage"],
+      texte: `Quelqu'un va chercher tes clients : ${enumerer(["300 $ de pub payés par nous", "nos cartons dans tes sacs", pret("parrainage") && "le parrainage"], ", ")}.`,
+      dependDe: ["blitz"],
     },
     {
       texte:
@@ -662,8 +744,8 @@ export const COMPARAISON = {
     },
     {
       texte:
-        "Des humains, en français, ici : l'installation entre deux rushs, le premier vendredi dans ta cuisine (dans nos villes de départ), un numéro pour tout.",
-      dependDe: ["installation", "premier-vendredi", "departement-en-ligne"],
+        "Des humains, en français, ici : l'installation et la formation en personne, un numéro pour tout.",
+      dependDe: ["installation", "departement-en-ligne"],
     },
     {
       texte: "Ta clientèle, à toi pour de bon : ta liste, ton domaine, ta fiche Google.",
@@ -674,9 +756,8 @@ export const COMPARAISON = {
   test: [
     {
       question: "Combien de nouveaux clients tu vas m'amener, et comment?",
-      reponse:
-        "10 commandes visées dans tes 7 premiers jours, avec 300 $ de pub, la tournée des bureaux et le parrainage; sinon, on remet de la pub à nos frais.",
-      dependDe: ["blitz", "tournee-bureaux", "parrainage"],
+      reponse: `10 commandes visées dans tes 7 premiers jours, avec ${enumerer(["300 $ de pub", "nos cartons", pret("parrainage") && "le parrainage"])}; sinon, on remet de la pub à nos frais.`,
+      dependDe: ["blitz"],
     },
     {
       question: "Qui paie la pub du lancement?",
@@ -684,10 +765,9 @@ export const COMPARAISON = {
       dependDe: ["blitz"],
     },
     {
-      question: "Qui est dans ma cuisine à mon premier rush?",
-      reponse:
-        "quelqu'un de notre équipe, à ton premier vendredi (dans nos villes de départ).",
-      dependDe: ["premier-vendredi"],
+      question: "Qui vient m'installer et me former, en personne?",
+      reponse: "quelqu'un de notre équipe, avec une heure de formation privée.",
+      dependDe: ["installation"],
     },
     {
       question: "Est-ce que je vois chaque semaine ce que ça m'a rapporté?",
@@ -710,13 +790,14 @@ export const PRIX = {
   taxes: "taxes en sus",
   lignes: {
     abonnement: `Abonnement : ${ABONNEMENT} $ par mois, dès ta mise en ligne.`,
-    miseEnService: `Mise en service : ${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, puis ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $, une hausse annoncée d'avance. Ton dépôt de ${DEPOT} $ est crédité dessus. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
+    miseEnService: `Mise en service : ${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, puis ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $, une hausse annoncée d'avance. Elle se paie à la signature; pas de dépôt. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
     miseEnServiceFin: DATE_FIN_750 ? `Le ${MISE_EN_SERVICE_ACTUELLE} $ est offert jusqu'au ${DATE_FIN_750}.` : "",
     livraison:
       "Livraison : 10 % des aliments et boissons + 3,51 $ par livraison aujourd'hui (la course au prix coûtant : ce qu'elle nous coûte, moins les 4,99 $ que paie ton client). Ton client paie 4,99 $ de livraison, rien d'autre.",
     cueillette: "Cueillette : 5 % + 0,30 $ par commande.",
     inclus: "Frais de carte inclus. Aucun minimum de commande. L'imprimante est offerte.",
   },
+  sousBouton: "Gratuit. On t'appelle pour fixer ta date.",
   exempleMention: "exemple, pas une promesse",
   exempleHypotheses:
     "resto à 5 000 $ par mois sur une plateforme à 25 %, commandes de 30 $ en livraison, aliments à 30 %, prix ajustés sur la plateforme si son entente le permet.",
@@ -728,6 +809,16 @@ export const PRIX = {
     ["Abonnement", -200],
   ] as [string, number][],
   exempleTotalLibelle: "Tu gardes de plus",
+  /** Les mêmes lignes, en court, pour la section Prix de l'accueil. */
+  exempleCourt: [
+    ["40 nouvelles commandes", 580],
+    ["3 000 $ qui passent à ton app", 99],
+    ["Prix +10 % sur la plateforme", 150],
+    ["Abonnement", -200],
+  ] as [string, number][],
+  /** 3 000 $ qui passent à l'app + 40 nouvelles commandes de 30 $. */
+  exempleVentesApp: 4200,
+  exempleHypothesesCourt: "Resto à 5 000 $ par mois sur une plateforme à 25 %, commandes de 30 $.",
   exempleTotal: 629,
 };
 
@@ -736,11 +827,13 @@ export const PRIX = {
 export const RARETE = {
   titre: `${RESTOS_PAR_MOIS} restos par mois, pas plus`,
   lignes: [
-    `On lance au plus ${RESTOS_PAR_MOIS} restos par mois au Québec, ${RESTOS_PAR_SEMAINE} par semaine, parce qu'on installe et qu'on lance chaque resto nous-mêmes.`,
-    `Prochaine cohorte : ${DATE_COHORTE}. Pour en faire partie, réserve avant le ${DATE_LIMITE} : il faut 2 semaines pour ton menu, tes photos, ton app, l'impression et l'installation. Après, tu pars avec la cohorte suivante, un mois plus tard.`,
+    `On lance au plus ${RESTOS_PAR_MOIS} restos par mois au Québec, ${RESTOS_PAR_SEMAINE} par semaine : c'est notre limite, pour lancer chaque resto comme il faut.`,
+    `Prochaine cohorte : ${DATE_COHORTE}. Pour en faire partie, signe avant le ${DATE_LIMITE} : il faut 2 semaines pour ton menu, tes photos, ton app, l'impression et l'installation. Après, tu pars avec la cohorte suivante, un mois plus tard.`,
   ],
-  expirePrefixe: "Ce qui expire à la date limite :",
-  depot: `Ta place est réservée avec un dépôt de ${DEPOT} $, crédité sur ta mise en service.`,
+  /** La version courte du bandeau : une ligne. */
+  courte: `Signe avant le ${DATE_LIMITE} pour lancer en ${DATE_COHORTE}. Réserver est gratuit.`,
+  expirePrefixe: "Après cette date, tu perds",
+  signature: `La mise en service de ${MISE_EN_SERVICE_ACTUELLE} $ se paie à la signature. Pas encore prêt? Inscris-toi gratuitement : on te garde au courant.`,
   bouton: "Réserve ta place",
 };
 
@@ -748,7 +841,7 @@ export const RARETE = {
 
 export const QUI = {
   titre: "Qui on est",
-  texte: `Resto Action, c'est ${EQUIPE}, de ${VILLE_EQUIPE}. On lance nos premiers restos à Trois-Rivières, à Québec et à Victoriaville.`,
+  texte: "Deux cofondateurs d'ici, et une équipe qui parle ta langue.",
   preuveAVenir:
     "Les vrais chiffres de nos premiers restos seront ici, en vidéo, dès qu'ils seront lancés.",
   photoGuillaume: "/guillaume.jpg",
@@ -758,6 +851,8 @@ export const QUI = {
 
 export type QuestionFaq = Dependant & {
   id?: string;
+  /** Une des 6 plus grosses peurs, visibles d'entrée. Les autres s'ouvrent sous « Voir toutes les questions ». */
+  top?: boolean;
   question: string;
   reponse: string;
 };
@@ -766,6 +861,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
   titre: "Ce que les proprios nous disent",
   questions: [
     {
+      top: true,
       question: "Mes clients sont sur les plateformes, ils viendront jamais sur mon app.",
       reponse:
         "On leur donne une raison. Ton menu coûte moins cher chez toi (on ajuste tes prix sur les plateformes, si ton entente le permet), la cueillette est mise de l'avant avec des points doublés, et nos cartons sont glissés dans chaque sac.",
@@ -778,10 +874,10 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
       dependDe: ["blitz", "marketing"],
     },
     {
+      top: true,
       question: "Ça m'amènera pas de nouveaux clients.",
-      reponse:
-        "On va les chercher : la pub du lancement, la tournée des bureaux autour de ton resto, le parrainage et les cartes-cadeaux.",
-      dependDe: ["blitz", "tournee-bureaux", "parrainage", "cartes-cadeaux"],
+      reponse: `On va les chercher : ${enumerer(["la pub du lancement", "nos cartons dans tes sacs", "ta fiche Google", pret("parrainage") && "le parrainage", pret("cartes-cadeaux") && "les cartes-cadeaux"])}.`,
+      dependDe: ["blitz"],
     },
     {
       question: "Mes clients reviennent pas tout seuls.",
@@ -792,8 +888,8 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       question: "En ligne, c'est des petits paniers.",
       reponse:
-        "Ton menu en ligne est monté pour faire monter le panier (combos, extras, suggestions), et la tournée des bureaux amène des commandes de groupe.",
-      dependDe: ["menu-qui-vend", "tournee-bureaux"],
+        "Ton menu en ligne est monté pour faire monter le panier (combos, extras, suggestions).",
+      dependDe: ["menu-qui-vend"],
     },
     {
       question: "Si je monte mes prix sur les plateformes, je vais perdre des ventes.",
@@ -802,9 +898,10 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
       dependDe: ["reglage-plateformes"],
     },
     {
+      top: true,
       question: "J'ai pas le temps, et je suis pas techno.",
       reponse:
-        "On installe tout en 2 heures, entre deux rushs. On s'occupe de ton marketing, et tu as un seul numéro, en français, pour tout ce qui est en ligne.",
+        "On monte tout pour toi : sur place, ton imprimante est branchée en 10 minutes. On s'occupe de ton marketing, et tu as un seul numéro, en français, pour tout ce qui est en ligne.",
       dependDe: ["installation", "departement-en-ligne"],
     },
     {
@@ -816,8 +913,8 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       question: "Mon staff va se mélanger.",
       reponse:
-        "Ton équipe est formée en 15 minutes, avec une vidéo et un guide au poste. Tu as une heure de formation privée, et dans nos villes de départ, quelqu'un de chez nous est dans ta cuisine à ton premier vendredi.",
-      dependDe: ["kit-equipe", "premier-vendredi"],
+        "Ton équipe est formée en 15 minutes, avec une vidéo et un guide au poste. Et toi, tu as une heure de formation privée, en personne.",
+      dependDe: ["kit-equipe"],
     },
     {
       question: "La livraison, c'est un casse-tête.",
@@ -831,6 +928,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
         "Notre système est en voie de certification auprès de Revenu Québec, pour des factures conformes. Les consentements de tes clients sont gérés dans l'app.",
     },
     {
+      top: true,
       question: "200 $ par mois, c'est une dépense de plus.",
       reponse:
         "Fais le calcul avec ton relevé. Environ 14 commandes de nouveaux clients par mois paient l'abonnement (exemple avec des commandes de 30 $ en livraison et des aliments à 30 %). Sinon, la garantie le rend gratuit.",
@@ -841,6 +939,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
         "Nos frais incluent la carte : 10 % + 3,51 $ par livraison (la course), et 5 % + 0,30 $ en cueillette. Rien d'autre.",
     },
     {
+      top: true,
       question: "C'est trop beau pour être vrai.",
       reponse:
         "Calcule-le avec ton propre relevé, et lis nos garanties : si ton app ne se paie pas, tu ne paies pas ton abonnement, et si les commandes tardent, c'est nous qui remettons de la pub.",
@@ -870,19 +969,20 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     },
     {
       id: "faq-garanties",
+      top: true,
       question: "Et si ça marche pas pour moi?",
       reponse: `Tu as 4 garanties : ${NOMS_GARANTIES.chrono}, ${NOMS_GARANTIES.imprimante}, ${NOMS_GARANTIES.gratuit}, et ${NOMS_GARANTIES.boomerang}.`,
     },
     {
       id: "faq-calcul-garantie",
-      question: "Comment vous calculez la 3e garantie?",
+      question: "Comment vous calculez les garanties 3 et 4?",
       reponse:
-        "Chaque mois, on additionne ce que tu as sauvé sur les commandes venues des plateformes (au taux de ton relevé) et 10 $ par commande d'un nouveau client arrivé par un de nos canaux (pub, tournée des bureaux, parrainage, carte-cadeau, fiche Google). Si le total ne couvre pas ton abonnement, tu ne le paies pas ce mois-là. Pour la 4e : si le total de tes 90 premiers jours ne couvre pas ta mise en service, on te la rembourse.",
+        `Chaque mois, on additionne ce que tu as sauvé sur les commandes venues des plateformes (au taux de ton relevé) et 10 $ par commande d'un nouveau client arrivé par un de nos canaux (${CANAUX}). Si le total ne couvre pas ton abonnement, tu ne le paies pas ce mois-là. Pour la 4e : si le total de tes 90 premiers jours ne couvre pas ta mise en service, on te la rembourse.`,
     },
     {
       id: "faq-mise-en-service",
-      question: "C'est quoi, la mise en service, et mon dépôt?",
-      reponse: `C'est ce qui paie l'installation de ton système avant ta mise en ligne : ${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, puis ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $. Ton dépôt de ${DEPOT} $, payé en réservant ta place, est crédité dessus. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
+      question: "C'est quoi, la mise en service?",
+      reponse: `${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, ensuite ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $. Elle se paie à la signature et couvre ton installation, ta formation privée et ta Boîte de lancement. Ton imprimante est offerte et t'appartient. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
     },
     {
       question: "J'ai peur des mauvais avis.",
@@ -897,7 +997,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
 // Affichée partout où les avis apparaissent (carte, FAQ, scène, conditions).
 
 export const REGLE_AVIS =
-  "Chaque client reçoit la même demande d'avis, sans points, rabais ni récompense en échange, et on ne trie pas les clients contents. Une réponse publique ne donne jamais de détail sur la commande ou sur le client. Rien n'est publié sans ton OK.";
+  "Chaque client reçoit la même demande d'avis, sans points, rabais ni récompense en échange, et sans aucun tri entre les clients. Une réponse publique ne donne jamais de détail sur la commande ou sur le client. Rien n'est publié sans ton OK.";
 
 // ───────────────────────── Le Système en images ─────────────────────────
 
@@ -907,7 +1007,7 @@ export const SCENE: { titre: string; etapes: EtapeScene[]; sousScene: string } =
   titre: "Le Système en images",
   etapes: [
     {
-      texte: "La pub, les cartons et la tournée des bureaux amènent un nouveau client.",
+      texte: "La pub, les cartons et la fiche Google amènent un nouveau client.",
     },
     { texte: "Il commande sur l'app du resto." },
     { texte: "L'imprimante sort la commande." },
@@ -925,6 +1025,88 @@ export const SCENE: { titre: string; etapes: EtapeScene[]; sousScene: string } =
   ],
   sousScene: "Tout est relié : on va chercher le client, ton app le sert, et on le fait revenir.",
 };
+
+// ───────────────────────── Le Système, couche par couche ─────────────────────────
+// La section du haut de l'accueil : en défilant, les couches du Système se
+// posent une par une. Les ventes d'abord (couches 1 et 2), le reste ensuite.
+// Une pièce avec un `id` disparaît si elle n'est pas « disponible ».
+
+export type IconeCouche =
+  | "pub"
+  | "google"
+  | "cartons"
+  | "cadeau"
+  | "app"
+  | "menu"
+  | "panier"
+  | "imprimante"
+  | "livraison"
+  | "reglage"
+  | "points"
+  | "texto"
+  | "lundi"
+  | "equipe"
+  | "clientele";
+
+export type PieceCouche = { nom: string; icone: IconeCouche; id?: string; href?: string };
+
+export type Couche = { titre: string; texte: string; pieces: PieceCouche[] };
+
+const COUCHES_BRUTES: Couche[] = [
+  {
+    titre: "On t'amène le client",
+    texte: "Avant même ton lancement, on va chercher tes premiers clients, à nos frais.",
+    pieces: [
+      { nom: "La pub du lancement", icone: "pub", id: "blitz" },
+      { nom: "Ta fiche Google", icone: "google", href: "/plateforme/referencement-google" },
+      { nom: "Nos cartons dans chaque sac", icone: "cartons" },
+      { nom: "Le parrainage", icone: "cadeau", id: "parrainage" },
+    ],
+  },
+  {
+    titre: "Il commande chez toi",
+    texte: "Sur ton app à ton nom, avec un menu qui propose les extras au bon moment. Pas sur une plateforme.",
+    pieces: [
+      { nom: "Ton app à ton nom", icone: "app", id: "app-a-ton-nom" },
+      { nom: "Le Menu qui Vend", icone: "menu", id: "menu-qui-vend" },
+      { nom: "Les commandes en ligne", icone: "panier", href: "/plateforme/commandes-en-ligne" },
+    ],
+  },
+  {
+    titre: "La commande sort toute seule",
+    texte: "Elle s'imprime en cuisine. La livraison part, ou le client vient la chercher.",
+    pieces: [
+      { nom: "L'imprimante de cuisine", icone: "imprimante", id: "zero-double-saisie" },
+      { nom: "La livraison", icone: "livraison", id: "livraison-incluse" },
+      { nom: "Le Réglage Plateformes", icone: "reglage", id: "reglage-plateformes" },
+    ],
+  },
+  {
+    titre: "Il revient",
+    texte: "Ses points, ses récompenses et un texto au bon moment le ramènent chez toi.",
+    pieces: [
+      { nom: "Points et récompenses", icone: "points", id: "clients-fideles" },
+      { nom: "Les relances texto", icone: "texto", href: "/plateforme/relances-clients" },
+      { nom: "Les cartes-cadeaux", icone: "cadeau", id: "cartes-cadeaux" },
+    ],
+  },
+  {
+    titre: "Tu vois tout, sans rien gérer",
+    texte: "Un texto chaque soir ta première semaine, le Texto du Lundi ensuite, et une équipe qui parle ta langue.",
+    pieces: [
+      { nom: "Le Texto du Lundi", icone: "lundi", id: "texto-lundi" },
+      { nom: "Ton Département en ligne", icone: "equipe", id: "departement-en-ligne" },
+      { nom: "Ta clientèle t'appartient", icone: "clientele", id: "clientele-appartient" },
+    ],
+  },
+];
+
+export const COUCHES: Couche[] = COUCHES_BRUTES.map((c) => ({
+  ...c,
+  pieces: c.pieces
+    .filter((p) => !p.id || pret(p.id))
+    .map((p) => ({ ...p, href: p.href ?? (p.id ? PAGE_DE_PIECE[p.id] : undefined) })),
+}));
 
 // ───────────────────────── Visuels (exemples) ─────────────────────────
 // Chaque nom et chaque chiffre est un exemple. Aucun vrai client.
@@ -975,7 +1157,19 @@ export const FIN = {
 
 export const CALCULATEUR = {
   surtitre: "Le calculateur",
-  titre: "Ton relevé, ton estimation",
+  titre: "Ton relevé, lu par l'IA en 30 secondes",
+  sousTitre: "Téléverse ton relevé de plateforme. L'IA lit tes chiffres et te montre les ventes que ton app peut aller chercher, et ce qu'il te reste en plus.",
+  apercuBadge: "Ce que tu vas voir",
+  apercuNote: "Exemple de notre offre : resto à 5 000 $ par mois sur une plateforme à 25 %, 3 000 $ qui passent à ton app, 40 commandes de nouveaux clients, prix +10 % sur la plateforme si ton entente le permet. Tes chiffres à toi sortent de ton relevé.",
+  ventesTitre: "Tes ventes sur ton app",
+  ventesSuffixe: "par mois, sur ton app à ton nom",
+  ventesDont: "dont {n} de nouveaux clients",
+  resteTitre: "Il te reste en plus, abonnement payé",
+  scoreTitre: "Score plateforme",
+  deposerTitre: "Glisse ton relevé ici",
+  deposerAide: "ou clique pour le choisir. Au cell, tu peux le prendre en photo.",
+  deposerFormats: "PDF, JPG ou PNG · 10 Mo max",
+  deposerChanger: "Changer de fichier",
   plateformes: ["DoorDash", "Uber Eats", "Skip"],
   etapes: ["Téléverser", "Lecture par l'IA", "Vérifier", "Résultat"],
   televerserTitre: "Téléverse ton relevé de plateforme",
@@ -993,6 +1187,7 @@ export const CALCULATEUR = {
   verifierAide: "Corrige ce qui ne correspond pas à ton relevé, puis calcule.",
   boutonCalculer: "Calculer mon estimation",
   resultatPrefixe: "ton estimation : environ",
+  scenarioNote: "Scénario choisi : {n} commandes de nouveaux clients par mois. Change-le plus bas.",
   resultatSuffixe: "par mois",
   commentOnCalcule: "Comment on calcule",
   partApp: "Part de tes clients qui passent à ton app",

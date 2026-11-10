@@ -84,11 +84,13 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
 
 /* ─── Les restos fondateurs ───
 
-   Deux moments sont annoncés au CRM :
+   Les moments annoncés au CRM :
      « prospect » dès l'étape 1 du formulaire /reserver (le resto a laissé son
-       nom et son téléphone, même s'il ne paye jamais : c'est un lead chaud à
-       rappeler, et sa ville dit où recruter des livreurs) ;
-     « paye » quand Stripe confirme le paiement (webhook).
+       nom et son téléphone : c'est un lead chaud à rappeler) ;
+     « reservation » à l'étape 4 : la réservation gratuite, avec ses réponses
+       et la case des textos. Si le CRM ne l'accepte pas, /api/fondateur
+       l'envoie aussi par courriel à l'équipe : une réservation ne se perd pas ;
+     « paye » quand Stripe confirme le paiement de la mise en service (webhook).
 
    MÊMES RÈGLES QUE signalerReservation : ne lève jamais, appelée dans
    `after()`, et ne fait rien sans configuration. L'adresse est distincte
@@ -98,7 +100,7 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
 export type EvenementFondateur = {
   /** « maquette » : demande de maquette gratuite depuis le héro (ancien parcours).
       « dossier » : Le Dossier pour ton associé, demandé après le calculateur. */
-  etape: "prospect" | "maquette" | "paye" | "dossier";
+  etape: "prospect" | "reservation" | "maquette" | "paye" | "dossier";
   prospect: {
     nom: string;
     courriel: string;
@@ -112,15 +114,18 @@ export type EvenementFondateur = {
   /** `dossier` : le lien privé de sa page de suivi, à lui envoyer. */
   paiement?: { session: string; montant: number | null; devise: string; dossier: string };
   maquette?: { menu: string };
+  /** « reservation » : la case des textos (non cochée par défaut) et la version des conditions. */
+  reservation?: { consentementTextos: boolean; conditions: string };
   /** Les chiffres du relevé et les hypothèses du calcul (src/lib/calcul.ts). */
   dossier?: unknown;
   provenance?: Provenance;
 };
 
-export async function signalerFondateur(e: EvenementFondateur): Promise<void> {
+/** Vrai si le CRM a accepté l'événement. Ne lance jamais d'erreur. */
+export async function signalerFondateur(e: EvenementFondateur): Promise<boolean> {
   const url = process.env.CRM_FONDATEUR_URL;
   const secret = process.env.CRM_INGESTION_SECRET;
-  if (!url || !secret) return;
+  if (!url || !secret) return false;
 
   try {
     const reponse = await fetch(url, {
@@ -136,10 +141,12 @@ export async function signalerFondateur(e: EvenementFondateur): Promise<void> {
     if (!reponse.ok) {
       console.error("[crm] fondateur refusé :", reponse.status);
     }
+    return reponse.ok;
   } catch (erreur) {
     console.error(
       "[crm] fondateur non transmis :",
       erreur instanceof Error ? erreur.name : "erreur inconnue",
     );
+    return false;
   }
 }

@@ -1,64 +1,75 @@
-import { ArrowDown } from "lucide-react";
-import BarrePlaces from "@/components/BarrePlaces";
 import BoutonReserver from "@/components/BoutonReserver";
+import { PointCiel } from "@/components/lancement/ui";
 import DemoApp from "@/components/DemoApp";
-import GenerateurApp from "@/components/GenerateurApp";
-import { Imprimante } from "@/components/lancement/Imprimante";
-import { BoutonContour } from "@/components/lancement/ui";
-import { ANCRES, DATE_COHORTE, DATE_LIMITE, HERO, RESTOS_PAR_MOIS, lienReservation } from "@/lib/contenu/grand-lancement";
-import { fr } from "@/lib/format";
+import TitreRoulant from "@/components/TitreRoulant";
+import { contenuLancement, type Langue } from "@/lib/contenu/lancement";
+import { ui } from "@/lib/contenu/ui-lancement";
+import { formats } from "@/lib/format";
 import type { Textes } from "@/lib/textes/fr";
 
 /* LE HÉRO DU GRAND LANCEMENT D'HIVER.
 
-   Même squelette que le héro d'avant (centré, le téléphone sur le grand
-   panneau rouge, « Trouve ton resto » sous le titre), avec les textes de
-   l'offre : surtitre, H1, sous-titre, l'accroche en écriture manuscrite, les
-   deux boutons et la ligne de cohorte. L'imprimante de cuisine animée prend
+   Bloc 1 de l'accueil : la promesse qui roule (H1), le sous-titre,
+   l'accroche surlignée en cyan et UN bouton, celui du calculateur. Le
+   téléphone sur le grand panneau rouge reste dessous. L'imprimante de cuisine animée prend
    place à côté du téléphone : ce que le client commande sur l'app sort sur le
    billet. */
-export default function HeroLancement({ t }: { t: Textes }) {
+export default function HeroLancement({ t, langue = "fr" }: { t: Textes; langue?: Langue }) {
+  const { ANCRES, DATE_LIMITE, HERO, RESTOS_PAR_MOIS } = contenuLancement(langue);
+  const { typo: fr } = formats(langue);
+  const U = ui(langue);
+  const [debutAccroche, finAccroche] = HERO.accroche.split(U.accrocheCoupure);
   return (
     <section id="top" className="bg-white px-3 pt-10 md:px-5 md:pt-16 lg:px-6">
       <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
-        <p className="animate-hero inline-flex rounded-full bg-bone px-4 py-1.5 text-xs font-black uppercase tracking-widest text-ink">
+        <p className="animate-hero inline-flex items-center gap-2 rounded-full bg-bone px-4 py-1.5 text-xs font-black uppercase tracking-widest text-ink">
+          <PointCiel />
           {HERO.surtitre}
         </p>
 
-        <h1 className="animate-hero delay-1 mt-6 max-w-4xl font-display text-[9.5vw] font-black leading-[1.04] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-          {fr(HERO.h1)}
-        </h1>
+        {/* Le titre qui roule, comme owner.com : le cœur de l'offre, en gros. */}
+        <TitreRoulant
+          lignes={HERO.titresRoulants.map(fr)}
+          retour
+          className="animate-hero delay-1 mt-6 w-full max-w-6xl font-display text-[10vw] font-black leading-[1.04] tracking-tight text-ink sm:text-6xl lg:text-7xl"
+        />
 
         <p className="animate-hero delay-2 mt-6 max-w-2xl text-lg leading-relaxed text-ink/70 md:text-xl">
           {fr(HERO.sousTitre)}
         </p>
 
-        <p className="animate-hero delay-2 mt-7 font-script text-4xl leading-none text-brand sm:text-5xl md:text-6xl">
-          {HERO.accroche}
+        {/* L'accroche, en gros caractères de la maison, le bout qui compte
+            surligné en cyan. */}
+        <p className="animate-hero delay-2 mt-8 max-w-3xl font-display text-2xl font-black leading-tight tracking-tight text-ink sm:text-3xl md:text-4xl">
+          {debutAccroche}{" "}
+          <span className="relative inline-block whitespace-nowrap px-1">
+            <span
+              aria-hidden="true"
+              className="surligne absolute inset-x-0 bottom-[0.08em] top-[0.45em] -z-0 rounded-md bg-ciel"
+            />
+            <span className="relative">
+              {U.accrocheCoupure.trim()} {finAccroche}
+            </span>
+          </span>
         </p>
-        <p className="animate-hero delay-3 mt-3 max-w-xl text-sm font-semibold text-ink/55">{fr(HERO.sousAccroche)}</p>
 
         <div className="flex w-full flex-col items-center">
           <div className="order-2 mt-10 flex w-full flex-col items-center gap-5 lg:order-1">
-            <div className="animate-hero delay-3 flex w-full justify-center">
-              <GenerateurApp t={t} lancement />
-            </div>
-
-            <div className="animate-hero delay-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-              <BoutonReserver href={ANCRES.calculateur} libelle={HERO.boutonPrincipal} />
-              <BoutonContour href={lienReservation()}>
-                {HERO.boutonSecondaire}
-                <ArrowDown className="size-4 -rotate-90" aria-hidden="true" />
-              </BoutonContour>
-            </div>
-
-            <div className="animate-hero delay-5">
-              <BarrePlaces
-                modele={fr(`On lance au plus ${RESTOS_PAR_MOIS} restos par mois au Québec`)}
-                prix={fr(`Prochaine cohorte : ${DATE_COHORTE} · Inscriptions jusqu'au ${DATE_LIMITE}`)}
-                ton="sombre"
+            <div className="animate-hero delay-3">
+              <BoutonReserver
+                href={ANCRES.calculateur}
+                libelle={HERO.boutonPrincipal}
+                taille="xl"
               />
             </div>
+            {/* L'URGENCE, DÈS LE HAUT : la limite et la date. */}
+            <p className="animate-hero delay-4 max-w-xl rounded-3xl bg-bone px-4 py-2 text-center text-sm font-bold">
+              <span
+                className="mr-2 inline-block size-2 rounded-full bg-brand align-middle"
+                aria-hidden="true"
+              />
+              {fr(U.urgence(RESTOS_PAR_MOIS, DATE_LIMITE))}
+            </p>
           </div>
 
           {/* LE TÉLÉPHONE ET L'IMPRIMANTE SUR LE PANNEAU ROUGE. */}
@@ -75,26 +86,24 @@ export default function HeroLancement({ t }: { t: Textes }) {
                   fill="none"
                   preserveAspectRatio="xMidYMid meet"
                 >
-                  {[140, 230, 320, 410, 500, 590, 680, 770, 860, 950].map((r, k) => (
-                    <circle
-                      key={r}
-                      cx="500"
-                      cy="500"
-                      r={r / 2}
-                      stroke="white"
-                      strokeOpacity={0.28 - k * 0.022}
-                      strokeWidth="1.2"
-                      vectorEffect="non-scaling-stroke"
-                    />
-                  ))}
+                  {[140, 230, 320, 410, 500, 590, 680, 770, 860, 950].map(
+                    (r, k) => (
+                      <circle
+                        key={r}
+                        cx="500"
+                        cy="500"
+                        r={r / 2}
+                        stroke="white"
+                        strokeOpacity={0.28 - k * 0.022}
+                        strokeWidth="1.2"
+                        vectorEffect="non-scaling-stroke"
+                      />
+                    ),
+                  )}
                 </svg>
                 <div className="absolute inset-0 opacity-[0.18] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
               </div>
               <div className="relative flex items-end justify-center gap-6 sm:gap-12">
-                {/* L'imprimante, à gauche du téléphone, posée sur le panneau. */}
-                <div className="hidden w-52 self-center pt-24 sm:block lg:w-64 lg:pt-32">
-                  <Imprimante mode="boucle" className="w-full drop-shadow-[0_20px_30px_rgba(0,0,0,0.25)]" />
-                </div>
                 <DemoApp
                   demo="client"
                   alt={t.hero.maquette.exempleAlt}
@@ -103,7 +112,9 @@ export default function HeroLancement({ t }: { t: Textes }) {
                 />
               </div>
             </div>
-            <figcaption className="mt-3 text-sm font-bold text-ink/55">{t.hero.appHabibi}</figcaption>
+            <figcaption className="mt-3 text-sm font-bold text-ink/55">
+              {t.hero.appHabibi}
+            </figcaption>
           </figure>
         </div>
       </div>

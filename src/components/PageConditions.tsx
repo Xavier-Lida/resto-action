@@ -4,7 +4,7 @@ import { EMAIL, PHONE_DISPLAY } from "@/lib/site";
 import { CONDITIONS_VERSION, type ConditionsFondateur } from "@/lib/contenu/conditions-fondateur";
 import type { Textes } from "@/lib/textes/fr";
 
-/* Les conditions de la place fondateur, partagées par les deux langues.
+/* Les conditions du Grand Lancement d'hiver, partagées par les deux langues.
    Même forme que PageConfidentialite : `t` pour la barre et le pied, `c` pour
    le texte lui-même (src/lib/contenu/conditions-fondateur.ts). */
 export default function PageConditions({ t, c }: { t: Textes; c: ConditionsFondateur }) {

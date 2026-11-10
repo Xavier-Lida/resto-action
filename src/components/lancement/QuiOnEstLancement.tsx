@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { Surtitre } from "@/components/lancement/ui";
-import { QUI, VIDEO_GUILLAUME_URL, disponible } from "@/lib/contenu/grand-lancement";
+import { contenuLancement, type Langue } from "@/lib/contenu/lancement";
 import { FONDATEURS } from "@/lib/site";
-import { fr } from "@/lib/format";
+import { formats } from "@/lib/format";
 import type { Textes } from "@/lib/textes/fr";
 
 /* QUI ON EST. La carte sombre « Ce en quoi on croit » d'avant, avec les deux
@@ -25,13 +25,14 @@ const IMAGES = [
   { src: "/xavier.webp", width: 512, height: 683, lien: FONDATEURS.xavier.linkedin, position: "object-[50%_65%]" },
 ];
 
-export default function QuiOnEstLancement({ t }: { t: Textes }) {
-  const preuveLocale = disponible({ dependDe: ["preuve-locale"] });
+export default function QuiOnEstLancement({ t, langue = "fr" }: { t: Textes; langue?: Langue }) {
+  const { QUI, VIDEO_GUILLAUME_URL } = contenuLancement(langue);
+  const { typo: fr } = formats(langue);
   const h = t.histoire;
   return (
     <section id="histoire" className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6">
       <div className="rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
           <Reveal>
             <Surtitre ton="sombre">{QUI.titre}</Surtitre>
             <h2 className="mt-6 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
@@ -67,7 +68,7 @@ export default function QuiOnEstLancement({ t }: { t: Textes }) {
                           alt={f.alt}
                           width={image.width}
                           height={image.height}
-                          className={`aspect-[4/3] w-full object-cover ${image.position} grayscale lg:transition lg:duration-500 lg:group-hover:scale-[1.03] lg:group-hover:grayscale-0`}
+                          className={`aspect-[16/10] w-full object-cover ${image.position} grayscale lg:transition lg:duration-500 lg:group-hover:scale-[1.03] lg:group-hover:grayscale-0`}
                         />
                         <span className="absolute bottom-3 right-3 grid size-11 place-items-center rounded-full bg-white text-[#0a66c2] shadow-lg transition group-hover:scale-110">
                           <IconeLinkedIn className="size-5" />
@@ -83,20 +84,13 @@ export default function QuiOnEstLancement({ t }: { t: Textes }) {
 
             <Reveal delay={2}>
               <aside className="flex h-full flex-col rounded-[2rem] bg-white p-5 text-ink">
-                <Image draggable={false} src="/ceed.jpeg" alt={h.ceed.alt} width={1086} height={1018} className="w-full rounded-2xl object-cover" />
+                <Image draggable={false} src="/ceed.jpeg" alt={h.ceed.alt} width={1086} height={1018} className="aspect-[16/10] w-full rounded-2xl object-cover" />
                 <p className="mt-5 font-display text-2xl font-black leading-tight">{h.ceed.titre}</p>
                 <p className="mt-2 text-ink/70">{h.ceed.texte}</p>
               </aside>
             </Reveal>
           </div>
 
-          {!preuveLocale && (
-            <Reveal>
-              <p className="mt-10 max-w-2xl border-l-4 border-brand pl-5 text-lg font-bold leading-snug text-white/85">
-                {fr(QUI.preuveAVenir)}
-              </p>
-            </Reveal>
-          )}
         </div>
       </div>
     </section>

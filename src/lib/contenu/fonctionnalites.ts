@@ -1,3 +1,4 @@
+import type { Visuel } from "@/lib/contenu/grand-lancement";
 import type { Bloc } from "@/lib/contenu/blocs";
 
 /* Les quatre pages de fonctionnalité, sous la page plateforme.
@@ -44,7 +45,15 @@ export type Fonctionnalite = {
   blocs: Bloc[];
   faq: { titre: string; items: { q: string; a: string }[] };
   cta: { titre: string; texte: string };
+  /** L'image du haut : un vrai écran de l'app de Bistro Habibi, ou un visuel animé. */
+  illustration?: Illustration;
+  /** « Comment ça marche », en étapes, chacune avec son écran ou son visuel. */
+  etapes?: { titre: string; items: EtapeIllustree[] };
 };
+
+export type Ecran = { src: string; alt: string };
+export type Illustration = { type: "ecran"; src: string; alt: string } | { type: "visuel"; visuel: Visuel };
+export type EtapeIllustree = { titre: string; texte: string; ecran?: Ecran; visuel?: Visuel };
 
 /* Le dernier segment d'un chemin — « referencement-google » dans
    « /plateforme/referencement-google ». C'est ce que la route dynamique reçoit
@@ -68,6 +77,15 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     resume:
       "La fiche Google Business, les avis, et un site qu'une machine peut lire.",
     typeService: "Référencement local pour restaurants",
+    illustration: { type: "visuel", visuel: "fiche-google" },
+    etapes: {
+      titre: "Comment ça marche",
+      items: [
+        { titre: "On monte ta fiche Google", texte: "Tes heures, tes photos, ton menu et un bouton « Commander » qui mène à ton app.", visuel: "fiche-google" },
+        { titre: "Ton site, lisible par Google", texte: "Rapide, en français, avec ton menu en texte : ce que Google lit pour te faire sortir." },
+        { titre: "Ça se bâtit sur quelques mois", texte: "Personne ne peut promettre la première place la semaine prochaine. On te dit ce qui bouge, chaque mois." },
+      ],
+    },
     blocs: [
       { t: "h2", texte: "Un resto se fait trouver à trois endroits" },
       {
@@ -110,7 +128,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Ce qui marche est plus ennuyeux et plus durable : demander au bon moment, à des clients contents, avec un chemin qui prend dix secondes. Et répondre à tous, même aux mauvais. Une réponse posée à un avis fâché en dit plus long à un futur client que dix avis parfaits.",
+          "Ce qui marche est plus ennuyeux et plus durable : demander au bon moment, la même demande à tous tes clients, sans récompense en échange, avec un chemin qui prend dix secondes. Et répondre à tous, même aux mauvais. Une réponse posée à un avis fâché en dit plus long à un futur client que dix avis parfaits.",
       },
 
       { t: "h2", texte: "Ton site doit être lisible par une machine" },
@@ -166,7 +184,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Et les avis Google, vous gérez ça?",
-          a: "On met en place ce qui donne envie à tes clients contents d'en laisser un, et on t'aide à répondre à ceux qui arrivent. On n'achète jamais d'avis : Google les repère, et ça se retourne contre le resto.",
+          a: "On met en place la même demande à tous tes clients, sans récompense en échange, et on t'aide à répondre à ceux qui arrivent. On n'achète jamais d'avis : Google les repère, et ça se retourne contre le resto.",
         },
         {
           q: "Est-ce que ça marche si mon resto est en région?",
@@ -192,8 +210,17 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     intro:
       "Chaque commande qui passe par une app de livraison te laisse une part de la vente et garde le client. Voici à quoi ressemble l'autre chemin : la commande arrive chez toi, presque à pleine marge, et le client devient le tien.",
     resume:
-      "La commande passe par ton app. 5 % ou 10 % au lieu de 30 %, et le client reste le tien.",
+      "La commande passe par ton app. 5 % + 0,30 $ en cueillette ou 10 % + 3,51 $ par livraison (la course au prix coûtant) au lieu de 30 %, frais de carte inclus, et le client reste le tien.",
     typeService: "Commande en ligne pour restaurants",
+    illustration: { type: "ecran", src: "/demo-app/client/accueil.webp", alt: "L'accueil de l'app de Bistro Habibi" },
+    etapes: {
+      titre: "Comment ça marche",
+      items: [
+        { titre: "Le client choisit", texte: "Livraison ou cueillette, sur ton app, à tes prix de salle.", ecran: { src: "/demo-app/client/accueil.webp", alt: "L'accueil de l'app de Bistro Habibi" } },
+        { titre: "Il remplit son panier", texte: "Le menu propose les extras et ce qui va avec.", ecran: { src: "/demo-app/client/panier.webp", alt: "Le panier de l'app de Bistro Habibi" } },
+        { titre: "La commande sort en cuisine", texte: "Sur ton imprimante offerte, ou dans ta caisse si elle est compatible.", visuel: "imprimante" },
+      ],
+    },
     blocs: [
       { t: "h2", texte: "Ce que coûte vraiment une commande d'app" },
       {
@@ -205,7 +232,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         t: "tableau",
         entetes: ["", "Commande d'app", "Commande directe"],
         lignes: [
-          ["Ce qui te reste", "La vente moins jusqu'à 30 %", "La vente moins 5 % ou 10 %"],
+          ["Ce qui te reste", "La vente moins jusqu'à 30 %", "La vente moins 5 % + 0,30 $ en cueillette ou 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus"],
           ["Qui a le courriel du client", "L'application", "Toi"],
           ["Qui décide des prix affichés", "Toi, sous pression de la commission", "Toi"],
           ["Qui peut le faire revenir", "L'application", "Toi"],
@@ -222,7 +249,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "**Sans toucher à ta caisse.** C'est la contrainte qu'on s'est donnée : personne ne réapprend un système un vendredi soir. La commande arrive sur un écran dédié, s'imprime si tu veux du papier, et sonne pour qu'elle ne dorme pas cinq minutes.",
+          "**Sans toucher à ta caisse.** C'est la contrainte qu'on s'est donnée : personne ne réapprend un système en plein service. La commande sort sur ton imprimante de cuisine offerte, et tu suis tout sur ton cell. Ta caisse ne change pas.",
       },
       {
         t: "p",
@@ -261,7 +288,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "ul",
         items: [
-          "**Quelqu'un regarde l'écran.** Une commande en ligne qui reste dix minutes sans être acceptée fait plus de tort qu'un menu mal écrit.",
+          "**Quelqu'un surveille l'imprimante.** Une commande en ligne qui reste dix minutes sans être acceptée fait plus de tort qu'un menu mal écrit.",
           "**Les heures et les ruptures à jour.** Vendre un plat qui n'existe plus ce soir-là coûte un client, pas seulement une commande.",
           "**Un peu de patience au début.** Tes habitués ont l'habitude du téléphone. Le basculement se fait sur des semaines, avec une affiche, un mot sur la facture, un QR sur la table.",
         ],
@@ -276,15 +303,15 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Est-ce que ça change quelque chose en cuisine?",
-          a: "Un écran de plus, et c'est tout. Ta caisse ne change pas, tes façons de faire non plus. La commande arrive imprimée si c'est ce que ton monde préfère.",
+          a: "La commande sort sur ton imprimante de cuisine offerte, et tu suis tout sur ton cell. Ta caisse ne change pas.",
         },
         {
-          q: "C'est quoi la différence avec DoorDash ou Uber Eats?",
-          a: "Sur ces plateformes-là, jusqu'à 30 % de chaque commande s'en va en commission, et le client appartient à l'application. Chez nous, la commande passe par ton app web et mobile : on prend 5 % en cueillette et 10 % en livraison, et le client est à toi.",
+          q: "C'est quoi la différence avec les plateformes de livraison?",
+          a: "Sur ces plateformes-là, jusqu'à 30 % de chaque commande s'en va en commission, et le client appartient à l'application. Chez nous, la commande passe par ton app web et mobile : on prend 5 % + 0,30 $ en cueillette et 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus, et le client est à toi.",
         },
         {
           q: "Et la livraison, vous la faites?",
-          a: "Oui, avec des livreurs d'ici : c'est 10 % de la commande, sur les aliments et boissons seulement. Si tu fais seulement de la cueillette, c'est 5 %.",
+          a: "Oui, sans un seul livreur à gérer : on s'occupe de la livraison et des plaintes. Ton client paie 4,99 $, et toi, 10 % des aliments et boissons + la course au prix coûtant (3,51 $ aujourd'hui).",
         },
       ],
     },
@@ -307,6 +334,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       "Quelqu'un a commandé chez toi une fois, il a aimé ça, et il ne revient pas. Pas parce qu'il a trouvé mieux, mais parce qu'il a oublié. La relance règle exactement ce problème-là, et rien d'autre.",
     resume: "Le client qui a déjà commandé revient, sans que tu y penses.",
     typeService: "Fidélisation et relances clients pour restaurants",
+    illustration: { type: "visuel", visuel: "textos" },
     blocs: [
       { t: "h2", texte: "Le client le moins cher est celui que tu as déjà" },
       {
@@ -398,7 +426,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Est-ce que ça marche par texto aussi?",
-          a: "Le texto se lit davantage, et se pardonne beaucoup moins. Les mêmes règles de consentement s'appliquent, en plus strict dans les faits : on commence par le courriel.",
+          a: "Oui, aux clients qui ont accepté d'en recevoir, avec une façon simple de se désabonner.",
         },
       ],
     },
@@ -421,6 +449,15 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       "Pas un onglet dans l'application de quelqu'un d'autre : ta propre app, avec ton nom et ton icône, que ton client installe sur son téléphone et retrouve entre ses autres icônes.",
     resume: "Une vraie app à ton nom, sur les magasins, avec la fidélité dedans.",
     typeService: "Application mobile de commande pour restaurants",
+    illustration: { type: "ecran", src: "/demo-app/client/compte.webp", alt: "Le compte client de l'app de Bistro Habibi, avec ses points" },
+    etapes: {
+      titre: "Comment ça marche",
+      items: [
+        { titre: "Ton app, à ton nom", texte: "Sur l'App Store et Google Play, avec ton logo et tes couleurs.", ecran: { src: "/demo-app/client/accueil.webp", alt: "L'accueil de l'app de Bistro Habibi" } },
+        { titre: "Tes habitués l'installent", texte: "Pour leurs points et pour commander en deux tapes.", ecran: { src: "/demo-app/client/compte.webp", alt: "Le compte client, avec ses points" } },
+        { titre: "Une icône sur leur écran", texte: "Ton resto leur revient en tête chaque fois qu'ils ouvrent leur téléphone.", visuel: "app" },
+      ],
+    },
     blocs: [
       { t: "h2", texte: "À ton nom, pas au nôtre" },
       {
@@ -473,7 +510,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Il faut aussi un compte de développeur à ton nom, chez Apple comme chez Google : c'est ton nom que tes clients voient dans les magasins d'apps. On s'occupe des démarches, et les comptes restent les tiens. Si tu arrêtes avec nous un jour, l'app cesse de fonctionner, mais tu gardes tes comptes, tes données, ta liste de clients et l'équipement payé.",
+          "Il faut aussi un compte de développeur à ton nom, chez Apple comme chez Google : c'est ton nom que tes clients voient dans les magasins d'apps. On s'occupe des démarches, et les comptes restent les tiens. Si tu arrêtes avec nous un jour, l'app cesse de fonctionner, mais tu gardes tes comptes, tes données, ta liste de clients et ton imprimante.",
       },
 
       { t: "h2", texte: "Ce que ça demande pour marcher" },
@@ -504,7 +541,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Est-ce que je peux avoir l'app sans le reste?",
-          a: "L'app s'appuie sur les commandes en ligne : c'est ce qui lui donne un menu, un paiement et un historique. Les deux vont ensemble, contrairement aux autres morceaux.",
+          a: "L'app s'appuie sur les commandes en ligne : c'est ce qui lui donne un menu, un paiement et un historique. Les deux vont ensemble.",
         },
       ],
     },
@@ -530,6 +567,15 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     resume:
       "The Google Business Profile, the reviews, and a site a machine can read.",
     typeService: "Local search optimization for restaurants",
+    illustration: { type: "visuel", visuel: "fiche-google" },
+    etapes: {
+      titre: "How it works",
+      items: [
+        { titre: "We set up your Google listing", texte: "Your hours, your photos, your menu and an “Order” button that leads to your app.", visuel: "fiche-google" },
+        { titre: "Your site, readable by Google", texte: "Fast, with your menu as text: what Google reads to show you." },
+        { titre: "It builds over a few months", texte: "Nobody can promise the top spot next week. We tell you what's moving, every month." },
+      ],
+    },
     blocs: [
       { t: "h2", texte: "A restaurant gets found in three places" },
       {
@@ -572,7 +618,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "What works is duller and lasts longer: asking at the right moment, asking happy customers, with a path that takes ten seconds. And answering all of them, the bad ones included. A calm reply to an angry review tells a future customer more than ten perfect ratings.",
+          "What works is duller and lasts longer: asking at the right moment, the same request to all your customers, with no reward in exchange, with a path that takes ten seconds. And answering all of them, the bad ones included. A calm reply to an angry review tells a future customer more than ten perfect ratings.",
       },
 
       { t: "h2", texte: "Your site has to be readable by a machine" },
@@ -626,7 +672,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "What about Google reviews?",
-          a: "We set up what makes your happy customers want to leave one, and we help you answer the ones that come in. We never buy reviews: Google catches them, and it backfires on the restaurant.",
+          a: "We set up the same request to all your customers, with no reward in exchange, and we help you answer the ones that come in. We never buy reviews: Google catches them, and it backfires on the restaurant.",
         },
         {
           q: "Does this work if my restaurant is outside a big city?",
@@ -651,8 +697,18 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     titre: "Online ordering that doesn't cost you 30%",
     intro:
       "Every order through a delivery app leaves part of the sale behind and keeps the customer. Here's what the other road looks like: the order comes to you, at nearly full margin, and the customer becomes yours.",
-    resume: "The order comes through your app. 5% or 10% instead of 30%, and the customer stays yours.",
+    resume:
+      "The order comes through your app. 5% + $0.30 on pickup or 10% + $3.51 per delivery (the run at cost) instead of 30%, card fees included, and the customer stays yours.",
     typeService: "Online ordering for restaurants",
+    illustration: { type: "ecran", src: "/demo-app/client/accueil.webp", alt: "The home screen of Bistro Habibi's app" },
+    etapes: {
+      titre: "How it works",
+      items: [
+        { titre: "The customer chooses", texte: "Delivery or pickup, on your app, at your dine-in prices.", ecran: { src: "/demo-app/client/accueil.webp", alt: "The home screen of Bistro Habibi's app" } },
+        { titre: "They fill their cart", texte: "The menu offers the extras and what goes with them.", ecran: { src: "/demo-app/client/panier.webp", alt: "The cart in Bistro Habibi's app" } },
+        { titre: "The order prints in the kitchen", texte: "On the printer we give you, or into your point of sale if it's compatible.", visuel: "imprimante" },
+      ],
+    },
     blocs: [
       { t: "h2", texte: "What an app order really costs" },
       {
@@ -664,7 +720,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         t: "tableau",
         entetes: ["", "App order", "Direct order"],
         lignes: [
-          ["What's left for you", "The sale minus up to 30%", "The sale minus 5% or 10%"],
+          ["What's left for you", "The sale minus up to 30%", "The sale minus 5% + $0.30 on pickup or 10% + $3.51 per delivery (the run at cost), card fees included"],
           ["Who has the customer's email", "The app", "You"],
           ["Who sets the listed prices", "You, under commission pressure", "You"],
           ["Who can bring them back", "The app", "You"],
@@ -681,7 +737,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "**Without touching your point of sale.** That's the constraint we set ourselves: nobody relearns a system on a Friday night. The order lands on a dedicated screen, prints if you want paper, and makes a sound so it doesn't sit unseen for five minutes.",
+          "**Without touching your point of sale.** That's the constraint we set ourselves: nobody relearns a system in the middle of service. The order prints on the kitchen printer we give you, and you follow everything on your phone. Your point of sale doesn't change.",
       },
       {
         t: "p",
@@ -720,7 +776,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "ul",
         items: [
-          "**Someone watches the screen.** An online order sitting unaccepted for ten minutes does more damage than a badly written menu.",
+          "**Someone keeps an eye on the printer.** An online order sitting unaccepted for ten minutes does more damage than a badly written menu.",
           "**Hours and sold-out items kept current.** Selling a dish that ran out tonight costs you a customer, not just an order.",
           "**A little patience at the start.** Your regulars are used to the phone. The switch happens over weeks, with a sign, a note on the receipt, a QR code on the table.",
         ],
@@ -735,15 +791,15 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Does anything change in the kitchen?",
-          a: "One more screen, and that's it. Your point of sale doesn't change, and neither do your habits. The order prints if that's what your staff prefers.",
+          a: "The order prints on the kitchen printer we give you, and you follow everything on your phone. Your point of sale doesn't change.",
         },
         {
-          q: "How is this different from DoorDash or Uber Eats?",
-          a: "On those platforms, up to 30% of every order goes to commission, and the customer belongs to the app. With us, the order goes through your own web and mobile app: we take 5% on pickup and 10% on delivery, and the customer is yours.",
+          q: "How is this different from the delivery platforms?",
+          a: "On those platforms, up to 30% of every order goes to commission, and the customer belongs to the app. With us, the order goes through your own web and mobile app: we take 5% + $0.30 on pickup and 10% + $3.51 per delivery (the run at cost), card fees included, and the customer is yours.",
         },
         {
           q: "Do you handle delivery?",
-          a: "Yes, with local drivers: it's 10% of the order, on food and drinks only. If you only do pickup, it's 5%.",
+          a: "Yes, without a single driver for you to manage: we handle delivery and complaints. Your customer pays $4.99, and you pay 10% of food and drinks + the run at cost ($3.51 today).",
         },
       ],
     },
@@ -766,6 +822,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       "Someone ordered from you once, they liked it, and they don't come back. Not because they found better, but because they forgot. Follow-ups fix exactly that problem, and nothing else.",
     resume: "The customer who already ordered comes back, without you thinking about it.",
     typeService: "Customer retention and follow-ups for restaurants",
+    illustration: { type: "visuel", visuel: "textos" },
     blocs: [
       { t: "h2", texte: "The cheapest customer is the one you already have" },
       {
@@ -857,7 +914,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Does it work by text message too?",
-          a: "Texts get read more and forgiven far less. The same consent rules apply, stricter in practice: we start with email.",
+          a: "Yes, to customers who agreed to receive them, with a simple way to unsubscribe.",
         },
       ],
     },
@@ -880,6 +937,15 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       "Not a tab inside somebody else's application: your own app, with your name and your icon, that your customer installs on their phone and finds among their other icons.",
     resume: "A real app under your name, on the stores, with loyalty built in.",
     typeService: "Mobile ordering app for restaurants",
+    illustration: { type: "ecran", src: "/demo-app/client/compte.webp", alt: "The customer account in Bistro Habibi's app, with their points" },
+    etapes: {
+      titre: "How it works",
+      items: [
+        { titre: "Your app, under your name", texte: "On the App Store and Google Play, with your logo and your colours.", ecran: { src: "/demo-app/client/accueil.webp", alt: "The home screen of Bistro Habibi's app" } },
+        { titre: "Your regulars install it", texte: "For their points and for two-tap ordering.", ecran: { src: "/demo-app/client/compte.webp", alt: "The customer account, with loyalty points" } },
+        { titre: "An icon on their screen", texte: "Your restaurant comes back to mind every time they open their phone.", visuel: "app" },
+      ],
+    },
     blocs: [
       { t: "h2", texte: "Under your name, not ours" },
       {
@@ -932,7 +998,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "You also need a developer account in your own name, with both Apple and Google: it's your name customers see in the app stores. We handle the paperwork, and the accounts stay yours. If you ever stop working with us, the app stops working, but you keep your accounts, your data, your customer list and the equipment you paid for.",
+          "You also need a developer account in your own name, with both Apple and Google: it's your name customers see in the app stores. We handle the paperwork, and the accounts stay yours. If you ever stop working with us, the app stops working, but you keep your accounts, your data, your customer list and your printer.",
       },
 
       { t: "h2", texte: "What it takes to work" },
@@ -963,7 +1029,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Can I get the app without the rest?",
-          a: "The app runs on online ordering: that's what gives it a menu, a payment and a history. Those two go together, unlike the other pieces.",
+          a: "The app runs on online ordering: that's what gives it a menu, a payment and a history. The two go together.",
         },
       ],
     },

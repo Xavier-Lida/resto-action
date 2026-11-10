@@ -221,10 +221,10 @@ export default function Resultats({
         } as CSSProperties
       }
     >
-      <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-        <h2 className="max-w-4xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
-          {t.resultats.titre}
-        </h2>
+      <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+        {/* Comme chez Owner : pas de gros titre, les onglets parlent d'eux-mêmes.
+            Le titre reste pour les lecteurs d'écran et les moteurs. */}
+        <h2 className="sr-only">{t.resultats.titre}</h2>
 
         {/* Rangée de quatre à partir de md. SOUS md, un seul onglet est
             VISIBLE : les trois autres restent dans le DOM — ce sont de vrais
@@ -239,12 +239,12 @@ export default function Resultats({
         {/* À PARTIR DE lg : LES ONGLETS À GAUCHE, LE PANNEAU À DROITE. Les
             onglets s'empilent en cartes, le panneau garde son texte (et son
             lien) au-dessus de la maquette. En dessous de lg, rien ne change. */}
-        <div className="lg:mt-14 lg:grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-8">
+        <div>
         <div
           role="tablist"
           aria-label={t.resultats.tablistAria}
           onKeyDown={auClavier}
-          className="mt-12 grid gap-x-6 gap-y-5 md:mt-14 md:grid-cols-4 lg:mt-0 lg:grid-cols-1 lg:content-center lg:gap-3"
+          className="grid gap-x-6 gap-y-5 md:grid-cols-4"
         >
           {ONGLETS.map((o, i) => (
             <button
@@ -259,12 +259,10 @@ export default function Resultats({
               aria-controls={`panneau-${o.cle}`}
               tabIndex={i === cible ? 0 : -1}
               onClick={() => activer(i)}
-              className={`group text-left lg:rounded-2xl lg:p-5 lg:transition-colors ${
-                i === cible ? "lg:bg-bone" : "sr-only md:not-sr-only lg:hover:bg-bone/60"
-              }`}
+              className={`group text-left ${i === cible ? "" : "sr-only md:not-sr-only"}`}
             >
               <span
-                className={`block text-sm font-bold transition-colors md:text-base lg:font-display lg:text-xl lg:font-black ${
+                className={`block font-display text-lg font-black tracking-tight transition-colors md:text-lg lg:text-xl ${
                   i === cible
                     ? "text-ink"
                     : "text-ink/35 group-hover:text-ink/60"
@@ -272,7 +270,7 @@ export default function Resultats({
               >
                 {o.onglet}
               </span>
-              <span className="mt-3 block h-0.5 w-full overflow-hidden rounded-full bg-ink/10">
+              <span className="mt-4 block h-0.5 w-full overflow-hidden rounded-full bg-ink/10">
                 {/* La barre démarre avec le libellé, sans attendre que le
                     panneau ait fini de basculer. Sa clé est l'onglet visé : le
                     remontage du panneau, 180 ms plus tard, ne la relance pas. */}
@@ -307,7 +305,7 @@ export default function Resultats({
           aria-labelledby={`onglet-${courant.cle}`}
           tabIndex={0}
           style={{ "--res-duree": `${courant.duree}ms` } as CSSProperties}
-          className={`relative mt-8 flex min-h-[32rem] overflow-hidden rounded-[2rem] md:min-h-[30rem] lg:mt-0 lg:min-h-[40rem] lg:rounded-[3rem] ${courant.panneau} ${
+          className={`relative mt-6 flex min-h-[32rem] overflow-hidden rounded-[2rem] md:mt-8 md:min-h-[34rem] lg:min-h-[44rem] lg:rounded-[3rem] ${courant.panneau} ${
             courant.clair ? "text-white" : "text-ink"
           }`}
         >
@@ -339,19 +337,17 @@ export default function Resultats({
           {/* flex-1 + items-center : le contenu est centré verticalement dans
               le panneau quelle que soit la maquette, plutôt que collé en haut. */}
           <div
-            className={`relative flex flex-1 flex-col justify-center gap-12 p-8 md:p-12 lg:gap-8 lg:p-12 ${
+            className={`relative flex flex-1 flex-col justify-center gap-12 p-8 md:p-12 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:px-24 ${
               sort ? "res-contenu-sortie" : "res-contenu"
             }`}
           >
             <div>
               <p
-                className={`text-xs font-black uppercase tracking-widest ${
-                  courant.clair ? "text-white/70" : "text-brand"
-                }`}
+                className={`text-base font-bold ${courant.clair ? "text-white/70" : "text-ink/55"}`}
               >
                 {courant.surTitre}
               </p>
-              <h3 className="mt-4 max-w-[16ch] font-display text-2xl font-black leading-tight tracking-tight md:text-3xl">
+              <h3 className="mt-3 max-w-[14ch] font-display text-3xl font-black leading-[1.08] tracking-tight md:text-4xl lg:text-5xl">
                 {courant.titre}
               </h3>
 
@@ -380,7 +376,7 @@ export default function Resultats({
             </div>
 
             {courant.maquette && (
-              <div className="flex justify-center">
+              <div className="flex justify-center lg:w-[26rem] lg:shrink-0 lg:origin-center lg:scale-110">
                 {/* enVue garde les maquettes au repos tant que la section
                     n'est pas à l'écran. */}
                 {enVue && courant.maquette}

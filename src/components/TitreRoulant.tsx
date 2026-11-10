@@ -14,7 +14,17 @@ import { useEffect, useRef, useState } from "react";
 const POSE = 2200;
 const ROULEAU = 520;
 
-export default function TitreRoulant({ lignes, className = "" }: { lignes: string[]; className?: string }) {
+/* `retour` : les phrases peuvent passer sur deux lignes (gros titre au
+   cellulaire); la plus longue, invisible, fixe alors la hauteur. */
+export default function TitreRoulant({
+  lignes,
+  className = "",
+  retour = false,
+}: {
+  lignes: string[];
+  className?: string;
+  retour?: boolean;
+}) {
   const [i, setI] = useState(0);
   const [sortante, setSortante] = useState<number | null>(null);
   const [actif, setActif] = useState(false);
@@ -53,6 +63,7 @@ export default function TitreRoulant({ lignes, className = "" }: { lignes: strin
     return () => clearTimeout(t);
   }, [sortante]);
 
+  const blanc = retour ? "text-balance" : "whitespace-nowrap";
   const plusLongue = lignes.reduce((a, b) => (b.length > a.length ? b : a));
 
   return (
@@ -61,15 +72,15 @@ export default function TitreRoulant({ lignes, className = "" }: { lignes: strin
       <span aria-hidden="true" className="relative block overflow-hidden pb-[0.12em]">
         {/* Le réservoir : la phrase la plus longue, invisible, fixe la largeur
             et la hauteur de la fente pour que rien ne saute. */}
-        <span className="invisible block whitespace-nowrap">{plusLongue}</span>
+        <span className={`invisible block ${blanc}`}>{plusLongue}</span>
         {sortante !== null && (
-          <span key={`s-${sortante}`} className="titre-sort absolute inset-x-0 top-0 block whitespace-nowrap">
+          <span key={`s-${sortante}`} className={`titre-sort absolute inset-x-0 top-0 block ${blanc}`}>
             {lignes[sortante]}
           </span>
         )}
         <span
           key={i}
-          className={`absolute inset-x-0 top-0 block whitespace-nowrap ${sortante !== null ? "titre-entre" : ""}`}
+          className={`absolute inset-x-0 top-0 block ${blanc} ${sortante !== null ? "titre-entre" : ""}`}
         >
           {lignes[i]}
         </span>

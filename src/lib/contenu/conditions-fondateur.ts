@@ -1,23 +1,37 @@
-/* LES CONDITIONS DE LA PLACE FONDATEUR, dans les deux langues.
+import {
+  FAQ,
+  GARANTIES,
+  GARANTIES_CONDITION,
+  MISE_EN_SERVICE_ACTUELLE,
+  MISE_EN_SERVICE_ENSUITE,
+  disponible,
+} from "@/lib/contenu/grand-lancement";
 
-   C'est ce que le resto accepte en cochant la case de /reserver avant de
-   payer 500 $. La version (CONDITIONS_VERSION) part dans les métadonnées de la
-   session Stripe : on sait ainsi quelle version chaque resto a acceptée.
+/* LES CONDITIONS DU GRAND LANCEMENT D'HIVER, dans les deux langues.
 
-   À VALIDER PAR L'AVOCAT. Le contrat de service v3.2 doit reprendre ces
-   conditions mot pour mot sur les points communs (remboursement des 500 $,
-   300 $ de publicité, garantie de 90 jours). Toute modification de fond :
-   changer CONDITIONS_VERSION, ne jamais réécrire une version déjà acceptée
-   sans la dater de nouveau.
+   C'est ce que le resto accepte en cochant la case de /reserver. La réservation
+   est gratuite (6 nov. 2026) : plus de dépôt, la mise en service se paie à la
+   signature du bon d'accord. La version (CONDITIONS_VERSION) part au CRM avec
+   la réservation : on sait quelle version chaque resto a acceptée.
+
+   À VALIDER PAR L'AVOCAT. Le contrat de service doit reprendre ces conditions
+   mot pour mot sur les points communs. Les 4 garanties et le calcul viennent
+   de grand-lancement.ts : le texte est identique à celui de l'accueil. Toute
+   modification de fond : changer CONDITIONS_VERSION, ne jamais réécrire une
+   version déjà acceptée sans la dater de nouveau.
 
    Les montants doivent rester identiques à `offre` et `lancement` dans
    src/lib/textes/fr.ts et en.ts. */
-export const CONDITIONS_VERSION = "2026-11-05";
+export const CONDITIONS_VERSION = "2026-11-07";
+
+const GARANTIES_TEXTE = `${GARANTIES.map((g) => `${g.nom} : « ${g.texte} »`).join(" ")} ${GARANTIES_CONDITION}`;
+const CALCUL_TEXTE = FAQ.questions.find((q) => q.id === "faq-calcul-garantie")?.reponse ?? "";
+const MES = (n: number) => n.toLocaleString("fr-CA");
 
 export const CONDITIONS_FR = {
   metaTitre: "Conditions du Grand Lancement d'hiver",
   metaDescription:
-    "Ce que comprend ta place dans le Grand Lancement d'hiver : dépôt de 500 $ crédité sur la mise en service, abonnement de 200 $ par mois dès la mise en ligne, et 3 garanties sur tes résultats.",
+    "Ce que comprend ta place dans le Grand Lancement d'hiver : réservation gratuite, mise en service payée à la signature, abonnement de 200 $ par mois dès la mise en ligne, et 4 garanties sur tes résultats.",
   surTitre: "Grand Lancement d'hiver",
   titre: "Conditions du Grand Lancement d'hiver",
   intro:
@@ -26,12 +40,11 @@ export const CONDITIONS_FR = {
     {
       titre: "1. Ce que tu réserves",
       texte:
-        "Une place dans la prochaine cohorte du Grand Lancement d'hiver (janvier 2027) pour un établissement. On lance au plus 16 restos par mois au Québec, 4 par semaine. Pour en faire partie, réserve avant le vendredi 18 décembre 2026; après, tu pars avec la cohorte suivante, un mois plus tard.",
+        "Une place dans la prochaine cohorte du Grand Lancement d'hiver (janvier 2027) pour un établissement. On lance au plus 16 restos par mois au Québec, 4 par semaine. Ta réservation est gratuite : ta place est confirmée à la signature de ton bon d'accord. Pour en faire partie, signe avant le vendredi 18 décembre 2026; après, tu pars avec la cohorte suivante, un mois plus tard.",
     },
     {
-      titre: "2. Le dépôt et la mise en service",
-      texte:
-        "Ta place est réservée avec un dépôt de 500 $ plus TPS et TVQ, payé en ligne par Stripe et crédité sur ta mise en service. La mise en service est de 750 $ pour le Grand Lancement d'hiver, puis de 1 500 $, une hausse annoncée d'avance. Ta facture, avec nos numéros de taxes, t'est envoyée par courriel. [À ÉCRIRE : conditions de remboursement du dépôt, après validation de l'avocat.]",
+      titre: "2. La mise en service",
+      texte: `Aucun dépôt. La mise en service est de ${MES(MISE_EN_SERVICE_ACTUELLE)} $ pour le Grand Lancement d'hiver, puis de ${MES(MISE_EN_SERVICE_ENSUITE)} $, une hausse annoncée d'avance. Elle se paie à la signature de ton bon d'accord, plus TPS et TVQ, et couvre ton installation, ta formation privée et ta Boîte de lancement. Ton imprimante est offerte et t'appartient. Ta facture, avec nos numéros de taxes, t'est envoyée par courriel. [À valider par l'avocat]`,
     },
     {
       titre: "3. Le prix, tout compris",
@@ -39,14 +52,12 @@ export const CONDITIONS_FR = {
         "Abonnement : 200 $ par mois, dès ta mise en ligne. Livraison : 10 % des aliments et boissons + 3,51 $ par livraison (la course au prix coûtant : ce qu'elle nous coûte, moins les 4,99 $ que paie ton client). Cueillette : 5 % + 0,30 $ par commande. Frais de carte inclus. Aucun minimum de commande. L'imprimante est offerte. Taxes en sus.",
     },
     {
-      titre: "4. Les 3 garanties",
-      texte:
-        "48 h top chrono : « Envoie-nous ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h et tu es en ligne à ta date. Sinon, ton premier mois est gratuit. » L'Imprimante qui chauffe : « Si ton app ne reçoit pas 10 commandes dans tes 7 premiers jours, on remet 100 $ de pub chaque semaine, à nos frais, jusqu'à ce que tu les aies. » Ça se paie ou c'est gratuit : « Ton app paie son abonnement chaque mois, en économies ou en nouvelles ventes. Sinon, tu ne le paies pas. » Pour les 3 garanties : tes plaques et ton affiche en place, et nos cartons dans tes sacs. La 1re demande aussi ton menu, tes photos et tes accès dans les 5 jours. Un même mois n'est jamais crédité deux fois.",
+      titre: "4. Les 4 garanties",
+      texte: `${GARANTIES_TEXTE} [À valider par l'avocat]`,
     },
     {
-      titre: "5. Comment on calcule la 3e garantie",
-      texte:
-        "Chaque mois, on additionne ce que tu as sauvé sur les commandes venues des plateformes (au taux de ton relevé) et 10 $ par commande d'un nouveau client arrivé par un de nos canaux (pub, tournée des bureaux, parrainage, carte-cadeau, fiche Google). Si le total ne couvre pas ton abonnement, tu ne le paies pas ce mois-là.",
+      titre: "5. Comment on calcule les garanties 3 et 4",
+      texte: CALCUL_TEXTE,
     },
     {
       titre: "6. Ce qui expire à la date limite",
@@ -66,12 +77,12 @@ export const CONDITIONS_FR = {
     {
       titre: "9. Le contrat de service",
       texte:
-        "Avant la mise en ligne, tu reçois par courriel le contrat de service complet et son annexe à signer. Il reprend les conditions de cette page. Ta mise en ligne se fait seulement une fois le contrat signé.",
+        "À la signature, tu reçois ton bon d'accord et le contrat de service complet, avec son annexe. Ils reprennent les conditions de cette page. Ta mise en ligne se fait seulement une fois le contrat signé et la mise en service payée.",
     },
     {
       titre: "10. Ton dossier",
       texte:
-        "Après ton dépôt, tu reçois par courriel le lien de ton dossier privé : tu y vois en tout temps où en est ton app, le prochain point avec nous et ta date de lancement. On t'écrit chaque fois qu'il avance.",
+        "Après ta signature, tu reçois par courriel le lien de ton dossier privé : tu y vois en tout temps où en est ton app, le prochain point avec nous et ta date de lancement. On t'écrit chaque fois qu'il avance.",
     },
   ],
   questions: "Une question sur ces conditions? Écris-nous à {courriel} ou appelle-nous au {tel}.",
@@ -80,64 +91,109 @@ export const CONDITIONS_FR = {
 
 export type ConditionsFondateur = typeof CONDITIONS_FR;
 
+/* L'ANGLAIS. Les garanties et le calcul sont traduits ici plutôt que lus dans
+   grand-lancement.ts (qui est en français). Ils doivent dire exactement la
+   même chose que GARANTIES, GARANTIES_CONDITION et la question
+   « faq-calcul-garantie » : toute modification de l'un se reporte ici. */
+const MES_EN = (n: number) => n.toLocaleString("en-CA");
+
+/** Les canaux qui amènent un nouveau client, comme CANAUX dans grand-lancement.ts. */
+const CANAUX_EN = [
+  "ads",
+  disponible({ dependDe: ["parrainage"] }) && "referrals",
+  disponible({ dependDe: ["cartes-cadeaux"] }) && "gift cards",
+  "Google listing",
+]
+  .filter((x): x is string => Boolean(x))
+  .join(", ");
+
+const GARANTIES_EN: Record<(typeof GARANTIES)[number]["id"], { nom: string; texte: string }> = {
+  chrono: {
+    nom: "48 Hours Flat",
+    texte:
+      "Send us your menu, your photos and your access within 5 days: your app is ready in 48 hours and you're live by your date. Otherwise, your first month is free.",
+  },
+  imprimante: {
+    nom: "The Busy Printer",
+    texte:
+      "If your app doesn't get 10 orders in your first 7 days, we add $100 of ads every week, on our dime, until you get them.",
+  },
+  gratuit: {
+    nom: "It Pays Off or It's Free",
+    texte:
+      "Your app pays for its subscription every month, in savings or in new sales. Otherwise, you don't pay it.",
+  },
+  boomerang: {
+    nom: "Boomerang Money",
+    texte:
+      "If your app hasn't brought you at least your setup fee in your first 90 days, we refund it. You keep your printer, and you stay or you leave: it's your call.",
+  },
+};
+
+const GARANTIES_CONDITION_EN =
+  "For all 4 guarantees: your plaques and your sign in place, and our cards in your bags. The 1st also requires your menu, your photos and your access within 5 days. The same month is never credited twice.";
+
+const GARANTIES_TEXTE_EN = `${GARANTIES.filter((g) => GARANTIES_EN[g.id])
+  .map((g) => `${GARANTIES_EN[g.id].nom}: "${GARANTIES_EN[g.id].texte}"`)
+  .join(" ")} ${GARANTIES_CONDITION_EN}`;
+
+const CALCUL_TEXTE_EN = `Every month, we add up what you saved on the orders that came from the platforms (at the rate on your statement) and $10 per order from a new customer who came in through one of our channels (${CANAUX_EN}). If the total doesn't cover your subscription, you don't pay it that month. For the 4th: if the total for your first 90 days doesn't cover your setup fee, we refund it.`;
+
 export const CONDITIONS_EN: ConditionsFondateur = {
-  metaTitre: "Founder spot terms",
+  metaTitre: "The Big Winter Launch terms",
   metaDescription:
-    "What the Resto Action founder spot includes: $500 refundable until launch, no subscription while you wait, $300 in ads and a 90-day guarantee.",
-  surTitre: "Founder spot",
-  titre: "Founder spot terms",
+    "What your spot in The Big Winter Launch includes: free reservation, setup fee paid at signing, a $200 monthly subscription from go-live, and 4 guarantees on your results.",
+  surTitre: "The Big Winter Launch",
+  titre: "The Big Winter Launch terms",
   intro:
-    "Here, in plain words, is what you agree to when you reserve your founder spot. Resto Action is a brand of Studios LT inc. (Trois-Rivières, Québec), referred to here as \"we\".",
+    "Here, in plain words, is what you agree to when you reserve your spot. Resto Action is a brand of Studios LT inc. (Trois-Rivières, Québec), referred to here as \"we\". To be validated by the lawyer before going live.",
   sections: [
     {
       titre: "1. What you reserve",
       texte:
-        "A founder spot for one location: we prepare your web and mobile app under your name (logo, menu, photos) at the founder price, during pre-launch. Your reservation does not activate ordering.",
+        "A spot in the next cohort of The Big Winter Launch (January 2027) for one location. We launch at most 16 restaurants a month in Quebec, 4 a week. Your reservation is free: your spot is confirmed when you sign your agreement. To be part of it, sign before Friday, December 18, 2026; after that, you launch with the next cohort, one month later.",
     },
     {
-      titre: "2. The amount",
-      texte:
-        "$500 plus GST and QST, paid online through Stripe. This is the setup fee at the founder price (regular price: $1,000). Your invoice, with our tax numbers, is sent to you by email.",
+      titre: "2. The setup fee",
+      texte: `No deposit. The setup fee is $${MES_EN(MISE_EN_SERVICE_ACTUELLE)} for The Big Winter Launch, then $${MES_EN(MISE_EN_SERVICE_ENSUITE)}, an increase announced in advance. It is paid when you sign your agreement, plus GST and QST, and covers your installation, your private training and your Launch Box. Your printer is included at no cost and belongs to you. Your invoice, with our tax numbers, is sent to you by email. [To be validated by the lawyer]`,
     },
     {
-      titre: "3. Pre-launch and go-live date",
+      titre: "3. The price, all in",
       texte:
-        "We are preparing the launch with two partner restaurants. Ordering, payment and billing must still be tested and validated before paid orders open. No firm date is guaranteed: your go-live date is confirmed with you after these validations.",
+        "Subscription: $200 per month, from your go-live. Delivery: 10% of food and drinks + $3.51 per delivery (the run at cost: what it costs us, minus the $4.99 your customer pays). Pickup: 5% + $0.30 per order. Card fees included. No minimum order. The printer is included at no cost. Taxes extra.",
     },
     {
-      titre: "4. No subscription while you wait",
-      texte:
-        "Nothing else is billed before your app goes live. At go-live: $200 per month subscription and a commission of 5% on pickup and 10% on delivery, on food and drinks, excluding taxes, tips and delivery fees. Equipment (tablet, stand, inserts): $495 at installation. Taxes and Stripe card fees extra.",
+      titre: "4. The 4 guarantees",
+      texte: `${GARANTIES_TEXTE_EN} [To be validated by the lawyer]`,
     },
     {
-      titre: "5. Refund of the $500",
-      texte:
-        "Your $500 and the taxes paid are fully refundable on simple written request (email), at any time until your app goes live. The refund goes back to the payment method used, within 15 days of your request, with no fees withheld. Once your app is live, this setup fee is no longer refundable.",
+      titre: "5. How we calculate guarantees 3 and 4",
+      texte: CALCUL_TEXTE_EN,
     },
     {
-      titre: "6. If the launch does not happen",
+      titre: "6. What expires at the deadline",
       texte:
-        "If we decide not to launch the service, or if your go-live becomes impossible on our side, we refund your $500 and the taxes in full, without you having to ask.",
+        "If you sign before Friday, December 18, 2026: your current provider's penalty is credited up to $400 with proof (The Exit Credit), and your $200 monthly subscription is frozen for 24 months (Your Frozen Price).",
     },
     {
-      titre: "7. Your $300 in ads",
+      titre: "7. The Platform Pricing Tune-Up",
       texte:
-        "We pay for and manage $300 of Facebook and Instagram ads for your restaurant, spent over your first 3 months after go-live. This budget is not paid out in cash, credited on your invoice or carried over. If you end the service before these 3 months are up, the advertising actually spent for your restaurant up to your departure is billed to you, up to a maximum of $300, and the unspent part is cancelled, unless you leave because of a failure on our part or the 90-day guarantee is granted: then nothing is billed. A breakdown of the spending is available on request.",
+        "We read your agreements and raise your prices on the platforms by 10 to 15% from day 1, if your agreement allows it. On Uber Eats, prices higher than dine-in move pickup from 10 to 15%: we check it with you.",
     },
     {
-      titre: "8. The 90-day guarantee",
+      titre: "8. Your customers belong to you",
       texte:
-        "At the end of your first 90 days live, we calculate the fees the delivery platforms would have charged you on all actual orders placed through your app, new and redirected, at your real rates on those platforms. If that amount is lower than the subscriptions you paid us during those 90 days, we refund those subscriptions. Resto Action commissions are neither deducted from this calculation nor refunded. Conditions: stay a customer for the full 90 days and, within 7 days of go-live, make the NFC stand and inserts visible and put your app link on your Google profile and social media. No minimum sales or delivery share required. The setup fee ($500), equipment ($495) and our commissions are not covered. If you end the service before 90 days, the guarantee does not apply.",
+        "Your customer list, your domain and your Google listing are in your name. If you leave, you keep them.",
     },
     {
       titre: "9. The service agreement",
       texte:
-        "Before go-live, you receive the full service agreement and its schedule (address, delivery zone and hours) by email to sign. It carries over the terms on this page for your founder spot. Your app goes live only once the agreement is signed.",
+        "At signing, you receive your agreement and the full service agreement, with its schedule. They carry over the terms on this page. Your app goes live only once the agreement is signed and the setup fee is paid.",
     },
     {
       titre: "10. Your file",
       texte:
-        "After your payment, you receive by email the link to your private file: it shows at any time where your app is at, your next check-in with us and your go-live date. We email you each time it moves forward.",
+        "After you sign, you receive by email the link to your private file: it shows at any time where your app is at, your next check-in with us and your launch date. We email you each time it moves forward.",
     },
   ],
   questions: "A question about these terms? Email us at {courriel} or call us at {tel}.",

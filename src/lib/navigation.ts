@@ -80,7 +80,7 @@ export function groupesNav(t: Textes): GroupeNav[] {
       fente: "w-[8rem]", // Ressources 79,6 · Resources 72,0
       liens: [
         { href: t.nav.blogueHref, libelle: t.pied.blogue },
-        { href: ancre("faq"), libelle: t.nav.faq },
+        { href: t.htmlLang.startsWith("fr") ? "/faq" : ancre("faq"), libelle: t.nav.faq },
         { href: ancre("youtube"), libelle: t.pied.youtube },
       ],
     },

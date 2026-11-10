@@ -98,11 +98,6 @@ export default function SectionOffre({ t }: { t: Textes }) {
                         }`}
                       >
                         {quoi}
-                        {"barre" in c && c.barre && (
-                          <span className="ml-3 align-middle text-xl text-ink/35 line-through decoration-brand decoration-2">
-                            {c.barre}
-                          </span>
-                        )}
                       </p>
                       <p className="mt-0.5 text-sm text-ink/65">{detail}</p>
                     </li>

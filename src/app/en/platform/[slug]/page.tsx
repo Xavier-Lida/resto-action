@@ -8,6 +8,8 @@ import {
   segment,
 } from "@/lib/contenu/fonctionnalites";
 import { PLATEFORME_EN } from "@/lib/contenu/plateforme";
+import { PIECES_EN, PIECES_FR, piecesPretes } from "@/lib/contenu/pieces";
+import { ANGLAIS_ACTIF } from "@/lib/site";
 import { EN } from "@/lib/textes/en";
 import { hreflang, paireFonctionnalite } from "@/lib/routes";
 
@@ -24,8 +26,21 @@ export const dynamicParams = false;
 
 const PAR_SEGMENT = cleParSegment(FONCTIONNALITES_EN);
 
+/* Les pages des pièces, en anglais (src/lib/contenu/pieces.ts). Une pièce
+   pas prête au lancement n'a pas de page. */
+const piece = (slug: string) => piecesPretes("en").find((p) => segment(p.slug) === slug) ?? null;
+const pieceFr = (slugEn: string) => {
+  const cle = Object.keys(PIECES_EN).find((k) => PIECES_EN[k].slug === slugEn);
+  return cle ? PIECES_FR[cle] : undefined;
+};
+
+const TOUTES = [...CLES.map((c) => FONCTIONNALITES_EN[c]), ...piecesPretes("en")].map((f) => ({ nom: f.filNom, href: f.slug, resume: f.resume }));
+
 export function generateStaticParams() {
-  return CLES.map((cle) => ({ slug: segment(FONCTIONNALITES_EN[cle].slug) }));
+  return [
+    ...CLES.map((cle) => ({ slug: segment(FONCTIONNALITES_EN[cle].slug) })),
+    ...piecesPretes("en").map((p) => ({ slug: segment(p.slug) })),
+  ];
 }
 
 export async function generateMetadata({
@@ -35,6 +50,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const cle = PAR_SEGMENT.get(slug);
+  const p = piece(slug);
+  if (p) {
+    const fr = pieceFr(p.slug)?.slug;
+    return {
+      title: p.metaTitre,
+      description: p.metaDescription,
+      alternates: {
+        canonical: p.slug,
+        languages: ANGLAIS_ACTIF && fr ? { "fr-CA": fr, "en-CA": p.slug, "x-default": fr } : { "en-CA": p.slug },
+      },
+      openGraph: { type: "website", locale: EN.meta.ogLocale, alternateLocale: "fr_CA", url: p.slug, siteName: "Resto Action", title: p.metaTitre, description: p.metaDescription },
+    };
+  }
   if (!cle) return {};
 
   const f = FONCTIONNALITES_EN[cle];
@@ -64,7 +92,9 @@ export default async function Feature({
 }) {
   const { slug } = await params;
   const cle = PAR_SEGMENT.get(slug);
-  if (!cle) notFound();
+  const f = piece(slug) ?? (cle ? FONCTIONNALITES_EN[cle] : null);
+  if (!f) notFound();
+  const autres = TOUTES.filter((a) => a.href !== f.slug);
 
-  return <PageFonctionnalite t={EN} f={FONCTIONNALITES_EN[cle]} plateforme={PLATEFORME_EN} />;
+  return <PageFonctionnalite t={EN} f={f} plateforme={PLATEFORME_EN} autres={autres} />;
 }

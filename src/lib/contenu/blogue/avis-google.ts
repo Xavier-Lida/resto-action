@@ -27,7 +27,7 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "La bonne nouvelle, c'est que la plupart de tes clients contents seraient prêts à en laisser un. Ils n'y pensent pas, tout simplement.",
+          "La bonne nouvelle, c'est que la plupart de tes clients seraient prêts à en laisser un. Ils n'y pensent pas, tout simplement.",
       },
 
       { t: "h2", texte: "Commençons par ce qu'il ne faut pas faire" },
@@ -54,12 +54,12 @@ export const AVIS_GOOGLE: PaireArticle = {
       {
         t: "p",
         texte:
-          "Le moment décide de presque tout. Quelqu'un qui vient de finir une assiette qu'il a aimée est dans la seule fenêtre où il le fera. Une heure plus tard, il est passé à autre chose.",
+          "Le moment décide de presque tout. Juste après le repas, c'est la seule fenêtre où le client y pense. Une heure plus tard, il est passé à autre chose. Et la même demande va à tous tes clients, sans récompense en échange.",
       },
       {
         t: "ul",
         items: [
-          "**En salle, au moment de payer**, quand le service a bien été. C'est de loin ce qui fonctionne le mieux, et ça ne coûte rien.",
+          "**En salle, au moment de payer**, à chaque client. C'est de loin ce qui fonctionne le mieux, et ça ne coûte rien.",
           "**Sur la facture ou le sac de commande**, avec un QR qui ouvre directement la fenêtre d'avis.",
           "**Par courriel après une commande en ligne**, une fois, le lendemain, jamais deux.",
         ],

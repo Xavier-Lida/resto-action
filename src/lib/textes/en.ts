@@ -23,10 +23,9 @@ export const EN: Textes = {
   meta: {
     titre: "Resto Action | Web and mobile app for independent restaurants",
     description: `Your own web and mobile ordering app. Without the platforms' 30%, found on Google, with customers who come back. For Quebec's independent restaurants. ${PHONE_DISPLAY}.`,
-    ogTitre:
-      "Resto Action | We fix what's actually hurting independent restaurants",
+    ogTitre: "Resto Action | Your own web and mobile ordering app, under your name",
     ogDescription:
-      "Your customers order from you, not from Uber. Your web and mobile app, local drivers, and a customer list that belongs to you.",
+      "More online sales. More money at the end of the month. Your app under your name, new customers, and less money left to the platforms.",
     ogLocale: "en_CA",
   },
 
@@ -81,21 +80,21 @@ export const EN: Textes = {
     appHabibi: "Bistro Habibi's app, built by us",
     puces: [
       "Web + mobile app in your name",
-      "Delivery by our local drivers",
-      "We install everything, you do nothing",
+      "Delivery, with no drivers to manage",
+      "We install everything, you have nothing to do",
     ],
     recherche: {
       libelle: "Your restaurant's name",
       exemple: "Find your restaurant (e.g. Chez Paul diner)",
       bouton: "My free mockup",
     },
-    condition: "Pre-launch · refundable until your app goes live",
+    condition: "Free. We'll call you to set your date.",
     maquette: {
       titre: "A mockup for {nom}, made by hand.",
       titreGenerique: "Your free mockup, made by hand.",
       restaurant: "Your restaurant's name",
       texte:
-        "We build a real mockup of your app, not a template: your logo, your menu, your photos. Free, no commitment, and sent to your email within 48 hours.",
+        "We build a real mockup of your app, not a template: your logo, your menu, your photos. Free, no commitment, and sent to your email address.",
       inclus: ["Your logo and colours", "Your real menu, with your prices", "Your photos, not stock pictures"],
       nom: "Your name",
       courriel: "Your email",
@@ -110,11 +109,11 @@ export const EN: Textes = {
       attente: "Bistro Habibi's app",
       decide: "Already decided?",
       vieprivee: "Your details are used only to build your mockup and reach you.",
-      reserver: "Reserve my founder spot",
+      reserver: "Reserve my spot",
       merciTitre: "Got it, {prenom}!",
       merciTexte:
-        "The mockup for {nom} will be sent to {courriel} within 48 hours. If we have a question about your menu, we'll call.",
-      merciReserver: "Reserve my spot while they last",
+        "The mockup for {nom} is being sent to {courriel}. If we have a question about your menu, we'll call.",
+      merciReserver: "Reserve my spot",
       erreurs: {
         invalide: "Your name, email, cell or city is missing.",
         trop: "Too many tries at once. Try again in a few minutes.",
@@ -125,7 +124,7 @@ export const EN: Textes = {
       etiquette: "Automatic preview",
       chargement: "Looking up your Google listing…",
       choisir: "Which one is it?",
-      note: "Built automatically from your Google listing. Your real mockup, with your menu and prices, is made by hand and arrives within 48 hours.",
+      note: "Built automatically from your Google listing. Your real app, with your menu and your photos, is ready 48 hours after you send us your access.",
       aucun: "We couldn't find your Google listing. Here's the app we built for Bistro Habibi:",
       couleur: "Try a colour",
       avis: "Google reviews",
@@ -168,16 +167,16 @@ export const EN: Textes = {
       reserver: "Reserve {nom}'s app",
       fermer: "Close the preview",
     },
-    places: "10 founder spots per city",
-    placesPrix: "$500 instead of $1,000",
-    reserver: "Reserve my founder spot",
+    places: "16 restaurants a month, no more",
+    placesPrix: "Next cohort: January 2027",
+    reserver: "Reserve your spot",
     pasPret: "Not ready yet?",
     hesite: {
       titre: "Not ready yet? No problem.",
       texte: "Two ways to move forward at your own pace, no commitment.",
       maquette: {
-        titre: "Get your free mockup",
-        texte: "Your app with your logo and menu, by email within 48 hours.",
+        titre: "See what you would have kept",
+        texte: "Your platform statement, your estimate. Your real number, no commitment.",
       },
       appel: {
         titre: "Talk to Guillaume",
@@ -202,7 +201,7 @@ export const EN: Textes = {
     lire: "Learn more",
     onglets: [
       {
-        onglet: "More Google traffic",
+        onglet: "More Google customers",
         surTitre: "Your search ranking, fixed",
         titre: "Your restaurant finally shows up on Google",
       },
@@ -212,14 +211,14 @@ export const EN: Textes = {
         titre: "Online ordering that makes people want to add one more",
       },
       {
-        onglet: "More repeat orders",
+        onglet: "More loyal customers",
         surTitre: "Follow-ups that work for you",
         titre: "Your customers come back without you lifting a finger",
       },
       {
         onglet: "More app downloads",
         surTitre: "Your app, under your name",
-        titre: "Reward your regulars in an app that's yours",
+        titre: "Reward your customers in your own app",
       },
     ],
     photoAlt:
@@ -239,8 +238,8 @@ export const EN: Textes = {
       { nom: "The Gotham", prix: "$34.00" },
     ],
     panier: "Your cart",
-    // Le signe passe DEVANT le montant en anglais : « You keep $87.96 ».
-    montant: { avant: "You keep $", separateur: ".", apres: "" },
+    // Le signe passe DEVANT le montant en anglais : « Cart · $87.96 ».
+    montant: { avant: "Cart · $", separateur: ".", apres: "" },
     nouvelleCliente: "New customer",
     cliente: "Marie-Ève",
     etapes: [
@@ -261,7 +260,7 @@ export const EN: Textes = {
     etapes: [
       {
         titre: "You reserve your spot",
-        texte: "$500, refundable until launch.",
+        texte: "Free. We'll call you to set your date.",
         alt: "The Resto Action mascot listening on the phone",
       },
       {
@@ -278,7 +277,7 @@ export const EN: Textes = {
   },
 
   plateformes: {
-    titre: "On Uber, your customer isn't yours.",
+    titre: "On the platforms, your customer isn't yours.",
     eux: {
       titre: "On the platforms",
       points: [
@@ -292,11 +291,11 @@ export const EN: Textes = {
       points: [
         "You keep your margin",
         "Your customer is yours, and the app brings them back on its own",
-        "Local drivers, the money stays in Québec",
+        "A local team, the money stays in Quebec",
       ],
     },
-    reserver: "Reserve my founder spot",
-    sous: "$500, refundable until launch",
+    reserver: "Reserve my spot",
+    sous: "Free. We'll call you to set your date.",
   },
 
   calcul: {
@@ -335,7 +334,7 @@ export const EN: Textes = {
     hypothesesVoir: "An estimate, not a guarantee. See the assumptions",
     hypotheses:
       "An estimate, not a guarantee. Money kept: typical 30% platform fees, compared with our $200 monthly subscription and our 10% delivery commission (pickup is 5%, so you keep even more). Extra sales (revenue, no added fee on suggestions): orders 5% bigger thanks to suggestions, 1 more order in 20 from reminders and recovered carts, 1 more in 20 from Google. Reviews: 1 order in 20. The names and reviews shown are examples. Before taxes and card fees.",
-    reserver: "Reserve my founder spot",
+    reserver: "Reserve my spot",
   },
 
   produits: {
@@ -414,54 +413,53 @@ export const EN: Textes = {
   },
 
   lancement: {
-    titre: "Pre-launch · founder offer",
-    accroche: "Preparing for launch with two restaurant partners. Testing must be validated before activation.",
-    resume: "Testing underway with two partner restaurants. Launch date to be confirmed. No subscription until then.",
-    texte: "We're preparing Resto Action's launch with two restaurant partners. The ordering and billing process still needs to be tested and validated before paid orders can open.",
-    date: "Your reservation lets us prepare your app at the founder price. We'll confirm your launch date with you once the necessary validations are complete.",
-    abonnement: "Your subscription, three months of advertising and 90-day guarantee begin when your app goes live.",
-    remboursement: "The $500 setup payment, plus taxes, is refundable on written request until your app goes live.",
+    titre: "The Big Winter Launch",
+    accroche: "Next cohort: January 2027. We launch at most 16 restaurants a month in Quebec.",
+    resume: "Next cohort: January 2027, sign-ups until Friday, December 18, 2026. Your reservation is free; the setup fee is paid at signing. Your subscription starts when you go live.",
+    texte: "We launch at most 16 restaurants a month in Quebec, 4 a week: that's our limit, so we can launch every restaurant properly. To be part of the January 2027 cohort, sign before Friday, December 18, 2026.",
+    date: "It takes 2 weeks for your menu, your photos, your app, the printing and the installation. After the deadline, you launch with the next cohort, one month later.",
+    abonnement: "Your $200 monthly subscription starts when your app goes live, with your 4 guarantees.",
+    remboursement: "The $750 setup fee is paid at signing. Not ready yet? Sign up for free: we'll keep you posted.",
   },
 
   offre: {
-    surTitre: "Founder offer",
+    surTitre: "The Big Winter Launch",
     titre: "Let's prepare your launch.",
     sousTitre: "We don't give you a discount. We invest in your growth.",
     pub: {
       montant: "$300",
       titre: "of advertising, paid by us",
       texte:
-        "Your first 3 months live, we run your Facebook and Instagram ads.",
+        "Your first 7 days live, we run your Facebook and Instagram ads.",
     },
     inclusTitre: "What's included",
     inclus: [
-      "Your web and mobile app, in your name",
-      "Your Google profile, optimized",
+      "Your web and mobile app, under your name",
+      "Your Google listing, optimized",
       "Text and email reminders",
-      "Delivery by our drivers",
+      "Delivery, with no drivers to manage",
       "$300 of ads, run by us",
     ],
     garantie: {
-      titre: "90-day guarantee",
-      texte: "If the platforms would have cost you less than your subscription on your orders, we refund your subscription.",
-      note: "Over your first 90 days live, if you stay the full 90 days and complete the launch steps. Resto Action commissions, setup and equipment excluded.",
+      titre: "4 guarantees on your results",
+      texte: "48 Hours Flat, The Busy Printer, It Pays Off or It's Free, and Boomerang Money: if your app hasn't brought you at least your setup fee in your first 90 days, we refund it.",
+      note: "For all 4 guarantees: your plaques and your sign in place, and our cards in your bags. The 1st also requires your menu, your photos and your access within 5 days. The same month is never credited twice.",
     },
-    coutsTitre: "The price, in full",
+    coutsTitre: "The price, all in",
     couts: [
-      { quand: "Today", quoi: "$500", barre: "$1,000", detail: "Setup, founder price" },
-      { quand: "At installation", quoi: "$495", detail: "Tablet, stand and inserts" },
-      { quand: "Monthly, starting at launch", quoi: "$200", detail: "Subscription, nothing while you wait" },
-      { quand: "Per order", quoi: "5% · 10%", detail: "Pickup · delivery (Uber: up to 30%)" },
+      { quand: "At signing", quoi: "$750", detail: "Big Winter Launch price, then $1,500" },
+      { quand: "Every month, from go-live", quoi: "$200", detail: "Subscription. The printer is included at no cost." },
+      { quand: "Per order", quoi: "5% + $0.30 · 10% + $3.51", detail: "Pickup · delivery, card fees included" },
     ],
-    taxes: "Taxes and card fees extra.",
-    reserver: "Reserve my founder spot",
-    reserverCourt: "Reserve my spot",
-    condition: "$500 refundable until your app goes live",
+    taxes: "Taxes extra.",
+    reserver: "Reserve your spot",
+    reserverCourt: "Reserve your spot",
+    condition: "Free. We'll call you to set your date.",
   },
   reservation: {
-    metaTitre: "Reserve your founder spot | Resto Action",
+    metaTitre: "Reserve your spot in The Big Winter Launch | Resto Action",
     metaDescription:
-      "Prepare your app at the founder price. Testing with two restaurant partners, launch date to be confirmed, and $500 refundable until your app goes live.",
+      "Reserve your spot for free in the January 2027 cohort. We launch at most 16 restaurants a month in Quebec.",
     retour: "Back to site",
     etape: "Step {n} of 4",
     etapes: ["Your restaurant", "Your app", "The offer", "Reservation"],
@@ -469,7 +467,7 @@ export const EN: Textes = {
     precedent: "Back",
     resto: {
       titre: "Tell us about your restaurant",
-      texte: "Prepare an app with your name on it. Reserving takes 2 minutes; activation follows successful testing.",
+      texte: "Get your app under your name ready. Reserving takes 2 minutes.",
       restaurant: "Restaurant name",
       exempleResto: "E.g. Corner Pizzeria",
       ville: "City",
@@ -479,13 +477,13 @@ export const EN: Textes = {
       telephone: "Phone",
     },
     app: {
-      titre: "Your app, made by hand",
+      titre: "Your app, under your name",
       texte: "We build it with your logo, your menu and your photos. Give us something to start from, we handle the rest.",
       menu: "Link to your menu or website",
       facultatif: "optional",
       exempleMenu: "E.g. facebook.com/yourrestaurant or your site",
       menuAide: "No link? No problem: we'll find your menu and have you approve it.",
-      livraisonMaquette: "Your mockup is sent to {courriel} within 48 hours.",
+      livraisonMaquette: "After you sign, you send us your menu, your photos and your access within 5 days: your app is ready in 48 hours.",
       service: "What you offer",
       services: {
         livraison: "Delivery and pickup",
@@ -497,38 +495,34 @@ export const EN: Textes = {
       listeCommandes: ["Under 50", "50 to 150", "150 to 300", "Over 300", "Not sure"],
     },
     offre: {
-      titre: "Your founder spot",
-      texte: "$500 today to prepare your app at the founder price. Your $300 of advertising and your subscription start when your app goes live. Here is the full price.",
-      conditions: "Read the founder spot terms",
+      titre: "Your spot in The Big Winter Launch",
+      texte: "Reserve for free. The setup fee is paid at signing, and your subscription starts when you go live. Here is the price, all in.",
+      conditions: "Read the terms",
       // Même chemin que CONDITIONS dans src/lib/routes.ts.
       conditionsHref: "/en/founder-terms",
       accord:
-        "I've read the full price and I accept the founder spot terms. I understand launch still depends on successful testing, with no firm date confirmed, and that my reservation does not activate ordering. My $500 is refundable on written request until my app goes live; no subscription is charged while I wait.",
+        "I've read the all-in price. My reservation is free: my spot is confirmed when I sign my agreement, and the setup fee is paid at that time.",
     },
     paiement: {
       titre: "Let's reserve your spot",
-      texte: "You'll go to Stripe's secure checkout. Your invoice, with GST and QST, arrives by email.",
+      texte: "It's free, no payment. We'll call you within 24 hours to set your date and sign your agreement.",
       recap: "Your reservation",
-      ligne: "Founder spot",
-      tps: "GST (5%)",
-      tvq: "QST (9.975%)",
-      total: "Total today",
-      bouton: "Pay {total} and reserve",
-      envoi: "Opening checkout…",
-      securite: "Secure payment by Stripe. We never see your card number.",
+      gratuit: "Free",
+      ligne: "Spot reservation",
+      textos: "I agree to receive text messages from Resto Action about my launch. I can unsubscribe at any time.",
+      bouton: "Reserve my spot",
+      envoi: "Sending…",
       vieprivee: "Your details are used only to build your app and reach you.",
-      annule: "Payment was cancelled: your spot isn't reserved yet. Try again whenever you're ready.",
     },
     erreurs: {
       invalide: "Something's missing, or the email isn't valid.",
       accord: "Check the box to continue.",
       trop: "Too many tries at once. Try again in a few minutes.",
-      config: "Online payment isn't open yet. Call us at {tel} and we'll reserve your spot by phone.",
-      stripe: "Checkout couldn't open. Try again, or call us at {tel}.",
+      autre: "That didn't go through. Try again, or call us at {tel} and we'll reserve your spot by phone.",
     },
     apercuDefaut: "your restaurant",
     apercu: {
-      titre: "{nom}'s app, made by hand",
+      titre: "{nom}'s app, under your name",
       texte: "Like Bistro Habibi's: your logo, your menu, your photos. Not a template.",
     },
     dossier: {
@@ -536,52 +530,46 @@ export const EN: Textes = {
       surTitre: "Your file",
       progression: "{n} of {total} steps",
       etapes: [
-        { titre: "Spot reserved", texte: "Your $500 payment was received." },
-        { titre: "Kickoff call", texte: "We go over your restaurant and what needs to be prepared." },
-        { titre: "Your mockup", texte: "Your app with your logo, menu and photos, for you to approve." },
-        { titre: "Your menu and photos", texte: "We have everything we need to build your app." },
-        { titre: "Testing with our partner restaurants", texte: "Ordering, payment and billing validated before orders open." },
-        { titre: "Launch date confirmed", texte: "We set your installation and training with you." },
-        { titre: "Live", texte: "Your customers order from you. Subscription, ads and guarantee start." },
+        { titre: "Agreement signed", texte: "Your agreement is signed and your setup fee is paid." },
+        { titre: "Your menu, your photos and your access", texte: "You send them to us within 5 days." },
+        { titre: "Your app is ready", texte: "48 hours after your access. You approve it." },
+        { titre: "Your launch date", texte: "Your printer plugged in within 10 minutes, and your one-hour private training, in person." },
+        { titre: "Your first 7 days", texte: "$300 of ads paid by us, our cards in your bags, and a text every evening with the day's orders." },
+        { titre: "Every Monday", texte: "The Monday Text: your orders, your new sales and the money brought in." },
       ],
       enCours: "In progress",
       prochainPoint: "Next check-in with us",
       aConfirmer: "To be confirmed",
-      dateLancement: "Launch",
+      dateLancement: "Go-live",
       message: "A word from the team",
       misAJour: "Updated {date}",
       actions: "Need something?",
       envoyerMenu: "Send my menu and photos",
       appeler: "Call Guillaume",
-      rembourser: "Request a refund",
-      rembourserNote: "Your $500 is refundable on written request until your app goes live.",
       introuvable: "We couldn't find this file. Check the link in your email, or call us at {tel}.",
       sujetMenu: "Menu and photos: {resto}",
-      sujetRemboursement: "Refund request: {resto}",
       voir: "See my file",
       voirTexte: "Keep this link: it shows where your app is at, any time.",
     },
     merci: {
-      metaTitre: "Your spot is reserved | Resto Action",
-      titre: "Your spot is reserved.",
-      etiquette: "Founder spot · {resto}",
-      titreGenerique: "Thank you!",
-      texte: "Thanks {prenom}! Your invoice was sent to {courriel}.",
-      texteGenerique: "If your payment went through, your invoice is in your inbox. Not sure? Call us at {tel}.",
+      metaTitre: "Got it | Resto Action",
+      titre: "Got it, {prenom}!",
+      titreSansPrenom: "Got it!",
+      etiquette: "The Big Winter Launch · {resto}",
+      etiquetteSansResto: "The Big Winter Launch",
+      texte: "We'll call you within 24 hours to set your date and sign your agreement.",
       suiteTitre: "What's next",
       suite: [
-        "We call you within 24 hours to discuss your restaurant and prepare the next steps.",
-        "Your mockup arrives by email within 48 hours.",
-        "We build your app with your menu, photos and colours.",
-        "After ordering and billing tests are validated, we confirm your launch date and installation with you.",
-        "When your app goes live, your subscription, three months of advertising and 90-day guarantee begin.",
+        "You send us your menu, your photos and your access: 5 days.",
+        "Your app is ready: 48 hours.",
+        "Your launch date: your printer plugged in within 10 minutes, and your one-hour private training, in person.",
+        "Your first 7 days: $300 of ads paid by us, our cards in your bags, and a text every evening with the day's orders.",
       ],
       suiviTitre: "Check in with Guillaume",
-      suiviTexte: "Choose a time to discuss your reservation, what to prepare and progress toward launch.",
+      suiviTexte: "You can pick a time to talk about your reservation, what to prepare and how the launch is coming along.",
       suiviBouton: "Choose my follow-up call",
       retour: "Back to home",
-      paye: "Paid today",
-      question: "Questions before then? Call us at",
+      question: "A question before then? Call us at",
     },
   },
 
@@ -599,18 +587,18 @@ export const EN: Textes = {
       fondateurs: [
         {
           nom: "Guillaume",
-          role: "Co-founder · sales and field",
+          role: "Co-founder · Sales and business development",
           alt: "Guillaume Therrien, co-founder of Resto Action",
           points: [
             { titre: "Your margins first.", texte: "Every dollar a platform takes from you, we want to give back." },
             { titre: "Happy customers who come back.", texte: "A satisfied customer orders again. That is what keeps a restaurant alive." },
             { titre: "Real people in the field.", texte: "We come to you, we speak French, and you have a real number to call." },
-            { titre: "Sales you wouldn't have had.", texte: "Google, texts, points: we go after new orders, not just the ones from Uber." },
+            { titre: "Sales you wouldn't have had.", texte: "Google, texts, points: we go after new orders, not just the ones from the platforms." },
           ],
         },
         {
           nom: "Xavier",
-          role: "Co-founder · technology",
+          role: "Co-founder · Technology, design and maintenance",
           alt: "Xavier Lida, co-founder of Resto Action",
           points: [
             { titre: "Everything optimized.", texte: "Every screen and every ordering step is built to be fast and to sell more." },
@@ -645,7 +633,7 @@ export const EN: Textes = {
     items: [
       {
         q: "What is Resto Action?",
-        a: "Your own web and mobile ordering app, under your name, for Quebec's independent restaurants. Built in Trois-Rivières. Your customers order from you instead of Uber Eats or DoorDash, and we handle the rest: your Google listing, text reminders that bring them back, and delivery by local drivers.",
+        a: "Your own web and mobile ordering app, under your name, for Quebec's independent restaurants. Built in Trois-Rivières. Your customers order from you instead of on the platforms, and we handle the rest: your Google listing, the text reminders that bring them back, and delivery with no drivers to manage.",
       },
       {
         q: "Is it a mobile app or a website?",
@@ -653,11 +641,11 @@ export const EN: Textes = {
       },
       {
         q: "Do you take a commission?",
-        a: "Yes, a small one: 5% on pickup and 10% on delivery, on food and drinks only. The platforms take up to 30%.",
+        a: "Yes, a small one: 5% on pickup and 10% on delivery, calculated on food and drinks only. The platforms take up to 30%.",
       },
       {
         q: "How much does it cost?",
-        a: "For founding restaurants: $500 setup instead of $1,000, $495 for equipment at installation (tablet, stand, counter sign and inserts), and a $200 monthly subscription starting when your app goes live. Plus 5% on pickup and 10% on delivery. Taxes extra. No subscription while you wait. The $300 of Facebook and Instagram ads is spent during the first three months after launch. The $500 is refundable on written request until your app goes live.",
+        a: "The setup fee is $750 for The Big Winter Launch, then $1,500. It's paid at signing; no deposit. Your printer is included at no cost. After that, a $200 monthly subscription from go-live, plus 5% + $0.30 on pickup and 10% + $3.51 per delivery (the run at cost), card fees included. Taxes extra.",
       },
       {
         q: "Why no discount?",
@@ -680,12 +668,8 @@ export const EN: Textes = {
         a: "No. We're preparing for launch with two restaurant partners. Ordering, point-of-sale compatibility and mandatory billing tests still need to be completed and validated before paid orders can open. Your reservation lets us prepare your app at the founder price. We'll confirm your restaurant's launch date with you after the necessary validations; no firm date is guaranteed yet.",
       },
       {
-        q: "What happens after I pay?",
-        a: "You reach a confirmation page with the next steps and a link to choose a follow-up call with Guillaume. We call you within 24 hours to check in; your mockup is scheduled by email within 48 hours. We prepare your menu, photos and colours with you. Installation and activation will be planned after testing is validated. No subscription is charged while you wait; you can request your $500 refund in writing until your app goes live.",
-      },
-      {
         q: "How do we start?",
-        a: `Reserve your founder spot online: 4 steps, 2 minutes, $500 refundable until your app goes live. We call you within 24 hours to prepare your app and discuss testing before confirming a launch date. Not ready? Call us at ${PHONE_DISPLAY} or book a quick call with Guillaume.`,
+        a: `Reserve your spot online for free: 4 steps, 2 minutes. We call you within 24 hours to set your date and sign your agreement. Not ready? Call us at ${PHONE_DISPLAY} or book a quick call with Guillaume.`,
       },
     ],
   },
@@ -781,7 +765,7 @@ export const EN: Textes = {
 
   donnees: {
     definition:
-      "Resto Action is the web and mobile ordering app for Quebec's independent restaurants: under your own name, without the platforms' 30%, with Google visibility, follow-ups that bring customers back, and delivery by local drivers.",
+      "Resto Action is the web and mobile ordering app for Quebec's independent restaurants: under your own name, without the platforms' 30%, with Google visibility, follow-ups that bring customers back, and delivery with no drivers to manage.",
     zoneServie: "Quebec, Canada",
   },
 };

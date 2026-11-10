@@ -3,6 +3,7 @@ import { ANGLAIS_ACTIF } from "@/lib/site";
 import { CLES, FONCTIONNALITES_EN, FONCTIONNALITES_FR } from "@/lib/contenu/fonctionnalites";
 import { PLATEFORME_EN, PLATEFORME_FR } from "@/lib/contenu/plateforme";
 import { ARTICLES, INDEX_EN, INDEX_FR } from "@/lib/contenu/blogue";
+import { PIECES_EN, PIECES_FR, piecesPretes } from "@/lib/contenu/pieces";
 
 /* LE REGISTRE DES PAGES BILINGUES — source unique des chemins du site.
 
@@ -69,7 +70,7 @@ export const CONTACT: Paire = {
   priorite: 0.8,
 };
 
-/* /reserver : là où mènent tous les boutons « Réserver ma place fondateur ».
+/* /reserver : là où mènent tous les boutons « Réserve ta place » (réservation gratuite).
    Une page de conversion qu'on veut trouvable, juste derrière /contact. Sa
    page de remerciement, elle, reste hors du plan (noindex). */
 export const RESERVATION: Paire = {
@@ -86,7 +87,7 @@ export const CONFIDENTIALITE: Paire = {
   priorite: 0.3,
 };
 
-/* Les conditions de la place fondateur, liées depuis la case à cocher de
+/* Les conditions du Grand Lancement, liées depuis la case à cocher de
    /reserver et depuis les courriels du dossier. */
 export const CONDITIONS: Paire = {
   fr: "/conditions-fondateur",
@@ -140,10 +141,21 @@ export const paireArticle = (cheminFr: string): Paire => {
   return paire;
 };
 
+/* La FAQ, le programme de références et les pages des pièces du Système. */
+export const FAQ_PAIRE: Paire = { fr: "/faq", en: "/en/faq", frequence: "monthly", priorite: 0.6 };
+export const REFERENCES_PAIRE: Paire = { fr: "/references", en: "/en/referrals", frequence: "monthly", priorite: 0.5 };
+export const PIECES_PAIRES: Paire[] = piecesPretes("fr").flatMap((p) => {
+  const cle = Object.keys(PIECES_FR).find((k) => PIECES_FR[k] === p);
+  return cle && PIECES_EN[cle] ? [{ fr: p.slug, en: PIECES_EN[cle].slug, frequence: "monthly" as const, priorite: 0.6 }] : [];
+});
+
 export const PAIRES: Paire[] = [
   ACCUEIL,
   PLATEFORME,
   ...FONCTIONNALITES,
+  ...PIECES_PAIRES,
+  FAQ_PAIRE,
+  REFERENCES_PAIRE,
   BLOGUE,
   ...ARTICLES_PAIRES,
   CONTACT,

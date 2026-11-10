@@ -17,5 +17,5 @@ export default async function Reserve({
 }) {
   const p = await searchParams;
   const resto = typeof p.resto === "string" ? p.resto.slice(0, 120) : "";
-  return <FormulaireFondateur t={EN} restoInitial={resto} annule={p.annule === "1"} />;
+  return <FormulaireFondateur t={EN} restoInitial={resto} />;
 }

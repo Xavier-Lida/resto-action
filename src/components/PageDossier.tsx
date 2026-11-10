@@ -1,18 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Check, Mail, Phone, RotateCcw } from "lucide-react";
+import { Check, Mail, Phone } from "lucide-react";
 import InfoLancement from "@/components/InfoLancement";
 import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
 import { lireDossier } from "@/lib/stripe";
 import type { Textes } from "@/lib/textes/fr";
 
-/* LE DOSSIER PRIVÉ D'UN RESTO FONDATEUR (/dossier/[session]).
+/* LE DOSSIER PRIVÉ D'UN RESTO (/dossier/[session]).
 
-   Le problème qu'elle règle : un resto qui paye 500 $ puis n'a plus de
-   nouvelles pendant les tests finit par demander son argent. Ici, il voit en
-   tout temps où en est son app, la prochaine date où on lui reparle, un mot
-   de l'équipe, et ses trois portes : envoyer son menu, appeler, se faire
-   rembourser.
+   Il s'ouvre après la signature du bon d'accord et le paiement de la mise en
+   service. Le resto y voit en tout temps où en est son app, la prochaine date
+   où on lui reparle, un mot de l'équipe, et ses deux portes : envoyer son
+   menu, appeler.
 
    Les étapes se mettent à jour dans Stripe (métadonnées du client, voir
    lireDossier dans src/lib/stripe.ts). Le lien est l'identifiant de la session
@@ -137,15 +136,7 @@ export default async function PageDossier({ t, session }: { t: Textes; session: 
                   <Phone className="size-4" aria-hidden="true" />
                   {d.appeler} · {PHONE_DISPLAY}
                 </a>
-                <a
-                  href={`mailto:${EMAIL}?subject=${sujet(d.sujetRemboursement)}`}
-                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold text-ink/60 transition hover:bg-bone hover:text-ink"
-                >
-                  <RotateCcw className="size-4" aria-hidden="true" />
-                  {d.rembourser}
-                </a>
               </div>
-              <p className="mt-3 text-xs text-ink/50">{d.rembourserNote}</p>
             </section>
 
             <InfoLancement t={t} compact />

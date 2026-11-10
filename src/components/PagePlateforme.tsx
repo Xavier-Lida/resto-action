@@ -1,6 +1,7 @@
 import { ArrowRight, Phone } from "lucide-react";
 import Link from "next/link";
 import BarreNav from "@/components/BarreNav";
+import CommentOnFait from "@/components/CommentOnFait";
 import Blocs from "@/components/Blocs";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import FilAriane from "@/components/FilAriane";
@@ -12,6 +13,7 @@ import { filArianne, noeudFaq, noeudService } from "@/lib/schema";
 import type { Plateforme } from "@/lib/contenu/plateforme";
 import type { Cle, Fonctionnalite } from "@/lib/contenu/fonctionnalites";
 import { CLES } from "@/lib/contenu/fonctionnalites";
+import { piecesPretes } from "@/lib/contenu/pieces";
 import type { Textes } from "@/lib/textes/fr";
 
 /* La page produit, partagée par les deux langues.
@@ -34,6 +36,12 @@ export default function PagePlateforme({
   fonctionnalites: Record<Cle, Fonctionnalite>;
 }) {
   const url = `${SITE_URL}${p.slug}`;
+  const francais = t.htmlLang.startsWith("fr");
+  // Les cartes : les quatre fonctionnalités, puis (en français) les pièces prêtes.
+  const cartes = [
+    ...CLES.map((cle) => fonctionnalites[cle]),
+    ...(francais ? piecesPretes() : []),
+  ];
   const accueil = t.racine || "/";
 
   const fil = [
@@ -74,7 +82,10 @@ export default function PagePlateforme({
     <>
       <BarreNav t={t} />
       <main className="flex-1" lang={t.htmlLang}>
-        {/* L'en-tête, sur le rouge de la maison. */}
+        {/* En français : la page « comment on fait », à la Owner. L'anglais
+            (en pause) garde l'ancien en-tête rouge. */}
+        {francais && <CommentOnFait fil={fil} />}
+        {!francais && (
         <section className="bg-white p-3 md:p-5 lg:p-6">
           <div className="rounded-[2rem] bg-hero px-5 py-16 text-white md:py-20 lg:rounded-[3rem] lg:px-10">
             <div className="mx-auto max-w-4xl">
@@ -93,6 +104,7 @@ export default function PagePlateforme({
             </div>
           </div>
         </section>
+        )}
 
         {/* Le corps du texte. */}
         <section className="bg-white">
@@ -113,11 +125,10 @@ export default function PagePlateforme({
               <p className="mt-3 text-ink/70">{p.cartes.texte}</p>
             </Reveal>
 
-            <ul className="mt-10 grid list-none gap-5 md:grid-cols-2">
-              {CLES.map((cle, i) => {
-                const f = fonctionnalites[cle];
+            <ul className="mt-10 grid list-none gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {cartes.map((f, i) => {
                 return (
-                  <li key={cle}>
+                  <li key={f.slug}>
                     <Reveal delay={(i % 2) as 0 | 1}>
                       <Link
                         href={f.slug}

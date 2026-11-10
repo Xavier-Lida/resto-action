@@ -3,7 +3,8 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, Lock, Mail, ShieldCheck } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, ArrowRight, Check, Mail, ShieldCheck } from "lucide-react";
 import BarrePlaces from "@/components/BarrePlaces";
 import LienPasPret from "@/components/LienPasPret";
 import ModalePasPret from "@/components/ModalePasPret";
@@ -14,7 +15,7 @@ import { lireProvenance } from "@/lib/provenance";
 import { PHONE_DISPLAY } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
 
-/* LA RÉSERVATION FONDATEUR, EN 4 ÉTAPES, À LA RELAY.
+/* LA RÉSERVATION GRATUITE, EN 4 ÉTAPES, À LA RELAY.
 
    À gauche, une étape à la fois : ton resto → ton app → l'offre → la
    réservation. À droite, la VRAIE app qu'on a bâtie pour Bistro Habibi : on
@@ -26,16 +27,14 @@ import type { Textes } from "@/lib/textes/fr";
    prévenu (action « prospect ») : un resto qui décroche à l'étape 3 reste un
    lead chaud à rappeler, et sa ville dit où recruter des livreurs.
 
-   LE PAIEMENT SE FAIT CHEZ STRIPE. L'étape 4 demande une session Checkout à
-   /api/fondateur et y envoie le navigateur. Le montant est fixé côté serveur.
+   PLUS DE PAIEMENT (6 nov. 2026). L'étape 4 envoie la réservation à
+   /api/fondateur (action « reservation »), qui la pose au CRM, puis mène à la
+   page de merci. La mise en service se paie à la signature du bon d'accord.
+   Le prénom et le nom du resto passent à la page de merci par sessionStorage,
+   jamais dans l'adresse. */
 
-   Les taxes affichées ici ne sont qu'un aperçu : c'est Stripe qui calcule
-   celles qu'il facture, avec les taux TPS et TVQ configurés chez lui. */
-
-const PRIX = 500;
-const TPS = 0.05;
-const TVQ = 0.09975;
-const arrondir = (n: number) => Math.round(n * 100) / 100;
+/** La clé partagée avec PageMerciFondateur. */
+export const CLE_MERCI = "ra-reservation";
 
 type Champs = {
   restaurant: string;
@@ -48,13 +47,12 @@ type Champs = {
 export default function FormulaireFondateur({
   t,
   restoInitial,
-  annule,
 }: {
   t: Textes;
   restoInitial: string;
-  annule: boolean;
 }) {
   const r = t.reservation;
+  const router = useRouter();
   const [etape, setEtape] = useState(0);
   const [champs, setChamps] = useState<Champs>({
     restaurant: restoInitial,
@@ -68,9 +66,11 @@ export default function FormulaireFondateur({
   const [plateformes, setPlateformes] = useState<string[]>([]);
   const [commandes, setCommandes] = useState("");
   const [accord, setAccord] = useState(false);
+  // Non cochée par défaut : le consentement aux textos doit être un geste.
+  const [textos, setTextos] = useState(false);
   const [piege, setPiege] = useState("");
   const [envoi, setEnvoi] = useState(false);
-  const [erreur, setErreur] = useState<string | null>(annule ? r.paiement.annule : null);
+  const [erreur, setErreur] = useState<string | null>(null);
 
   // On remonte en haut à chaque étape : sur un téléphone, la suivante
   // commencerait sinon au milieu de l'écran.
@@ -79,13 +79,8 @@ export default function FormulaireFondateur({
   }, [etape]);
 
   const langue = t.htmlLang.startsWith("en") ? "en" : "fr";
-  const argent = (n: number) =>
-    new Intl.NumberFormat(t.htmlLang, { style: "currency", currency: "CAD" }).format(n);
-  const tps = arrondir(PRIX * TPS);
-  const tvq = arrondir(PRIX * TVQ);
-  const total = arrondir(PRIX + tps + tvq);
   const messageErreur = (code: string) =>
-    (r.erreurs[code as keyof typeof r.erreurs] ?? r.erreurs.stripe).replace("{tel}", PHONE_DISPLAY);
+    (r.erreurs[code as keyof typeof r.erreurs] ?? r.erreurs.autre).replace("{tel}", PHONE_DISPLAY);
 
   const base = () => ({
     ...champs,
@@ -124,7 +119,7 @@ export default function FormulaireFondateur({
     setEtape((e) => Math.min(e + 1, 3));
   }
 
-  async function payer() {
+  async function reserver() {
     setErreur(null);
     setEnvoi(true);
     try {
@@ -132,23 +127,32 @@ export default function FormulaireFondateur({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          action: "paiement",
+          action: "reservation",
           ...base(),
           menu,
           service,
           plateformes,
           commandes,
           accord,
+          textos,
         }),
       });
-      const donnees = (await reponse.json()) as { url?: string; erreur?: string };
-      if (donnees.url) {
-        window.location.assign(donnees.url);
+      const donnees = (await reponse.json()) as { ok?: boolean; erreur?: string };
+      if (reponse.ok && donnees.ok) {
+        try {
+          sessionStorage.setItem(
+            CLE_MERCI,
+            JSON.stringify({ prenom: champs.nom.trim().split(/\s+/)[0] ?? "", resto: champs.restaurant.trim() }),
+          );
+        } catch {
+          // Navigation privée : la page de merci s'affiche sans le prénom.
+        }
+        router.push(`${t.racine === "/en" ? "/en/reserve/thanks" : "/reserver/merci"}`);
         return;
       }
-      setErreur(messageErreur(donnees.erreur ?? "stripe"));
+      setErreur(messageErreur(donnees.erreur ?? "autre"));
     } catch {
-      setErreur(messageErreur("stripe"));
+      setErreur(messageErreur("autre"));
     }
     setEnvoi(false);
   }
@@ -200,7 +204,7 @@ export default function FormulaireFondateur({
             onSubmit={(e) => {
               e.preventDefault();
               if (etape < 3) void suivant();
-              else void payer();
+              else void reserver();
             }}
             className="relative mt-8 flex flex-1 flex-col"
             noValidate
@@ -397,20 +401,21 @@ export default function FormulaireFondateur({
                       {champs.ville} · {champs.nom} · {champs.courriel}
                     </p>
                     <dl className="mt-5 grid gap-2 border-t border-ink/10 pt-4 text-sm">
-                      <Ligne nom={r.paiement.ligne} valeur={argent(PRIX)} />
-                      <Ligne nom={r.paiement.tps} valeur={argent(tps)} />
-                      <Ligne nom={r.paiement.tvq} valeur={argent(tvq)} />
-                      <div className="mt-2 flex items-baseline justify-between border-t border-ink/10 pt-3">
-                        <dt className="font-black">{r.paiement.total}</dt>
-                        <dd className="font-display text-2xl font-black">{argent(total)}</dd>
+                      <div className="flex items-baseline justify-between">
+                        <dt className="font-black">{r.paiement.ligne}</dt>
+                        <dd className="font-display text-2xl font-black">{r.paiement.gratuit}</dd>
                       </div>
                     </dl>
                   </div>
-                  <p className="mt-4 flex items-center gap-2 text-sm text-ink/60">
-                    <Lock className="size-4 shrink-0" aria-hidden="true" />
-                    {r.paiement.securite}
-                  </p>
-                  <p className="mt-1 text-sm font-bold text-ink/70">{t.hero.condition}</p>
+                  <label className="mt-5 flex cursor-pointer gap-3 rounded-2xl border-2 border-ink/10 bg-white p-4 transition-colors has-[:checked]:border-brand">
+                    <input
+                      type="checkbox"
+                      checked={textos}
+                      onChange={(e) => setTextos(e.target.checked)}
+                      className="mt-0.5 size-5 shrink-0 accent-[var(--color-brand)]"
+                    />
+                    <span className="text-sm font-bold leading-relaxed">{r.paiement.textos}</span>
+                  </label>
                 </Etape>
               )}
             </div>
@@ -456,7 +461,7 @@ export default function FormulaireFondateur({
                   ? r.suivant
                   : envoi
                     ? r.paiement.envoi
-                    : r.paiement.bouton.replace("{total}", argent(total))}
+                    : r.paiement.bouton}
                 <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </button>
             </div>
@@ -537,7 +542,7 @@ function Pastille({
         actif ? "border-brand bg-white text-ink" : "border-transparent bg-white/70 text-ink/70 hover:bg-white"
       }`}
     >
-      {actif && <Check className="size-4 text-brand" aria-hidden="true" />}
+      {actif && <Check className="size-4 text-ciel" aria-hidden="true" />}
       {children}
     </button>
   );
@@ -573,14 +578,5 @@ function Champ({
         className="mt-1.5 w-full rounded-2xl border-2 border-transparent bg-white px-4 py-3.5 text-base outline-none transition-colors placeholder:text-ink/35 focus:border-brand"
       />
     </label>
-  );
-}
-
-function Ligne({ nom, valeur }: { nom: string; valeur: string }) {
-  return (
-    <div className="flex items-baseline justify-between">
-      <dt className="text-ink/70">{nom}</dt>
-      <dd className="font-bold">{valeur}</dd>
-    </div>
   );
 }

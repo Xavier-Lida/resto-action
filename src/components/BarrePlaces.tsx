@@ -1,4 +1,4 @@
-/* « 10 places fondateurs par ville · 500 $ au lieu de 1 000 $ ».
+/* « 16 restos par mois, pas plus · Prochaine cohorte : janvier 2027 ».
 
    C'était une barre « Il reste X places dans ta ville » : le site ne connaît pas
    la ville du visiteur, le chiffre était tenu à la main et faux pour presque
@@ -15,9 +15,9 @@ export default function BarrePlaces({
   aligne = "centre",
   className = "",
 }: {
-  /** La limite, ex. « 10 places fondateurs par ville ». */
+  /** La limite, ex. « 16 restos par mois, pas plus ». */
   modele: string;
-  /** Le prix fondateur, ex. « 500 $ au lieu de 1 000 $ ». */
+  /** La ligne d'à côté, ex. « Prochaine cohorte : janvier 2027 ». */
   prix?: string;
   ton?: "clair" | "sombre";
   aligne?: "centre" | "gauche";

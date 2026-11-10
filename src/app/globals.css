@@ -8,6 +8,10 @@
   --color-hero: #c74238;
   --color-ink: #191919;
   --color-bone: #f1f1ef;
+  /* LA COUCHE CYAN : l'accent qui fait ressortir (l'IA, les mots clés, les
+     surlignés). À doser : le rouge reste la couleur de la maison. */
+  --color-ciel: #19d3f0;
+  --color-ciel-fonce: #0b5fd6;
   /* Variable DISTINCTE et non auto-référencée, contrairement à --font-script
      juste en dessous : ce motif-là ne tient que par un hasard de portée. */
   --font-sans: var(--font-manrope), Helvetica, Arial, sans-serif;
@@ -1515,6 +1519,89 @@ img {
   .sys-compte { display: inline-block; animation: sys-compte 0.6s ease-out both; }
 }
 
+/* Le surligné cyan qui se dessine de gauche à droite. */
+@keyframes surligne { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.surligne { transform-origin: left; }
+@media (prefers-reduced-motion: no-preference) {
+  .surligne { animation: surligne 0.7s var(--res-glisse) 0.9s both; }
+}
+
+/* L'APERÇU DU CALCULATEUR : la ligne qui balaie le relevé, les chiffres qui sortent. */
+@keyframes calc-balaye { 0% { transform: translateY(-100%); } 100% { transform: translateY(520%); } }
+@keyframes calc-apparait { 0%, 20% { opacity: 0; transform: translateY(10px); } 35%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .calc-balaye { animation: calc-balaye 2.4s ease-in-out infinite; }
+  .calc-apparait { animation: calc-apparait 6s ease-out infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .calc-balaye { display: none; }
+}
+
+/* LES ICÔNES DES GARANTIES (IconeGarantie.tsx). */
+@keyframes gar-aiguille { to { transform: rotate(360deg); } }
+@keyframes gar-billet { 0%, 15% { transform: translateY(10px); } 55%, 85% { transform: translateY(-4px); } 100% { transform: translateY(10px); } }
+@keyframes gar-led { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+@keyframes gar-piece { 0% { transform: translateY(-14px); opacity: 0; } 30% { opacity: 1; } 55%, 85% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(0); opacity: 0; } }
+@keyframes gar-crochet { 0%, 50% { stroke-dashoffset: 20; } 70%, 100% { stroke-dashoffset: 0; } }
+@keyframes gar-boomerang { 0% { transform: translate(0, 0); } 45% { transform: translate(26px, -6px); } 55% { transform: translate(28px, -4px); } 100% { transform: translate(0, 0); } }
+.gar-aiguille { transform-origin: 24px 26px; transform-box: view-box; }
+.gar-crochet { stroke-dasharray: 20; }
+@media (prefers-reduced-motion: no-preference) {
+  .gar-aiguille { animation: gar-aiguille 3s linear infinite; }
+  .gar-billet { animation: gar-billet 2.6s ease-in-out infinite; }
+  .gar-led { animation: gar-led 1.3s ease-in-out infinite; }
+  .gar-piece { animation: gar-piece 2.6s ease-in-out infinite; }
+  .gar-crochet { animation: gar-crochet 2.6s ease-out infinite; }
+  .gar-boomerang { animation: gar-boomerang 2.8s cubic-bezier(0.45, 0, 0.35, 1) infinite; }
+}
+
 @media print {
   .no-print { display: none !important; }
+}
+
+/* Le score du resto : l'arc se remplit et l'aiguille monte, avec un petit
+   dépassement, comme une vraie jauge. */
+@keyframes score-remplit {
+  from {
+    stroke-dashoffset: var(--score-depart);
+  }
+}
+@keyframes score-aiguille {
+  0% {
+    transform: rotate(0deg);
+  }
+  70% {
+    transform: rotate(calc(var(--score-angle, 60deg) + 6deg));
+  }
+}
+.score-arc {
+  animation: score-remplit 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+.score-aiguille {
+  animation: score-aiguille 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .score-arc,
+  .score-aiguille {
+    animation: none;
+  }
+}
+
+/* Le Système, couche par couche : le texte de la couche entre en douceur. */
+@keyframes couche-entre {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.couche-entre {
+  animation: couche-entre 0.45s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .couche-entre {
+    animation: none;
+  }
+  .plaque {
+    transition: none !important;
+  }
 }

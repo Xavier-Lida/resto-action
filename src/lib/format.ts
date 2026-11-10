@@ -42,3 +42,31 @@ export function pourcent(p: number, decimales = 0): string {
 export function entier(n: number): string {
   return new Intl.NumberFormat("fr-CA", { maximumFractionDigits: 0 }).format(n);
 }
+
+/* LES MÊMES AIDES, EN ANGLAIS. formats(langue) donne la typographie et les
+   montants de la bonne langue : « 1 335 $ » en français, « $1,335 » en
+   anglais. La typographie anglaise ne touche à rien. */
+export type LangueFormat = "fr" | "en";
+
+function argentEn(n: number, decimales = 0): string {
+  const s = new Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: "CAD",
+    currencyDisplay: "narrowSymbol",
+    minimumFractionDigits: decimales,
+    maximumFractionDigits: decimales,
+  }).format(Math.abs(n));
+  return n < 0 ? `−${s}` : s;
+}
+
+export function formats(langue: LangueFormat = "fr") {
+  if (langue === "fr") return { typo: fr, argent, argentSigne, pourcent, entier };
+  return {
+    typo: (s: string) => s,
+    argent: argentEn,
+    argentSigne: (n: number, d = 0) => (n > 0 ? `+${argentEn(n, d)}` : argentEn(n, d)),
+    pourcent: (p: number, d = 0) =>
+      new Intl.NumberFormat("en-CA", { style: "percent", minimumFractionDigits: d, maximumFractionDigits: d }).format(p),
+    entier: (n: number) => new Intl.NumberFormat("en-CA", { maximumFractionDigits: 0 }).format(n),
+  };
+}

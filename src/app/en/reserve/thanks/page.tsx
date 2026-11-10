@@ -7,11 +7,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function Thanks({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const { session } = await searchParams;
-  return <PageMerciFondateur t={EN} session={typeof session === "string" ? session : undefined} />;
+export default function Thanks() {
+  return <PageMerciFondateur t={EN} />;
 }

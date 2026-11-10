@@ -53,7 +53,7 @@ export const PLATEFORME_FR = {
     {
       t: "p",
       texte:
-        "**Ta caisse ne change pas.** Tu gardes le système que ton monde connaît, avec les habitudes qui vont avec. Les commandes en ligne arrivent sans que personne ait à réapprendre son métier un mardi soir de rush.",
+        "**Ta caisse ne change pas.** Tu gardes le système que ton monde connaît, avec les habitudes qui vont avec. Les commandes en ligne arrivent sans que personne ait à réapprendre son métier en plein service.",
     },
     {
       t: "p",
@@ -77,7 +77,12 @@ export const PLATEFORME_FR = {
       t: "tableau",
       entetes: ["", "Par une app de livraison", "Sur ta plateforme"],
       lignes: [
-        ["Commission par commande", "Jusqu'à 30 %", "5 % en cueillette, 10 % en livraison"],
+        [
+          "Commission par commande",
+          "Jusqu'à 30 %",
+          "5 % + 0,30 $ en cueillette, 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus",
+        ],
+        ["Abonnement", "Selon ton forfait", "Abonnement : 200 $ par mois"],
         ["Le client", "Appartient à l'application", "Est le tien"],
         ["Son courriel, son historique", "Tu ne les as pas", "Dans tes données"],
         [
@@ -100,7 +105,7 @@ export const PLATEFORME_FR = {
       items: [
         "**On t'écoute.** Un court appel, tu nous racontes ton resto : ce qui roule, ce qui accroche, ce que tu paies déjà.",
         "**On creuse avec toi.** On regarde tes chiffres, tes commissions, ta présence dans Google. On te dit ce qu'on voit, même quand c'est que le problème est ailleurs.",
-        "**On règle le problème.** On met en place ce qui manque, dans l'ordre qui te rapporte le plus vite. Pas les quatre morceaux d'un coup si un seul suffit.",
+        "**On règle le problème.** On met tout en place, dans l'ordre qui te rapporte le plus vite.",
       ],
     },
 
@@ -126,8 +131,8 @@ export const PLATEFORME_FR = {
      celui des onglets de la section Résultats de l'accueil : c'est la même
      promesse, dite deux fois, et deux ordres différents la brouilleraient. */
   cartes: {
-    titre: "Les quatre morceaux",
-    texte: "Chacun a sa page : ce qu'il règle, comment il marche, et ce qu'il ne fait pas.",
+    titre: "Toutes les pièces du Système",
+    texte: "Chacune a sa page : ce qu'elle règle, comment elle marche, et ce qu'elle ne fait pas.",
     lire: "Lire la suite",
   },
 
@@ -136,7 +141,7 @@ export const PLATEFORME_FR = {
     items: [
       {
         q: "Est-ce que je dois tout prendre?",
-        a: "Non. Bien des restos commencent par un seul morceau (souvent la visibilité dans Google ou les commandes en ligne) et ajoutent le reste quand ça rapporte. On te dira lequel vient en premier chez toi.",
+        a: "Oui, et c'est voulu : tout est compris dans le même prix, parce que les morceaux se nourrissent.",
       },
       {
         q: "Est-ce que je dois changer ma caisse?",
@@ -148,7 +153,7 @@ export const PLATEFORME_FR = {
       },
       {
         q: "Ça prend combien de temps avant de voir des résultats?",
-        a: "Nous préparons le lancement avec deux restaurants partenaires. Les tests de commande et de facturation restent à terminer et à valider. Ta date de mise en service sera confirmée après les validations nécessaires; aucun abonnement ne commence pendant l'attente. La visibilité dans Google, elle, se bâtit sur quelques mois.",
+        a: "Ta date de lancement est fixée à la signature, dans la cohorte de janvier 2027. Si tu n'es pas en ligne à ta date, ton premier mois est gratuit (48 h top chrono). La visibilité dans Google, elle, se bâtit sur quelques mois.",
       },
       {
         q: "Vous travaillez avec quels restos?",
@@ -197,7 +202,7 @@ export const PLATEFORME_EN: Plateforme = {
     {
       t: "p",
       texte:
-        "**Your point of sale doesn't change.** You keep the system your staff knows, with the habits that come with it. Online orders come in without anyone having to relearn their job on a busy Tuesday night.",
+        "**Your point of sale doesn't change.** You keep the system your staff knows, with the habits that come with it. Online orders come in without anyone having to relearn their job in the middle of service.",
     },
     {
       t: "p",
@@ -221,7 +226,12 @@ export const PLATEFORME_EN: Plateforme = {
       t: "tableau",
       entetes: ["", "Through a delivery app", "On your platform"],
       lignes: [
-        ["Commission per order", "Up to 30%", "5% pickup, 10% delivery"],
+        [
+          "Commission per order",
+          "Up to 30%",
+          "5% + $0.30 on pickup, 10% + $3.51 per delivery (the run at cost), card fees included",
+        ],
+        ["Subscription", "Depends on your plan", "Subscription: $200 per month"],
         ["The customer", "Belongs to the app", "Is yours"],
         ["Their email, their history", "You don't have them", "In your data"],
         ["Your prices", "Often inflated to absorb the commission", "Yours, as they are"],
@@ -240,7 +250,7 @@ export const PLATEFORME_EN: Plateforme = {
       items: [
         "**We listen.** A quick call, you tell us about your restaurant: what runs, what sticks, what you're already paying for.",
         "**We dig in with you.** We look at your numbers, your commissions, your presence on Google. We tell you what we see, even when what we see is that the problem is somewhere else.",
-        "**We fix the problem.** We put in what's missing, in the order that pays you back fastest. Not all four pieces at once if one is enough.",
+        "**We fix the problem.** We set everything up, in the order that pays you back fastest.",
       ],
     },
 
@@ -263,7 +273,7 @@ export const PLATEFORME_EN: Plateforme = {
   ] as Bloc[],
 
   cartes: {
-    titre: "The four pieces",
+    titre: "Every piece of the System",
     texte: "Each has its own page: what it fixes, how it works, and what it doesn't do.",
     lire: "Read more",
   },
@@ -273,7 +283,7 @@ export const PLATEFORME_EN: Plateforme = {
     items: [
       {
         q: "Do I have to take all of it?",
-        a: "No. Plenty of restaurants start with a single piece (usually Google visibility or online ordering) and add the rest once it pays off. We'll tell you which one comes first for you.",
+        a: "Yes, and that's on purpose: it's all included in the same price, because the pieces feed each other.",
       },
       {
         q: "Do I have to change my point of sale?",
@@ -285,7 +295,7 @@ export const PLATEFORME_EN: Plateforme = {
       },
       {
         q: "How long before I see results?",
-        a: "We're preparing for launch with two restaurant partners. Ordering and billing tests still need to be completed and validated. Your launch date will be confirmed after the necessary validations; no subscription starts while you wait. Google visibility builds over a few months.",
+        a: "Your launch date is set at signing, in the January 2027 cohort. If you're not live by your date, your first month is free (48 Hours Flat). Google visibility, on the other hand, builds over a few months.",
       },
       {
         q: "What restaurants do you work with?",

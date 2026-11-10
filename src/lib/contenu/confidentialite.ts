@@ -14,7 +14,7 @@ import { CITY } from "@/lib/site";
 
    La date est ISO et non écrite en toutes lettres : la page la formate dans sa
    propre langue, comme le pied de page fait pour MISE_A_JOUR. */
-export const POLITIQUE_MAJ = "2026-10-08";
+export const POLITIQUE_MAJ = "2026-11-07";
 
 export const CONFIDENTIALITE_FR = {
   metaTitre: "Politique de confidentialité",
@@ -28,7 +28,7 @@ export const CONFIDENTIALITE_FR = {
   recueillis: {
     titre: "Renseignements recueillis",
     texte:
-      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site ne dépose des témoins (cookies) de mesure d'audience que si vous l'acceptez, comme décrit juste en dessous. Vous nous donnez des renseignements personnels à trois endroits seulement : la prise de rendez-vous, la demande de maquette et la réservation d'une place fondateur, décrites dans les sections suivantes. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
+      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site ne dépose des témoins (cookies) de mesure d'audience que si vous l'acceptez, comme décrit juste en dessous. Vous nous donnez des renseignements personnels à quatre endroits seulement : la prise de rendez-vous, la demande de maquette, la réservation de votre place et le calculateur, décrits dans les sections suivantes. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
   },
 
   /* Suit src/app/api/agenda/route.ts et src/lib/crm.ts : ce qui est demandé au
@@ -45,9 +45,16 @@ export const CONFIDENTIALITE_FR = {
      formulaires gagne un champ, ou si le paiement quitte Stripe, ce
      paragraphe devient faux. */
   fondateur: {
-    titre: "Quand vous demandez une maquette ou réservez une place fondateur",
+    titre: "Quand vous demandez une maquette ou réservez votre place",
     texte:
-      "Pour une maquette gratuite, on vous demande le nom de votre restaurant, votre nom, votre courriel, votre cellulaire, votre ville et, si vous le voulez, le lien de votre menu. Pour réserver une place fondateur, on demande les mêmes coordonnées, puis le lien de votre menu, le service que vous offrez (livraison ou cueillette), les plateformes que vous utilisez et votre volume de commandes. Ces renseignements servent à préparer votre maquette ou votre app et à vous joindre. Ils sont inscrits dans notre agenda (Google Agenda) et dans notre outil de suivi des clients décrit plus haut, avec le lien par lequel vous êtes arrivé sur le site. Le paiement est traité par Stripe : votre numéro de carte va directement chez eux, on ne le voit jamais. Stripe nous transmet votre nom, votre courriel, votre adresse de facturation et le montant payé, et conserve les données de paiement selon sa propre politique. Les factures et les reçus sont gardés aussi longtemps que la loi fiscale l'exige ; le reste est supprimé sur simple demande.",
+      "Pour une maquette gratuite, on vous demande le nom de votre restaurant, votre nom, votre courriel, votre cellulaire, votre ville et, si vous le voulez, le lien de votre menu. Pour réserver votre place (c'est gratuit), on demande les mêmes coordonnées, puis le lien de votre menu, le service que vous offrez (livraison ou cueillette), les plateformes que vous utilisez et votre volume de commandes. Si vous cochez la case des textos, on peut vous écrire par texto au sujet de votre lancement; vous pouvez vous désabonner en tout temps. Ces renseignements servent à préparer votre maquette ou votre app et à vous joindre. Ils sont inscrits dans notre agenda (Google Agenda), dans notre courriel et dans notre outil de suivi des clients décrit plus haut, avec le lien par lequel vous êtes arrivé sur le site. La mise en service, payée à la signature de votre bon d'accord, est traitée par Stripe : votre numéro de carte va directement chez eux, on ne le voit jamais. Stripe nous transmet votre nom, votre courriel, votre adresse de facturation et le montant payé, et conserve les données de paiement selon sa propre politique. Les factures et les reçus sont gardés aussi longtemps que la loi fiscale l'exige ; le reste est supprimé sur simple demande. [À valider par l'avocat]",
+  },
+
+  /* Suit src/app/api/releve/route.ts et src/app/api/dossier/route.ts. */
+  calculateur: {
+    titre: "Quand vous utilisez le calculateur",
+    texte:
+      "Le calculateur lit le relevé de plateforme que vous téléversez. Avec votre consentement, ce relevé est analysé par l'intelligence artificielle d'Anthropic, hors du Québec. Le fichier est supprimé dès l'analyse terminée. Les chiffres extraits (ventes, commissions, taux) sont gardés dans notre outil de suivi des clients, pour vous recontacter et préparer votre estimation. Ils ne sont jamais vendus ni donnés à qui que ce soit, et on les supprime sur simple demande. [À valider par l'avocat]",
   },
 
   statistiques: {
@@ -105,7 +112,7 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   recueillis: {
     titre: "Information we collect",
     texte:
-      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies only if you accept them, as described just below. You give us personal information in three places only: booking a call, requesting a mockup, and reserving a founder spot, described in the following sections. If you call or write to us, we use your contact details for one thing only: getting back to you.",
+      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies only if you accept them, as described just below. You give us personal information in four places only: booking a call, requesting a mockup, reserving your spot and the calculator, described in the following sections. If you call or write to us, we use your contact details for one thing only: getting back to you.",
   },
 
   rendezVous: {
@@ -115,9 +122,15 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   },
 
   fondateur: {
-    titre: "When you request a mockup or reserve a founder spot",
+    titre: "When you request a mockup or reserve your spot",
     texte:
-      "For a free mockup, we ask for your restaurant's name, your name, email, cell number, city and, if you like, a link to your menu. To reserve a founder spot, we ask for the same contact details, then a link to your menu, the service you offer (delivery or pickup), the platforms you use and your order volume. That information is used to prepare your mockup or your app and to reach you. It is recorded in our calendar (Google Calendar) and in the client follow-up tool described above, along with the link that brought you to the site. Payment is processed by Stripe: your card number goes straight to them and we never see it. Stripe sends us your name, email, billing address and the amount paid, and keeps payment data under its own policy. Invoices and receipts are kept as long as tax law requires; everything else is deleted on request.",
+      "For a free mockup, we ask for your restaurant's name, your name, email, cell number, city and, if you like, a link to your menu. To reserve your spot (it's free), we ask for the same contact details, then a link to your menu, the service you offer (delivery or pickup), the platforms you use and your order volume. If you check the text message box, we may text you about your launch; you can unsubscribe at any time. That information is used to prepare your mockup or your app and to reach you. It is recorded in our calendar (Google Calendar), in our email and in the client follow-up tool described above, along with the link that brought you to the site. The setup fee, paid when you sign your agreement, is processed by Stripe: your card number goes straight to them and we never see it. Stripe sends us your name, email, billing address and the amount paid, and keeps payment data under its own policy. Invoices and receipts are kept as long as tax law requires; everything else is deleted on request. [To be validated by the lawyer]",
+  },
+
+  calculateur: {
+    titre: "When you use the calculator",
+    texte:
+      "The calculator reads the platform statement you upload. With your consent, it is analysed by Anthropic's artificial intelligence, outside Quebec. The file is deleted as soon as the analysis is done. The extracted figures (sales, commissions, rates) are kept in our client follow-up tool to contact you and prepare your estimate. They are never sold or given to anyone, and are deleted on request. [To be validated by the lawyer]",
   },
 
   statistiques: {

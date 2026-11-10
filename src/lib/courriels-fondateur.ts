@@ -3,11 +3,13 @@ import { EN } from "@/lib/textes/en";
 import { PHONE_DISPLAY, SITE_URL } from "@/lib/site";
 import type { Courriel } from "@/lib/google/courriel";
 
-/* LES DEUX COURRIELS DU DOSSIER FONDATEUR.
+/* LES COURRIELS DU GRAND LANCEMENT.
 
-   1. Bienvenue : envoyé par le webhook Stripe dès que la place est payée. Il
-      porte le lien du dossier privé, pour que le resto ne dépende pas de la
-      page de merci (qu'il peut fermer avant de la lire).
+   0. Réservation : envoyé par /api/fondateur quand un resto réserve sa place
+      (gratuit). Une copie détaillée part aussi à l'équipe, au cas où le CRM
+      ne l'aurait pas reçue.
+   1. Bienvenue : envoyé par le webhook Stripe quand la mise en service est
+      payée, à la signature. Il porte le lien du dossier privé.
    2. Avancement : envoyé quand on modifie les métadonnées du client dans
       Stripe (etape, prochain_point, date_lancement ou message). Le webhook
       reçoit customer.updated et prévient le resto, sans autre geste.
@@ -20,8 +22,8 @@ export type Langue = "fr" | "en";
 export const lienDossier = (session: string, langue: Langue) =>
   `${SITE_URL}${langue === "en" ? "/en/status" : "/dossier"}/${session}`;
 
-export const lienConditions = (langue: Langue) =>
-  `${SITE_URL}${langue === "en" ? "/en/founder-terms" : "/conditions-fondateur"}`;
+// L'anglais est en pause : les conditions sont en français pour tout le monde.
+export const LIEN_CONDITIONS = `${SITE_URL}/conditions-fondateur`;
 
 const prenomDe = (nom: string) => nom.trim().split(/\s+/)[0] ?? "";
 
@@ -43,46 +45,148 @@ const bouton = (href: string, libelle: string) =>
 
 const para = (t: string) => `<p style="margin:0 0 14px;">${echapper(t)}</p>`;
 
-/* ─── 1. Bienvenue ─── */
+/* ─── 0. Réservation (gratuite) ─── */
+
+const RESERVATION = {
+  fr: {
+    sujet: "C'est noté : {resto}",
+    salut: "Salut {prenom},",
+    ouverture: "On a bien reçu ta réservation pour {resto} dans le Grand Lancement d'hiver. C'est gratuit.",
+    appel: "On t'appelle dans les 24 h pour fixer ta date et signer ton bon d'accord.",
+    suiteTitre: "La suite",
+    suite: FR.reservation.merci.suite,
+    prix: "La mise en service de 750 $ se paie à la signature. Pas de dépôt.",
+    conditions: "Les conditions :",
+    question: "Une question? Réponds à ce courriel ou appelle-moi au {tel}.",
+  },
+  en: {
+    sujet: "Got it: {resto}",
+    salut: "Hi {prenom},",
+    ouverture: "We received your reservation for {resto} in the Winter Launch. It's free.",
+    appel: "We'll call you within 24 hours to set your date and sign your agreement.",
+    suiteTitre: "What's next",
+    suite: EN.reservation.merci.suite,
+    prix: "The $750 setup is paid at signing. No deposit.",
+    conditions: "The terms:",
+    question: "A question? Reply to this email or call me at {tel}.",
+  },
+};
+
+export function courrielReservation(d: { a: string; nom: string; restaurant: string; langue: Langue }): Courriel {
+  const r = RESERVATION[d.langue];
+  const remplir = (v: string) =>
+    v.replace("{resto}", d.restaurant).replace("{prenom}", prenomDe(d.nom)).replace("{tel}", PHONE_DISPLAY);
+  const conditions = LIEN_CONDITIONS;
+
+  const texte = [
+    remplir(r.salut),
+    "",
+    remplir(r.ouverture),
+    r.appel,
+    "",
+    `${r.suiteTitre} :`,
+    ...r.suite.map((l, i) => `${i + 1}. ${l}`),
+    "",
+    r.prix,
+    `${r.conditions} ${conditions}`,
+    "",
+    remplir(r.question),
+    "",
+    "Guillaume",
+    "Resto Action",
+  ].join("\n");
+
+  const html = enveloppe(
+    [
+      para(remplir(r.salut)),
+      para(remplir(r.ouverture)),
+      para(r.appel),
+      `<p style="margin:18px 0 6px;font-weight:900;">${echapper(r.suiteTitre)}</p>`,
+      `<ol style="margin:0 0 14px;padding-left:20px;">${r.suite.map((l) => `<li style="margin-bottom:4px;">${echapper(l)}</li>`).join("")}</ol>`,
+      para(r.prix),
+      `<p style="margin:0 0 14px;">${echapper(r.conditions)} <a href="${echapper(conditions)}" style="color:#191919;">${echapper(conditions.replace("https://", ""))}</a></p>`,
+      para(remplir(r.question)),
+      `<p style="margin:18px 0 0;">Guillaume<br>Resto Action</p>`,
+    ].join("\n"),
+  );
+
+  return { a: d.a, sujet: remplir(r.sujet), texte, html };
+}
+
+/** La copie pour l'équipe : toutes les réponses, à l'adresse de GOOGLE_SUJET. */
+export function courrielReservationEquipe(d: {
+  nom: string;
+  courriel: string;
+  telephone: string;
+  restaurant: string;
+  ville: string;
+  langue: Langue;
+  menu: string;
+  service: string;
+  plateformes: string;
+  commandes: string;
+  consentementTextos: boolean;
+  source: string;
+  crm: boolean;
+}): Courriel {
+  const lignes: [string, string][] = [
+    ["Resto", d.restaurant],
+    ["Ville", d.ville],
+    ["Nom", d.nom],
+    ["Courriel", d.courriel],
+    ["Téléphone", d.telephone],
+    ["Langue", d.langue],
+    ["Menu", d.menu || "(aucun)"],
+    ["Service", d.service],
+    ["Plateformes", d.plateformes || "(non précisé)"],
+    ["Commandes par semaine", d.commandes || "(non précisé)"],
+    ["Accepte les textos", d.consentementTextos ? "oui" : "non"],
+    ["Provenance", d.source || "(directe)"],
+    ["Reçue par le CRM", d.crm ? "oui" : "NON : à entrer à la main"],
+  ];
+  const texte = ["Nouvelle réservation (gratuite) sur /reserver.", "", ...lignes.map(([k, v]) => `${k} : ${v}`), "", "À rappeler dans les 24 h."].join("\n");
+  const html = enveloppe(
+    [
+      para("Nouvelle réservation (gratuite) sur /reserver."),
+      `<table style="border-collapse:collapse;width:100%;">${lignes
+        .map(([k, v]) => `<tr><td style="padding:4px 8px 4px 0;font-weight:900;vertical-align:top;">${echapper(k)}</td><td style="padding:4px 0;">${echapper(v)}</td></tr>`)
+        .join("")}</table>`,
+      para("À rappeler dans les 24 h."),
+    ].join("\n"),
+  );
+  return { a: process.env.GOOGLE_SUJET ?? "", sujet: `Réservation : ${d.restaurant} (${d.ville})`, texte, html };
+}
+
+/* ─── 1. Bienvenue (mise en service payée) ─── */
 
 const BIENVENUE = {
   fr: {
-    sujet: "Ta place fondateur est réservée : {resto}",
+    sujet: "Ton bon d'accord est signé : {resto}",
     salut: "Salut {prenom},",
-    ouverture: "Ta place fondateur pour {resto} est réservée. Merci de nous faire confiance!",
+    ouverture: "Ton bon d'accord pour {resto} est signé et ta mise en service est payée. Merci de nous faire confiance!",
     dossierTitre: "Ton dossier privé",
     dossierTexte:
       "Garde ce lien. Tu y vois en tout temps où en est ton app, le prochain point avec nous et ta date de mise en service. On t'écrit aussi chaque fois que ton dossier avance.",
     bouton: "Voir mon dossier",
     suiteTitre: "La suite",
-    suite: [
-      "On t'appelle dans les 24 h pour faire le point sur ton resto.",
-      "Ta maquette arrive par courriel dans les 48 h.",
-      "Après les tests avec nos deux restos partenaires, on confirme avec toi ta date de mise en service.",
-    ],
-    rappel:
-      "Rappel : aucun abonnement pendant l'attente, et tes 500 $ sont remboursables sur demande écrite jusqu'à la mise en ligne.",
-    conditions: "Les conditions de ta place :",
+    suite: FR.reservation.merci.suite,
+    rappel: "Ton abonnement de 200 $ par mois commence à la mise en ligne de ton app, avec tes 4 garanties.",
+    conditions: "Tes conditions :",
     facture: "Ta facture Stripe, avec la TPS et la TVQ, arrive dans un courriel séparé.",
     question: "Une question? Réponds à ce courriel ou appelle-moi au {tel}.",
   },
   en: {
-    sujet: "Your founder spot is reserved: {resto}",
+    sujet: "Your agreement is signed: {resto}",
     salut: "Hi {prenom},",
-    ouverture: "Your founder spot for {resto} is reserved. Thanks for trusting us!",
+    ouverture: "Your agreement for {resto} is signed and your setup is paid. Thanks for trusting us!",
     dossierTitre: "Your private file",
     dossierTexte:
       "Keep this link. It shows at any time where your app is at, your next check-in with us and your go-live date. We'll also email you each time your file moves forward.",
     bouton: "See my file",
     suiteTitre: "What's next",
-    suite: [
-      "We'll call you within 24 hours to go over your restaurant.",
-      "Your mockup arrives by email within 48 hours.",
-      "After testing with our two partner restaurants, we confirm your go-live date with you.",
-    ],
-    rappel:
-      "Reminder: no subscription while you wait, and your $500 is refundable on written request until your app goes live.",
-    conditions: "Your founder spot terms:",
+    suite: EN.reservation.merci.suite,
+    rappel: "Your $200 monthly subscription starts when your app goes live, with your 4 guarantees.",
+    conditions: "Your terms:",
     facture: "Your Stripe invoice, with GST and QST, arrives in a separate email.",
     question: "A question? Reply to this email or call me at {tel}.",
   },
@@ -99,7 +203,7 @@ export function courrielBienvenue(d: {
   const remplir = (v: string) =>
     v.replace("{resto}", d.restaurant).replace("{prenom}", prenomDe(d.nom)).replace("{tel}", PHONE_DISPLAY);
   const dossier = lienDossier(d.session, d.langue);
-  const conditions = lienConditions(d.langue);
+  const conditions = LIEN_CONDITIONS;
 
   const texte = [
     remplir(b.salut),

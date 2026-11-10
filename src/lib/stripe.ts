@@ -82,10 +82,14 @@ async function appeler<T>(
   return donnees;
 }
 
-/* ─── La réservation fondateur ─── */
+/* ─── La mise en service, payée à la signature ───
 
-/** 500 $ en cents. Le prix fondateur, avant taxes. */
-export const MONTANT_FONDATEUR = 50_000;
+   La réservation sur /reserver est gratuite depuis le 6 nov. 2026 : ce code
+   n'est plus appelé par le formulaire. Il est gardé, avec les clés et le
+   webhook, pour encaisser la mise en service à la signature du bon d'accord. */
+
+/** 750 $ en cents. La mise en service du Grand Lancement d'hiver, avant taxes. */
+export const MONTANT_FONDATEUR = 75_000;
 
 export type SessionCheckout = {
   id: string;
@@ -119,8 +123,8 @@ export async function creerSessionFondateur(
 ): Promise<SessionCheckout> {
   const tps = process.env.STRIPE_TAXE_TPS;
   const tvq = process.env.STRIPE_TAXE_TVQ;
-  /* Sans les deux taux, on refuse d'encaisser : facturer 500 $ sans TPS ni
-     TVQ, c'est payer les taxes de notre poche. */
+  /* Sans les deux taux, on refuse d'encaisser : facturer sans TPS ni TVQ,
+     c'est payer les taxes de notre poche. */
   if (!tps || !tvq) {
     throw new ErreurStripe("config", "STRIPE_TAXE_TPS ou STRIPE_TAXE_TVQ manquante");
   }
@@ -160,11 +164,11 @@ export async function creerSessionFondateur(
           unit_amount: MONTANT_FONDATEUR,
           product_data: {
             name: fr
-              ? `Place fondateur Resto Action · ${d.restaurant}`
-              : `Resto Action founding spot · ${d.restaurant}`,
+              ? `Mise en service Resto Action · ${d.restaurant}`
+              : `Resto Action setup · ${d.restaurant}`,
             description: fr
-              ? "Pré-réservation au prix fondateur. Mise en service après validation des tests, date à confirmer. Remboursable sur demande écrite jusqu'à la mise en ligne."
-              : "Pre-launch reservation at the founder price. Activation after successful testing, date to be confirmed. Refundable on written request until your app goes live.",
+              ? "Mise en service du Grand Lancement d'hiver : installation, formation privée et Boîte de lancement. Imprimante offerte."
+              : "Winter Launch setup: installation, private training and launch box. Printer included.",
           },
         },
       },
@@ -177,20 +181,20 @@ export async function creerSessionFondateur(
       invoice_data: {
         metadata,
         footer: fr
-          ? "Conditions de la place fondateur : https://www.restoaction.ca/conditions-fondateur"
-          : "Founder spot terms: https://www.restoaction.ca/en/founder-terms",
+          ? "Conditions : https://www.restoaction.ca/conditions-fondateur"
+          : "Terms: https://www.restoaction.ca/conditions-fondateur",
       },
     },
     payment_intent_data: {
-      description: `Place fondateur · ${d.restaurant} (${d.ville})`,
+      description: `Mise en service · ${d.restaurant} (${d.ville})`,
       metadata,
     },
     metadata,
     custom_text: {
       submit: {
         message: fr
-          ? "Pré-lancement avec deux restaurants partenaires : tests à valider et date de mise en service à confirmer. Aucun abonnement pendant l'attente. 500 $ remboursables sur demande écrite jusqu'à la mise en ligne. On te contacte dans les 24 h pour la suite."
-          : "Pre-launch with two restaurant partners: testing must be validated and your launch date confirmed. No subscription while you wait. $500 refundable on written request until your app goes live. We'll reach out within 24 hours.",
+          ? "Ton abonnement commence à la mise en ligne de ton app. On te contacte dans les 24 h pour la suite."
+          : "Your subscription starts when your app goes live. We'll reach out within 24 hours.",
       },
     },
     success_url: `${origine}${chemin}/${fr ? "merci" : "thanks"}?session={CHECKOUT_SESSION_ID}`,
@@ -233,8 +237,8 @@ export async function sessionFondateurDuClient(client: string): Promise<SessionC
    Le suivi d'un resto fondateur vit dans les MÉTADONNÉES DE SON CLIENT STRIPE,
    modifiables à la main dans le tableau de bord Stripe (Clients → le resto →
    Métadonnées → Modifier). Aucune base de données de plus. Les clés :
-     etape           1 à 7, le nombre d'étapes terminées (voir les textes
-                     reservation.dossier.etapes) ; 1 = place réservée
+     etape           1 à 6, le nombre d'étapes terminées (voir les textes
+                     reservation.dossier.etapes) ; 1 = bon d'accord signé
      date_lancement  texte libre, ex. « 18 novembre 2026 »
      prochain_point  texte libre, ex. « Jeudi 16 oct., 10 h »
      message         un mot de l'équipe, affiché tel quel
@@ -263,7 +267,7 @@ export async function lireDossier(id: string): Promise<DossierFondateur | null> 
     if (s.payment_status !== "paid" || s.metadata?.type !== "fondateur") return null;
     const meta = typeof s.customer === "object" && s.customer ? (s.customer.metadata ?? {}) : {};
     const texte = (cle: string) => (meta[cle]?.trim() ? meta[cle].trim().slice(0, 500) : null);
-    const etape = Math.min(7, Math.max(1, Number.parseInt(meta.etape ?? "1", 10) || 1));
+    const etape = Math.min(6, Math.max(1, Number.parseInt(meta.etape ?? "1", 10) || 1));
     return {
       restaurant: s.metadata.restaurant ?? "",
       ville: s.metadata.ville ?? "",

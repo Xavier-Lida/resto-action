@@ -8,11 +8,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function Merci({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const { session } = await searchParams;
-  return <PageMerciFondateur t={FR} session={typeof session === "string" ? session : undefined} />;
+export default function Merci() {
+  return <PageMerciFondateur t={FR} />;
 }
