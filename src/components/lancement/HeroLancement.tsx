@@ -31,9 +31,9 @@ export default function HeroLancement({ t, langue = "fr" }: { t: Textes; langue?
         <TitreRoulant
           avant={fr(HERO.titreRoulant.avant)}
           lignes={HERO.titreRoulant.mots.map(fr)}
-          apres={fr(HERO.titreRoulant.apres)}
+          apres={HERO.titreRoulant.apres.map(fr)}
           classeMot="bg-gradient-to-r from-brand via-[#ff6a3d] to-[#ffb36b] bg-clip-text text-transparent"
-          className="animate-hero delay-1 mt-6 w-full max-w-6xl font-display text-[10.5vw] font-black leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl"
+          className="animate-hero delay-1 mt-6 w-full max-w-6xl font-display text-[9.5vw] font-black leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl"
         />
 
         <p className="animate-hero delay-2 mt-6 max-w-2xl text-lg leading-relaxed text-ink/70 md:text-xl">

@@ -31,7 +31,8 @@ export default function TitreRoulant({
   className?: string;
   retour?: boolean;
   avant?: string;
-  apres?: string;
+  /** Une seule ligne pour tous, ou une par mot (elle roule seulement quand elle change). */
+  apres?: string | string[];
   classeMot?: string;
 }) {
   const [i, setI] = useState(0);
@@ -76,10 +77,13 @@ export default function TitreRoulant({
   const plusLongue = lignes.reduce((a, b) => (b.length > a.length ? b : a));
 
   if (avant !== undefined) {
-    const complet = (m: string) => [avant, m, apres].filter(Boolean).join(" ");
+    const ap = (k: number) => (Array.isArray(apres) ? apres[k] : apres) ?? "";
+    const complet = (m: string, k: number) => [avant, m, ap(k)].filter(Boolean).join(" ");
+    const apresPlusLong = lignes.map((_, k) => ap(k)).reduce((a, b) => (b.length > a.length ? b : a), "");
+    const roulApres = sortante !== null && ap(sortante) !== ap(i);
     return (
       <h1 ref={titre} className={className}>
-        <span className="sr-only">{lignes.map(complet).join(" ")}</span>
+        <span className="sr-only">{lignes.map(complet).join(". ").replace(/\.\./g, ".")}</span>
         <span aria-hidden="true" className="block">
           <span className="block">{avant}</span>
           <span className={`relative block overflow-hidden pb-[0.12em] ${classeMot}`}>
@@ -93,7 +97,19 @@ export default function TitreRoulant({
               {lignes[i]}
             </span>
           </span>
-          {apres && <span className="block">{apres}</span>}
+          {apresPlusLong && (
+            <span className="relative block overflow-hidden pb-[0.12em]">
+              <span className="invisible block whitespace-nowrap">{apresPlusLong}</span>
+              {roulApres && (
+                <span key={`as-${sortante}`} className="titre-sort absolute inset-x-0 top-0 block whitespace-nowrap">
+                  {ap(sortante)}
+                </span>
+              )}
+              <span key={roulApres ? `a-${i}` : "a"} className={`absolute inset-x-0 top-0 block whitespace-nowrap ${roulApres ? "titre-entre" : ""}`}>
+                {ap(i)}
+              </span>
+            </span>
+          )}
         </span>
       </h1>
     );
