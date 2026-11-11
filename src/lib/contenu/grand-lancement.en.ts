@@ -353,7 +353,7 @@ export const HERO = {
   /** The rotating title at the top of the page (the full H1 stays readable by Google). */
   titreRoulant: {
     avant: "More",
-    mots: ["sales", "orders", "customers"],
+    mots: ["sales", "customers", "visibility"],
     apres: "online.",
   },
   /** Version B, to test later. */

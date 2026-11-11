@@ -520,7 +520,7 @@ export const HERO = {
      « commandes » prend « en ligne », et au cell le titre sautait). */
   titreRoulant: {
     avant: "Plus de",
-    mots: ["ventes", "commandes", "clients"],
+    mots: ["ventes", "clients", "visibilité"],
     apres: "en ligne.",
   },
   /** Version B à tester plus tard. */
