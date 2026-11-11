@@ -522,8 +522,9 @@ export const EN: Textes = {
     },
     apercuDefaut: "your restaurant",
     apercu: {
-      titre: "{nom}'s app, under your name",
-      texte: "Like Bistro Habibi's: your logo, your menu, your photos. Not a template.",
+      titre: "Start selling more online.",
+      points: ["More customers.", "You save on every order."],
+      exemple: "Bistro Habibi's app, built by us",
     },
     dossier: {
       metaTitre: "Your file | Resto Action",

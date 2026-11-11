@@ -480,24 +480,40 @@ export default function FormulaireFondateur({
         </div>
 
         {/* ─── La preuve : du vrai travail ─── */}
-        <aside className="relative hidden flex-col items-center justify-center gap-8 overflow-hidden bg-hero px-8 py-12 text-white lg:flex">
+        {/* LA PROMESSE, EN GROS, à droite : vendre plus en ligne, plus de
+            clients, sauver sur chaque commande. Fond nuit, grille fine et
+            lueurs, comme la section partenaires. L'app de Bistro Habibi
+            dépasse en bas, en preuve. */}
+        <aside className="relative isolate hidden flex-col overflow-hidden bg-[#0a0e16] px-10 pt-16 text-white lg:flex xl:px-14">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-white/10 blur-3xl"
+            className="pointer-events-none absolute inset-0 -z-10 [background-image:linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_80%_60%_at_30%_0%,black,transparent)]"
           />
-          <div className="relative max-w-sm text-center">
-            <p className="font-display text-2xl font-black leading-tight">
-              {r.apercu.titre.replace("{nom}", champs.restaurant.trim() || r.apercuDefaut)}
-            </p>
-            <p className="mt-2 text-white/80">{r.apercu.texte}</p>
-          </div>
-          <figure className="relative flex flex-col items-center gap-3">
-            <DemoApp demo="client" alt={t.hero.maquette.exempleAlt} attente={t.hero.maquette.attente} className="[--demo-w:17rem]" />
-            <figcaption className="text-sm font-bold text-white/70">{t.hero.maquette.exemple}</figcaption>
+          <div aria-hidden="true" className="pointer-events-none absolute -left-24 -top-32 -z-10 size-[28rem] rounded-full bg-brand/30 blur-[120px]" />
+          <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -right-24 -z-10 size-[26rem] rounded-full bg-ciel/20 blur-[110px]" />
+
+          <p className="max-w-md font-display text-4xl font-black leading-[1.05] tracking-tight xl:text-5xl">{r.apercu.titre}</p>
+          <ul className="mt-8 grid list-none gap-3">
+            {r.apercu.points.map((p) => (
+              <li key={p} className="flex items-center gap-3 font-display text-xl font-black xl:text-2xl">
+                <span aria-hidden="true" className="size-2.5 shrink-0 rounded-full bg-ciel shadow-[0_0_14px_rgba(25,211,240,0.8)]" />
+                {p}
+              </li>
+            ))}
+          </ul>
+          <BarrePlaces
+            modele={t.hero.places}
+            prix={t.hero.placesPrix}
+            aligne="gauche"
+            className="mt-10 w-fit rounded-2xl bg-white/[0.06] px-5 py-3 ring-1 ring-white/10"
+          />
+
+          <figure className="relative mt-auto flex flex-col items-center gap-3 pt-12">
+            <figcaption className="text-xs font-bold uppercase tracking-widest text-white/50">{r.apercu.exemple}</figcaption>
+            <div className="-mb-40 rotate-[-4deg] drop-shadow-[0_40px_60px_rgba(0,0,0,0.5)]">
+              <DemoApp demo="client" alt={t.hero.maquette.exempleAlt} attente={t.hero.maquette.attente} className="[--demo-w:16rem]" />
+            </div>
           </figure>
-          <div className="relative w-full max-w-xs">
-            <BarrePlaces modele={t.hero.places} prix={t.hero.placesPrix} />
-          </div>
         </aside>
       </div>
       <ModalePasPret t={t} />

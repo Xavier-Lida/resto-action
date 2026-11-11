@@ -639,9 +639,11 @@ export const FR = {
       autre: "Ça n'a pas passé. Réessaie, ou appelle-nous au {tel}, on réserve ta place au téléphone.",
     },
     apercuDefaut: "ton resto",
+    // Le panneau de droite de /reserver : la promesse, en gros (11 nov.).
     apercu: {
-      titre: "L'app de {nom}, à ton nom",
-      texte: "Comme celle de Bistro Habibi : ton logo, ton menu, tes photos. Pas un modèle.",
+      titre: "Commence à vendre plus en ligne.",
+      points: ["Plus de clients.", "Tu sauves sur chaque commande."],
+      exemple: "L'app de Bistro Habibi, faite par nous",
     },
     // La page de suivi privée du resto, après la signature et le paiement de sa
     // mise en service (/dossier/[session]). 6 étapes : le CRM met « etape » de 1 à 6.
