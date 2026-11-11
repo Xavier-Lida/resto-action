@@ -27,12 +27,12 @@ export const LIEN_CONDITIONS = `${SITE_URL}/conditions-fondateur`;
 
 const prenomDe = (nom: string) => nom.trim().split(/\s+/)[0] ?? "";
 
-const echapper = (v: string) =>
+export const echapper = (v: string) =>
   v.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /* Le HTML reste sobre : une colonne, du texte, un bouton. Les clients courriel
    ignorent les feuilles de style, d'où les styles en ligne. */
-function enveloppe(corps: string): string {
+export function enveloppe(corps: string): string {
   return `<!doctype html><html><body style="margin:0;padding:24px;background:#f1f1ef;font-family:Arial,Helvetica,sans-serif;color:#191919;">
 <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:16px;padding:28px;line-height:1.55;font-size:15px;">
 <p style="margin:0 0 18px;font-weight:900;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#ff3008;">Resto Action</p>
@@ -43,7 +43,7 @@ ${corps}
 const bouton = (href: string, libelle: string) =>
   `<p style="margin:22px 0;"><a href="${echapper(href)}" style="display:inline-block;background:#ff3008;color:#ffffff;text-decoration:none;font-weight:900;padding:13px 22px;border-radius:999px;">${echapper(libelle)}</a></p>`;
 
-const para = (t: string) => `<p style="margin:0 0 14px;">${echapper(t)}</p>`;
+export const para = (t: string) => `<p style="margin:0 0 14px;">${echapper(t)}</p>`;
 
 /* ─── 0. Réservation (gratuite) ─── */
 
@@ -127,6 +127,8 @@ export function courrielReservationEquipe(d: {
   commandes: string;
   consentementTextos: boolean;
   source: string;
+  /** « Réfère un resto » : « Chez Ti-Jean (code CHEZTI) », ou rien. */
+  referePar?: string;
   crm: boolean;
 }): Courriel {
   const lignes: [string, string][] = [
@@ -142,6 +144,7 @@ export function courrielReservationEquipe(d: {
     ["Commandes par semaine", d.commandes || "(non précisé)"],
     ["Accepte les textos", d.consentementTextos ? "oui" : "non"],
     ["Provenance", d.source || "(directe)"],
+    ...(d.referePar ? ([["Référé par", d.referePar]] as [string, string][]) : []),
     ["Reçue par le CRM", d.crm ? "oui" : "NON : à entrer à la main"],
   ];
   const texte = ["Nouvelle réservation (gratuite) sur /reserver.", "", ...lignes.map(([k, v]) => `${k} : ${v}`), "", "À rappeler dans les 24 h."].join("\n");

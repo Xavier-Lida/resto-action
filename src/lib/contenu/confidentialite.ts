@@ -14,7 +14,7 @@ import { CITY } from "@/lib/site";
 
    La date est ISO et non écrite en toutes lettres : la page la formate dans sa
    propre langue, comme le pied de page fait pour MISE_A_JOUR. */
-export const POLITIQUE_MAJ = "2026-11-07";
+export const POLITIQUE_MAJ = "2026-11-10";
 
 export const CONFIDENTIALITE_FR = {
   metaTitre: "Politique de confidentialité",
@@ -28,7 +28,7 @@ export const CONFIDENTIALITE_FR = {
   recueillis: {
     titre: "Renseignements recueillis",
     texte:
-      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site ne dépose des témoins (cookies) de mesure d'audience que si vous l'acceptez, comme décrit juste en dessous. Vous nous donnez des renseignements personnels à quatre endroits seulement : la prise de rendez-vous, la demande de maquette, la réservation de votre place et le calculateur, décrits dans les sections suivantes. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
+      "Pas de compte à créer, pas de profil publicitaire, aucune donnée revendue à qui que ce soit. Le site ne dépose des témoins (cookies) de mesure d'audience que si vous l'acceptez, comme décrit juste en dessous. Vous nous donnez des renseignements personnels à cinq endroits seulement : la prise de rendez-vous, la demande de maquette, la réservation de votre place, le calculateur et le programme Réfère un resto, décrits dans les sections suivantes. Si vous nous appelez ou nous écrivez, on utilise vos coordonnées uniquement pour vous répondre.",
   },
 
   /* Suit src/app/api/agenda/route.ts et src/lib/crm.ts : ce qui est demandé au
@@ -55,6 +55,14 @@ export const CONFIDENTIALITE_FR = {
     titre: "Quand vous utilisez le calculateur",
     texte:
       "Le calculateur lit le relevé de plateforme que vous téléversez. Avec votre consentement, ce relevé est analysé par l'intelligence artificielle d'Anthropic, hors du Québec. Le fichier est supprimé dès l'analyse terminée. Les chiffres extraits (ventes, commissions, taux) sont gardés dans notre outil de suivi des clients, pour vous recontacter et préparer votre estimation. Ils ne sont jamais vendus ni donnés à qui que ce soit, et on les supprime sur simple demande. [À valider par l'avocat]",
+  },
+
+  /* Suit src/lib/references/lien.ts et src/lib/provenance.ts (témoins
+     ra-ref, 30 jours, et ra-ref-bandeau, 2 heures). */
+  references: {
+    titre: "Le programme Réfère un resto",
+    texte:
+      "Quand vous nous présentez un resto, vous nous donnez vos coordonnées et celles de la personne présentée, après nous avoir confirmé qu'elle veut être contactée. On la contacte une seule fois au sujet de Resto Action, et on s'arrête là si elle ne répond pas. Si vous arrivez sur le site par le lien d'un parrain ou d'un partenaire (adresses commençant par /p/ ou /f/), on dépose un témoin de 30 jours qui contient seulement son code, la date de votre arrivée et la façon dont vous êtes arrivé : il sert uniquement à savoir qui vous a présenté si vous réservez votre place. Un deuxième témoin, de 2 heures, affiche son nom en haut de la page. Ces témoins font fonctionner le programme et ne servent pas à mesurer l'audience. Les demandes des partenaires référents servent uniquement à les rappeler. [À valider par l'avocat]",
   },
 
   statistiques: {
@@ -112,7 +120,7 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
   recueillis: {
     titre: "Information we collect",
     texte:
-      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies only if you accept them, as described just below. You give us personal information in four places only: booking a call, requesting a mockup, reserving your spot and the calculator, described in the following sections. If you call or write to us, we use your contact details for one thing only: getting back to you.",
+      "No account to create, no advertising profile, no data sold to anyone. The site sets audience-measurement cookies only if you accept them, as described just below. You give us personal information in five places only: booking a call, requesting a mockup, reserving your spot, the calculator and the Refer a Restaurant program, described in the following sections. If you call or write to us, we use your contact details for one thing only: getting back to you.",
   },
 
   rendezVous: {
@@ -131,6 +139,12 @@ export const CONFIDENTIALITE_EN: Confidentialite = {
     titre: "When you use the calculator",
     texte:
       "The calculator reads the platform statement you upload. With your consent, it is analysed by Anthropic's artificial intelligence, outside Quebec. The file is deleted as soon as the analysis is done. The extracted figures (sales, commissions, rates) are kept in our client follow-up tool to contact you and prepare your estimate. They are never sold or given to anyone, and are deleted on request. [To be validated by the lawyer]",
+  },
+
+  references: {
+    titre: "The Refer a Restaurant program",
+    texte:
+      "When you introduce a restaurant to us, you give us your contact details and those of the person you introduce, after confirming to us that they want to be contacted. We contact them once about Resto Action, and stop there if they don't answer. If you arrive on the site through a referrer's or partner's link (addresses starting with /p/ or /f/), we set a 30-day cookie that only holds their code, the date you arrived and how you arrived: its only use is to know who introduced you if you reserve your spot. A second cookie, lasting 2 hours, shows their name at the top of the page. These cookies run the program and are not used for audience measurement. Requests from referral partners are only used to call them back. [To be validated by the lawyer]",
   },
 
   statistiques: {

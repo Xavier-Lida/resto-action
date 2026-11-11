@@ -7,6 +7,7 @@ const FR = {
   accrocheCoupure: " va ",
   exemple: "exemple",
   prochaineCohorte: (d: string) => `Prochaine cohorte : ${d}`,
+  urgenceCourte: (n: number) => `${n} restos par mois, pas plus`,
 };
 
 export type TextesUi = typeof FR;
@@ -16,6 +17,7 @@ const EN: TextesUi = {
   accrocheCoupure: " is going to ",
   exemple: "example",
   prochaineCohorte: (d) => `Next cohort: ${d}`,
+  urgenceCourte: (n) => `${n} restaurants a month, no more`,
 };
 
 export function ui(langue: Langue = "fr"): TextesUi {

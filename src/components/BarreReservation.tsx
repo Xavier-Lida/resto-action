@@ -16,11 +16,14 @@ export default function BarreReservation({
   href,
   libelle,
   places,
+  placesLongues,
 }: {
   href: string;
   libelle: string;
-  /** La phrase « Il reste X places… », déjà remplie. */
+  /** La phrase courte (« 16 restos par mois, pas plus »), déjà remplie. */
   places: string;
+  /** La version longue, sur les grands écrans (avec la date limite). */
+  placesLongues?: string;
 }) {
   // Les sections avec un bouton Réserver qui sont à l'écran, en ce moment.
   const [enVue, setEnVue] = useState<Set<Element>>(new Set());
@@ -62,7 +65,8 @@ export default function BarreReservation({
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-75" />
           <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
         </span>
-        <span className="hidden sm:inline">{places}</span>
+        <span className="text-xs sm:text-sm lg:hidden">{places}</span>
+        <span className="hidden lg:inline">{placesLongues ?? places}</span>
       </span>
       <BoutonReserver href={href} libelle={libelle} taille="md" flottant className="min-w-0" />
     </div>

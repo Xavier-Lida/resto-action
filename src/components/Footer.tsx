@@ -96,7 +96,7 @@ export default function Footer({ t }: { t: Textes }) {
             <Link href={lien("histoire")} className={lienPied}>{t.pied.histoire}</Link>
             <Link href={en ? "/en/faq" : "/faq"} className={lienPied}>{t.pied.faq}</Link>
             <a href={YOUTUBE_URL} target="_blank" rel="noopener" className={lienPied}>{t.pied.youtube}</a>
-            <Link href={en ? "/en/referrals" : "/references"} className={lienPied}>{en ? "Referral program" : "Programme de références"}</Link>
+            <Link href={en ? "/en/referrals" : "/refere-un-resto"} className={lienPied}>{en ? "Referral program" : "Réfère un resto"}</Link>
             <Link href={en ? "/en/founder-terms" : "/conditions-fondateur"} className={lienPied}>{en ? "Terms" : "Conditions"}</Link>
             <Link href={t.pied.confidentialiteHref} className={lienPied}>{t.pied.confidentialite}</Link>
           </nav>

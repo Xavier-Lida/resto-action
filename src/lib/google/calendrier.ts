@@ -154,6 +154,9 @@ export type Reservation = {
   langue: "fr" | "en";
   /** Par quel lien le visiteur est arrivé. Facultatif : absent, on l'écrit. */
   provenance?: Provenance;
+  /* « Réfère un resto » : seulement en propriétés privées. La description est
+     aussi lue par le resto dans son invitation : on n'y écrit pas qui l'a référé. */
+  reference?: { code: string; nom: string; type: string };
 };
 
 /* LA PROVENANCE VIT DANS L'ÉVÉNEMENT, À DEUX ENDROITS.
@@ -262,6 +265,13 @@ export async function creerRendezVous(
             source: "site",
             courriel: reservation.courriel,
             ...proprietesProvenance(reservation.provenance),
+            ...(reservation.reference
+              ? {
+                  reference_code: reservation.reference.code,
+                  reference_nom: reservation.reference.nom.slice(0, 100),
+                  reference_type: reservation.reference.type,
+                }
+              : {}),
           },
         },
       }),

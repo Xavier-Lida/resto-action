@@ -1,18 +1,16 @@
 import BarreNav from "@/components/BarreNav";
+import BandeauReference from "@/components/references/BandeauReference";
 import BarreReservation from "@/components/BarreReservation";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import Footer from "@/components/Footer";
-import Resultats from "@/components/Resultats";
-import ToutCeQuOnFait from "@/components/lancement/ToutCeQuOnFait";
+import CommentOnFait from "@/components/CommentOnFait";
+import ChiffresLancement from "@/components/lancement/ChiffresLancement";
 import CalculateurReleve from "@/components/lancement/CalculateurReleve";
-import EtapesInclus from "@/components/lancement/EtapesInclus";
 import GarantiesLancement from "@/components/lancement/GarantiesLancement";
 import HeroLancement from "@/components/lancement/HeroLancement";
 import PrixLancement from "@/components/lancement/PrixLancement";
 import QuiOnEstLancement from "@/components/lancement/QuiOnEstLancement";
 import RareteLancement from "@/components/lancement/RareteLancement";
-import SystemeBento from "@/components/lancement/SystemeBento";
-import { FONCTIONNALITES_EN, FONCTIONNALITES_FR } from "@/lib/contenu/fonctionnalites";
 import { contenuLancement } from "@/lib/contenu/lancement";
 import { ui } from "@/lib/contenu/ui-lancement";
 import { formats } from "@/lib/format";
@@ -34,7 +32,7 @@ import type { Textes } from "@/lib/textes/fr";
    src/lib/contenu/grand-lancement.ts. */
 export default function AccueilLancement({ t }: { t: Textes }) {
   const langue = t.htmlLang.startsWith("en") ? "en" : "fr";
-  const { ANCRES, DATE_COHORTE, FIN } = contenuLancement(langue);
+  const { DATE_LIMITE, RESTOS_PAR_MOIS, lienReservation } = contenuLancement(langue);
   const { typo: fr } = formats(langue);
   const racine = `${SITE_URL}${t.racine}`;
   const jsonLd = {
@@ -62,24 +60,23 @@ export default function AccueilLancement({ t }: { t: Textes }) {
 
   return (
     <>
+      {/* « Réfère un resto » : seulement pour un visiteur arrivé par /p/CODE ou /f/CODE. */}
+      <BandeauReference langue={langue} />
       <BarreNav t={t} />
       <main className="flex-1" lang={t.htmlLang}>
         {/* 1. La promesse, l'accroche et le bouton du calculateur. */}
         <HeroLancement t={t} langue={langue} />
-        {/* 2. Le problème en une ligne, puis le Système en images. */}
-        <SystemeBento langue={langue} />
-        <Resultats t={t} fonctionnalites={langue === "en" ? FONCTIONNALITES_EN : FONCTIONNALITES_FR} />
-        {/* Tout ce qu'on fait, en un coup d'œil : chaque pièce mène à sa page. */}
-        <ToutCeQuOnFait langue={langue} />
+        {/* 2. « Tu pourrais faire BEAUCOUP plus de ventes en ligne » : la
+            vidéo, puis les étapes 01 à 06, chacune vers sa page. */}
+        <ChiffresLancement langue={langue} />
+        <CommentOnFait langue={langue} accueil />
         {/* 3. Le calculateur. */}
         <CalculateurReleve langue={langue} />
         {/* 4. Les 4 garanties, une ligne chacune. */}
         <GarantiesLancement langue={langue} />
         {/* 5. Le prix tout compris, l'exemple et les bonus en 3 lignes. */}
         <PrixLancement langue={langue} />
-        {/* 6. Tout ce qui est inclus, étape par étape (ça remplace la frise),
-            qui on est, la rareté et le bouton. */}
-        <EtapesInclus langue={langue} />
+        {/* 6. Qui on est, la rareté et le bouton. */}
         <QuiOnEstLancement t={t} langue={langue} />
         <RareteLancement langue={langue} />
         {/* La FAQ vit maintenant sur sa propre page (/faq). */}
@@ -87,7 +84,12 @@ export default function AccueilLancement({ t }: { t: Textes }) {
       </main>
       {/* La barre qui suit le visiteur mène au calculateur : c'est le premier
           pas de l'offre. Elle se cache dès qu'un gros bouton est à l'écran. */}
-      <BarreReservation href={ANCRES.calculateur} libelle={FIN.barreCollante} places={fr(ui(langue).prochaineCohorte(DATE_COHORTE))} />
+      <BarreReservation
+        href={lienReservation()}
+        libelle={langue === "en" ? "Reserve your spot" : "Réserve ta place"}
+        places={fr(ui(langue).urgenceCourte(RESTOS_PAR_MOIS))}
+        placesLongues={fr(ui(langue).urgence(RESTOS_PAR_MOIS, DATE_LIMITE))}
+      />
       <Footer t={t} />
     </>
   );

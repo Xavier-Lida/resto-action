@@ -42,6 +42,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...(ANGLAIS_ACTIF ? [] : VERS_LE_FRANCAIS),
+      // L'ancien programme de références est devenu « Réfère un resto ».
+      { source: "/references", destination: "/refere-un-resto", permanent: true },
       { source: "/yt", destination: `/?${CHAINE}`, permanent: false },
       {
         source: "/yt/:video([A-Za-z0-9_-]{1,60})",

@@ -4,6 +4,7 @@ import { courrielReservation, courrielReservationEquipe } from "@/lib/courriels-
 import { CONDITIONS_VERSION } from "@/lib/contenu/conditions-fondateur";
 import { envoyerCourriel } from "@/lib/google/courriel";
 import { assainirProvenance, decrireProvenance } from "@/lib/provenance";
+import { pageDeLaRequete, referenceDeLaRequete, referencePourCrm, signalerAttribution } from "@/lib/references/lien";
 
 /* LA RÉSERVATION GRATUITE (/reserver).
 
@@ -90,9 +91,13 @@ export async function POST(requete: NextRequest): Promise<Response> {
     return refus("invalide");
   }
   const provenance = assainirProvenance(corps.provenance);
+  /* « Réfère un resto » : le témoin de 30 jours, lu ici par le serveur. Le
+     formulaire n'a rien à envoyer. Un code désactivé depuis ne compte plus. */
+  const attribution = referenceDeLaRequete(requete);
+  const reference = referencePourCrm(attribution);
 
   if (corps.action === "prospect") {
-    after(() => signalerFondateur({ etape: "prospect", prospect, provenance }));
+    after(() => signalerFondateur({ etape: "prospect", prospect, provenance, reference }));
     return Response.json({ ok: true }, { headers: SANS_CACHE });
   }
 
@@ -117,6 +122,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
     qualification: { plateformes, commandes },
     reservation: { consentementTextos, conditions: CONDITIONS_VERSION },
     provenance,
+    reference,
   });
 
   // Le filet : l'équipe reçoit la réservation par courriel, CRM ou pas.
@@ -131,6 +137,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
           commandes,
           consentementTextos,
           source: decrireProvenance(provenance),
+          referePar: reference ? `${reference.nom} (code ${reference.code})` : undefined,
           crm: recu,
         }),
       ),
@@ -138,6 +145,26 @@ export async function POST(requete: NextRequest): Promise<Response> {
   );
 
   if (!recu && !equipe) return refus("autre", 502);
+
+  /* Le journal du programme : la référence part aussi à part (CRM, sinon
+     courriel REFERENCES_COURRIEL_EQUIPE). La réservation, elle, est déjà
+     sauvée plus haut avec son code : rien n'attend ce deuxième envoi. */
+  if (attribution) {
+    after(() =>
+      signalerAttribution(attribution, {
+        langue,
+        page: pageDeLaRequete(requete, "/reserver"),
+        provenance,
+        etape: "reservation",
+        conditions: CONDITIONS_VERSION,
+        restaurant: prospect.restaurant,
+        nom: prospect.nom,
+        telephone: prospect.telephone,
+        courriel: prospect.courriel,
+        ville: prospect.ville,
+      }),
+    );
+  }
 
   // La confirmation au resto part après la réponse : il n'attend pas Gmail.
   after(() =>

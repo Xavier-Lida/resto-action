@@ -200,3 +200,55 @@ export function decrireProvenance(p: Provenance | undefined): string {
   if (p.referent) return `inconnue (arrivé de ${p.referent})${vue}`;
   return `directe (adresse tapée ou lien sans étiquette)${vue}`;
 }
+
+/* ─── Le témoin d'attribution de « Réfère un resto » ───
+
+   À NE PAS CONFONDRE avec la provenance ci-dessus. La provenance dit par quel
+   lien la VISITE est arrivée, et meurt avec l'onglet. Le témoin d'attribution
+   dit QUI nous a présenté ce resto, et vit 30 jours : un proprio qui clique le
+   lien de son ami un lundi et réserve sa place le jeudi suivant, sur un autre
+   onglet, doit quand même compter pour son ami.
+
+   LE PREMIER CONTACT GAGNE. Le témoin est posé par /p/CODE ou /f/CODE
+   (src/lib/references/lien.ts) seulement s'il n'y en a pas déjà un. Un
+   deuxième lien, d'un autre parrain, ne le remplace pas.
+
+   C'est un vrai témoin (cookie) HttpOnly, posé et lu par le serveur : les
+   formulaires n'ont rien à envoyer, les routes /api/fondateur et /api/agenda
+   le lisent elles-mêmes. Il ne contient que le code, l'heure du premier clic
+   et la façon d'arriver (lien, carte, représentant). Aucune donnée
+   personnelle. La politique de confidentialité le nomme (étape 5). */
+
+export const TEMOIN_REFERENCE = "ra-ref";
+export const TEMOIN_REFERENCE_JOURS = 30;
+/** Le petit témoin lisible par la page, pour le bandeau « X t'a recommandé ». */
+export const TEMOIN_BANDEAU = "ra-ref-bandeau";
+export const TEMOIN_BANDEAU_HEURES = 2;
+
+export type SourceReference = "lien" | "carte" | "representant";
+export type TemoinReference = {
+  code: string;
+  /** Le premier clic, en millisecondes. */
+  premierContact: number;
+  source: SourceReference;
+};
+
+const SOURCES_REFERENCE: ReadonlyArray<SourceReference> = ["lien", "carte", "representant"];
+
+export function encoderTemoinReference(t: TemoinReference): string {
+  return `${t.code}.${t.premierContact.toString(36)}.${t.source}`;
+}
+
+/** Le témoin lu, ou `undefined` s'il est absent, abîmé ou trafiqué. */
+export function lireTemoinReference(valeur: string | undefined): TemoinReference | undefined {
+  if (!valeur) return undefined;
+  const [code, temps, source] = valeur.split(".");
+  if (!code || !/^[A-Z2-9]{4,12}$/.test(code)) return undefined;
+  const premierContact = parseInt(temps ?? "", 36);
+  if (!Number.isFinite(premierContact) || premierContact <= 0) return undefined;
+  // Un témoin plus vieux que sa durée (horloge du navigateur trafiquée) ne compte plus.
+  if (Date.now() - premierContact > TEMOIN_REFERENCE_JOURS * 86_400_000) return undefined;
+  const s = SOURCES_REFERENCE.find((x) => x === source);
+  if (!s) return undefined;
+  return { code, premierContact, source: s };
+}

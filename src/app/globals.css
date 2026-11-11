@@ -1527,11 +1527,15 @@ img {
 }
 
 /* L'APERÇU DU CALCULATEUR : la ligne qui balaie le relevé, les chiffres qui sortent. */
-@keyframes calc-balaye { 0% { transform: translateY(-100%); } 100% { transform: translateY(520%); } }
-@keyframes calc-apparait { 0%, 20% { opacity: 0; transform: translateY(10px); } 35%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
+/* Le balayage de l'IA passe deux fois, puis disparaît : l'aperçu reste immobile. */
+@keyframes calc-balaye { 0% { transform: translateY(-100%); opacity: 1; } 99% { opacity: 1; } 100% { transform: translateY(520%); opacity: 0; } }
+/* Une seule entrée, puis les chiffres restent (pas de boucle qui les efface). */
+@keyframes calc-apparait { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
-  .calc-balaye { animation: calc-balaye 2.4s ease-in-out infinite; }
-  .calc-apparait { animation: calc-apparait 6s ease-out infinite; }
+  .calc-balaye { opacity: 0; animation: calc-balaye 2.4s ease-in-out 2 forwards; animation-play-state: paused; }
+  [data-vu] .calc-balaye { animation-play-state: running; }
+  .calc-apparait { animation: calc-apparait 0.7s ease-out both; animation-play-state: paused; }
+  [data-vu] .calc-apparait { animation-play-state: running; }
 }
 @media (prefers-reduced-motion: reduce) {
   .calc-balaye { display: none; }
@@ -1603,5 +1607,41 @@ img {
   }
   .plaque {
     transition: none !important;
+  }
+}
+
+/* Le carrousel des étapes : la barre de l'onglet actif se remplit. */
+@keyframes carrousel-progres {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+.carrousel-progres {
+  animation-name: carrousel-progres;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carrousel-progres {
+    animation: none;
+    width: 100%;
+  }
+}
+/* Le visuel de la diapo active entre en glissant. */
+@keyframes carrousel-visuel {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+}
+[data-actif="true"] .carrousel-visuel {
+  animation: carrousel-visuel 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-actif="true"] .carrousel-visuel {
+    animation: none;
   }
 }

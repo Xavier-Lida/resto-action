@@ -1,4 +1,5 @@
 import type { Provenance } from "@/lib/provenance";
+import type { ReferencePourCrm } from "@/lib/references/lien";
 
 /* PRÉVENIR LE CRM QU'UNE RÉSERVATION VIENT D'ÊTRE PRISE.
 
@@ -33,6 +34,8 @@ export type ReservationPourCrm = {
   message: string;
   langue: "fr" | "en";
   provenance?: Provenance;
+  /** « Réfère un resto » : qui nous a présenté ce resto (témoin de 30 jours). */
+  reference?: ReferencePourCrm;
   meet: string | null;
   debut: string;
   fin: string;
@@ -66,6 +69,7 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
         },
         message: r.message,
         provenance: r.provenance,
+        reference: r.reference,
       }),
       signal: AbortSignal.timeout(DELAI_MS),
       cache: "no-store",
@@ -119,6 +123,8 @@ export type EvenementFondateur = {
   /** Les chiffres du relevé et les hypothèses du calcul (src/lib/calcul.ts). */
   dossier?: unknown;
   provenance?: Provenance;
+  /** « Réfère un resto » : qui nous a présenté ce resto (témoin de 30 jours). */
+  reference?: ReferencePourCrm;
 };
 
 /** Vrai si le CRM a accepté l'événement. Ne lance jamais d'erreur. */

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { Camera, Check, ChevronDown, FileText, Phone, Sparkles, Upload } from "lucide-react";
 import BoutonReserver from "@/components/BoutonReserver";
 import ScoreResto, { FRAIS_PLANCHER, scoreDepuisFrais } from "@/components/lancement/ScoreResto";
@@ -649,8 +649,27 @@ const EXEMPLE_VENTES_APP = EXEMPLE.mois.ventes * EXEMPLE_HYP.partApp + EXEMPLE_N
 
 function ApercuCalcul({ C, T, f, langue }: { C: ContenuLancement["CALCULATEUR"]; T: (typeof TEXTES)["fr"]; f: F; langue: Langue }) {
   const { typo: fr, argent, argentSigne } = f;
+  /* Les chiffres entrent UNE fois, quand l'aperçu arrive à l'écran, puis
+     restent là. On pose un attribut sur le DOM (pas d'état React) : le CSS
+     fait le reste (globals.css, .calc-apparait). */
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entree]) => {
+        if (entree?.isIntersecting) {
+          el.dataset.vu = "1";
+          io.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <aside className="relative overflow-hidden rounded-[2rem] bg-ink p-6 text-white md:p-8" aria-label={T.exempleAria}>
+    <aside ref={ref} className="relative overflow-hidden rounded-[2rem] bg-ink p-6 text-white md:p-8" aria-label={T.exempleAria}>
       <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-brand/30 blur-3xl" />
       <p className="relative inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-widest">
         <Sparkles className="size-3.5 text-ciel" aria-hidden="true" />

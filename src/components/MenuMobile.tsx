@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { RESERVATION } from "@/lib/routes";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
@@ -112,6 +113,14 @@ export default function MenuMobile({ t }: { t: Textes }) {
                 >
                   {t.nav.accueil}
                 </Link>
+                {/* Les partenaires référents, en accès direct, comme dans la barre du haut. */}
+                <Link
+                  href={t.htmlLang.startsWith("en") ? "/en/referrals#formulaire" : "/refere-un-resto#partenaires"}
+                  onClick={fermer}
+                  className="block rounded-xl px-3 py-2 text-lg font-black transition-colors hover:bg-bone"
+                >
+                  {t.htmlLang.startsWith("en") ? "Partners" : "Partenaires"}
+                </Link>
 
                 {groupes.map(({ cle, titre, liens }) => (
                   <div key={cle}>
@@ -122,7 +131,8 @@ export default function MenuMobile({ t }: { t: Textes }) {
                       {titre}
                     </p>
                     <div className="mt-1 flex flex-col">
-                      {liens.map(({ href, libelle }) => (
+                      {/* « Nous contacter » a déjà son gros bouton en bas du menu. */}
+                      {liens.filter(({ href }) => !href.endsWith("/contact")).map(({ href, libelle }) => (
                         <Link
                           key={href}
                           href={href}
@@ -145,9 +155,16 @@ export default function MenuMobile({ t }: { t: Textes }) {
               {/* Ce bouton EST l'entrée « Contact » du menu : c'est pour ça
                   qu'elle ne figure plus dans la liste des sections au-dessus. */}
               <Link
-                href={`${t.racine}/contact`}
+                href={t.htmlLang.startsWith("en") ? RESERVATION.en : RESERVATION.fr}
                 onClick={fermer}
                 className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-brand px-6 py-3.5 font-black text-white transition-colors hover:bg-ink"
+              >
+                {t.htmlLang.startsWith("en") ? "Reserve your spot" : "Réserve ta place"}
+              </Link>
+              <Link
+                href={`${t.racine}/contact`}
+                onClick={fermer}
+                className="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-bone px-6 py-3.5 font-black text-ink transition-colors hover:bg-ink hover:text-white"
               >
                 {t.nav.contacter}
               </Link>

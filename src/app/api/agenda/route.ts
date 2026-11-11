@@ -3,6 +3,7 @@ import { HORIZON_JOURS, decouperCreneaux } from "@/lib/agenda";
 import { ErreurAgenda } from "@/lib/google/auth";
 import { signalerReservation } from "@/lib/crm";
 import { assainirProvenance } from "@/lib/provenance";
+import { pageDeLaRequete, referenceDeLaRequete, referencePourCrm, signalerAttribution } from "@/lib/references/lien";
 import {
   creerRendezVous,
   listerFenetres,
@@ -122,6 +123,9 @@ export async function POST(requete: NextRequest): Promise<Response> {
      que les champs connus, bornés, et on jette le reste. Elle est facultative
      et ne fait jamais refuser une réservation. */
   const provenance = assainirProvenance(corps.provenance);
+  // « Réfère un resto » : le témoin de 30 jours, lu par le serveur.
+  const attribution = referenceDeLaRequete(requete);
+  const reference = referencePourCrm(attribution);
 
   if (
     !nom ||
@@ -165,6 +169,7 @@ export async function POST(requete: NextRequest): Promise<Response> {
       message,
       langue,
       provenance,
+      reference,
     });
 
     /* LE CRM EST PRÉVENU APRÈS LA RÉPONSE, ET N'Y CHANGE RIEN.
@@ -192,7 +197,24 @@ export async function POST(requete: NextRequest): Promise<Response> {
           message,
           langue,
           provenance,
+          reference,
           ...confirmation,
+        }),
+      );
+    }
+    if (attribution) {
+      after(() =>
+        signalerAttribution(attribution, {
+          langue,
+          page: pageDeLaRequete(requete, "/contact"),
+          provenance,
+          etape: "rendez_vous",
+          conditions: null,
+          restaurant,
+          nom,
+          telephone,
+          courriel,
+          ville: null,
         }),
       );
     }

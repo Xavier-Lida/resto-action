@@ -6,6 +6,7 @@ import MenuMobile from "@/components/MenuMobile";
 import SelecteurLangue from "@/components/SelecteurLangue";
 import { ANGLAIS_ACTIF } from "@/lib/site";
 import { groupesNav } from "@/lib/navigation";
+import { RESERVATION } from "@/lib/routes";
 import type { Textes } from "@/lib/textes/fr";
 
 /* La barre de navigation, la même sur toutes les pages.
@@ -32,6 +33,9 @@ import type { Textes } from "@/lib/textes/fr";
 export default function BarreNav({ t }: { t: Textes }) {
   const groupes = groupesNav(t);
   const accueil = t.racine || "/";
+  const en = t.htmlLang.startsWith("en");
+  const reserver = en ? RESERVATION.en : RESERVATION.fr;
+  const libelleReserver = en ? "Reserve your spot" : "Réserve ta place";
 
   return (
     <header className="sticky top-0 z-50 rounded-b-[1.75rem] border-b border-bone bg-white lg:rounded-b-[2.25rem]">
@@ -63,6 +67,14 @@ export default function BarreNav({ t }: { t: Textes }) {
           {groupes.map((groupe) => (
             <MenuDeroulant key={groupe.cle} groupe={groupe} />
           ))}
+          {/* Les partenaires référents, en accès direct (pas caché dans un menu).
+              Dès 1024 px : plus étroit, il reste sous « Entreprise ». */}
+          <Link
+            href={t.htmlLang.startsWith("en") ? "/en/referrals#formulaire" : "/refere-un-resto#partenaires"}
+            className="hidden whitespace-nowrap rounded-full px-4 py-2 transition-colors lg:block hover:bg-ink/[0.06] focus-visible:bg-ink/[0.06]"
+          >
+            {t.htmlLang.startsWith("en") ? "Partners" : "Partenaires"}
+          </Link>
         </nav>
 
         <div className="col-start-3 flex items-center justify-end gap-2 md:gap-4">
@@ -83,11 +95,18 @@ export default function BarreNav({ t }: { t: Textes }) {
               En coins doux plutôt qu'en pilule : à cette taille, une pilule se
               lit comme une étiquette, un rectangle arrondi se lit comme un
               bouton. Le bouton du héro avait déjà fait ce chemin. */}
+          {/* « Réserve ta place » est l'action principale du Grand Lancement :
+              c'est lui, en rouge. « Nous contacter » reste à côté, en simple
+              lien, sur les grands écrans. */}
+          {/* « Nous contacter » a quitté la barre quand « Partenaires » y est
+              entré : à 1536 px et plus, les deux ne tenaient pas ensemble (la
+              colonne de droite débordait sur « Partenaires », mesuré avec les
+              vraies polices). Il vit maintenant dans le menu « Entreprise ». */}
           <Link
-            href={`${t.racine}/contact`}
+            href={reserver}
             className="hidden min-w-[9.5rem] shrink-0 items-center justify-center rounded-xl bg-brand px-5 py-2.5 text-sm font-black text-white transition-colors hover:bg-ink md:inline-flex"
           >
-            {t.nav.contacter}
+            {libelleReserver}
           </Link>
 
           {/* LE MÊME BOUTON, RÉDUIT À SON ICÔNE, AU TÉLÉPHONE.
@@ -115,11 +134,11 @@ export default function BarreNav({ t }: { t: Textes }) {
               vide. `sr-only` le sort de l'écran sans le sortir du document,
               donc l'ancre a son texte et le bouton reste une icône. */}
           <Link
-            href={`${t.racine}/contact`}
+            href={reserver}
             className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-white transition-colors hover:bg-ink md:hidden"
           >
             <CalendarDays className="size-5" />
-            <span className="sr-only">{t.nav.contacter}</span>
+            <span className="sr-only">{libelleReserver}</span>
           </Link>
           <MenuMobile t={t} />
         </div>

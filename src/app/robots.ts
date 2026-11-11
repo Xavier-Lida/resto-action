@@ -9,9 +9,11 @@ import { SITE_URL } from "@/lib/site";
 // de passe, donc rien n'y est indexable de toute façon — l'exclure ici évite
 // juste qu'un robot vienne cogner à la porte. Les liens courts /yt et /li
 // restent ouverts : ils redirigent vers l'accueil, il n'y a rien à cacher.
+// Les liens de « Réfère un resto » (/p/CODE, /f/CODE), eux, sont fermés :
+// un robot qui les suit poserait des témoins d'attribution pour rien.
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: "/tableau" },
+    rules: { userAgent: "*", allow: "/", disallow: ["/tableau", "/p/", "/f/"] },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

@@ -143,7 +143,7 @@ export const paireArticle = (cheminFr: string): Paire => {
 
 /* La FAQ, le programme de références et les pages des pièces du Système. */
 export const FAQ_PAIRE: Paire = { fr: "/faq", en: "/en/faq", frequence: "monthly", priorite: 0.6 };
-export const REFERENCES_PAIRE: Paire = { fr: "/references", en: "/en/referrals", frequence: "monthly", priorite: 0.5 };
+export const REFERENCES_PAIRE: Paire = { fr: "/refere-un-resto", en: "/en/referrals", frequence: "monthly", priorite: 0.5 };
 export const PIECES_PAIRES: Paire[] = piecesPretes("fr").flatMap((p) => {
   const cle = Object.keys(PIECES_FR).find((k) => PIECES_FR[k] === p);
   return cle && PIECES_EN[cle] ? [{ fr: p.slug, en: PIECES_EN[cle].slug, frequence: "monthly" as const, priorite: 0.6 }] : [];

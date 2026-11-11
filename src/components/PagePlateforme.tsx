@@ -4,7 +4,6 @@ import BarreNav from "@/components/BarreNav";
 import CommentOnFait from "@/components/CommentOnFait";
 import Blocs from "@/components/Blocs";
 import DonneesStructurees from "@/components/DonneesStructurees";
-import FilAriane from "@/components/FilAriane";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionFaq from "@/components/SectionFaq";
@@ -82,29 +81,8 @@ export default function PagePlateforme({
     <>
       <BarreNav t={t} />
       <main className="flex-1" lang={t.htmlLang}>
-        {/* En français : la page « comment on fait », à la Owner. L'anglais
-            (en pause) garde l'ancien en-tête rouge. */}
-        {francais && <CommentOnFait fil={fil} />}
-        {!francais && (
-        <section className="bg-white p-3 md:p-5 lg:p-6">
-          <div className="rounded-[2rem] bg-hero px-5 py-16 text-white md:py-20 lg:rounded-[3rem] lg:px-10">
-            <div className="mx-auto max-w-4xl">
-              <FilAriane elements={fil} clair />
-              <Reveal>
-                <p className="mt-8 text-xs font-black uppercase tracking-widest text-white/70">
-                  {p.surTitre}
-                </p>
-                <h1 className="mt-3 font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
-                  {p.titre}
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">
-                  {p.intro}
-                </p>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-        )}
+        {/* La page « comment on fait », à la Owner, dans les deux langues. */}
+        <CommentOnFait fil={fil} langue={francais ? "fr" : "en"} />
 
         {/* Le corps du texte. */}
         <section className="bg-white">
