@@ -522,8 +522,8 @@ export const EN: Textes = {
     },
     apercuDefaut: "your restaurant",
     apercu: {
-      titre: "Start selling more online.",
-      points: ["More customers.", "You save on every order."],
+      fixe: "Start",
+      variantes: ["selling more online.", "getting more customers.", "saving on every order."],
       exemple: "Bistro Habibi's app, built by us",
     },
     dossier: {

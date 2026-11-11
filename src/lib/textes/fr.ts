@@ -641,8 +641,8 @@ export const FR = {
     apercuDefaut: "ton resto",
     // Le panneau de droite de /reserver : la promesse, en gros (11 nov.).
     apercu: {
-      titre: "Commence à vendre plus en ligne.",
-      points: ["Plus de clients.", "Tu sauves sur chaque commande."],
+      fixe: "Commence à",
+      variantes: ["vendre plus en ligne.", "avoir plus de clients.", "sauver sur chaque commande."],
       exemple: "L'app de Bistro Habibi, faite par nous",
     },
     // La page de suivi privée du resto, après la signature et le paiement de sa

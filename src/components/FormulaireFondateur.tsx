@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check, Mail, ShieldCheck } from "lucide-react";
+import PromesseTournante from "@/components/PromesseTournante";
+import { Telephone } from "@/components/IllustrationPiece";
 import BarrePlaces from "@/components/BarrePlaces";
 import LienPasPret from "@/components/LienPasPret";
 import ModalePasPret from "@/components/ModalePasPret";
@@ -492,15 +494,7 @@ export default function FormulaireFondateur({
           <div aria-hidden="true" className="pointer-events-none absolute -left-24 -top-32 -z-10 size-[28rem] rounded-full bg-brand/30 blur-[120px]" />
           <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -right-24 -z-10 size-[26rem] rounded-full bg-ciel/20 blur-[110px]" />
 
-          <p className="max-w-md font-display text-4xl font-black leading-[1.05] tracking-tight xl:text-5xl">{r.apercu.titre}</p>
-          <ul className="mt-8 grid list-none gap-3">
-            {r.apercu.points.map((p) => (
-              <li key={p} className="flex items-center gap-3 font-display text-xl font-black xl:text-2xl">
-                <span aria-hidden="true" className="size-2.5 shrink-0 rounded-full bg-ciel shadow-[0_0_14px_rgba(25,211,240,0.8)]" />
-                {p}
-              </li>
-            ))}
-          </ul>
+          <PromesseTournante fixe={r.apercu.fixe} variantes={r.apercu.variantes} />
           <BarrePlaces
             modele={t.hero.places}
             prix={t.hero.placesPrix}
@@ -508,12 +502,14 @@ export default function FormulaireFondateur({
             className="mt-10 w-fit rounded-2xl bg-white/[0.06] px-5 py-3 ring-1 ring-white/10"
           />
 
-          <figure className="relative mt-auto flex flex-col items-center gap-3 pt-12">
-            <figcaption className="text-xs font-bold uppercase tracking-widest text-white/50">{r.apercu.exemple}</figcaption>
-            <div className="-mb-40 rotate-[-4deg] drop-shadow-[0_40px_60px_rgba(0,0,0,0.5)]">
-              <DemoApp demo="client" alt={t.hero.maquette.exempleAlt} attente={t.hero.maquette.attente} className="[--demo-w:16rem]" />
-            </div>
-          </figure>
+          {/* Le même cellulaire que la section « 16 restos par mois » de
+              l'accueil, en perspective, coupé par le bas du panneau. */}
+          <div className="relative mt-auto flex justify-center pt-10">
+            <Telephone
+              ecran={{ src: "/demo-app/client/accueil.webp", alt: r.apercu.exemple }}
+              className="-mb-56 w-80 drop-shadow-[0_45px_45px_rgba(0,0,0,0.45)] [transform:perspective(1400px)_rotateY(-20deg)_rotateX(8deg)_rotateZ(14deg)] xl:w-[22rem]"
+            />
+          </div>
         </aside>
       </div>
       <ModalePasPret t={t} />
