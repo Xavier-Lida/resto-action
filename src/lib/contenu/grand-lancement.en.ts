@@ -351,12 +351,11 @@ export const HERO = {
   surtitre: NOM_OFFRE,
   h1: "More online sales. More money at the end of the month.",
   /** The rotating title at the top of the page (the full H1 stays readable by Google). */
-  titresRoulants: [
-    "More online sales.",
-    "More new customers.",
-    "More orders.",
-    "More money.",
-  ],
+  titreRoulant: {
+    avant: "More",
+    mots: ["sales", "orders", "customers"],
+    apres: "online.",
+  },
   /** Version B, to test later. */
   h1VersionB: "We grow your online revenue.",
   sousTitre:

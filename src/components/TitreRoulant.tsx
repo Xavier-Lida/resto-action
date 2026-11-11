@@ -16,14 +16,23 @@ const ROULEAU = 520;
 
 /* `retour` : les phrases peuvent passer sur deux lignes (gros titre au
    cellulaire); la plus longue, invisible, fixe alors la hauteur. */
+/* `avant` / `apres` : seul UN MOT roule, entre deux lignes fixes
+   (« Plus de / ventes / en ligne. »). Le mot tient toujours sur une ligne,
+   donc la fente ne change jamais de hauteur, même au cellulaire. */
 export default function TitreRoulant({
   lignes,
   className = "",
   retour = false,
+  avant,
+  apres,
+  classeMot = "",
 }: {
   lignes: string[];
   className?: string;
   retour?: boolean;
+  avant?: string;
+  apres?: string;
+  classeMot?: string;
 }) {
   const [i, setI] = useState(0);
   const [sortante, setSortante] = useState<number | null>(null);
@@ -63,8 +72,32 @@ export default function TitreRoulant({
     return () => clearTimeout(t);
   }, [sortante]);
 
-  const blanc = retour ? "text-balance" : "whitespace-nowrap";
+  const blanc = retour && !avant ? "text-balance" : "whitespace-nowrap";
   const plusLongue = lignes.reduce((a, b) => (b.length > a.length ? b : a));
+
+  if (avant !== undefined) {
+    const complet = (m: string) => [avant, m, apres].filter(Boolean).join(" ");
+    return (
+      <h1 ref={titre} className={className}>
+        <span className="sr-only">{lignes.map(complet).join(" ")}</span>
+        <span aria-hidden="true" className="block">
+          <span className="block">{avant}</span>
+          <span className={`relative block overflow-hidden pb-[0.12em] ${classeMot}`}>
+            <span className="invisible block whitespace-nowrap">{plusLongue}</span>
+            {sortante !== null && (
+              <span key={`s-${sortante}`} className="titre-sort absolute inset-x-0 top-0 block whitespace-nowrap">
+                {lignes[sortante]}
+              </span>
+            )}
+            <span key={i} className={`absolute inset-x-0 top-0 block whitespace-nowrap ${sortante !== null ? "titre-entre" : ""}`}>
+              {lignes[i]}
+            </span>
+          </span>
+          {apres && <span className="block">{apres}</span>}
+        </span>
+      </h1>
+    );
+  }
 
   return (
     <h1 ref={titre} className={className}>

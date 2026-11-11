@@ -516,12 +516,13 @@ export const HERO = {
   surtitre: NOM_OFFRE,
   h1: "Plus de ventes en ligne. Plus d'argent à la fin du mois.",
   /** Le titre qui roule dans le haut de page (le H1 complet reste lisible par Google). */
-  titresRoulants: [
-    "Plus de ventes en ligne.",
-    "Plus de nouveaux clients.",
-    "Plus de commandes.",
-    "Plus d'argent.",
-  ],
+  /* Seul le mot du milieu roule (11 nov. : « nouveaux clients » sonnait mal,
+     « commandes » prend « en ligne », et au cell le titre sautait). */
+  titreRoulant: {
+    avant: "Plus de",
+    mots: ["ventes", "commandes", "clients"],
+    apres: "en ligne.",
+  },
   /** Version B à tester plus tard. */
   h1VersionB: "On fait monter ton chiffre d'affaires en ligne.",
   sousTitre:
