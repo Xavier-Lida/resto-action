@@ -171,10 +171,29 @@ img {
   animation: titre-entre 520ms var(--res-glisse) both;
 }
 
+/* La fin de ligne du titre de l'accueil (« en ligne. » / « qui reviennent. ») :
+   un fondu en deux temps, l'ancienne d'abord, la nouvelle ensuite. */
+@keyframes apres-sort {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.apres-sort {
+  animation: apres-sort 200ms ease-out both;
+}
+@keyframes apres-entre {
+  0%, 35% { opacity: 0; transform: translateY(0.12em); }
+  100% { opacity: 1; transform: none; }
+}
+.apres-entre {
+  animation: apres-entre 520ms ease-out both;
+}
+
 /* Mouvement réduit : la phrase est là, elle ne bouge pas. */
 @media (prefers-reduced-motion: reduce) {
   .titre-sort,
-  .titre-entre {
+  .titre-entre,
+  .apres-sort,
+  .apres-entre {
     animation: none;
   }
 }

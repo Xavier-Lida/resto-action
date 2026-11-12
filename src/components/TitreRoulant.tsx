@@ -89,7 +89,7 @@ export default function TitreRoulant({
           {/* Le dégradé va sur CHAQUE mot, pas sur la fente : avec
               background-clip:text sur le parent, Chrome peint les mots qui
               roulent à leur place de départ, et ils se superposaient. */}
-          <span className="relative block overflow-hidden pb-[0.12em]">
+          <span className="relative block overflow-hidden pb-[0.12em] [clip-path:inset(0)]">
             <span className="invisible block whitespace-nowrap">{plusLongue}</span>
             {sortante !== null && (
               <span key={`s-${sortante}`} className="titre-sort absolute inset-x-0 top-0 block whitespace-nowrap">
@@ -104,11 +104,13 @@ export default function TitreRoulant({
             <span className="relative block overflow-hidden pb-[0.12em]">
               <span className="invisible block whitespace-nowrap">{apresPlusLong}</span>
               {roulApres && (
-                <span key={`as-${sortante}`} className="titre-sort absolute inset-x-0 top-0 block whitespace-nowrap">
+                <span key={`as-${sortante}`} className="apres-sort absolute inset-x-0 top-0 block whitespace-nowrap">
                   {ap(sortante)}
                 </span>
               )}
-              <span key={roulApres ? `a-${i}` : "a"} className={`absolute inset-x-0 top-0 block whitespace-nowrap ${roulApres ? "titre-entre" : ""}`}>
+              {/* La fin de ligne ne roule pas : collée sous le mot, son rouleau
+                  passait par-dessus. Elle s'efface, puis la nouvelle apparaît. */}
+              <span key={roulApres ? `a-${i}` : "a"} className={`absolute inset-x-0 top-0 block whitespace-nowrap ${roulApres ? "apres-entre" : ""}`}>
                 {ap(i)}
               </span>
             </span>
