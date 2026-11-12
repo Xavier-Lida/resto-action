@@ -92,7 +92,7 @@ export const VIDEO_HISTOIRE = {
    Elle démarre seule, sans son, pour qui a accepté les témoins ; pour les
    autres, la miniature (copie locale dans public/) et un clic. */
 export const VIDEO_ACCUEIL = {
-  id: "vWOEnEM3r7M",
+  id: "x6gAHQNXLwA",
   miniature: "/video-accueil.jpg",
 };
 
