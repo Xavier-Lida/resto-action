@@ -43,7 +43,7 @@ export const ROUTES_REFERENCES = {
 // ───────────────────────── Les interrupteurs ─────────────────────────
 
 /** Les montants (crédits, bonus, commissions) s'affichent sur les pages. */
-export const AFFICHER_MONTANTS = false;
+export const AFFICHER_MONTANTS = true; // 12 nov. : Guillaume veut les montants sur la page (confirmés le 10 nov.)
 /** L'entente type des partenaires référents est prête (avocat). Sans elle, aucune formule ni commission ne s'affiche. */
 export const ENTENTE_TYPE_PRETE = false;
 /** L'espace /refere-un-resto/suivi est branché sur le CRM. Sinon : page « bientôt », non publiée. */
@@ -93,6 +93,8 @@ export const REFERE_UN_RESTO = {
     sousTitre:
       "Tu nous présentes un resto, on s'occupe de tout, et tu es récompensé quand il est en ligne. Le resto que tu présentes a lui aussi un plus à son lancement.",
     boutonClient: "Je veux mon lien",
+    boutonResto: "J'ai un resto",
+    boutonPro: "Je suis un pro",
     boutonClientConnecte: "Je suis déjà client, envoie-moi mon lien",
     boutonPartenaire: "Devenir partenaire référent",
 
@@ -175,6 +177,32 @@ export const REFERE_UN_RESTO = {
     bouton: "Envoyer",
     merci: "Merci! On contacte ce resto une seule fois, et on te tient au courant.",
     erreur: "Ça n'a pas marché. Réessaie, ou appelle-nous au {tel}.",
+  },
+
+  /* Le choix du profil, juste sous le titre (12 nov.) : deux grandes cartes
+     côte à côte, on en choisit une et sa partie de la page s'ouvre. [À RELIRE] */
+  choix: {
+    titre: "Choisis ton profil",
+    resto: {
+      etiquette: "J'ai un resto",
+      qui: "Ton resto est déjà client de Resto Action",
+      montant: (m: typeof MONTANTS) => `${m.parrainCredit} $`,
+      sousMontant: "de rabais sur ton abonnement",
+      texte: (m: typeof MONTANTS) => `Pour chaque resto que tu nous réfères. ${m.parrainCredit3Plus} $ dès le 3e, sans limite.`,
+      sansMontant: "Un rabais sur ton abonnement",
+      texteSansMontant: "Pour chaque resto que tu nous réfères, sans limite.",
+    },
+    pro: {
+      etiquette: "Je suis un pro",
+      qui: "Travailleur autonome, comptable, fournisseur, conseiller, agence",
+      montant: (m: typeof MONTANTS) => `${m.fournisseurCommission} $`,
+      sousMontant: "pour chaque resto que tu nous présentes",
+      texte: `Payé quand le resto est en ligne et qu'il a payé ses 2 premiers mois.`,
+      sansMontant: "Un montant pour chaque resto",
+      texteSansMontant: "Payé quand le resto est en ligne et qu'il a payé ses 2 premiers mois.",
+    },
+    choisir: "Choisir",
+    choisi: "Choisi",
   },
 
   /* « Je veux mon lien » : un resto client demande son lien. En mode pilote,
