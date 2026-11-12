@@ -86,15 +86,18 @@ export default function TitreRoulant({
         <span className="sr-only">{lignes.map(complet).join(". ").replace(/\.\./g, ".")}</span>
         <span aria-hidden="true" className="block">
           <span className="block">{avant}</span>
-          <span className={`relative block overflow-hidden pb-[0.12em] ${classeMot}`}>
+          {/* Le dégradé va sur CHAQUE mot, pas sur la fente : avec
+              background-clip:text sur le parent, Chrome peint les mots qui
+              roulent à leur place de départ, et ils se superposaient. */}
+          <span className="relative block overflow-hidden pb-[0.12em]">
             <span className="invisible block whitespace-nowrap">{plusLongue}</span>
             {sortante !== null && (
               <span key={`s-${sortante}`} className="titre-sort absolute inset-x-0 top-0 block whitespace-nowrap">
-                {lignes[sortante]}
+                <span className={classeMot}>{lignes[sortante]}</span>
               </span>
             )}
             <span key={i} className={`absolute inset-x-0 top-0 block whitespace-nowrap ${sortante !== null ? "titre-entre" : ""}`}>
-              {lignes[i]}
+              <span className={classeMot}>{lignes[i]}</span>
             </span>
           </span>
           {apresPlusLong && (
