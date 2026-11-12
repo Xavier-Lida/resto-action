@@ -1,18 +1,16 @@
 import BoutonReserver from "@/components/BoutonReserver";
 import { Telephone } from "@/components/IllustrationPiece";
 import Reveal from "@/components/Reveal";
-import { BoutonContour, PointCiel } from "@/components/lancement/ui";
+import { BoutonContour } from "@/components/lancement/ui";
 import { contenuLancement, type Langue } from "@/lib/contenu/lancement";
-import { ui } from "@/lib/contenu/ui-lancement";
 import { formats } from "@/lib/format";
 
 /* LA RARETÉ, À LA OWNER : le grand bandeau de couleur avec le téléphone qui
    dépasse en haut, le titre en gros, une ligne, deux boutons. Plus de mur de
    texte : les détails (2 semaines de préparation, etc.) sont dans la FAQ. */
 export default function RareteLancement({ langue = "fr" }: { langue?: Langue }) {
-  const { ANCRES, DATE_COHORTE, RARETE, RESTOS_PAR_MOIS, bonusDisponibles, lienReservation } = contenuLancement(langue);
+  const { ANCRES, RARETE, RESTOS_PAR_MOIS, bonusDisponibles, lienReservation } = contenuLancement(langue);
   const { typo: fr } = formats(langue);
-  const U = ui(langue);
   const en = langue === "en";
   const expire = bonusDisponibles().filter((b) => b.expire);
   return (
@@ -30,11 +28,7 @@ export default function RareteLancement({ langue = "fr" }: { langue?: Langue }) 
         </div>
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
           <Reveal>
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-black uppercase tracking-widest">
-              <PointCiel />
-              {fr(U.prochaineCohorte(DATE_COHORTE))}
-            </p>
-            <h2 className="mt-6 font-display text-4xl font-black leading-[1.02] tracking-tight md:text-6xl">
+            <h2 className="font-display text-4xl font-black leading-[1.02] tracking-tight md:text-6xl">
               {fr(en ? `${RESTOS_PAR_MOIS} restaurants a month, no more.` : `${RESTOS_PAR_MOIS} restos par mois, pas plus.`)}
             </h2>
             <p className="mt-5 max-w-xl text-lg font-bold leading-relaxed text-white/90">

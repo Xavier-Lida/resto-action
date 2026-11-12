@@ -158,11 +158,7 @@ export default function PageRefereUnResto() {
             <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
               {/* L'en-tête */}
               <div className="mx-auto max-w-3xl text-center">
-                <p className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white/80 ring-1 ring-ciel/30">
-                  <PointCiel />
-                  {B.surtitre}
-                </p>
-                <h2 className="mt-6 font-display text-3xl font-black leading-[1.05] tracking-tight md:text-5xl">
+                <h2 className="font-display text-3xl font-black leading-[1.05] tracking-tight md:text-5xl">
                   {fr(B.titreA)}{" "}
                   <span className="bg-gradient-to-r from-ciel to-[#8b8ff8] bg-clip-text text-transparent">{fr(B.titreB)}</span>
                 </h2>

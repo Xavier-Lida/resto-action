@@ -22,11 +22,7 @@ export default function PageReferences({ t }: { t: Textes }) {
         <section className="bg-white px-3 pt-3 md:px-5 md:pt-5 lg:px-6 lg:pt-6">
           <div className="rounded-[2rem] bg-bone px-5 py-14 md:py-20 lg:rounded-[3rem]">
             <div className="mx-auto max-w-4xl text-center">
-              <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-ink/50">
-                <PointCiel />
-                {R.surtitre}
-              </p>
-              <h1 className="mt-4 font-display text-3xl font-black leading-[1.08] tracking-tight md:text-5xl">{fr(R.titre)}</h1>
+              <h1 className="font-display text-3xl font-black leading-[1.08] tracking-tight md:text-5xl">{fr(R.titre)}</h1>
               <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/65">{fr(R.sousTitre)}</p>
               <a
                 href="#formulaire"

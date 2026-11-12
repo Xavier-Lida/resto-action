@@ -671,12 +671,8 @@ function ApercuCalcul({ C, T, f, langue }: { C: ContenuLancement["CALCULATEUR"];
   return (
     <aside ref={ref} className="relative overflow-hidden rounded-[2rem] bg-ink p-6 text-white md:p-8" aria-label={T.exempleAria}>
       <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-brand/30 blur-3xl" />
-      <p className="relative inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-widest">
-        <Sparkles className="size-3.5 text-ciel" aria-hidden="true" />
-        {C.apercuBadge}
-      </p>
       {/* Le relevé lu par l'IA */}
-      <div className="relative mt-6 overflow-hidden rounded-2xl bg-white p-4 text-ink" aria-hidden="true">
+      <div className="relative overflow-hidden rounded-2xl bg-white p-4 text-ink" aria-hidden="true">
         <div className="flex items-center justify-between text-[0.65rem] font-black uppercase tracking-widest text-ink/50">
           <span>{T.releve}</span>
           <span>{T.jours}</span>

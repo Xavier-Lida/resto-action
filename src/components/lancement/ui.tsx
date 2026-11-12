@@ -27,18 +27,12 @@ export function PointCiel() {
   return <span aria-hidden="true" className="size-2 shrink-0 rounded-full bg-ciel shadow-[0_0_0_3px_rgba(25,211,240,0.25)]" />;
 }
 
-export function Surtitre({ children, ton = "clair" }: { children: ReactNode; ton?: "clair" | "sombre" }) {
-  return ton === "sombre" ? (
-    <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white">
-      <PointCiel />
-      {children}
-    </p>
-  ) : (
-    <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-ink/50">
-      <PointCiel />
-      {children}
-    </p>
-  );
+/* Les petites étiquettes au-dessus des titres (« LE CALCULATEUR · IA »…) :
+   retirées partout le 12 nov. à la demande de Guillaume. Le composant reste,
+   et ne rend plus rien, pour ne pas toucher chaque page qui l'appelle. */
+export function Surtitre(props: { children: ReactNode; ton?: "clair" | "sombre" }) {
+  void props;
+  return null;
 }
 
 /** Le bouton secondaire : une pilule au contour, à côté du gros bouton rouge. */

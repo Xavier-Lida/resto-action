@@ -1,5 +1,4 @@
 import BoutonReserver from "@/components/BoutonReserver";
-import { PointCiel } from "@/components/lancement/ui";
 import DemoApp from "@/components/DemoApp";
 import TitreRoulant from "@/components/TitreRoulant";
 import { contenuLancement, type Langue } from "@/lib/contenu/lancement";
@@ -22,11 +21,6 @@ export default function HeroLancement({ t, langue = "fr" }: { t: Textes; langue?
   return (
     <section id="top" className="bg-white px-3 pt-10 md:px-5 md:pt-16 lg:px-6">
       <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
-        <p className="animate-hero inline-flex items-center gap-2 rounded-full bg-bone px-4 py-1.5 text-xs font-black uppercase tracking-widest text-ink">
-          <PointCiel />
-          {HERO.surtitre}
-        </p>
-
         {/* Le titre qui roule, comme owner.com : le cœur de l'offre, en gros. */}
         <TitreRoulant
           avant={fr(HERO.titreRoulant.avant)}
