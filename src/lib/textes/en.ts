@@ -167,8 +167,8 @@ export const EN: Textes = {
       reserver: "Reserve {nom}'s app",
       fermer: "Close the preview",
     },
-    places: "16 restaurants a month, no more",
-    placesPrix: "Next cohort: January 2027",
+    places: "16 spots a month, no more",
+    placesPrix: "Ends December 18",
     reserver: "Reserve your spot",
     pasPret: "Not ready yet?",
     hesite: {

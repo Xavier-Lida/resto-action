@@ -284,8 +284,8 @@ export const FR = {
     },
     // La limite, sans compteur : un « il reste X » ne connaît pas la ville du
     // visiteur et se met à jour à la main. Le prix est la vraie raison d'agir.
-    places: "16 restos par mois, pas plus",
-    placesPrix: "Prochaine cohorte : janvier 2027",
+    places: "16 places par mois, pas plus",
+    placesPrix: "Fin le 18 décembre",
     reserver: "Réserve ta place",
     pasPret: "Pas encore prêt?",
     // La fenêtre qui s'ouvre de « Pas encore prêt? » : l'agenda de Guillaume.

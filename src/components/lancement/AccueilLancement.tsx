@@ -87,7 +87,7 @@ export default function AccueilLancement({ t }: { t: Textes }) {
       <BarreReservation
         href={lienReservation()}
         libelle={langue === "en" ? "Reserve your spot" : "Réserve ta place"}
-        places={fr(ui(langue).urgenceCourte(RESTOS_PAR_MOIS))}
+        places={fr(ui(langue).urgenceCourte(RESTOS_PAR_MOIS, DATE_LIMITE))}
         placesLongues={fr(ui(langue).urgence(RESTOS_PAR_MOIS, DATE_LIMITE))}
       />
       <Footer t={t} />

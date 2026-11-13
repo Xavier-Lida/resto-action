@@ -24,6 +24,8 @@ export type Carte = {
   qui?: string;
   montant: string;
   sousMontant: string;
+  /** La version cellulaire de sousMontant. */
+  sousCourt: string;
   texte: string;
 };
 
@@ -65,7 +67,7 @@ export default function ChoixReferent({
         type="button"
         aria-pressed={actif}
         onClick={() => choisirCarte(c)}
-        className={`group relative flex scroll-mt-28 flex-col overflow-hidden rounded-[2rem] p-7 text-left transition duration-300 md:p-9 ${
+        className={`group relative flex scroll-mt-28 flex-col overflow-hidden rounded-[1.5rem] p-4 text-left transition duration-300 md:rounded-[2rem] md:p-9 ${
           sombre ? "bg-[#0a0e16] text-white" : "bg-bone text-ink"
         } ${actif ? (sombre ? "ring-4 ring-ciel" : "ring-4 ring-brand") : "ring-1 ring-ink/10 hover:-translate-y-1"} ${
           choix && !actif ? "opacity-60 hover:opacity-100" : ""
@@ -81,19 +83,23 @@ export default function ChoixReferent({
           aria-hidden="true"
           className={`pointer-events-none absolute -right-20 -top-20 size-64 rounded-full blur-3xl ${sombre ? "bg-ciel/25" : "bg-brand/20"}`}
         />
-        <span className="relative font-display text-2xl font-black">{d.etiquette}</span>
-        {d.qui && <span className={`relative mt-1 text-sm ${sombre ? "text-white/60" : "text-ink/60"}`}>{d.qui}</span>}
+        <span className="relative font-display text-lg font-black leading-tight md:text-2xl">{d.etiquette}</span>
+        {d.qui && <span className={`relative mt-1 hidden text-sm md:block ${sombre ? "text-white/60" : "text-ink/60"}`}>{d.qui}</span>}
         <span
-          className={`relative mt-8 font-display text-6xl font-black leading-none tracking-tight md:text-7xl ${
+          className={`relative mt-4 whitespace-nowrap font-display text-4xl font-black leading-none tracking-tight md:mt-8 md:text-7xl ${
             sombre ? "bg-gradient-to-r from-ciel to-[#8b8ff8] bg-clip-text text-transparent" : "text-brand"
           }`}
         >
           {d.montant}
         </span>
-        <span className="relative mt-2 text-lg font-black">{d.sousMontant}</span>
-        <span className={`relative mt-3 max-w-sm ${sombre ? "text-white/65" : "text-ink/65"}`}>{d.texte}</span>
+        <span className="relative mt-2 text-sm font-black leading-snug md:text-lg">
+          <span className="md:hidden">{d.sousCourt}</span>
+          <span className="hidden md:inline">{d.sousMontant}</span>
+        </span>
+        <span className={`relative mt-3 hidden max-w-sm md:block ${sombre ? "text-white/65" : "text-ink/65"}`}>{d.texte}</span>
+        <span aria-hidden="true" className="min-h-4 flex-1 md:min-h-8" />
         <span
-          className={`relative mt-8 inline-flex w-fit items-center gap-2 rounded-full px-5 py-2.5 font-black transition ${
+          className={`relative inline-flex w-fit items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-black transition md:gap-2 md:px-5 md:py-2.5 md:text-base ${
             actif ? (sombre ? "bg-ciel text-ink" : "bg-brand text-white") : sombre ? "bg-white text-ink" : "bg-ink text-white"
           }`}
         >
@@ -116,9 +122,10 @@ export default function ChoixReferent({
   return (
     <>
       <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
-          <h2 className="text-center font-display text-3xl font-black tracking-tight md:text-4xl">{titre}</h2>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 md:gap-5">
+        <div className="mx-auto max-w-6xl px-4 py-8 md:px-5 md:py-20">
+          <h2 className="text-center font-display text-2xl font-black tracking-tight md:text-4xl">{titre}</h2>
+          {/* Côte à côte, même au cellulaire : un choix se voit d'un coup d'œil. */}
+          <div className="mt-6 grid grid-cols-2 gap-3 md:mt-10 md:gap-5">
             {carte("resto", resto)}
             {carte("pro", pro)}
           </div>

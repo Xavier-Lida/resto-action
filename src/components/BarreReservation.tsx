@@ -65,10 +65,18 @@ export default function BarreReservation({
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-75" />
           <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
         </span>
-        <span className="text-xs sm:text-sm lg:hidden">{places}</span>
+        {/* Au cellulaire, sur deux lignes : « 16 places par mois » / « Fin le 18 déc. » */}
+        <span className="flex flex-col text-xs leading-tight sm:hidden">
+          {places.split(" · ").map((morceau, k) => (
+            <span key={morceau} className={k === 0 ? "" : "font-bold text-white/60"}>
+              {morceau}
+            </span>
+          ))}
+        </span>
+        <span className="hidden text-sm sm:inline lg:hidden">{places}</span>
         <span className="hidden lg:inline">{placesLongues ?? places}</span>
       </span>
-      <BoutonReserver href={href} libelle={libelle} taille="md" flottant className="min-w-0" />
+      <BoutonReserver href={href} libelle={libelle} taille="md" flottant className="min-w-0 shrink-0 whitespace-nowrap" />
     </div>
   );
 }

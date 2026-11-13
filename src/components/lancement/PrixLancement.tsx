@@ -7,8 +7,9 @@ import { formats } from "@/lib/format";
 
 /* BLOC 5 : LE PRIX, EN UN COUP D'ŒIL.
 
-   À gauche, ce que ça coûte : un gros 200 $, la mise en service en une
-   ligne, les deux frais à la commande côte à côte, les pastilles. À droite,
+   À gauche, ce que ça coûte, comme une facture : le gros 200 $ par mois,
+   puis trois lignes (mise en service, cueillette, livraison) et les
+   pastilles en simple liste. À droite,
    ce que ça rapporte : +629 $ avec une barre qui montre d'où vient l'argent,
    et le bouton. En dessous, les bonus en bande. Le détail complet reste
    dans /conditions-fondateur. */
@@ -18,7 +19,10 @@ const TEXTES = {
     surtitre: "Le prix",
     cout: "Ce que ça coûte",
     parMois: "par mois",
-    miseEnService: (a: number, b: string) => [`${a} $ de mise en service`, ` (puis ${b} $), remboursée si ton app ne te l'a pas rapportée en 90 jours.`],
+    ligneMise: "Mise en service",
+    ligneMiseDetail: (b: string) => `une fois · au lieu de ${b} $`,
+    montant: (n: string) => `${n} $`,
+    garantieMise: "Remboursée si ton app ne te l'a pas rapportée en 90 jours.",
     cueillette: "Par cueillette",
     livraison: "Par livraison",
     frais: (pct: number, fixe: string) => `${pct} % + ${fixe} $`,
@@ -35,7 +39,10 @@ const TEXTES = {
     surtitre: "The price",
     cout: "What it costs",
     parMois: "per month",
-    miseEnService: (a: number, b: string) => [`$${a} setup fee`, ` (then $${b}), refunded if your app hasn't paid it back within 90 days.`],
+    ligneMise: "Setup",
+    ligneMiseDetail: (b: string) => `one time · instead of $${b}`,
+    montant: (n: string) => `$${n}`,
+    garantieMise: "Refunded if your app hasn't paid it back within 90 days.",
     cueillette: "Per pickup",
     livraison: "Per delivery",
     frais: (pct: number, fixe: string) => `${pct}% + $${fixe}`,
@@ -59,7 +66,6 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
   const { typo: fr, argent, argentSigne } = formats(langue);
   const T = TEXTES[langue];
   const virgule = T.nombre;
-  const [mesA, mesB] = T.miseEnService(MISE_EN_SERVICE_ACTUELLE, MISE_EN_SERVICE_ENSUITE.toLocaleString(langue === "en" ? "en-CA" : "fr-CA"));
   const bonus = BONUS_COURT.filter(disponible);
   const gains = PRIX.exempleCourt.filter(([, v]) => v > 0);
   const sommeGains = gains.reduce((n, [, v]) => n + v, 0);
@@ -79,34 +85,32 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
             <div className="flex flex-col gap-4">
               {/* CE QUE ÇA COÛTE */}
               <Reveal>
-                <div className="rounded-[2rem] bg-white/[0.06] p-7 ring-1 ring-white/10 md:p-9">
+                {/* Comme une facture : le gros chiffre, puis trois lignes. */}
+                <div className="rounded-[2rem] bg-white/[0.06] p-6 ring-1 ring-white/10 md:p-9">
                   <p className="text-xs font-black uppercase tracking-widest text-white/50">{T.cout}</p>
-                  <p className="mt-4 flex items-baseline gap-3">
-                    <span className="font-display text-6xl font-black tracking-tight md:text-7xl">{langue === "en" ? `$${ABONNEMENT}` : `${ABONNEMENT} $`}</span>
-                    <span className="text-lg font-black text-brand">{T.parMois}</span>
+                  <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
+                    <span className="whitespace-nowrap font-display text-5xl font-black tracking-tight md:text-7xl">{fr(T.montant(String(ABONNEMENT)))}</span>
+                    <span className="whitespace-nowrap text-lg font-black text-brand">{T.parMois}</span>
                   </p>
-                  <p className="mt-4 max-w-md leading-relaxed text-white/70">
-                    <strong className="text-white">{fr(mesA)}</strong>
-                    {fr(mesB)}
-                  </p>
-                  <div className="mt-7 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl bg-white/[0.06] p-4">
-                      <p className="text-xs font-bold text-white/55">{T.cueillette}</p>
-                      <p className="mt-1 whitespace-nowrap font-display text-xl font-black md:text-2xl">
-                        {fr(T.frais(FRAIS.cueillettePct * 100, virgule(FRAIS.cueilletteFixe)))}
-                      </p>
-                    </div>
-                    <div className="rounded-2xl bg-white/[0.06] p-4">
-                      <p className="text-xs font-bold text-white/55">{T.livraison}</p>
-                      <p className="mt-1 whitespace-nowrap font-display text-xl font-black md:text-2xl">
-                        {fr(T.frais(FRAIS.livraisonPct * 100, virgule(FRAIS.livraisonFixe)))}
-                      </p>
-                      <p className="mt-1 text-xs text-white/50">{fr(T.clientPaie(virgule(FRAIS.livraisonClient)))}</p>
-                    </div>
-                  </div>
-                  <ul className="mt-6 flex list-none flex-wrap gap-2">
+                  <dl className="mt-6 divide-y divide-white/10 border-y border-white/10">
+                    {[
+                      [T.ligneMise, fr(T.montant(String(MISE_EN_SERVICE_ACTUELLE))), fr(T.ligneMiseDetail(MISE_EN_SERVICE_ENSUITE.toLocaleString(langue === "en" ? "en-CA" : "fr-CA")))],
+                      [T.cueillette, fr(T.frais(FRAIS.cueillettePct * 100, virgule(FRAIS.cueilletteFixe))), ""],
+                      [T.livraison, fr(T.frais(FRAIS.livraisonPct * 100, virgule(FRAIS.livraisonFixe))), fr(T.clientPaie(virgule(FRAIS.livraisonClient)))],
+                    ].map(([libelle, valeur, detail]) => (
+                      <div key={libelle} className="flex items-baseline justify-between gap-4 py-3.5">
+                        <dt className="min-w-0">
+                          <span className="block font-bold text-white/85">{libelle}</span>
+                          {detail && <span className="block text-xs text-white/50">{detail}</span>}
+                        </dt>
+                        <dd className="shrink-0 whitespace-nowrap font-display text-lg font-black md:text-2xl">{valeur}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p className="mt-3 text-sm text-white/60">{fr(T.garantieMise)}</p>
+                  <ul className="mt-5 flex list-none flex-wrap gap-x-4 gap-y-1.5 text-sm font-bold text-white/75">
                     {T.pastilles.map((p) => (
-                      <li key={p} className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.07] px-3 py-1.5 text-sm font-bold text-white/85">
+                      <li key={p} className="inline-flex items-center gap-1.5">
                         <Check className="size-3.5 text-ciel" aria-hidden="true" />
                         {p}
                       </li>
@@ -128,11 +132,7 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
                           </span>
                           <span className="font-bold leading-snug">
                             {fr(b.texte)}
-                            {b.expire && (
-                              <span className="ml-2 inline-block rounded-full bg-white/20 px-2 py-0.5 align-middle text-[0.65rem] font-black uppercase tracking-widest">
-                                {fr(BONUS_SECTION.etiquetteCourte)}
-                              </span>
-                            )}
+                            {b.expire && <span className="ml-1.5 text-sm font-semibold text-white/75">({fr(BONUS_SECTION.etiquetteCourte).toLowerCase()})</span>}
                           </span>
                         </li>
                       ))}
@@ -144,12 +144,12 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
 
             {/* CE QUE ÇA RAPPORTE */}
             <Reveal delay={1} className="h-full">
-              <div className="flex h-full flex-col rounded-[2rem] bg-white p-7 text-ink md:p-9">
+              <div className="flex h-full flex-col rounded-[2rem] bg-white p-6 text-ink md:p-9">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <p className="text-xs font-black uppercase tracking-widest text-ink/50">{T.rapporte}</p>
                   <Exemple>{PRIX.exempleMention}</Exemple>
                 </div>
-                <p className="mt-4 font-display text-6xl font-black tracking-tight text-brand md:text-7xl">{argentSigne(PRIX.exempleTotal)}</p>
+                <p className="mt-4 whitespace-nowrap font-display text-5xl font-black tracking-tight text-brand md:text-7xl">{argentSigne(PRIX.exempleTotal)}</p>
                 <p className="font-black">{T.dePlus}</p>
                 <p className="mt-1 inline-flex items-center gap-2 text-sm text-ink/60">
                   <PointCiel />

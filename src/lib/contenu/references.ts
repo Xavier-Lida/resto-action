@@ -93,6 +93,9 @@ export const REFERE_UN_RESTO = {
     sousTitre:
       "Tu nous présentes un resto, on s'occupe de tout, et tu es récompensé quand il est en ligne. Le resto que tu présentes a lui aussi un plus à son lancement.",
     boutonClient: "Je veux mon lien",
+    /* Au cellulaire : plus court (13 nov.). [À RELIRE] */
+    titreCourt: "Présente-nous un resto.",
+    sousTitreCourt: "On s'occupe de tout. Toi, tu es récompensé.",
     boutonResto: "J'ai un resto",
     boutonPro: "Je suis un pro",
     boutonClientConnecte: "Je suis déjà client, envoie-moi mon lien",
@@ -188,6 +191,7 @@ export const REFERE_UN_RESTO = {
       qui: "Ton resto est déjà client de Resto Action",
       montant: (m: typeof MONTANTS) => `${m.parrainCredit} $`,
       sousMontant: "de rabais sur ton abonnement",
+      sousCourt: "de rabais par resto référé",
       texte: (m: typeof MONTANTS) => `Pour chaque resto que tu nous réfères. ${m.parrainCredit3Plus} $ dès le 3e, sans limite.`,
       sansMontant: "Un rabais sur ton abonnement",
       texteSansMontant: "Pour chaque resto que tu nous réfères, sans limite.",
@@ -197,6 +201,7 @@ export const REFERE_UN_RESTO = {
       qui: "Travailleur autonome, comptable, fournisseur, conseiller, agence",
       montant: (m: typeof MONTANTS) => `${m.fournisseurCommission} $`,
       sousMontant: "pour chaque resto que tu nous présentes",
+      sousCourt: "par resto présenté",
       texte: `Payé quand le resto est en ligne et qu'il a payé ses 2 premiers mois.`,
       sansMontant: "Un montant pour chaque resto",
       texteSansMontant: "Payé quand le resto est en ligne et qu'il a payé ses 2 premiers mois.",

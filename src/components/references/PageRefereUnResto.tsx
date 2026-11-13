@@ -44,12 +44,20 @@ export default function PageRefereUnResto() {
       <main className="flex-1" lang="fr-CA">
         {/* 1. LA PROMESSE */}
         <section className="bg-white px-3 pt-3 md:px-5 md:pt-5 lg:px-6 lg:pt-6">
-          <div className="rounded-[2rem] bg-bone px-5 py-14 md:py-20 lg:rounded-[3rem]">
+          <div className="rounded-[2rem] bg-bone px-5 py-10 md:py-20 lg:rounded-[3rem]">
             <div className="mx-auto max-w-4xl text-center">
               <Surtitre>{P.surtitre}</Surtitre>
-              <h1 className="mt-4 font-display text-3xl font-black leading-[1.08] tracking-tight md:text-5xl">{fr(P.titre)}</h1>
-              <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/65">{fr(P.sousTitre)}</p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              {/* Au cellulaire, la version courte ; à l'ordi, la longue. */}
+              <h1 className="font-display text-4xl font-black leading-[1.05] tracking-tight md:mt-4 md:text-5xl">
+                <span className="md:hidden">{fr(P.titreCourt)}</span>
+                <span className="hidden md:inline">{fr(P.titre)}</span>
+              </h1>
+              <p className="mx-auto mt-4 max-w-2xl text-lg text-ink/65 md:mt-5">
+                <span className="md:hidden">{fr(P.sousTitreCourt)}</span>
+                <span className="hidden md:inline">{fr(P.sousTitre)}</span>
+              </p>
+              {/* Au cellulaire, les deux cartes juste dessous font déjà le travail des boutons. */}
+              <div className="mt-8 hidden flex-col items-center justify-center gap-3 sm:flex sm:flex-row">
                 <a
                   href="#resto"
                   className="inline-flex items-center justify-center rounded-full bg-brand px-7 py-4 text-lg font-black text-white shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5"
@@ -72,6 +80,7 @@ export default function PageRefereUnResto() {
             qui: C.resto.qui,
             montant: AFFICHER_MONTANTS ? fr(C.resto.montant(MONTANTS)) : "",
             sousMontant: AFFICHER_MONTANTS ? C.resto.sousMontant : C.resto.sansMontant,
+            sousCourt: AFFICHER_MONTANTS ? C.resto.sousCourt : C.resto.sansMontant,
             texte: fr(AFFICHER_MONTANTS ? C.resto.texte(MONTANTS) : C.resto.texteSansMontant),
           }}
           pro={{
@@ -79,20 +88,24 @@ export default function PageRefereUnResto() {
             qui: C.pro.qui,
             montant: AFFICHER_MONTANTS ? fr(C.pro.montant(MONTANTS)) : "",
             sousMontant: AFFICHER_MONTANTS ? C.pro.sousMontant : C.pro.sansMontant,
+            sousCourt: AFFICHER_MONTANTS ? C.pro.sousCourt : C.pro.sansMontant,
             texte: fr(AFFICHER_MONTANTS ? C.pro.texte : C.pro.texteSansMontant),
           }}
           contenuResto={
             <>
             {/* 2. COMMENT ÇA MARCHE */}
             <section className="bg-white">
-              <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
-                <h2 className="font-display text-3xl font-black tracking-tight md:text-4xl">{P.etapesTitre}</h2>
-                <ol className="mt-8 grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="mx-auto max-w-6xl px-5 py-10 md:py-20">
+                <h2 className="font-display text-2xl font-black tracking-tight md:text-4xl">{P.etapesTitre}</h2>
+                {/* Au cellulaire : 4 lignes compactes (numéro à gauche) ; à l'ordi : 4 cartes. */}
+                <ol className="mt-5 grid list-none gap-2 sm:grid-cols-2 md:mt-8 md:gap-4 lg:grid-cols-4">
                   {P.etapes.map((e, i) => (
-                    <li key={e.titre} className="rounded-[2rem] bg-bone p-6">
-                      <p className="font-display text-3xl font-black text-brand">{String(i + 1).padStart(2, "0")}.</p>
-                      <h3 className="mt-3 font-display text-lg font-black leading-tight">{fr(e.titre)}</h3>
-                      <p className="mt-2 text-ink/65">{fr(e.texte)}</p>
+                    <li key={e.titre} className="flex gap-4 rounded-2xl bg-bone p-4 md:block md:rounded-[2rem] md:p-6">
+                      <p className="font-display text-2xl font-black text-brand md:text-3xl">{String(i + 1).padStart(2, "0")}.</p>
+                      <div>
+                        <h3 className="font-display text-base font-black leading-tight md:mt-3 md:text-lg">{fr(e.titre)}</h3>
+                        <p className="mt-1 text-sm text-ink/65 md:mt-2 md:text-base">{fr(e.texte)}</p>
+                      </div>
                     </li>
                   ))}
                 </ol>
@@ -102,9 +115,9 @@ export default function PageRefereUnResto() {
             {/* 3. CE QUE GAGNE CHACUN + LES RÈGLES */}
             <section className="bg-white px-3 md:px-5 lg:px-6">
               <div className="rounded-[2rem] bg-ink text-white lg:rounded-[3rem]">
-                <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+                <div className="mx-auto grid max-w-6xl gap-6 px-5 py-10 md:gap-10 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
                   <div>
-                    <h2 className="font-display text-3xl font-black tracking-tight md:text-4xl">{P.gainsTitre}</h2>
+                    <h2 className="font-display text-2xl font-black tracking-tight md:text-4xl">{P.gainsTitre}</h2>
                     <div className="mt-8 grid gap-3 sm:grid-cols-2">
                       {[
                         [P.gains.parrainTitre, P.gains.parrain, P.gains.parrainMontant(MONTANTS)],
@@ -122,12 +135,27 @@ export default function PageRefereUnResto() {
                       {fr(P.gains.liberation)}
                     </p>
                     {!AFFICHER_MONTANTS && <p className="mt-2 text-sm text-white/50">{fr(P.gains.confirmeParEcrit)}</p>}
-                    <p className="mt-6 text-sm text-white/60">{fr(P.cohorte)} {fr(P.dateLimite)}</p>
+                    <p className="mt-6 hidden text-sm text-white/60 md:block">{fr(P.cohorte)} {fr(P.dateLimite)}</p>
                     {SUIVI_ACTIF && <p className="mt-2 text-sm text-white/60">{fr(P.suivi)}</p>}
                   </div>
                   <div>
-                    <h2 className="font-display text-2xl font-black tracking-tight md:text-3xl">{P.reglesTitre}</h2>
-                    <ul className="mt-6 grid list-none gap-3">
+                    {/* Au cellulaire, les règles sont repliées. */}
+                    <details className="group rounded-2xl bg-white/[0.06] px-5 py-4 ring-1 ring-white/10 md:hidden">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-black [&::-webkit-details-marker]:hidden">
+                        {P.reglesTitre}
+                        <span aria-hidden="true" className="grid size-6 place-items-center rounded-full bg-white/10 leading-none transition group-open:rotate-45">+</span>
+                      </summary>
+                      <ul className="mt-4 grid list-none gap-2 text-sm">
+                        {P.regles.map((r) => (
+                          <li key={r} className="flex gap-3 text-white/80">
+                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-ciel" aria-hidden="true" />
+                            {fr(r)}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                    <h2 className="hidden font-display text-2xl font-black tracking-tight md:block md:text-3xl">{P.reglesTitre}</h2>
+                    <ul className="mt-6 hidden list-none gap-3 md:grid">
                       {P.regles.map((r) => (
                         <li key={r} className="flex gap-3 text-white/80">
                           <span className="mt-2 size-2 shrink-0 rounded-full bg-ciel" aria-hidden="true" />
