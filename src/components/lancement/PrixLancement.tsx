@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import BoutonReserver from "@/components/BoutonReserver";
 import Reveal from "@/components/Reveal";
-import { Exemple, PointCiel, Surtitre } from "@/components/lancement/ui";
+import { Exemple, Surtitre } from "@/components/lancement/ui";
 import { contenuLancement, type Langue } from "@/lib/contenu/lancement";
 import { formats } from "@/lib/format";
 
@@ -10,8 +10,8 @@ import { formats } from "@/lib/format";
    À gauche, ce que ça coûte, comme une facture : le gros 200 $ par mois,
    puis trois lignes (mise en service, cueillette, livraison) et les
    pastilles en simple liste. À droite,
-   ce que ça rapporte : +629 $ avec une barre qui montre d'où vient l'argent,
-   et le bouton. En dessous, les bonus en bande. Le détail complet reste
+   ce que ça rapporte : +629 $ et deux lignes simples (les nouvelles
+   commandes, moins de commissions), puis le bouton. En dessous, les bonus en bande. Le détail complet reste
    dans /conditions-fondateur. */
 
 const TEXTES = {
@@ -30,8 +30,10 @@ const TEXTES = {
     pastilles: ["Pas de dépôt", "Frais de carte inclus", "Imprimante offerte", "Aucun minimum", "Taxes en sus"],
     bonus: "Les bonus",
     rapporte: "Ce que ça rapporte",
-    dePlus: "de plus par mois, abonnement payé",
-    ventesApp: (m: string) => `et ${m} de ventes par mois sur ton app`,
+    dePlus: "de plus dans tes poches chaque mois, abonnement payé",
+    /* 13 nov. : deux lignes simples au lieu de la barre et des quatre montants. */
+    sources: ["40 nouvelles commandes par mois, de clients qu'on va chercher", "Moins de commissions sur ce qui passe à ton app"],
+    calcule: "Calcule le tien",
     reserve: "Réserve ta place",
     nombre: (n: number) => n.toLocaleString("fr-CA", { minimumFractionDigits: 2 }),
   },
@@ -50,26 +52,21 @@ const TEXTES = {
     pastilles: ["No deposit", "Card fees included", "Printer included", "No minimum", "Plus taxes"],
     bonus: "The bonuses",
     rapporte: "What it brings in",
-    dePlus: "more per month, after the subscription",
-    ventesApp: (m: string) => `and ${m} in sales per month on your app`,
+    dePlus: "more in your pocket every month, after the subscription",
+    sources: ["40 new orders a month, from customers we go out and find", "Less commission on what moves to your app"],
+    calcule: "Calculate yours",
     reserve: "Reserve your spot",
     nombre: (n: number) => n.toLocaleString("en-CA", { minimumFractionDigits: 2 }),
   },
 };
 
-// Les couleurs de la barre « d'où vient l'argent », dans l'ordre des lignes.
-const TEINTES = ["bg-brand", "bg-ink", "bg-ciel"];
-
 export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
   const { ABONNEMENT, ANCRES, BONUS_COURT, BONUS_SECTION, FRAIS, MISE_EN_SERVICE_ACTUELLE, MISE_EN_SERVICE_ENSUITE, PRIX, disponible, lienReservation } =
     contenuLancement(langue);
-  const { typo: fr, argent, argentSigne } = formats(langue);
+  const { typo: fr, argentSigne } = formats(langue);
   const T = TEXTES[langue];
   const virgule = T.nombre;
   const bonus = BONUS_COURT.filter(disponible);
-  const gains = PRIX.exempleCourt.filter(([, v]) => v > 0);
-  const sommeGains = gains.reduce((n, [, v]) => n + v, 0);
-  const couts = PRIX.exempleCourt.filter(([, v]) => v < 0);
 
   return (
     <section id={ANCRES.prix.slice(1)} className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6">
@@ -150,36 +147,23 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
                   <Exemple>{PRIX.exempleMention}</Exemple>
                 </div>
                 <p className="mt-4 whitespace-nowrap font-display text-5xl font-black tracking-tight text-brand md:text-7xl">{argentSigne(PRIX.exempleTotal)}</p>
-                <p className="font-black">{T.dePlus}</p>
-                <p className="mt-1 inline-flex items-center gap-2 text-sm text-ink/60">
-                  <PointCiel />
-                  {fr(T.ventesApp(argent(PRIX.exempleVentesApp)))}
-                </p>
-
-                {/* D'où vient l'argent : une barre, puis la légende. */}
-                <div className="mt-6 flex h-3 overflow-hidden rounded-full bg-bone" aria-hidden="true">
-                  {gains.map(([l, v], k) => (
-                    <span key={l} className={TEINTES[k % TEINTES.length]} style={{ width: `${(v / sommeGains) * 100}%` }} />
-                  ))}
-                </div>
-                <ul className="mt-4 grid list-none gap-2 text-sm">
-                  {gains.map(([l, v], k) => (
-                    <li key={l} className="flex items-center justify-between gap-3">
-                      <span className="inline-flex items-center gap-2 text-ink/70">
-                        <span className={`size-2.5 shrink-0 rounded-full ${TEINTES[k % TEINTES.length]}`} aria-hidden="true" />
-                        {fr(l)}
+                <p className="mt-1 text-lg font-black leading-snug">{T.dePlus}</p>
+                <ul className="mt-6 grid list-none gap-3">
+                  {T.sources.map((l) => (
+                    <li key={l} className="flex gap-3 text-ink/75">
+                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand text-white">
+                        <Check className="size-3" aria-hidden="true" />
                       </span>
-                      <span className="font-bold tabular-nums">{argentSigne(v)}</span>
-                    </li>
-                  ))}
-                  {couts.map(([l, v]) => (
-                    <li key={l} className="flex items-center justify-between gap-3 border-t border-bone pt-2">
-                      <span className="pl-[1.125rem] text-ink/70">{fr(l)}</span>
-                      <span className="font-bold tabular-nums text-ink/50">{argentSigne(v)}</span>
+                      {fr(l)}
                     </li>
                   ))}
                 </ul>
-                <p className="mt-3 text-xs text-ink/45">{fr(PRIX.exempleHypothesesCourt)}</p>
+                <p className="mt-5 text-xs text-ink/50">
+                  {fr(PRIX.exempleHypothesesCourt)}{" "}
+                  <a href={ANCRES.calculateur} className="font-bold text-ink underline decoration-ciel decoration-2 underline-offset-2 hover:text-brand">
+                    {T.calcule}
+                  </a>
+                </p>
                 <div className="mt-auto pt-6">
                   <BoutonReserver href={lienReservation()} libelle={T.reserve} pleineLargeur sous={fr(PRIX.sousBouton)} className="text-ink" />
                 </div>
