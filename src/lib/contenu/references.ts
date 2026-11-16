@@ -341,7 +341,7 @@ export const PARTENAIRES_REFERENTS = {
   /** La carte imprimable du kit. [À RELIRE] */
   carte: {
     titre: "Garde plus de tes ventes en ligne",
-    texte: "Ton app à ton nom, et on va chercher tes clients. Scanne pour voir comment.",
+    texte: "Ton site et ton app à ton nom, et on va chercher tes clients. Scanne pour voir comment.",
     marqueur: "À RELIRE",
   },
 

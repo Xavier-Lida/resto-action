@@ -90,10 +90,10 @@ export const FR = {
      L'og-titre, lui, est lu par un humain dans son fil : il garde la voix. */
   meta: {
     titre: "Resto Action | App web et mobile pour restaurants indépendants",
-    description: `Ton app de commande web et mobile, à ton nom. Sans les 30 % des plateformes, visible dans Google, avec des clients qui reviennent. Pour les restos indépendants du Québec. ${PHONE_DISPLAY}.`,
-    ogTitre: "Resto Action | Ton app de commande web et mobile, à ton nom",
+    description: `Ton site et ton app de commande, à ton nom. Sans les 30 % des plateformes, visible dans Google, avec des clients qui reviennent. Pour les restos indépendants du Québec. ${PHONE_DISPLAY}.`,
+    ogTitre: "Resto Action | Ton site et ton app de commande, à ton nom",
     ogDescription:
-      "Plus de ventes en ligne. Plus d'argent à la fin du mois. Ton app à ton nom, des nouveaux clients, et moins d'argent laissé aux plateformes.",
+      "Plus de ventes en ligne. Plus d'argent à la fin du mois. Ton site et ton app à ton nom, des nouveaux clients, et moins d'argent laissé aux plateformes.",
     ogLocale: "fr_CA",
   },
 
@@ -181,7 +181,7 @@ export const FR = {
       "Visible dans Google",
       "Commandes sans les 30 %",
       "Clients qui reviennent",
-      "Ton app à ton nom",
+      "Ton site et ton app à ton nom",
     ],
     carteTitre: "Parle à Guillaume",
     carteSousTitre: "Un court appel.",
@@ -340,7 +340,7 @@ export const FR = {
       },
       {
         onglet: "Plus de téléchargements",
-        surTitre: "Ton app, à ton nom",
+        surTitre: "Ton site et ton app, à ton nom",
         titre: "Récompense tes clients dans ta propre app",
       },
     ],
@@ -394,7 +394,7 @@ export const FR = {
         alt: "La mascotte Resto Action écoute au téléphone",
       },
       {
-        titre: "On prépare ton app avec toi",
+        titre: "On prépare ton site et ton app avec toi",
         texte: "Ton menu, tes photos, tes couleurs.",
         alt: "La mascotte Resto Action examine une facture à la loupe",
       },
@@ -527,7 +527,7 @@ export const FR = {
     accroche: "Prochaine cohorte : janvier 2027. On lance au plus 16 restos par mois au Québec.",
     resume: "Prochaine cohorte : janvier 2027, inscriptions jusqu'au vendredi 18 décembre 2026. Ta réservation est gratuite; la mise en service se paie à la signature. L'abonnement commence à ta mise en ligne.",
     texte: "On lance au plus 16 restos par mois au Québec, 4 par semaine : c'est notre limite, pour lancer chaque resto comme il faut. Pour faire partie de la cohorte de janvier 2027, signe avant le vendredi 18 décembre 2026.",
-    date: "Il faut 2 semaines pour ton menu, tes photos, ton app, l'impression et l'installation. Après la date limite, tu pars avec la cohorte suivante, un mois plus tard.",
+    date: "Il faut 2 semaines pour ton menu, tes photos, ton site, ton app, l'impression et l'installation. Après la date limite, tu pars avec la cohorte suivante, un mois plus tard.",
     abonnement: "Ton abonnement de 200 $ par mois commence à la mise en ligne de ton app, avec tes 4 garanties.",
     remboursement: "La mise en service de 750 $ se paie à la signature. Pas encore prêt? Inscris-toi gratuitement : on te garde au courant.",
   },
@@ -548,7 +548,7 @@ export const FR = {
     },
     inclusTitre: "Ce qui est inclus",
     inclus: [
-      "Ton app web et mobile, à ton nom",
+      "Ton site et ton app, à ton nom",
       "Ta fiche Google optimisée",
       "Rappels SMS et courriel",
       "La livraison, sans livreur à gérer",
@@ -582,7 +582,7 @@ export const FR = {
     precedent: "Retour",
     resto: {
       titre: "Parle-nous de ton resto",
-      texte: "Prépare ton app à ton nom. La réservation prend 2 minutes.",
+      texte: "Prépare ton site et ton app à ton nom. La réservation prend 2 minutes.",
       restaurant: "Nom du resto",
       exempleResto: "Ex. : Pizzeria du Coin",
       ville: "Ville",
@@ -592,13 +592,13 @@ export const FR = {
       telephone: "Téléphone",
     },
     app: {
-      titre: "Ton app à ton nom",
+      titre: "Ton site et ton app à ton nom",
       texte: "On la monte avec ton logo, ton menu et tes photos. Donne-nous de quoi partir, on s'occupe du reste.",
       menu: "Lien de ton menu ou de ton site",
       facultatif: "facultatif",
       exempleMenu: "Ex. : facebook.com/tonresto ou ton site",
       menuAide: "Pas de lien? Pas grave : on trouve ton menu et on te le fait valider.",
-      livraisonMaquette: "Après ta signature, tu nous envoies ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h.",
+      livraisonMaquette: "Après ta signature, tu nous envoies ton menu, tes photos et tes accès dans les 5 jours : ton site et ton app sont prêts en 48 h.",
       service: "Ce que tu offres",
       services: {
         livraison: "Livraison et cueillette",
@@ -630,7 +630,7 @@ export const FR = {
         "J'accepte de recevoir des textos de Resto Action au sujet de mon lancement. Je peux me désabonner en tout temps.",
       bouton: "Réserver ma place",
       envoi: "Envoi…",
-      vieprivee: "Tes coordonnées servent seulement à monter ton app et à te joindre.",
+      vieprivee: "Tes coordonnées servent seulement à monter ton site et ton app et à te joindre.",
     },
     erreurs: {
       invalide: "Il manque une info, ou le courriel n'est pas valide.",
@@ -654,7 +654,7 @@ export const FR = {
       etapes: [
         { titre: "Bon d'accord signé", texte: "Ton bon d'accord est signé et ta mise en service est payée." },
         { titre: "Ton menu, tes photos et tes accès", texte: "Tu nous les envoies dans les 5 jours." },
-        { titre: "Ton app est prête", texte: "48 h après tes accès. Tu valides." },
+        { titre: "Ton site et ton app sont prêts", texte: "48 h après tes accès. Tu valides." },
         { titre: "Ta date de lancement", texte: "Ton imprimante branchée en 10 minutes, et ta formation privée d'une heure, en personne." },
         { titre: "Tes 7 premiers jours", texte: "300 $ de pub payés par nous, nos cartons dans tes sacs, et un texto chaque soir avec tes commandes du jour." },
         { titre: "Chaque lundi", texte: "Ton Texto du Lundi : tes commandes, tes nouvelles ventes et l'argent rapporté." },
@@ -684,7 +684,7 @@ export const FR = {
       // Les étapes 2 à 5 de la frise « Comment ça marche ».
       suite: [
         "Tu nous envoies ton menu, tes photos et tes accès : 5 jours.",
-        "Ton app est prête : 48 h.",
+        "Ton site et ton app sont prêts : 48 h.",
         "Ta date de lancement : ton imprimante branchée en 10 minutes, et ta formation privée d'une heure, en personne.",
         "Tes 7 premiers jours : 300 $ de pub payés par nous, nos cartons dans tes sacs, et un texto chaque soir avec tes commandes du jour.",
       ],
@@ -794,7 +794,7 @@ export const FR = {
     items: [
       {
         q: "C'est quoi, Resto Action?",
-        a: "Ton app de commande web et mobile, à ton nom, pour les restos indépendants du Québec. Bâtie à Trois-Rivières. Tes clients commandent chez toi plutôt que sur les plateformes, et on s'occupe du reste : ta fiche Google, les relances par texto qui les font revenir, et la livraison sans livreur à gérer.",
+        a: "Ton site et ton app de commande, à ton nom, pour les restos indépendants du Québec. Bâti à Trois-Rivières. Tes clients commandent chez toi plutôt que sur les plateformes, et on s'occupe du reste : ta fiche Google, les relances par texto qui les font revenir, et la livraison sans livreur à gérer.",
       },
       {
         q: "C'est une app mobile ou un site web?",

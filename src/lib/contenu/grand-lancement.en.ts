@@ -152,8 +152,8 @@ export const GROUPES: GroupePieces[] = [
       ),
       piece(
         "apercu-app",
-        "Your App Preview",
-        "Your app with your name and your Google profile, before you even talk to us.",
+        "Your Site and App Preview",
+        "Your site and your app with your name and your Google profile, before you even talk to us.",
       ),
       piece(
         "dossier-associe",
@@ -170,7 +170,7 @@ export const GROUPES: GroupePieces[] = [
       piece(
         "installation",
         "The Turnkey Installation",
-        "Your app, menu, photos and Google profile built for you. On site, your printer is hooked up in 10 minutes. You approve.",
+        "Your site, your app, menu, photos and Google profile built for you. On site, your printer is hooked up in 10 minutes. You approve.",
       ),
       piece(
         "menu-qui-vend",
@@ -249,7 +249,7 @@ export const GROUPES: GroupePieces[] = [
       piece(
         "app-a-ton-nom",
         "Your Own Branded App",
-        "Your web and mobile app, no account needed to order, money straight to your account.",
+        "Your site and your app, no account needed to order, money straight to your account.",
       ),
       piece(
         "clientele-appartient",
@@ -319,7 +319,7 @@ export const GARANTIES: Garantie[] = [
   garantie(
     "chrono",
     "Not live by your date? Your first month is free.",
-    "Send us your menu, photos and access within 5 days: your app is ready in 48 hours and you're live on your date. If not, your first month is free.",
+    "Send us your menu, photos and access within 5 days: your site and your app are ready in 48 hours and you're live on your date. If not, your first month is free.",
   ),
   garantie(
     "imprimante",
@@ -415,7 +415,7 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
       titre: "You send us your menu, photos and access",
       texte: "5 days.",
     },
-    { titre: "Your app is ready", texte: "48 hours." },
+    { titre: "Your site and your app are ready", texte: "48 hours." },
     {
       titre: "Your launch date",
       texte:
@@ -452,7 +452,7 @@ export const ETAPES_INCLUS: { titre: string; sousTitre: string; etapes: EtapeInc
     {
       quand: "You sign",
       titre: "We build everything for you",
-      toi: `You reserve for free, sign your agreement ($${MISE_EN_SERVICE_ACTUELLE} setup) and send us your menu, photos and access within 5 days. Your app is ready in 48 hours.`,
+      toi: `You reserve for free, sign your agreement ($${MISE_EN_SERVICE_ACTUELLE} setup) and send us your menu, photos and access within 5 days. Your site and your app are ready in 48 hours.`,
       pieces: ["installation", "app-a-ton-nom", "menu-qui-vend", "reglage-plateformes", "marketing"],
     },
     {
@@ -536,7 +536,7 @@ export const COMPARAISON = {
     ["An ad agency", "Visibility", "They do, for the ads", "Wherever they order"],
     [
       "Resto Action",
-      "More orders, your app and your customers",
+      "More orders, your site, your app and your customers",
       "Us, locally, on the ground",
       "Yours",
     ],

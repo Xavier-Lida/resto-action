@@ -14,7 +14,7 @@ const TEXTES = {
   fr: {
     titre: "En 4 chiffres",
     chiffres: (c: Chiffres) => [
-      { gros: "48", unite: "h", nom: "Ton app à ton nom", ligne: "prête à prendre des commandes" },
+      { gros: "48", unite: "h", nom: "Ton site et ton app à ton nom", ligne: "prêts à prendre des commandes" },
       { gros: `${c.pub}`, unite: "$", nom: "De pub payés par nous", ligne: "pour aller chercher tes clients" },
       { gros: `${c.commandes}`, unite: "commandes", nom: "Visées dès ta 1re semaine", ligne: "sur ton app, pas sur une plateforme" },
       { gros: "100", unite: "%", nom: "Tes clients sont à toi", ligne: "leurs noms, leurs numéros" },
@@ -23,7 +23,7 @@ const TEXTES = {
   en: {
     titre: "In 4 numbers",
     chiffres: (c: Chiffres) => [
-      { gros: "48", unite: "h", nom: "Your own branded app", ligne: "ready to take orders" },
+      { gros: "48", unite: "h", nom: "Your site and your app, under your name", ligne: "ready to take orders" },
       { gros: `$${c.pub}`, unite: "", nom: "In ads paid by us", ligne: "to go get your customers" },
       { gros: `${c.commandes}`, unite: "orders", nom: "Targeted in your first week", ligne: "on your app, not a platform" },
       { gros: "100", unite: "%", nom: "Your customers are yours", ligne: "their names, their numbers" },

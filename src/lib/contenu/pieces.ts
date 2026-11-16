@@ -105,7 +105,7 @@ export const PIECES_FR: Record<string, PagePiece> = {
     faq: {
       titre: "Questions sur le menu",
       items: [
-        { q: "Qui monte mon menu?", a: "Nous. Tu nous envoies ton menu, tes photos et tes accès, et ton app est prête en 48 h. Tu valides avant la mise en ligne." },
+        { q: "Qui monte mon menu?", a: "Nous. Tu nous envoies ton menu, tes photos et tes accès, et ton site et ton app sont prêts en 48 h. Tu valides avant la mise en ligne." },
         { q: "Je peux changer un prix moi-même?", a: "Oui, ou tu nous le demandes : un seul numéro, en français, pour tout ce qui est en ligne." },
       ],
     },
@@ -439,7 +439,7 @@ export const PIECES_EN: Record<string, PagePiece> = {
     faq: {
       titre: "Questions about the menu",
       items: [
-        { q: "Who builds my menu?", a: "We do. You send us your menu, your photos and your access, and your app is ready in 48 hours. You approve it before it goes live." },
+        { q: "Who builds my menu?", a: "We do. You send us your menu, your photos and your access, and your site and your app are ready in 48 hours. You approve them before it goes live." },
         { q: "Can I change a price myself?", a: "Yes, or just ask us: one number for everything online." },
       ],
     },
@@ -663,10 +663,10 @@ export const PIECES_EN: Record<string, PagePiece> = {
     filNom: "Your Online Department",
     metaTitre: "Your Online Department: one number, real people",
     metaDescription:
-      "Your app, your Google listing, your social media and your ads: one number, with real people from here. Your social media scheduled 3 months ahead.",
+      "Your site, your app, your Google listing, your social media and your ads: one number, with real people from here. Your social media scheduled 3 months ahead.",
     surTitre: "Real people, right here",
     titre: "One number for everything online",
-    intro: "Your app, your Google listing, your social media, your ads: you don't have four suppliers to call. You have one number, and someone who knows your restaurant.",
+    intro: "Your site, your app, your Google listing, your social media, your ads: you don't have four suppliers to call. You have one number, and someone who knows your restaurant.",
     resume: "One number for everything online, with real people from here.",
     typeService: "Online presence management for restaurants",
     illustration: { type: "visuel", visuel: "calendrier" },
@@ -715,7 +715,7 @@ const LIBELLES = {
     colonnes: ["Plus de clients Google", "Plus de ventes en ligne", "Plus de clients fidèles", "Ton resto, sans casse-tête"],
     referencement: "Référencement Google",
     commandes: "Commandes en ligne",
-    application: "Ton app à ton nom",
+    application: "Ton site et ton app à ton nom",
     relances: "Relances texto et courriel",
     calculateur: "Le calculateur",
     calculateurHref: "/#calculateur",
@@ -736,7 +736,7 @@ const LIBELLES = {
     colonnes: ["More Google customers", "More online sales", "More loyal customers", "Your restaurant, hassle-free"],
     referencement: "Google visibility",
     commandes: "Online ordering",
-    application: "Your app, under your name",
+    application: "Your site and your app, under your name",
     relances: "Text and email follow-ups",
     calculateur: "The calculator",
     calculateurHref: "/en#calculateur",

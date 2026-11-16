@@ -16,7 +16,7 @@ export default function ApercuLancement({ nom, titreId, onFermer }: { nom: strin
   return (
     <div>
       <h2 id={titreId} className="pr-10 font-display text-3xl font-black leading-tight tracking-tight md:text-4xl">
-        {nom ? fr(`L'aperçu de l'app de ${nom}`) : fr(apercu?.nom ?? "L'aperçu de ton app")}
+        {nom ? fr(`L'aperçu de l'app de ${nom}`) : fr(apercu?.nom ?? "L'aperçu de ton site et ton app")}
       </h2>
       {apercu && <p className="mt-4 leading-relaxed text-ink/70">{fr(apercu.ligne)}</p>}
       <ul className="mt-6 grid list-none gap-3">

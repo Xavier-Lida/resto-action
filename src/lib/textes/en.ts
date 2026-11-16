@@ -22,10 +22,10 @@ export const EN: Textes = {
      celui-ci en fait 54 et dit enfin « platform ». */
   meta: {
     titre: "Resto Action | Web and mobile app for independent restaurants",
-    description: `Your own web and mobile ordering app. Without the platforms' 30%, found on Google, with customers who come back. For Quebec's independent restaurants. ${PHONE_DISPLAY}.`,
-    ogTitre: "Resto Action | Your own web and mobile ordering app, under your name",
+    description: `Your own ordering site and app. Without the platforms' 30%, found on Google, with customers who come back. For Quebec's independent restaurants. ${PHONE_DISPLAY}.`,
+    ogTitre: "Resto Action | Your own ordering site and app, under your name",
     ogDescription:
-      "More online sales. More money at the end of the month. Your app under your name, new customers, and less money left to the platforms.",
+      "More online sales. More money at the end of the month. Your site and your app under your name, new customers, and less money left to the platforms.",
     ogLocale: "en_CA",
   },
 
@@ -79,7 +79,7 @@ export const EN: Textes = {
     titre: ["Your app.", "Your sales.", "Your customers."],
     appHabibi: "Bistro Habibi's app, built by us",
     puces: [
-      "Web + mobile app in your name",
+      "Your site and your app in your name",
       "Delivery, with no drivers to manage",
       "We install everything, you have nothing to do",
     ],
@@ -217,7 +217,7 @@ export const EN: Textes = {
       },
       {
         onglet: "More app downloads",
-        surTitre: "Your app, under your name",
+        surTitre: "Your site and your app, under your name",
         titre: "Reward your customers in your own app",
       },
     ],
@@ -264,7 +264,7 @@ export const EN: Textes = {
         alt: "The Resto Action mascot listening on the phone",
       },
       {
-        titre: "We prepare your app with you",
+        titre: "We prepare your site and your app with you",
         texte: "Your menu, your photos, your colours.",
         alt: "The Resto Action mascot examining an invoice with a magnifying glass",
       },
@@ -417,7 +417,7 @@ export const EN: Textes = {
     accroche: "Next cohort: January 2027. We launch at most 16 restaurants a month in Quebec.",
     resume: "Next cohort: January 2027, sign-ups until Friday, December 18, 2026. Your reservation is free; the setup fee is paid at signing. Your subscription starts when you go live.",
     texte: "We launch at most 16 restaurants a month in Quebec, 4 a week: that's our limit, so we can launch every restaurant properly. To be part of the January 2027 cohort, sign before Friday, December 18, 2026.",
-    date: "It takes 2 weeks for your menu, your photos, your app, the printing and the installation. After the deadline, you launch with the next cohort, one month later.",
+    date: "It takes 2 weeks for your menu, your photos, your site, your app, the printing and the installation. After the deadline, you launch with the next cohort, one month later.",
     abonnement: "Your $200 monthly subscription starts when your app goes live, with your 4 guarantees.",
     remboursement: "The $750 setup fee is paid at signing. Not ready yet? Sign up for free: we'll keep you posted.",
   },
@@ -434,7 +434,7 @@ export const EN: Textes = {
     },
     inclusTitre: "What's included",
     inclus: [
-      "Your web and mobile app, under your name",
+      "Your site and your app, under your name",
       "Your Google listing, optimized",
       "Text and email reminders",
       "Delivery, with no drivers to manage",
@@ -467,7 +467,7 @@ export const EN: Textes = {
     precedent: "Back",
     resto: {
       titre: "Tell us about your restaurant",
-      texte: "Get your app under your name ready. Reserving takes 2 minutes.",
+      texte: "Get your site and your app under your name ready. Reserving takes 2 minutes.",
       restaurant: "Restaurant name",
       exempleResto: "E.g. Corner Pizzeria",
       ville: "City",
@@ -477,13 +477,13 @@ export const EN: Textes = {
       telephone: "Phone",
     },
     app: {
-      titre: "Your app, under your name",
+      titre: "Your site and your app, under your name",
       texte: "We build it with your logo, your menu and your photos. Give us something to start from, we handle the rest.",
       menu: "Link to your menu or website",
       facultatif: "optional",
       exempleMenu: "E.g. facebook.com/yourrestaurant or your site",
       menuAide: "No link? No problem: we'll find your menu and have you approve it.",
-      livraisonMaquette: "After you sign, you send us your menu, your photos and your access within 5 days: your app is ready in 48 hours.",
+      livraisonMaquette: "After you sign, you send us your menu, your photos and your access within 5 days: your site and your app are ready in 48 hours.",
       service: "What you offer",
       services: {
         livraison: "Delivery and pickup",
@@ -512,7 +512,7 @@ export const EN: Textes = {
       textos: "I agree to receive text messages from Resto Action about my launch. I can unsubscribe at any time.",
       bouton: "Reserve my spot",
       envoi: "Sending…",
-      vieprivee: "Your details are used only to build your app and reach you.",
+      vieprivee: "Your details are used only to build your site and your app and reach you.",
     },
     erreurs: {
       invalide: "Something's missing, or the email isn't valid.",
@@ -533,7 +533,7 @@ export const EN: Textes = {
       etapes: [
         { titre: "Agreement signed", texte: "Your agreement is signed and your setup fee is paid." },
         { titre: "Your menu, your photos and your access", texte: "You send them to us within 5 days." },
-        { titre: "Your app is ready", texte: "48 hours after your access. You approve it." },
+        { titre: "Your site and your app are ready", texte: "48 hours after your access. You approve it." },
         { titre: "Your launch date", texte: "Your printer plugged in within 10 minutes, and your one-hour private training, in person." },
         { titre: "Your first 7 days", texte: "$300 of ads paid by us, our cards in your bags, and a text every evening with the day's orders." },
         { titre: "Every Monday", texte: "The Monday Text: your orders, your new sales and the money brought in." },
@@ -562,7 +562,7 @@ export const EN: Textes = {
       suiteTitre: "What's next",
       suite: [
         "You send us your menu, your photos and your access: 5 days.",
-        "Your app is ready: 48 hours.",
+        "Your site and your app are ready: 48 hours.",
         "Your launch date: your printer plugged in within 10 minutes, and your one-hour private training, in person.",
         "Your first 7 days: $300 of ads paid by us, our cards in your bags, and a text every evening with the day's orders.",
       ],
@@ -634,7 +634,7 @@ export const EN: Textes = {
     items: [
       {
         q: "What is Resto Action?",
-        a: "Your own web and mobile ordering app, under your name, for Quebec's independent restaurants. Built in Trois-Rivières. Your customers order from you instead of on the platforms, and we handle the rest: your Google listing, the text reminders that bring them back, and delivery with no drivers to manage.",
+        a: "Your own ordering site and app, under your name, for Quebec's independent restaurants. Built in Trois-Rivières. Your customers order from you instead of on the platforms, and we handle the rest: your Google listing, the text reminders that bring them back, and delivery with no drivers to manage.",
       },
       {
         q: "Is it a mobile app or a website?",

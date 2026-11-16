@@ -204,7 +204,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     filNom: "Commandes en ligne",
     metaTitre: "Commandes en ligne sans les 30 % des plateformes",
     metaDescription:
-      "Prendre tes commandes en ligne sur ton app web et mobile, sans donner 30 % de chaque vente, sans changer ta caisse, et en gardant les clients qui commandent. Comment ça marche, et ce que ça demande de ton côté.",
+      "Prendre tes commandes en ligne sur ton site et ton app, sans donner 30 % de chaque vente, sans changer ta caisse, et en gardant les clients qui commandent. Comment ça marche, et ce que ça demande de ton côté.",
     surTitre: "Plus de ventes en ligne",
     titre: "Des commandes en ligne qui ne te coûtent pas 30 %",
     intro:
@@ -307,7 +307,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "C'est quoi la différence avec les plateformes de livraison?",
-          a: "Sur ces plateformes-là, jusqu'à 30 % de chaque commande s'en va en commission, et le client appartient à l'application. Chez nous, la commande passe par ton app web et mobile : on prend 5 % + 0,30 $ en cueillette et 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus, et le client est à toi.",
+          a: "Sur ces plateformes-là, jusqu'à 30 % de chaque commande s'en va en commission, et le client appartient à l'application. Chez nous, la commande passe par ton site et ton app : on prend 5 % + 0,30 $ en cueillette et 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus, et le client est à toi.",
         },
         {
           q: "Et la livraison, vous la faites?",
@@ -444,7 +444,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     metaDescription:
       "Une application à ton nom, sur l'App Store et Google Play, avec la commande en deux tapes et les points de fidélité. Ce qu'elle apporte, et ce qu'elle demande pour marcher.",
     surTitre: "Plus de téléchargements",
-    titre: "Ton app, à ton nom, sur l'App Store",
+    titre: "Ton site et ton app, à ton nom, jusque sur l'App Store",
     intro:
       "Pas un onglet dans l'application de quelqu'un d'autre : ta propre app, avec ton nom et ton icône, que ton client installe sur son téléphone et retrouve entre ses autres icônes.",
     resume: "Une vraie app à ton nom, sur les magasins, avec la fidélité dedans.",
@@ -453,7 +453,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     etapes: {
       titre: "Comment ça marche",
       items: [
-        { titre: "Ton app, à ton nom", texte: "Sur l'App Store et Google Play, avec ton logo et tes couleurs.", ecran: { src: "/demo-app/client/accueil.webp", alt: "L'accueil de l'app de Bistro Habibi" } },
+        { titre: "Ton site et ton app, à ton nom", texte: "Ton site sur le web, ton app sur l'App Store et Google Play, avec ton logo et tes couleurs.", ecran: { src: "/demo-app/client/accueil.webp", alt: "L'accueil de l'app de Bistro Habibi" } },
         { titre: "Tes habitués l'installent", texte: "Pour leurs points et pour commander en deux tapes.", ecran: { src: "/demo-app/client/compte.webp", alt: "Le compte client, avec ses points" } },
         { titre: "Une icône sur leur écran", texte: "Ton resto leur revient en tête chaque fois qu'ils ouvrent leur téléphone.", visuel: "app" },
       ],
@@ -692,7 +692,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     filNom: "Online ordering",
     metaTitre: "Online ordering without the platforms' 30%",
     metaDescription:
-      "Take your orders online through your own web and mobile app, without handing over 30% of every sale, without changing your point of sale, and keep the customers who order. How it works, and what it asks of you.",
+      "Take your orders online through your own site and app, without handing over 30% of every sale, without changing your point of sale, and keep the customers who order. How it works, and what it asks of you.",
     surTitre: "More online sales",
     titre: "Online ordering that doesn't cost you 30%",
     intro:
@@ -795,7 +795,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "How is this different from the delivery platforms?",
-          a: "On those platforms, up to 30% of every order goes to commission, and the customer belongs to the app. With us, the order goes through your own web and mobile app: we take 5% + $0.30 on pickup and 10% + $3.51 per delivery (the run at cost), card fees included, and the customer is yours.",
+          a: "On those platforms, up to 30% of every order goes to commission, and the customer belongs to the app. With us, the order goes through your own site and app: we take 5% + $0.30 on pickup and 10% + $3.51 per delivery (the run at cost), card fees included, and the customer is yours.",
         },
         {
           q: "Do you handle delivery?",
@@ -932,7 +932,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     metaDescription:
       "An app under your own name, on the App Store and Google Play, with two-tap ordering and loyalty points built in. What it brings, and what it takes to make it work.",
     surTitre: "More app downloads",
-    titre: "Your app, under your name, on the App Store",
+    titre: "Your site and your app, under your name, right up to the App Store",
     intro:
       "Not a tab inside somebody else's application: your own app, with your name and your icon, that your customer installs on their phone and finds among their other icons.",
     resume: "A real app under your name, on the stores, with loyalty built in.",
@@ -941,7 +941,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     etapes: {
       titre: "How it works",
       items: [
-        { titre: "Your app, under your name", texte: "On the App Store and Google Play, with your logo and your colours.", ecran: { src: "/demo-app/client/accueil.webp", alt: "The home screen of Bistro Habibi's app" } },
+        { titre: "Your site and your app, under your name", texte: "Your site on the web, your app on the App Store and Google Play, with your logo and your colours.", ecran: { src: "/demo-app/client/accueil.webp", alt: "The home screen of Bistro Habibi's app" } },
         { titre: "Your regulars install it", texte: "For their points and for two-tap ordering.", ecran: { src: "/demo-app/client/compte.webp", alt: "The customer account, with loyalty points" } },
         { titre: "An icon on their screen", texte: "Your restaurant comes back to mind every time they open their phone.", visuel: "app" },
       ],

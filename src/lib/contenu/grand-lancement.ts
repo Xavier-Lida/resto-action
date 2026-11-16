@@ -171,9 +171,9 @@ export const GROUPES: GroupePieces[] = [
       },
       {
         id: "apercu-app",
-        nom: "L'aperçu de ton app",
+        nom: "L'aperçu de ton site et ton app",
         ligne:
-          "Ton app avec ton nom et ta fiche Google, avant même de nous parler.",
+          "Ton site et ton app avec ton nom et ta fiche Google, avant même de nous parler.",
         valeur: null,
         soumissions: 0,
         disponible: true,
@@ -207,7 +207,7 @@ export const GROUPES: GroupePieces[] = [
         visuel: "fiche-google",
         nom: "L'Installation Clé en main",
         ligne:
-          "Ton app, ton menu, tes photos et ta fiche Google montés pour toi. Sur place, ton imprimante est branchée en 10 minutes. Tu valides.",
+          "Ton site, ton app, ton menu, tes photos et ta fiche Google montés pour toi. Sur place, ton imprimante est branchée en 10 minutes. Tu valides.",
         valeur: null,
         soumissions: 0,
         disponible: true,
@@ -347,9 +347,9 @@ export const GROUPES: GroupePieces[] = [
       {
         id: "app-a-ton-nom",
         visuel: "app",
-        nom: "Ton App à ton nom",
+        nom: "Ton site et ton app à ton nom",
         ligne:
-          "Ton app web et mobile, commande sans compte, l'argent direct dans ton compte.",
+          "Ton site et ton app, commande sans compte, l'argent direct dans ton compte.",
         valeur: null,
         soumissions: 0,
         disponible: true,
@@ -475,7 +475,7 @@ export const GARANTIES: Garantie[] = [
     nom: NOMS_GARANTIES.chrono,
     court: "Pas en ligne à ta date? Ton premier mois est gratuit.",
     texte:
-      "Envoie-nous ton menu, tes photos et tes accès dans les 5 jours : ton app est prête en 48 h et tu es en ligne à ta date. Sinon, ton premier mois est gratuit.",
+      "Envoie-nous ton menu, tes photos et tes accès dans les 5 jours : ton site et ton app sont prêts en 48 h et tu es en ligne à ta date. Sinon, ton premier mois est gratuit.",
     dependDe: ["installation"],
   },
   {
@@ -526,7 +526,7 @@ export const HERO = {
   /** Version B à tester plus tard. */
   h1VersionB: "On fait monter ton chiffre d'affaires en ligne.",
   sousTitre:
-    "Le Système Nouveaux Clients en 7 jours : ton app à ton nom, des nouveaux clients qu'on va chercher pour toi, et moins d'argent laissé aux plateformes.",
+    "Le Système Nouveaux Clients en 7 jours : ton site et ton app à ton nom, des nouveaux clients qu'on va chercher pour toi, et moins d'argent laissé aux plateformes.",
   accroche: ACCROCHE,
   sousAccroche:
     "L'hiver, les gens restent chez eux et commandent, alors on te lance avant le gros de la saison.",
@@ -584,7 +584,7 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
       titre: "Tu nous envoies ton menu, tes photos et tes accès",
       texte: "5 jours.",
     },
-    { titre: "Ton app est prête", texte: "48 h." },
+    { titre: "Ton site et ton app sont prêts", texte: "48 h." },
     {
       titre: "Ta date de lancement",
       texte:
@@ -632,7 +632,7 @@ export const ETAPES_INCLUS: { titre: string; sousTitre: string; etapes: EtapeInc
     {
       quand: "Tu signes",
       titre: "On monte tout pour toi",
-      toi: `Tu réserves gratuitement, tu signes ton bon d'accord (mise en service de ${MISE_EN_SERVICE_ACTUELLE} $) et tu nous envoies ton menu, tes photos et tes accès dans les 5 jours. Ton app est prête en 48 h.`,
+      toi: `Tu réserves gratuitement, tu signes ton bon d'accord (mise en service de ${MISE_EN_SERVICE_ACTUELLE} $) et tu nous envoies ton menu, tes photos et tes accès dans les 5 jours. Ton site et ton app sont prêts en 48 h.`,
       pieces: ["installation", "app-a-ton-nom", "menu-qui-vend", "reglage-plateformes", "marketing"],
     },
     {
@@ -716,7 +716,7 @@ export const COMPARAISON = {
     ["Une agence de pub", "De la visibilité", "Elle, pour la pub", "Là où ils commandent"],
     [
       "Resto Action",
-      "Des commandes en plus, ton app et ta clientèle",
+      "Des commandes en plus, ton site, ton app et ta clientèle",
       "Nous, en français, sur le terrain",
       "À toi",
     ],
@@ -829,7 +829,7 @@ export const RARETE = {
   titre: `${RESTOS_PAR_MOIS} restos par mois, pas plus`,
   lignes: [
     `On lance au plus ${RESTOS_PAR_MOIS} restos par mois au Québec, ${RESTOS_PAR_SEMAINE} par semaine : c'est notre limite, pour lancer chaque resto comme il faut.`,
-    `Prochaine cohorte : ${DATE_COHORTE}. Pour en faire partie, signe avant le ${DATE_LIMITE} : il faut 2 semaines pour ton menu, tes photos, ton app, l'impression et l'installation. Après, tu pars avec la cohorte suivante, un mois plus tard.`,
+    `Prochaine cohorte : ${DATE_COHORTE}. Pour en faire partie, signe avant le ${DATE_LIMITE} : il faut 2 semaines pour ton menu, tes photos, ton site, ton app, l'impression et l'installation. Après, tu pars avec la cohorte suivante, un mois plus tard.`,
   ],
   /** La version courte du bandeau : une ligne. */
   courte: `Signe avant le ${DATE_LIMITE} pour lancer en ${DATE_COHORTE}. Réserver est gratuit.`,
@@ -1066,9 +1066,9 @@ const COUCHES_BRUTES: Couche[] = [
   },
   {
     titre: "Il commande chez toi",
-    texte: "Sur ton app à ton nom, avec un menu qui propose les extras au bon moment. Pas sur une plateforme.",
+    texte: "Sur ton site et ton app à ton nom, avec un menu qui propose les extras au bon moment. Pas sur une plateforme.",
     pieces: [
-      { nom: "Ton app à ton nom", icone: "app", id: "app-a-ton-nom" },
+      { nom: "Ton site et ton app à ton nom", icone: "app", id: "app-a-ton-nom" },
       { nom: "Le Menu qui Vend", icone: "menu", id: "menu-qui-vend" },
       { nom: "Les commandes en ligne", icone: "panier", href: "/plateforme/commandes-en-ligne" },
     ],
@@ -1163,7 +1163,7 @@ export const CALCULATEUR = {
   apercuBadge: "Ce que tu vas voir",
   apercuNote: "Exemple de notre offre : resto à 5 000 $ par mois sur une plateforme à 25 %, 3 000 $ qui passent à ton app, 40 commandes de nouveaux clients, prix +10 % sur la plateforme si ton entente le permet. Tes chiffres à toi sortent de ton relevé.",
   ventesTitre: "Tes ventes sur ton app",
-  ventesSuffixe: "par mois, sur ton app à ton nom",
+  ventesSuffixe: "par mois, sur ton site et ton app à ton nom",
   ventesDont: "dont {n} de nouveaux clients",
   resteTitre: "Il te reste en plus, abonnement payé",
   scoreTitre: "Score plateforme",

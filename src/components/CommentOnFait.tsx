@@ -39,7 +39,7 @@ const TEXTES = {
     video: { titre: "Ta propre app de commande, ta clientèle t'appartient", lire: "Lire la vidéo" },
     etapes: {
       google: ["Sors en haut de Google", "Ta fiche Google montée pour toi. Les gens du coin te trouvent et commandent chez toi."],
-      commandes: ["Prends tes commandes sans les 30 %", "Ton app à ton nom, à tes prix. La commande sort sur ton imprimante."],
+      commandes: ["Prends tes commandes sans les 30 %", "Ton site et ton app à ton nom, à tes prix. La commande sort sur ton imprimante."],
       pub: ["On va chercher tes nouveaux clients", "300 $ de pub payés par nous, et nos cartons dans tes sacs."],
       points: ["Tes clients reviennent tout seuls", "Des points et des textos qui partent tout seuls."],
       livraison: ["La livraison, sans livreur à gérer", "Ton client paie 4,99 $. On s'occupe du reste."],
@@ -55,10 +55,10 @@ const TEXTES = {
     calculateur: "/en#calculateur",
     plus: "Learn more",
     courts: { google: "Google", commandes: "Orders", pub: "New customers", points: "Loyalty", livraison: "Delivery", lundi: "Monday text" },
-    video: { titre: "Your own ordering app, your customers belong to you", lire: "Play the video" },
+    video: { titre: "Your own site and app, your customers belong to you", lire: "Play the video" },
     etapes: {
       google: ["Get to the top of Google", "Your Google profile, set up for you. Locals find you and order from you."],
-      commandes: ["Take orders without the 30%", "Your own branded app, at your prices. Orders print in your kitchen."],
+      commandes: ["Take orders without the 30%", "Your site and your app under your name, at your prices. Orders print in your kitchen."],
       pub: ["We go get your new customers", "$300 in ads paid by us, and our inserts in your bags."],
       points: ["Your customers come back on their own", "Points and texts that go out automatically."],
       livraison: ["Delivery, with no drivers to manage", "Your customer pays $4.99. We handle the rest."],

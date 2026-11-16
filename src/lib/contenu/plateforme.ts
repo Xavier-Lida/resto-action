@@ -22,13 +22,13 @@ export const PLATEFORME_FR = {
   slug: "/plateforme",
   metaTitre: "La plateforme pour restaurants indépendants",
   metaDescription:
-    "Ton app web et mobile à ton nom, commandes en ligne sans les 30 % des plateformes, visibilité Google et relances de tes clients. Les quatre morceaux de la plateforme Resto Action, et comment ils se branchent sur ce que tu as déjà.",
+    "Ton site et ton app à ton nom, commandes en ligne sans les 30 % des plateformes, visibilité Google et relances de tes clients. Les quatre morceaux de la plateforme Resto Action, et comment ils se branchent sur ce que tu as déjà.",
 
   filNom: "La plateforme",
   surTitre: "Ce qu'on vend, à plat",
   titre: "La plateforme des restos indépendants du Québec",
   intro:
-    "Quatre morceaux qui travaillent ensemble : ta visibilité dans Google, tes commandes en ligne sans les 30 % des plateformes, les relances qui font revenir tes clients, et ton app web et mobile à ton nom. Une seule plateforme, branchée sur ce que tu as déjà.",
+    "Quatre morceaux qui travaillent ensemble : ta visibilité dans Google, tes commandes en ligne sans les 30 % des plateformes, les relances qui font revenir tes clients, et ton site et ton app à ton nom. Une seule plateforme, branchée sur ce que tu as déjà.",
 
   // Le nom du service tel que déclaré aux moteurs (JSON-LD).
   typeService: "Plateforme web et marketing pour restaurants",
@@ -175,13 +175,13 @@ export const PLATEFORME_EN: Plateforme = {
   slug: "/en/platform",
   metaTitre: "The platform for independent restaurants",
   metaDescription:
-    "Your own web and mobile app, online ordering without the platforms' 30%, Google visibility and customer follow-ups. The four pieces of the Resto Action platform, and how they plug into what you already have.",
+    "Your own site and app, online ordering without the platforms' 30%, Google visibility and customer follow-ups. The four pieces of the Resto Action platform, and how they plug into what you already have.",
 
   filNom: "The platform",
   surTitre: "What we sell, plainly",
   titre: "The platform for Quebec's independent restaurants",
   intro:
-    "Four pieces working together: your visibility on Google, your online orders without the platforms' 30%, the follow-ups that bring customers back, and your own web and mobile app. One platform, plugged into what you already have.",
+    "Four pieces working together: your visibility on Google, your online orders without the platforms' 30%, the follow-ups that bring customers back, and your own site and app. One platform, plugged into what you already have.",
 
   typeService: "Web and marketing platform for restaurants",
 
