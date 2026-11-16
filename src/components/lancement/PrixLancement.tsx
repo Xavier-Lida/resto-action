@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import BoutonReserver from "@/components/BoutonReserver";
 import Reveal from "@/components/Reveal";
-import { Exemple, Surtitre } from "@/components/lancement/ui";
+import { Surtitre } from "@/components/lancement/ui";
 import { contenuLancement, type Langue } from "@/lib/contenu/lancement";
 import { formats } from "@/lib/format";
 
@@ -30,9 +30,8 @@ const TEXTES = {
     pastilles: ["Pas de dépôt", "Frais de carte inclus", "Imprimante offerte", "Aucun minimum", "Taxes en sus"],
     bonus: "Les bonus",
     rapporte: "Ce que ça rapporte",
-    dePlus: "de plus dans tes poches chaque mois, abonnement payé",
-    /* 13 nov. : deux lignes simples au lieu de la barre et des quatre montants. */
-    sources: ["40 nouvelles commandes par mois, de clients qu'on va chercher", "Moins de commissions sur ce qui passe à ton app"],
+    dePlus: "de plus par mois dans tes poches",
+    exemple: "Exemple, pas une promesse.",
     calcule: "Calcule le tien",
     reserve: "Réserve ta place",
     nombre: (n: number) => n.toLocaleString("fr-CA", { minimumFractionDigits: 2 }),
@@ -52,8 +51,8 @@ const TEXTES = {
     pastilles: ["No deposit", "Card fees included", "Printer included", "No minimum", "Plus taxes"],
     bonus: "The bonuses",
     rapporte: "What it brings in",
-    dePlus: "more in your pocket every month, after the subscription",
-    sources: ["40 new orders a month, from customers we go out and find", "Less commission on what moves to your app"],
+    dePlus: "more in your pocket every month",
+    exemple: "Example, not a promise.",
     calcule: "Calculate yours",
     reserve: "Reserve your spot",
     nombre: (n: number) => n.toLocaleString("en-CA", { minimumFractionDigits: 2 }),
@@ -144,27 +143,19 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
               <div className="flex h-full flex-col rounded-[2rem] bg-white p-6 text-ink md:p-9">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <p className="text-xs font-black uppercase tracking-widest text-ink/50">{T.rapporte}</p>
-                  <Exemple>{PRIX.exempleMention}</Exemple>
                 </div>
-                <p className="mt-4 whitespace-nowrap font-display text-5xl font-black tracking-tight text-brand md:text-7xl">{argentSigne(PRIX.exempleTotal)}</p>
+                <div className="my-auto py-6">
+                <p className="whitespace-nowrap font-display text-[3.25rem] font-black tracking-tight text-brand md:text-7xl">{argentSigne(PRIX.exempleTotal)}</p>
+                {/* 16 nov. : le résultat, une ligne, rien d'autre. Le détail vit dans le calculateur. */}
                 <p className="mt-1 text-lg font-black leading-snug">{T.dePlus}</p>
-                <ul className="mt-6 grid list-none gap-3">
-                  {T.sources.map((l) => (
-                    <li key={l} className="flex gap-3 text-ink/75">
-                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand text-white">
-                        <Check className="size-3" aria-hidden="true" />
-                      </span>
-                      {fr(l)}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-5 text-xs text-ink/50">
-                  {fr(PRIX.exempleHypothesesCourt)}{" "}
+                <p className="mt-2 text-sm text-ink/50">
+                  {fr(T.exemple)}{" "}
                   <a href={ANCRES.calculateur} className="font-bold text-ink underline decoration-ciel decoration-2 underline-offset-2 hover:text-brand">
                     {T.calcule}
                   </a>
                 </p>
-                <div className="mt-auto pt-6">
+                </div>
+                <div className="pt-2">
                   <BoutonReserver href={lienReservation()} libelle={T.reserve} pleineLargeur sous={fr(PRIX.sousBouton)} className="text-ink" />
                 </div>
               </div>
