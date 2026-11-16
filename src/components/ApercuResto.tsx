@@ -34,7 +34,7 @@ export default function ApercuResto({
 
   return (
     <div className="relative mx-auto w-[16rem] rounded-[2.6rem] bg-ink p-2.5 shadow-2xl md:w-[17rem]">
-      <span className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand px-3 py-1 text-[0.65rem] font-black uppercase tracking-widest text-white shadow">
+      <span className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand px-3 py-1 text-[0.65rem] font-black text-white shadow">
         {a.etiquette}
       </span>
       <div className="relative h-[32rem] overflow-hidden rounded-[2.1rem] bg-[#faf6f1] text-[#2a1712]">

@@ -204,7 +204,7 @@ export default function DemoTablette({ t }: { t: Textes }) {
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-3 text-[10px] font-bold uppercase tracking-wider text-ink/50">{d.tempsPrep}</p>
+                    <p className="mt-3 text-[10px] font-bold text-ink/50">{d.tempsPrep}</p>
                     <div className="mt-1.5 grid grid-cols-3 gap-1.5">
                       {[10, 15, 20].map((n) => (
                         <span
@@ -249,7 +249,7 @@ function Colonne({
 }) {
   return (
     <section className="flex min-w-0 flex-col gap-2 rounded-xl bg-white/[0.03] p-2">
-      <p className="flex items-center justify-between px-1 text-[10px] font-black uppercase tracking-wider text-white/60">
+      <p className="flex items-center justify-between px-1 text-[10px] font-black text-white/60">
         {titre}
         <span className="rounded-full px-1.5 text-[10px] text-ink" style={{ background: accent }}>
           {nombre}

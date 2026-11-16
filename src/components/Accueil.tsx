@@ -368,7 +368,7 @@ export default function Accueil({
           <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
             <div className="grid items-center gap-10 lg:grid-cols-[2fr_3fr] lg:gap-16">
               <Reveal>
-                <p className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-ink/50">
+                <p className="flex items-center gap-2 text-sm font-bold text-ink/50">
                   <IconeYoutube className="size-5 text-brand" />
                   {t.chaine.surTitre}
                 </p>

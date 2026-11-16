@@ -241,7 +241,7 @@ export default function CalculateurReleve({ langue = "fr" }: { langue?: Langue }
         <h2 className="mt-4 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">{C.titre}</h2>
         <p className="mt-3 max-w-2xl text-lg text-ink/65">{fr(C.sousTitre)}</p>
 
-        <ol className="mt-8 flex flex-wrap gap-2 text-[0.7rem] font-black uppercase tracking-widest">
+        <ol className="mt-8 flex flex-wrap gap-2 text-[0.7rem] font-black">
           {C.etapes.map((t, i) => (
             <li
               key={t}
@@ -318,7 +318,7 @@ export default function CalculateurReleve({ langue = "fr" }: { langue?: Langue }
                           {T.photo}
                         </span>
                       </span>
-                      <span className="mt-4 text-[0.7rem] font-bold uppercase tracking-widest text-ink/40">{C.deposerFormats}</span>
+                      <span className="mt-4 text-[0.7rem] font-bold text-ink/40">{C.deposerFormats}</span>
                     </>
                   )}
                   <input type="file" accept="application/pdf,image/*" className="sr-only" onChange={(e) => setFichier(e.target.files?.[0] ?? null)} />
@@ -431,7 +431,7 @@ export default function CalculateurReleve({ langue = "fr" }: { langue?: Langue }
                     reste en plus et le score viennent ensuite. */}
                 <div className="relative overflow-hidden rounded-[2rem] bg-ink p-7 text-white md:p-9">
                   <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-brand/30 blur-3xl" />
-                  <p className="relative inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white/60">
+                  <p className="relative inline-flex items-center gap-2 text-sm font-bold text-white/60">
                     <PointCiel />
                     {C.ventesTitre}
                   </p>
@@ -673,7 +673,7 @@ function ApercuCalcul({ C, T, f, langue }: { C: ContenuLancement["CALCULATEUR"];
       <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-brand/30 blur-3xl" />
       {/* Le relevé lu par l'IA */}
       <div className="relative overflow-hidden rounded-2xl bg-white p-4 text-ink" aria-hidden="true">
-        <div className="flex items-center justify-between text-[0.65rem] font-black uppercase tracking-widest text-ink/50">
+        <div className="flex items-center justify-between text-[0.65rem] font-black text-ink/50">
           <span>{T.releve}</span>
           <span>{T.jours}</span>
         </div>
@@ -687,7 +687,7 @@ function ApercuCalcul({ C, T, f, langue }: { C: ContenuLancement["CALCULATEUR"];
       </div>
       {/* Les ventes d'abord */}
       <div className="calc-apparait relative mt-6" style={{ animationDelay: "0.4s" }}>
-        <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white/60">
+        <p className="inline-flex items-center gap-2 text-sm font-bold text-white/60">
           <PointCiel />
           {C.ventesTitre}
         </p>

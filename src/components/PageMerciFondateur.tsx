@@ -79,7 +79,7 @@ export default function PageMerciFondateur({ t }: { t: Textes }) {
           {/* ─── La suite ─── */}
           <section className="calc-entre rounded-[2rem] bg-white p-7 md:p-10" style={{ animationDelay: "0.15s" }}>
             <InfoLancement t={t} className="mb-7" />
-            <p className="text-xs font-black uppercase tracking-widest text-brand">{m.suiteTitre}</p>
+            <p className="text-sm font-bold text-brand">{m.suiteTitre}</p>
             <ol className="relative mt-6 grid list-none gap-5 border-l-2 border-bone pl-6">
               {m.suite.map((etape, i) => (
                 <li key={etape} className="relative">

@@ -603,7 +603,7 @@ export function MaquetteRelances({ t }: { t: Textes }) {
                   className="size-10 rounded-full object-cover"
                 />
                 <span>
-                  <span className="block text-[0.65rem] font-semibold uppercase leading-none tracking-widest text-ink/45">
+                  <span className="block text-[0.65rem] font-semibold leading-none text-ink/45">
                     {t.maquettes.nouvelleCliente}
                   </span>
                   <span className="mt-1.5 block text-[0.9rem] font-bold leading-none text-ink">

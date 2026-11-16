@@ -127,7 +127,7 @@ export default function MenuMobile({ t }: { t: Textes }) {
                     {/* Le titre du groupe n'est pas un lien : c'est une
                         étiquette. En faire un lien promettrait une page de
                         groupe qui n'existe pas. */}
-                    <p className="px-3 text-xs font-black uppercase tracking-widest text-ink/40">
+                    <p className="px-3 text-sm font-bold text-ink/40">
                       {titre}
                     </p>
                     <div className="mt-1 flex flex-col">

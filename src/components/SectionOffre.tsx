@@ -30,7 +30,7 @@ export default function SectionOffre({ t }: { t: Textes }) {
         />
         <div className="relative mx-auto grid max-w-6xl gap-10 px-5 py-20 md:py-28 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-14">
           <Reveal>
-            <p className="inline-flex rounded-full bg-brand px-4 py-1.5 text-xs font-black uppercase tracking-widest">
+            <p className="inline-flex rounded-full bg-brand px-4 py-1.5 text-sm font-bold">
               {o.surTitre}
             </p>
             <h2 className="mt-6 font-display text-4xl font-black leading-[1.02] tracking-tight md:text-6xl">
@@ -50,7 +50,7 @@ export default function SectionOffre({ t }: { t: Textes }) {
               </div>
             </div>
 
-            <p className="mt-10 text-xs font-black uppercase tracking-widest text-white/50">
+            <p className="mt-10 text-sm font-bold text-white/50">
               {o.inclusTitre}
             </p>
             <ul className="mt-4 grid list-none gap-3 sm:grid-cols-2">
@@ -77,7 +77,7 @@ export default function SectionOffre({ t }: { t: Textes }) {
           <Reveal delay={1}>
             <div className="rounded-[2rem] bg-white p-7 text-ink shadow-2xl md:p-8">
               <InfoLancement t={t} compact className="mb-7" />
-              <p className="text-xs font-black uppercase tracking-widest text-ink/50">
+              <p className="text-sm font-bold text-ink/50">
                 {o.coutsTitre}
               </p>
               <ol className="relative mt-6 grid list-none gap-6 border-l-2 border-ink/10 pl-6">

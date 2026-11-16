@@ -23,7 +23,7 @@ export default function SectionPlateformes({ t }: { t: Textes }) {
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           <Reveal>
             <div className="h-full rounded-[2rem] border-2 border-ink/10 bg-bone p-8 md:p-10">
-              <p className="text-xs font-black uppercase tracking-widest text-ink/50">
+              <p className="text-sm font-bold text-ink/50">
                 {p.eux.titre}
               </p>
               <ul className="mt-6 grid list-none gap-5">
@@ -43,7 +43,7 @@ export default function SectionPlateformes({ t }: { t: Textes }) {
 
           <Reveal delay={1}>
             <div className="h-full rounded-[2rem] bg-ink p-8 text-white md:p-10">
-              <p className="text-xs font-black uppercase tracking-widest text-brand">
+              <p className="text-sm font-bold text-brand">
                 {p.toi.titre}
               </p>
               <ul className="mt-6 grid list-none gap-5">

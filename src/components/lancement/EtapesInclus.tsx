@@ -106,17 +106,17 @@ export default function EtapesInclus({ langue = "fr" }: { langue?: Langue }) {
 
             {/* Le moment choisi. La clé relance l'apparition à chaque étape. */}
             <div key={i} role="tabpanel" className="calc-entre rounded-[2rem] bg-white p-6 md:p-9">
-              <p className="text-sm font-black uppercase tracking-widest text-brand">
+              <p className="text-sm font-black text-brand">
                 {T.etape(i + 1, ETAPES.length)} · {fr(e.quand)}
               </p>
               <h3 className="mt-3 font-display text-2xl font-black leading-tight tracking-tight md:text-4xl">{fr(e.titre)}</h3>
 
               <div className="mt-6 rounded-2xl bg-bone p-4 md:p-5">
-                <p className="text-xs font-black uppercase tracking-widest text-ink/50">{T.toi}</p>
+                <p className="text-sm font-bold text-ink/50">{T.toi}</p>
                 <p className="mt-1 font-bold leading-relaxed">{fr(e.toi)}</p>
               </div>
 
-              <p className="mt-7 text-xs font-black uppercase tracking-widest text-ink/50">{T.nous}</p>
+              <p className="mt-7 text-sm font-bold text-ink/50">{T.nous}</p>
               <ul className="mt-3 grid list-none gap-3">
                 {e.pieces.map((p) => {
                   const page = PAGE_DE_PIECE[p.id];

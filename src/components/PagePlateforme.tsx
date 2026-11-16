@@ -112,7 +112,7 @@ export default function PagePlateforme({
                         href={f.slug}
                         className="group flex h-full flex-col rounded-3xl bg-white p-7 transition-colors hover:bg-ink hover:text-white"
                       >
-                        <p className="text-xs font-black uppercase tracking-widest text-brand">
+                        <p className="text-sm font-bold text-brand">
                           {f.surTitre}
                         </p>
                         <h3 className="mt-3 font-display text-xl font-black leading-snug tracking-tight">

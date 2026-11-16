@@ -101,7 +101,7 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
             {/* LE FORFAIT */}
             <Reveal>
               <div className="rounded-[2rem] bg-white p-6 text-ink shadow-2xl shadow-black/30 md:p-9">
-                <p className="text-xs font-black uppercase tracking-widest text-ink/45">{T.forfait}</p>
+                <p className="text-sm font-bold text-ink/45">{T.forfait}</p>
                 <div className="mt-3 flex flex-wrap items-baseline gap-x-3">
                   <span className="whitespace-nowrap font-display text-5xl font-black tracking-tight sm:text-6xl md:text-7xl">{fr(T.montant(String(ABONNEMENT)))}</span>
                   <span className="whitespace-nowrap text-xl font-black text-ink/40">{T.parMois}</span>
@@ -167,7 +167,7 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
                   {groupes.map(([titre, liste, expire]) =>
                     liste.length === 0 ? null : (
                       <div key={titre}>
-                        <p className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-white/80">
+                        <p className="inline-flex items-center gap-1.5 text-sm font-bold text-white/80">
                           {expire && <Clock className="size-3.5" aria-hidden="true" />}
                           {titre}
                         </p>

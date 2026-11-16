@@ -126,11 +126,7 @@ export default function SystemeBento({ langue = "fr" }: { langue?: Langue }) {
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <Reveal>
           <p className="max-w-3xl font-display text-xl font-black leading-snug text-ink/45 md:text-2xl">{fr(PROBLEME)}</p>
-          <p className="mt-10 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-ink/50">
-            <PointCiel />
-            {T.eyebrow}
-          </p>
-          <h2 className="mt-4 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
+          <h2 className="mt-10 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
             {T.titre}
           </h2>
         </Reveal>
@@ -176,7 +172,7 @@ export default function SystemeBento({ langue = "fr" }: { langue?: Langue }) {
                 </div>
               </div>
               <div className="relative order-1 flex flex-col justify-center p-7 md:order-2 md:p-10">
-                <p className="text-xs font-black uppercase tracking-widest text-white/80">{T.gSurtitre}</p>
+                <p className="text-sm font-bold text-white/80">{T.gSurtitre}</p>
                 <h3 className="mt-3 max-w-md font-display text-2xl font-black leading-tight tracking-tight md:text-4xl">
                   {T.gTitre}
                 </h3>
@@ -261,7 +257,7 @@ export default function SystemeBento({ langue = "fr" }: { langue?: Langue }) {
           <Reveal delay={1} className="h-full">
             <Carte plus={T.plus} surtitre={fr(T.tSurtitre)} titre={fr(T.tTitre)} href={langue === "en" ? "/en/platform/monday-text" : "/plateforme/texto-du-lundi"} className="bg-gradient-to-br from-[#e6f9fd] to-[#d7ecff]">
               <div className="mb-8 w-[85%] max-w-sm space-y-3">
-                <div className="flex justify-between text-[0.65rem] font-black uppercase tracking-widest text-ink/40">
+                <div className="flex justify-between text-[0.65rem] font-black text-ink/40">
                   <span>Resto Action</span>
                   <Exemple>{T.ex}</Exemple>
                 </div>

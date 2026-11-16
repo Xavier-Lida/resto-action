@@ -164,7 +164,7 @@ export default function Tableau({
               <p className="text-sm text-ink/50">Rien à montrer.</p>
             ) : (
               <table className="w-full text-sm">
-                <thead className="text-left text-xs font-bold uppercase tracking-wide text-ink/50">
+                <thead className="text-left text-sm font-bold text-ink/50">
                   <tr>
                     <th className="pb-2 pr-3 font-bold">Réservé le</th>
                     <th className="pb-2 pr-3 font-bold">Qui</th>

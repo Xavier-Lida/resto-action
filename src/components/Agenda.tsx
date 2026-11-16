@@ -395,7 +395,7 @@ export default function Agenda({ t }: { t: Textes }) {
           <div className="mt-6 grid gap-7 @lg:grid-cols-[minmax(0,1fr)_minmax(0,11rem)] @lg:gap-8">
             {/* ─── Le mois ─── */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest text-brand">
+              <p className="text-sm font-bold text-brand">
                 {t.agenda.choisirJour}
               </p>
 
@@ -480,7 +480,7 @@ export default function Agenda({ t }: { t: Textes }) {
 
             {/* ─── Les heures du jour choisi ─── */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest text-brand">
+              <p className="text-sm font-bold text-brand">
                 {t.agenda.choisirHeure}
               </p>
               {jourActif && (
@@ -497,7 +497,7 @@ export default function Agenda({ t }: { t: Textes }) {
               <div className="mt-3 space-y-4 @lg:max-h-[24rem] @lg:overflow-y-auto @lg:pr-1">
                 {groupes.map((groupe) => (
                   <div key={groupe.titre}>
-                    <p className="sticky top-0 bg-white pb-1.5 text-[11px] font-black uppercase tracking-widest text-ink/30">
+                    <p className="sticky top-0 bg-white pb-1.5 text-[11px] font-black text-ink/30">
                       {groupe.titre}
                     </p>
                     <div className="grid grid-cols-3 gap-2 @lg:grid-cols-2">
@@ -549,7 +549,7 @@ export default function Agenda({ t }: { t: Textes }) {
           </p>
           <p className="mt-1 text-sm font-bold text-ink/60">{t.agenda.duree}</p>
 
-          <p className="mt-7 text-xs font-black uppercase tracking-widest text-brand">
+          <p className="mt-7 text-sm font-bold text-brand">
             {t.agenda.coordonnees}
           </p>
 

@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 /** Mention « exemple » apposée sur chaque chiffre ou nom d'exemple. */
 export function Exemple({ children = "exemple" }: { children?: ReactNode }) {
   return (
-    <span className="inline-block rounded-full border border-current/25 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-widest opacity-60">
+    <span className="inline-block rounded-full border border-current/25 px-2 py-0.5 text-[0.65rem] font-black opacity-60">
       {children}
     </span>
   );
@@ -23,8 +23,9 @@ export function AEcrire({ children }: { children: ReactNode }) {
 /** Le surtitre d'une section : la pilule rouge sur fond sombre, le gris sur fond clair. */
 /* LA TOUCHE CYAN : toujours petite, toujours à la même place (le point devant
    chaque surtitre, le mot clé surligné, l'icône de l'IA). Jamais en gros. */
+/* Retiré le 16 nov. : Guillaume trouve que le point + petites majuscules fait « IA ». */
 export function PointCiel() {
-  return <span aria-hidden="true" className="size-2 shrink-0 rounded-full bg-ciel shadow-[0_0_0_3px_rgba(25,211,240,0.25)]" />;
+  return null;
 }
 
 /* Les petites étiquettes au-dessus des titres (« LE CALCULATEUR · IA »…) :

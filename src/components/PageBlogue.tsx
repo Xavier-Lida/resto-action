@@ -62,7 +62,7 @@ export default function PageBlogue({
           <div className="mx-auto max-w-4xl px-5 py-14 md:py-20">
             <FilAriane elements={fil} />
             <Reveal>
-              <p className="mt-8 text-xs font-black uppercase tracking-widest text-brand">
+              <p className="mt-8 text-sm font-bold text-brand">
                 {index.surTitre}
               </p>
               <h1 className="mt-3 font-display text-4xl font-black leading-tight tracking-tight md:text-6xl">
@@ -96,7 +96,7 @@ export default function PageBlogue({
                       >
                         {/* `time` porte la date lisible par une machine ; le
                             texte affiché reste dans la langue de la page. */}
-                        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold uppercase tracking-widest text-ink/50">
+                        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold text-ink/50">
                           <time dateTime={a.publieLe}>{date}</time>
                           <span aria-hidden="true">·</span>
                           <span>

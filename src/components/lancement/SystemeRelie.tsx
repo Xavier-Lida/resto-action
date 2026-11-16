@@ -369,11 +369,7 @@ export default function SystemeRelie() {
           <p className="max-w-3xl font-display text-xl font-black leading-snug text-white/60 md:text-2xl">
             {fr(PROBLEME)}
           </p>
-          <p className="mt-10 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-black uppercase tracking-widest">
-            <PointCiel />
-            {fr(SCENE.titre)}
-          </p>
-          <h2 className="mt-5 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
+          <h2 className="mt-10 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
             Le Système Nouveaux Clients, au complet.
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-white/70">
@@ -391,7 +387,7 @@ export default function SystemeRelie() {
                 key={c.k}
                 className="rounded-2xl bg-white/[0.07] px-3 py-2.5 ring-1 ring-white/10 md:px-4"
               >
-                <p className="text-[0.58rem] font-black uppercase leading-tight tracking-wider text-white/50 md:text-[0.7rem] md:tracking-widest">
+                <p className="text-[0.58rem] font-black leading-tight text-white/50 md:text-[0.7rem]">
                   {c.k}
                 </p>
                 <p
@@ -402,7 +398,7 @@ export default function SystemeRelie() {
                 </p>
               </div>
             ))}
-            <span className="col-span-3 justify-self-start rounded-full border border-white/25 px-2.5 py-1 text-[0.65rem] font-black uppercase tracking-widest text-white/60">
+            <span className="col-span-3 justify-self-start rounded-full border border-white/25 px-2.5 py-1 text-[0.65rem] font-black text-white/60">
               exemple
             </span>
           </div>
@@ -496,7 +492,7 @@ export default function SystemeRelie() {
                     key={`cmd-${tour}`}
                     className="sys-pop absolute inset-x-2 bottom-3 rounded-xl bg-brand px-2 py-2 text-center text-white shadow-lg"
                   >
-                    <p className="text-[0.55rem] font-black uppercase tracking-wider md:text-[0.6rem]">
+                    <p className="text-[0.55rem] font-black md:text-[0.6rem]">
                       Nouvelle commande
                     </p>
                     <p className="whitespace-nowrap font-display text-xs font-black md:text-base">
@@ -506,7 +502,7 @@ export default function SystemeRelie() {
                 )}
                 {(reduit || etape === 0 || etape >= 4) && (
                   <div className="absolute inset-x-2 bottom-3 rounded-xl bg-ink px-2 py-2 text-center text-white">
-                    <p className="text-[0.55rem] font-black uppercase tracking-wider md:text-[0.6rem]">
+                    <p className="text-[0.55rem] font-black md:text-[0.6rem]">
                       Ton app
                     </p>
                     <p className="text-[0.6rem] font-bold text-white/70 md:text-[0.65rem]">

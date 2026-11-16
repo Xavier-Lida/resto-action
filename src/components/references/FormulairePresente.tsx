@@ -39,7 +39,7 @@ export default function FormulairePresente({ representant = false, code = "" }: 
 
   return (
     <form onSubmit={envoyer} className="relative rounded-[2rem] bg-white p-6 shadow-xl shadow-ink/5 md:p-9">
-      <p className="text-xs font-black uppercase tracking-widest text-ink/50">{P.toiTitre}</p>
+      <p className="text-sm font-bold text-ink/50">{P.toiTitre}</p>
       <div className="mt-3 grid gap-4 sm:grid-cols-2">
         {representant && (
           <label className={`${etiquette} sm:col-span-2`}>
@@ -71,7 +71,7 @@ export default function FormulairePresente({ representant = false, code = "" }: 
         )}
       </div>
 
-      <p className="mt-8 text-xs font-black uppercase tracking-widest text-ink/50">{P.luiTitre}</p>
+      <p className="mt-8 text-sm font-bold text-ink/50">{P.luiTitre}</p>
       <p className="mt-1 text-sm text-ink/60">{P.aide}</p>
       <div className="mt-3 grid gap-4 sm:grid-cols-2">
         <label className={`${etiquette} sm:col-span-2`}>

@@ -1162,7 +1162,7 @@ export const CALCULATEUR = {
   sousTitre: "Téléverse ton relevé de plateforme. L'IA lit tes chiffres et te montre les ventes que ton app peut aller chercher, et ce qu'il te reste en plus.",
   apercuBadge: "Ce que tu vas voir",
   apercuNote: "Exemple de notre offre : resto à 5 000 $ par mois sur une plateforme à 25 %, 3 000 $ qui passent à ton app, 40 commandes de nouveaux clients, prix +10 % sur la plateforme si ton entente le permet. Tes chiffres à toi sortent de ton relevé.",
-  ventesTitre: "Tes ventes sur ton app",
+  ventesTitre: "Tes ventes en ligne",
   ventesSuffixe: "par mois, sur ton site et ton app à ton nom",
   ventesDont: "dont {n} de nouveaux clients",
   resteTitre: "Il te reste en plus, abonnement payé",

@@ -84,11 +84,7 @@ export default function SystemeCouches() {
           <p className="max-w-3xl font-display text-xl font-black leading-snug text-white/60 md:text-2xl">
             {fr(PROBLEME)}
           </p>
-          <p className="mt-10 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-black uppercase tracking-widest">
-            <PointCiel />
-            Le Système, couche par couche
-          </p>
-          <h2 className="mt-5 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
+          <h2 className="mt-10 max-w-3xl font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
             Le Système Nouveaux Clients, au complet.
           </h2>
         </div>
@@ -126,7 +122,7 @@ export default function SystemeCouches() {
                   ))}
                 </div>
                 <div key={actif} className="couche-entre" role="tabpanel">
-                  <p className="mt-5 text-xs font-black uppercase tracking-widest text-white/50">
+                  <p className="mt-5 text-sm font-bold text-white/50">
                     Couche {actif + 1} sur {N}
                   </p>
                   <h3 className="mt-2 font-display text-2xl font-black leading-tight tracking-tight md:text-4xl">

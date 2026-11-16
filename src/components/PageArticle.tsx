@@ -77,7 +77,7 @@ export default function PageArticle({
                 <h1 className="mt-8 font-display text-3xl font-black leading-tight tracking-tight md:text-5xl">
                   {article.titre}
                 </h1>
-                <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold uppercase tracking-widest text-ink/50">
+                <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold text-ink/50">
                   <time dateTime={article.publieLe}>
                     {dateLisible(article.publieLe)}
                   </time>

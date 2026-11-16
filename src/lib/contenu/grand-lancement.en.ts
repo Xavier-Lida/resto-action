@@ -954,7 +954,7 @@ export const CALCULATEUR = {
   sousTitre: "Upload your platform statement. AI reads your numbers and shows you the sales your app can go after, and what's left for you on top.",
   apercuBadge: "What you'll see",
   apercuNote: "Example of our offer: restaurant doing $5,000 a month on a 25% platform, $3,000 moving to your app, 40 orders from new customers, prices +10% on the platform if your agreement allows it. Your own numbers come from your statement.",
-  ventesTitre: "Your sales on your app",
+  ventesTitre: "Your online sales",
   ventesSuffixe: "a month, on your own branded app",
   ventesDont: "including {n} from new customers",
   resteTitre: "Extra left for you, subscription paid",

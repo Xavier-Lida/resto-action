@@ -19,7 +19,7 @@ export default function PageConditions({ t, c }: { t: Textes; c: ConditionsFonda
       <BarreNav t={t} />
       <main className="flex-1" lang={t.htmlLang}>
         <div className="mx-auto max-w-2xl px-5 py-20 md:py-28">
-          <p className="text-xs font-black uppercase tracking-widest text-brand">{c.surTitre}</p>
+          <p className="text-sm font-bold text-brand">{c.surTitre}</p>
           <h1 className="mt-3 text-3xl md:text-5xl font-black leading-tight tracking-tight">{c.titre}</h1>
           <p className="mt-7 text-lg leading-relaxed text-ink/75">{c.intro}</p>
 

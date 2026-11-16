@@ -124,7 +124,7 @@ export default function PageRefereUnResto() {
                         [P.gains.refereTitre, P.gains.refere, P.gains.refereMontant(MONTANTS)],
                       ].map(([titre, texte, montant]) => (
                         <div key={titre} className="rounded-2xl bg-white/[0.07] p-5 ring-1 ring-white/10">
-                          <p className="text-xs font-black uppercase tracking-widest text-white/50">{titre}</p>
+                          <p className="text-sm font-bold text-white/50">{titre}</p>
                           <p className="mt-2 text-lg font-black leading-snug">{fr(texte)}</p>
                           {AFFICHER_MONTANTS && <p className="mt-2 font-black text-ciel">{fr(montant)}</p>}
                         </div>

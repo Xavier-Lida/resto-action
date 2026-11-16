@@ -126,7 +126,7 @@ export default function SectionProduits({ t }: { t: Textes }) {
               className={`mt-6 ${anime ? (sens > 0 ? "produits-glisse-droite" : "produits-glisse-gauche") : ""}`}
             >
               <div className="min-h-[15rem]">
-              <p className="text-xs font-black uppercase tracking-widest text-white/50">{app.etiquette}</p>
+              <p className="text-sm font-bold text-white/50">{app.etiquette}</p>
               <h3 className="mt-2 font-display text-2xl font-black leading-tight tracking-tight">{app.titre}</h3>
               <p className="mt-3 leading-relaxed text-white/75">
                 {app.texte.map((bout, j) =>
@@ -169,7 +169,7 @@ export default function SectionProduits({ t }: { t: Textes }) {
                       actif ? "bg-white/10" : "hover:bg-white/5"
                     }`}
                   >
-                    <span className="block text-xs font-black uppercase tracking-widest text-white/50">
+                    <span className="block text-sm font-bold text-white/50">
                       {a.etiquette}
                     </span>
                     <span

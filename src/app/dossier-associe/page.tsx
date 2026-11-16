@@ -83,7 +83,7 @@ function Contenu({ dossier, garanties }: { dossier: NonNullable<ReturnType<typeo
 
       <div className="relative mt-8 overflow-hidden rounded-[2rem] bg-ink p-7 text-white md:p-9">
         <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-brand/30 blur-3xl" />
-        <p className="relative text-xs font-black uppercase tracking-widest text-white/60">{fr(C.resultatPrefixe)}</p>
+        <p className="relative text-sm font-bold text-white/60">{fr(C.resultatPrefixe)}</p>
         <p className="relative mt-2 font-display text-5xl font-black tabular-nums md:text-6xl">{argentSigne(Math.round(r.total))}</p>
         <p className="relative mt-1 text-lg font-bold text-white/70">{C.resultatSuffixe}</p>
         {r.economieNegative && <p className="relative mt-5 border-l-4 border-brand pl-4 font-bold">{fr(C.economieNegative)}</p>}

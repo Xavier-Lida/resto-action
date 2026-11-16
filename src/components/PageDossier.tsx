@@ -49,7 +49,7 @@ export default async function PageDossier({ t, session }: { t: Textes; session: 
         </Link>
 
         <header className="mt-8 md:mt-12">
-          <p className="text-xs font-black uppercase tracking-widest text-brand">{d.surTitre}</p>
+          <p className="text-sm font-bold text-brand">{d.surTitre}</p>
           <h1 className="mt-2 font-display text-4xl font-black leading-tight tracking-tight md:text-5xl">
             {dossier.restaurant}
           </h1>
@@ -87,7 +87,7 @@ export default async function PageDossier({ t, session }: { t: Textes; session: 
                     <p className={`flex flex-wrap items-center gap-2 font-black ${faite || courante ? "" : "text-ink/45"}`}>
                       {etape.titre}
                       {courante && (
-                        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-widest text-brand">
+                        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[0.65rem] font-black text-brand">
                           {d.enCours}
                         </span>
                       )}
@@ -104,13 +104,13 @@ export default async function PageDossier({ t, session }: { t: Textes; session: 
           {/* ─── Les nouvelles et les actions ─── */}
           <div className="grid content-start gap-4">
             <section className="rounded-[2rem] bg-hero p-7 text-white">
-              <p className="text-xs font-black uppercase tracking-widest text-white/60">{d.prochainPoint}</p>
+              <p className="text-sm font-bold text-white/60">{d.prochainPoint}</p>
               <p className="mt-1 font-display text-2xl font-black">{dossier.prochainPoint ?? d.aConfirmer}</p>
-              <p className="mt-5 text-xs font-black uppercase tracking-widest text-white/60">{d.dateLancement}</p>
+              <p className="mt-5 text-sm font-bold text-white/60">{d.dateLancement}</p>
               <p className="mt-1 font-display text-2xl font-black">{dossier.dateLancement ?? d.aConfirmer}</p>
               {dossier.message && (
                 <div className="mt-5 rounded-2xl bg-white/10 p-4">
-                  <p className="text-xs font-black uppercase tracking-widest text-white/60">{d.message}</p>
+                  <p className="text-sm font-bold text-white/60">{d.message}</p>
                   <p className="mt-1 leading-relaxed">{dossier.message}</p>
                 </div>
               )}

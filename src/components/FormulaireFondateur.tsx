@@ -186,7 +186,7 @@ export default function FormulaireFondateur({
 
           {/* La progression : 4 segments, celui en cours se remplit. */}
           <div className="mt-10 md:mt-14">
-            <p className="text-xs font-black uppercase tracking-widest text-brand">
+            <p className="text-sm font-bold text-brand">
               {r.etape.replace("{n}", String(etape + 1))} · {r.etapes[etape]}
             </p>
             <ol className="mt-3 grid list-none grid-cols-4 gap-1.5" aria-label={r.etape.replace("{n}", String(etape + 1))}>
@@ -397,7 +397,7 @@ export default function FormulaireFondateur({
                 <Etape titre={r.paiement.titre} texte={r.paiement.texte}>
                   <InfoLancement t={t} compact className="mb-5" />
                   <div className="rounded-3xl bg-white p-5 md:p-6">
-                    <p className="text-xs font-black uppercase tracking-widest text-ink/50">{r.paiement.recap}</p>
+                    <p className="text-sm font-bold text-ink/50">{r.paiement.recap}</p>
                     <p className="mt-2 font-display text-xl font-black">{champs.restaurant}</p>
                     <p className="text-sm text-ink/60">
                       {champs.ville} · {champs.nom} · {champs.courriel}

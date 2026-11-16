@@ -46,7 +46,7 @@ export default function PageContact({ t }: { t: Textes }) {
           <Reveal>
             <div className="text-center">
               <Buoy className="mx-auto mb-6 w-14" />
-              <p className="text-xs font-black uppercase tracking-widest text-brand">
+              <p className="text-sm font-bold text-brand">
                 {t.pageContact.surtitre}
               </p>
               <h1 className="mt-3 font-display text-4xl font-black leading-tight tracking-tight md:text-6xl">

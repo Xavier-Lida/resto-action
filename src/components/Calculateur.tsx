@@ -184,7 +184,7 @@ export default function Calculateur({ t }: { t: Textes }) {
               aria-hidden="true"
               className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-brand/25 blur-3xl"
             />
-            <p className="text-xs font-black uppercase tracking-widest text-white/50">
+            <p className="text-sm font-bold text-white/50">
               {c.liste.titre}
             </p>
             <p className="mt-3 font-display text-5xl font-black tabular-nums">
@@ -232,7 +232,7 @@ export default function Calculateur({ t }: { t: Textes }) {
 
           {/* 2. LES VENTES EN PLUS — des notifications de commande */}
           <div className="relative flex flex-col overflow-hidden rounded-[2rem] bg-white p-7 shadow-sm">
-            <p className="text-xs font-black uppercase tracking-widest text-ink/50">
+            <p className="text-sm font-bold text-ink/50">
               {c.ventes.titre}
             </p>
             <p className="mt-3 font-display text-5xl font-black tabular-nums text-[#1f6b45]">
@@ -269,7 +269,7 @@ export default function Calculateur({ t }: { t: Textes }) {
 
           {/* 3. LES AVIS GOOGLE — un texto, puis les avis qui entrent */}
           <div className="relative flex flex-col overflow-hidden rounded-[2rem] bg-white p-7 shadow-sm">
-            <p className="text-xs font-black uppercase tracking-widest text-ink/50">
+            <p className="text-sm font-bold text-ink/50">
               {c.avis.titre}
             </p>
             <p className="mt-3 flex items-center gap-3 font-display text-5xl font-black tabular-nums">
