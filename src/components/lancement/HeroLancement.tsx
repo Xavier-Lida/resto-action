@@ -1,3 +1,4 @@
+import { Clock } from "lucide-react";
 import BoutonReserver from "@/components/BoutonReserver";
 import DemoApp from "@/components/DemoApp";
 import TitreRoulant from "@/components/TitreRoulant";
@@ -59,7 +60,8 @@ export default function HeroLancement({ t, langue = "fr" }: { t: Textes; langue?
               />
             </div>
             {/* L'URGENCE, DÈS LE HAUT : la limite et la date. */}
-            <p className="animate-hero delay-4 max-w-xl rounded-3xl bg-bone px-4 py-2 text-center text-sm font-bold">
+            <p className="animate-hero delay-4 inline-flex max-w-xl items-center gap-2 rounded-3xl bg-brand/10 px-4 py-2 text-center text-sm font-black text-brand">
+              <Clock className="size-4 shrink-0" aria-hidden="true" />
               {fr(U.urgence(RESTOS_PAR_MOIS, DATE_LIMITE))}
             </p>
           </div>

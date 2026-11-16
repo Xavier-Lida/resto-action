@@ -33,6 +33,8 @@ export const NOMS_GARANTIES = {
 /** Date provisoire. Guillaume peut l'avancer. Premiers lancements le 1er janvier. */
 export const DATE_COHORTE = "janvier 2027";
 export const DATE_LIMITE = "vendredi 18 décembre 2026";
+/** La même date, pour le compte à rebours : fin de journée, heure de Montréal. Change-la avec DATE_LIMITE. */
+export const FIN_LANCEMENT_ISO = "2026-12-18T23:59:59-05:00";
 /** Vide tant qu'aucune date de fin du 750 $ n'est décidée. */
 export const DATE_FIN_750 = "";
 

@@ -1,6 +1,8 @@
 import BarreNav from "@/components/BarreNav";
 import BandeauReference from "@/components/references/BandeauReference";
 import BarreReservation from "@/components/BarreReservation";
+import BandeauUrgence from "@/components/lancement/BandeauUrgence";
+import { FIN_LANCEMENT_ISO } from "@/lib/contenu/grand-lancement";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import Footer from "@/components/Footer";
 import CommentOnFait from "@/components/CommentOnFait";
@@ -62,6 +64,8 @@ export default function AccueilLancement({ t }: { t: Textes }) {
     <>
       {/* « Réfère un resto » : seulement pour un visiteur arrivé par /p/CODE ou /f/CODE. */}
       <BandeauReference langue={langue} />
+      {/* L'urgence, tout en haut : le compte à rebours jusqu'au 18 déc. */}
+      <BandeauUrgence fin={FIN_LANCEMENT_ISO} places={RESTOS_PAR_MOIS} href={lienReservation()} langue={langue} />
       <BarreNav t={t} />
       <main className="flex-1" lang={t.htmlLang}>
         {/* 1. La promesse, l'accroche et le bouton du calculateur. */}
