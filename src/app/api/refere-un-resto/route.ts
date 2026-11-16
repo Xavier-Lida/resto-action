@@ -121,8 +121,10 @@ export async function POST(requete: NextRequest): Promise<Response> {
       restos_clients_approx: texte(c.restosApprox, 40),
       regions: texte(c.regions, 200),
       facon_de_referer: facons,
+      /* 16 nov. : n'importe qui peut référer. L'entreprise est facultative, et on demande le resto. */
+      resto_connu: texte(c.restoConnu, 200),
     };
-    if (!d.entreprise || !d.nom || !COURRIEL.test(d.courriel) || !telOk(d.telephone)) return refus("champs");
+    if (!d.nom || !COURRIEL.test(d.courriel) || !telOk(d.telephone)) return refus("champs");
     if (c.consentement !== true) return refus("consentement");
     evenement = {
       ...base,

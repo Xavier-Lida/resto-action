@@ -69,10 +69,6 @@ export default function BarreReservation({
       }`}
     >
       <span className="flex items-center gap-2 text-sm font-black">
-        <span className="relative flex size-2.5">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-75" />
-          <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
-        </span>
         {/* Au cellulaire, sur deux lignes : « 16 places par mois » / « Fin le 18 déc. » */}
         <span className="flex flex-col text-xs leading-tight sm:hidden">
           {places.split(" · ").map((morceau, k) => (

@@ -5,7 +5,6 @@ import { BoutonContour, PointCiel, Surtitre } from "@/components/lancement/ui";
 import {
   AFFICHER_MONTANTS,
   CONDITIONS_PRETES,
-  ENTENTE_TYPE_PRETE,
   MONTANTS,
   PARTENAIRES_REFERENTS,
   REFERE_UN_RESTO,
@@ -34,8 +33,8 @@ import FormulairePresente from "./FormulairePresente";
 export default function PageRefereUnResto() {
   const P = REFERE_UN_RESTO.page;
   const B = PARTENAIRES_REFERENTS.page;
+  const S = PARTENAIRES_REFERENTS.simple;
   const { typo: fr } = formats("fr");
-  const formules = PARTENAIRES_REFERENTS.formules;
   const C = REFERE_UN_RESTO.choix;
 
   return (
@@ -196,93 +195,58 @@ export default function PageRefereUnResto() {
           }
           contenuPro={
             <>
-            {/* 5. LES PARTENAIRES RÉFÉRENTS : la section « techno ». Fond nuit, grille
-                fine qui s'efface, deux lueurs (ciel et violet), cartes en verre.
-                Peu de texte : trois atouts, quatre étapes, le formulaire. */}
+            {/* 5. JE CONNAIS UN RESTO (16 nov.) : très simple, pour n'importe qui.
+                Un titre qui dit le montant, trois étapes, le formulaire. */}
             <section className="bg-white px-3 pb-6 md:px-5 lg:px-6">
-              <div className="relative isolate overflow-hidden rounded-[2rem] bg-[#0a0e16] text-white lg:rounded-[3rem]">
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 -z-10 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
-                />
-                <div aria-hidden="true" className="pointer-events-none absolute -top-48 left-1/2 -z-10 h-[30rem] w-[44rem] -translate-x-1/2 rounded-full bg-ciel/20 blur-[120px]" />
-                <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -right-24 -z-10 size-[26rem] rounded-full bg-[#5b5ff0]/25 blur-[110px]" />
-
-                <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-                  {/* L'en-tête */}
-                  <div className="mx-auto max-w-3xl text-center">
-                    <h2 className="font-display text-3xl font-black leading-[1.05] tracking-tight md:text-5xl">
-                      {fr(B.titreA)}{" "}
-                      <span className="bg-gradient-to-r from-ciel to-[#8b8ff8] bg-clip-text text-transparent">{fr(B.titreB)}</span>
+              <div className="rounded-[2rem] bg-bone lg:rounded-[3rem]">
+                <div className="mx-auto max-w-5xl px-5 py-14 md:py-20">
+                  <div className="text-center">
+                    <h2 className="font-display text-4xl font-black leading-[1.02] tracking-tight md:text-6xl">
+                      {fr(S.titreA)}
+                      <span className="block text-brand">{fr(S.titreB(MONTANTS))}</span>
                     </h2>
-                    <p className="mx-auto mt-5 max-w-xl text-lg text-white/60">{fr(B.sousTitreCourt)}</p>
+                    <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink/70">{fr(S.sousTitre(MONTANTS))}</p>
                   </div>
 
-                  {/* Les trois atouts */}
-                  <ul className="mt-12 grid list-none gap-3 md:grid-cols-3">
-                    {B.atouts.map((a, i) => (
-                      <li key={a.titre} className="relative overflow-hidden rounded-3xl bg-white/[0.04] p-5 ring-1 ring-white/10 backdrop-blur md:p-6">
-                        <span aria-hidden="true" className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-ciel/70 to-transparent" />
-                        <p className="font-mono text-xs font-bold text-ciel">0{i + 1}</p>
-                        <p className="mt-2 font-display text-lg font-black md:mt-3 md:text-xl">{fr(a.titre)}</p>
-                        <p className="mt-1 text-sm text-white/60">{fr(a.texte)}</p>
+                  <ol className="mt-10 grid list-none gap-3 md:mt-12 md:grid-cols-3">
+                    {S.etapes(MONTANTS).map((e, i) => (
+                      <li
+                        key={e.titre}
+                        className={`flex gap-4 rounded-3xl p-5 md:block md:p-7 ${i === 2 ? "bg-brand text-white" : "bg-white text-ink"}`}
+                      >
+                        <span className={`grid size-10 shrink-0 place-items-center rounded-full font-display text-lg font-black ${i === 2 ? "bg-white text-brand" : "bg-ink text-white"}`}>
+                          {i + 1}
+                        </span>
+                        <span className="block md:mt-5">
+                          <span className="block font-display text-xl font-black leading-tight">{fr(e.titre)}</span>
+                          <span className={`mt-1 block text-sm leading-relaxed ${i === 2 ? "text-white/85" : "text-ink/60"}`}>{fr(e.texte)}</span>
+                        </span>
                       </li>
                     ))}
-                  </ul>
+                  </ol>
 
-                  <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
-                    {/* Les quatre étapes, sur une ligne qui s'allume */}
-                    <div>
-                      <h3 className="font-display text-2xl font-black">{B.etapesTitre}</h3>
-                      <ol className="relative mt-7 grid list-none gap-7">
-                        <span aria-hidden="true" className="absolute bottom-3 left-[15px] top-3 w-px bg-gradient-to-b from-ciel via-[#5b5ff0] to-transparent" />
-                        {B.etapes.map((e, i) => (
-                          <li key={e.titre} className="relative flex gap-4">
-                            <span className="relative grid size-8 shrink-0 place-items-center rounded-full bg-[#0a0e16] font-mono text-xs font-bold text-ciel ring-1 ring-ciel/50 shadow-[0_0_18px_rgba(25,211,240,0.35)]">
-                              {i + 1}
-                            </span>
-                            <span className="pt-1">
-                              <span className="block font-black">{fr(e.titre)}</span>
-                              <span className="block text-sm text-white/55">{fr(e.texte)}</span>
-                            </span>
+                  <div className="mx-auto mt-12 max-w-2xl">
+                    <h3 className="text-center font-display text-2xl font-black md:text-3xl">{fr(S.formulaireTitre)}</h3>
+                    <div className="mt-6">
+                      <FormulairePartenaire />
+                    </div>
+                    <p className="mt-4 text-center text-xs text-ink/50">{fr(S.ecrit)}</p>
+
+                    {/* Les règles, repliées : elles comptent, mais pas en gros. */}
+                    <details className="group mt-6 rounded-2xl bg-white px-5 py-4">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-black text-ink/70 [&::-webkit-details-marker]:hidden">
+                        {B.jamaisTitre}
+                        <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center rounded-full bg-bone leading-none transition group-open:rotate-45">+</span>
+                      </summary>
+                      <ul className="mt-3 grid list-none gap-2 text-sm text-ink/65">
+                        {B.jamais.map((x) => (
+                          <li key={x} className="flex gap-3">
+                            <span className="mt-2 h-0.5 w-3 shrink-0 rounded-full bg-brand" aria-hidden="true" />
+                            {fr(x)}
                           </li>
                         ))}
-                      </ol>
-
-                      {ENTENTE_TYPE_PRETE && AFFICHER_MONTANTS ? (
-                        <ul className="mt-8 grid list-none gap-2 text-sm">
-                          <li className="rounded-2xl bg-white/[0.05] p-4 ring-1 ring-white/10">{fr(formules.commission(MONTANTS))}</li>
-                          <li className="rounded-2xl bg-white/[0.05] p-4 ring-1 ring-white/10">{fr(formules.mixte(MONTANTS))}</li>
-                          <li className="rounded-2xl bg-white/[0.05] p-4 ring-1 ring-white/10">{fr(formules.echange())}</li>
-                        </ul>
-                      ) : (
-                        <p className="mt-8 text-xs text-white/45">{fr(B.gainsSansEntente)}</p>
-                      )}
-
-                      {/* Les règles, repliées : elles comptent, mais pas en gros. */}
-                      <details className="group mt-4 rounded-2xl bg-white/[0.04] px-5 py-4 ring-1 ring-white/10">
-                        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-black text-white/80 [&::-webkit-details-marker]:hidden">
-                          {B.jamaisTitre}
-                          <span aria-hidden="true" className="grid size-6 shrink-0 place-items-center rounded-full bg-white/10 leading-none transition group-open:rotate-45">+</span>
-                        </summary>
-                        <ul className="mt-3 grid list-none gap-2 text-sm text-white/65">
-                          {B.jamais.map((x) => (
-                            <li key={x} className="flex gap-3">
-                              <span className="mt-2 h-0.5 w-3 shrink-0 rounded-full bg-brand" aria-hidden="true" />
-                              {fr(x)}
-                            </li>
-                          ))}
-                        </ul>
-                      </details>
-                    </div>
-
-                    {/* Le formulaire, dans un cadre qui brille sur ses bords */}
-                    <div>
-                      <h3 className="font-display text-2xl font-black">{B.formulaireTitre}</h3>
-                      <div className="mt-7 rounded-[2.1rem] bg-gradient-to-br from-ciel/70 via-white/10 to-[#5b5ff0]/70 p-px shadow-[0_30px_80px_-20px_rgba(25,211,240,0.35)]">
-                        <FormulairePartenaire />
-                      </div>
-                    </div>
+                      </ul>
+                    </details>
                   </div>
                 </div>
               </div>

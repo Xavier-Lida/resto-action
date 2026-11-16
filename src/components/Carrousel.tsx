@@ -8,7 +8,7 @@ import { Children, useEffect, useRef, useState, type ReactNode } from "react";
    affichée; quand elle est pleine (fin de l'animation CSS), on passe à la
    suivante, en fondu. Un clic sur un onglet y va et relance le minuteur;
    au cellulaire, on glisse du doigt. */
-const DUREE_MS = 6000;
+const DUREE_MS = 4000;
 
 export default function Carrousel({ onglets, children }: { onglets: string[]; children: ReactNode }) {
   const [actif, setActif] = useState(0);

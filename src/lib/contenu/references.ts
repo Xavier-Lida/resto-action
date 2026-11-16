@@ -97,7 +97,7 @@ export const REFERE_UN_RESTO = {
     titreCourt: "Présente-nous un resto.",
     sousTitreCourt: "On s'occupe de tout. Toi, tu es récompensé.",
     boutonResto: "J'ai un resto",
-    boutonPro: "Je suis un pro",
+    boutonPro: "Je connais un resto",
     boutonClientConnecte: "Je suis déjà client, envoie-moi mon lien",
     boutonPartenaire: "Devenir partenaire référent",
 
@@ -197,8 +197,8 @@ export const REFERE_UN_RESTO = {
       texteSansMontant: "Pour chaque resto que tu nous réfères, sans limite.",
     },
     pro: {
-      etiquette: "Je suis un pro",
-      qui: "Travailleur autonome, comptable, fournisseur, conseiller, agence",
+      etiquette: "Je connais un resto",
+      qui: "N'importe qui : un ami, un client, un fournisseur, un comptable",
       montant: (m: typeof MONTANTS) => `${m.fournisseurCommission} $`,
       sousMontant: "pour chaque resto que tu nous présentes",
       sousCourt: "par resto présenté",
@@ -268,6 +268,21 @@ export const REFERE_UN_RESTO = {
 /* ─── Volet B : les partenaires référents ─── */
 export const PARTENAIRES_REFERENTS = {
   /* La page publique (non publiée tant que ENTENTE_TYPE_PRETE est faux). [À RELIRE] */
+  /* 16 nov. : la section du site refaite TRÈS simple, pour n'importe qui qui
+     connaît un resto (pas seulement les pros). [À RELIRE] : textes nouveaux. */
+  simple: {
+    titreA: "Tu connais un resto?",
+    titreB: (m: typeof MONTANTS) => `Fais-toi ${m.fournisseurCommission} $.`,
+    sousTitre: (m: typeof MONTANTS) =>
+      `Un resto qui prend des commandes en ligne (Uber Eats, DoorDash, Skip)? Donne-nous son nom. S'il embarque avec nous, on te paie ${m.fournisseurCommission} $.`,
+    etapes: (m: typeof MONTANTS) => [
+      { titre: "Tu nous donnes son nom", texte: "Avec son accord. Ça prend une minute." },
+      { titre: "On s'occupe de tout", texte: "On l'appelle et on lui explique. T'as rien à vendre." },
+      { titre: `Tu reçois ${m.fournisseurCommission} $`, texte: `Quand le resto est en ligne et qu'il a payé ses ${m.abonnementsAvantRecompense} premiers mois.` },
+    ],
+    formulaireTitre: "Donne-nous le nom du resto",
+    ecrit: "Le paiement est confirmé par écrit avec toi.",
+  },
   page: {
     /* La section du site, version courte (11 nov. : « trop de texte »). [À RELIRE] */
     surtitre: "Partenaires référents",
@@ -316,6 +331,8 @@ export const PARTENAIRES_REFERENTS = {
   /* Le formulaire « Devenir partenaire référent ». [À RELIRE] */
   candidature: {
     champs: {
+      restoConnu: "Le resto (nom et ville)",
+      entrepriseFacultative: "Ton entreprise, si t'en as une",
       entreprise: "Ton entreprise",
       ceQuElleVend: "Ce que tu vends aux restos",
       nom: "Ton nom",
@@ -331,10 +348,10 @@ export const PARTENAIRES_REFERENTS = {
       { id: "carte", nom: "Une carte que je remets au client" },
       { id: "presentation", nom: "Je vous présente le resto directement" },
     ],
-    consentement: "J'accepte que Resto Action me contacte au sujet du programme de partenaires référents.",
+    consentement: "J'accepte que Resto Action me contacte au sujet du programme de partenaires référents, et le proprio du resto est d'accord qu'on l'appelle.",
     /* Ajoutés à l'étape 4. [À RELIRE] */
     titre: "Devenir partenaire référent",
-    bouton: "Envoyer ma demande",
+    bouton: "Envoyer",
     merci: "Merci! On te rappelle sous peu.",
   },
 

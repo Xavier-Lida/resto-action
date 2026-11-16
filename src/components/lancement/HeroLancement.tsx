@@ -60,10 +60,6 @@ export default function HeroLancement({ t, langue = "fr" }: { t: Textes; langue?
             </div>
             {/* L'URGENCE, DÈS LE HAUT : la limite et la date. */}
             <p className="animate-hero delay-4 max-w-xl rounded-3xl bg-bone px-4 py-2 text-center text-sm font-bold">
-              <span
-                className="mr-2 inline-block size-2 rounded-full bg-brand align-middle"
-                aria-hidden="true"
-              />
               {fr(U.urgence(RESTOS_PAR_MOIS, DATE_LIMITE))}
             </p>
           </div>

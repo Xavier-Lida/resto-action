@@ -101,6 +101,8 @@ export type EvenementReference = Base &
           restos_clients_approx: string;
           regions: string;
           facon_de_referer: string[];
+          /** Le resto que la personne connaît (nom et ville). Depuis le 16 nov. */
+          resto_connu: string;
         };
         consentement_contact: Consentement;
       }
@@ -183,7 +185,7 @@ const LIBELLES_TYPE: Record<EvenementReference["type"], string> = {
   "lien.demande": "Un resto client demande son lien",
   "reference.attribuee": "Un resto réserve sa place avec un code",
   "reference.visite": "Visite d'un lien de référence",
-  "partenaire.candidature": "Une entreprise veut devenir partenaire référent",
+  "partenaire.candidature": "Quelqu'un connaît un resto et veut être partenaire référent",
   "avantage.presentation": "Un resto client demande à être présenté à un fournisseur",
   "avantage.clic": "Un resto client clique le lien d'un fournisseur",
 };
@@ -267,9 +269,10 @@ export function courrielEquipe(e: EvenementComplet): { sujet: string; texte: str
       );
       break;
     case "partenaire.candidature":
-      sujet = `[${NOM_PROGRAMME}] Candidature partenaire : ${e.candidat.entreprise}`;
+      sujet = `[${NOM_PROGRAMME}] Partenaire : ${e.candidat.nom}${e.candidat.resto_connu ? ` connaît ${e.candidat.resto_connu}` : ""}`;
       lignes.push(
-        ["Entreprise", e.candidat.entreprise],
+        ["Resto qu'il connaît", ouRien(e.candidat.resto_connu)],
+        ["Entreprise", ouRien(e.candidat.entreprise)],
         ["Ce qu'elle vend aux restos", ouRien(e.candidat.ce_qu_elle_vend)],
         ["Nom", e.candidat.nom],
         ["Fonction", ouRien(e.candidat.fonction)],

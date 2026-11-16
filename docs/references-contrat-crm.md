@@ -114,7 +114,7 @@ Absente si le visiteur n'a pas de témoin. Dans l'agenda Google, le code est aus
 
 **`reference.visite`** : quelqu'un ouvre `/p/CODE` ou `/f/CODE`. **Aucune donnée personnelle**, seulement l'enveloppe. Sert aux statistiques (clics par référent). Le site peut ne pas l'envoyer en mode courriel (trop de bruit) : il ne part au CRM que si `CRM_REFERENCES_URL` est posée.
 
-**`partenaire.candidature`** : une entreprise veut devenir partenaire référent (formulaire de `/refere-un-resto` ou de la page fournisseurs).
+**`partenaire.candidature`** : quelqu'un veut devenir partenaire référent (formulaire « Je connais un resto » de `/refere-un-resto`, ou la page fournisseurs). Depuis le 16 nov., n'importe qui peut référer : `entreprise` peut être vide, et `resto_connu` donne le resto qu'il connaît (nom et ville).
 
 ```json
 {
@@ -122,7 +122,8 @@ Absente si le visiteur n'a pas de témoin. Dans l'agenda Google, le code est aus
     "entreprise": "Friteuses Mauricie", "ce_qu_elle_vend": "Équipement de cuisine",
     "nom": "Luc Bergeron", "fonction": "Représentant", "courriel": "luc@exemple.ca",
     "telephone": "819 555-2222", "restos_clients_approx": "40", "regions": "Mauricie, Centre-du-Québec",
-    "facon_de_referer": ["lien", "carte", "presentation"]
+    "facon_de_referer": ["lien", "carte", "presentation"],
+    "resto_connu": "Pizzeria du Coin, Trois-Rivières"
   },
   "consentement_contact": { "donne": true, "texte": "…", "horodatage": "…" }
 }
