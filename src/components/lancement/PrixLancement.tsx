@@ -1,4 +1,4 @@
-import { Check, ShieldCheck } from "lucide-react";
+import { Check, Clock, ShieldCheck } from "lucide-react";
 import BoutonReserver from "@/components/BoutonReserver";
 import Reveal from "@/components/Reveal";
 import { contenuLancement, type Langue } from "@/lib/contenu/lancement";
@@ -30,6 +30,16 @@ const TEXTES = {
     inclus: ["Pas de dépôt", "Frais de carte inclus", "Imprimante offerte", "Aucun minimum"],
     taxes: "Taxes en sus.",
     bonus: "Les bonus",
+    /* Les 5 bonus en court : le nom, et un détail de 2 à 4 mots. [À RELIRE] */
+    bonusCourts: {
+      equipement: ["Ton imprimante de cuisine", "valeur 495 $"],
+      "boite-lancement": ["Ta Boîte de lancement", "plaques, cartons, affiche"],
+      "formation-privee": ["Ta formation privée", "1 h en personne"],
+      "credit-sortie": ["Ton Crédit de sortie", "jusqu'à 400 $"],
+      "prix-gele": ["Ton Prix gelé", "200 $ / mois, 24 mois"],
+    } as Record<string, [string, string]>,
+    offerts: "Offerts",
+    avantLe: "Si tu signes avant le 18 déc.",
     reserve: "Réserve ta place",
     nombre: (n: number) => n.toLocaleString("fr-CA", { minimumFractionDigits: 2 }),
   },
@@ -50,18 +60,31 @@ const TEXTES = {
     inclus: ["No deposit", "Card fees included", "Printer included", "No minimum"],
     taxes: "Plus taxes.",
     bonus: "The bonuses",
+    bonusCourts: {
+      equipement: ["Your kitchen printer", "$495 value"],
+      "boite-lancement": ["Your Launch Box", "signs, inserts, poster"],
+      "formation-privee": ["Your private training", "1 hour in person"],
+      "credit-sortie": ["Your Exit Credit", "up to $400"],
+      "prix-gele": ["Your Price Lock", "$200 / month, 24 months"],
+    } as Record<string, [string, string]>,
+    offerts: "Included",
+    avantLe: "If you sign by Dec. 18",
     reserve: "Reserve your spot",
     nombre: (n: number) => n.toLocaleString("en-CA", { minimumFractionDigits: 2 }),
   },
 };
 
 export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
-  const { ABONNEMENT, ANCRES, BONUS_COURT, BONUS_SECTION, FRAIS, MISE_EN_SERVICE_ACTUELLE, MISE_EN_SERVICE_ENSUITE, PRIX, disponible, lienReservation } =
+  const { ABONNEMENT, ANCRES, BONUS, FRAIS, MISE_EN_SERVICE_ACTUELLE, MISE_EN_SERVICE_ENSUITE, PRIX, lienReservation } =
     contenuLancement(langue);
   const { typo: fr } = formats(langue);
   const T = TEXTES[langue];
   const virgule = T.nombre;
-  const bonus = BONUS_COURT.filter(disponible);
+  const bonus = BONUS.filter((b) => b.disponible && T.bonusCourts[b.id]);
+  const groupes: [string, typeof bonus, boolean][] = [
+    [T.offerts, bonus.filter((b) => !b.expire), false],
+    [T.avantLe, bonus.filter((b) => b.expire), true],
+  ];
   const ensuite = T.montant(MISE_EN_SERVICE_ENSUITE.toLocaleString(langue === "en" ? "en-CA" : "fr-CA"));
 
   return (
@@ -139,24 +162,37 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
               <div className="relative flex h-full flex-col overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#ff5a36] via-brand to-[#d93212] p-6 shadow-2xl shadow-brand/30 md:p-8">
                 <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-white/15 blur-2xl" />
                 <p className="relative font-display text-2xl font-black md:text-3xl">{T.bonus}</p>
-                <ul className="relative mt-5 grid list-none gap-3">
-                  {bonus.map((b) => (
-                    <li key={b.texte} className="flex gap-3 rounded-2xl bg-white/[0.12] p-4 ring-1 ring-white/15">
-                      <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white text-brand">
-                        <Check className="size-3.5" aria-hidden="true" />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block font-bold leading-snug">{fr(b.texte)}</span>
-                        {b.expire && (
-                          <span className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-black text-white/85">
-                            <span aria-hidden="true" className="size-1.5 rounded-full bg-white" />
-                            {fr(BONUS_SECTION.etiquetteCourte)}
-                          </span>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Deux groupes, une ligne par bonus : le nom à gauche, le détail à droite. */}
+                <div className="relative mt-5 grid gap-5">
+                  {groupes.map(([titre, liste, expire]) =>
+                    liste.length === 0 ? null : (
+                      <div key={titre}>
+                        <p className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-white/80">
+                          {expire && <Clock className="size-3.5" aria-hidden="true" />}
+                          {titre}
+                        </p>
+                        <ul className="mt-2 list-none divide-y divide-white/15 rounded-2xl bg-white/[0.12] px-4 ring-1 ring-white/15">
+                          {liste.map((b) => {
+                            const [nom, detail] = T.bonusCourts[b.id];
+                            return (
+                              <li key={b.id} className="flex items-center gap-3 py-3">
+                                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-white text-brand">
+                                  <Check className="size-3" aria-hidden="true" />
+                                </span>
+                                {/* Au cellulaire, le détail passe sous le nom. */}
+                                <span className="min-w-0 flex-1">
+                                  <span className="block font-bold leading-tight">{fr(nom)}</span>
+                                  <span className="mt-0.5 block text-xs font-semibold text-white/75 sm:hidden">{fr(detail)}</span>
+                                </span>
+                                <span className="hidden shrink-0 text-right text-sm font-semibold text-white/80 sm:block">{fr(detail)}</span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    ),
+                  )}
+                </div>
                 <div className="relative mt-6 pt-2 lg:mt-auto">
                   <BoutonReserver href={lienReservation()} libelle={T.reserve} pleineLargeur sous={fr(PRIX.sousBouton)} ton="blanc" className="text-white" />
                 </div>
