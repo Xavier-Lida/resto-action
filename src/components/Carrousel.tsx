@@ -8,7 +8,7 @@ import { Children, useEffect, useRef, useState, type ReactNode } from "react";
    affichée; quand elle est pleine (fin de l'animation CSS), on passe à la
    suivante, en fondu. Un clic sur un onglet y va et relance le minuteur;
    au cellulaire, on glisse du doigt. */
-const DUREE_MS = 2500;
+const DUREE_MS = 6000;
 
 export default function Carrousel({ onglets, children }: { onglets: string[]; children: ReactNode }) {
   const [actif, setActif] = useState(0);
@@ -50,7 +50,7 @@ export default function Carrousel({ onglets, children }: { onglets: string[]; ch
   return (
     <div ref={boite}>
       {/* Les onglets : un sélecteur en pastilles, centré. L'onglet actif est
-          blanc, et un léger fond se remplit dedans pendant qu'il joue. */}
+          blanc, et une fine barre rouge se remplit dessous pendant qu'il joue. */}
       <div className="flex justify-center">
         <div
           ref={rangee}
@@ -67,16 +67,17 @@ export default function Carrousel({ onglets, children }: { onglets: string[]; ch
                 aria-selected={enCours}
                 onClick={() => choisir(k)}
                 className={`relative shrink-0 overflow-hidden whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-black transition-all duration-300 md:px-5 ${
-                  enCours ? "bg-white text-ink shadow-[0_2px_10px_rgba(25,25,25,0.08)]" : "text-ink/50 hover:text-ink"
+                  enCours ? "bg-white text-ink shadow-[0_2px_10px_rgba(25,25,25,0.08)]" : "text-ink/75 hover:bg-white/60 hover:text-ink"
                 }`}
               >
                 {enCours && (
-                  <span
-                    key={actif}
-                    aria-hidden="true"
-                    className="carrousel-progres absolute inset-y-0 left-0 bg-ciel/15"
-                    style={{ animationDuration: `${DUREE_MS}ms`, animationPlayState: visible ? "running" : "paused" }}
-                  />
+                  <span aria-hidden="true" className="absolute inset-x-4 bottom-1 h-[3px] overflow-hidden rounded-full bg-ink/10 md:inset-x-5">
+                    <span
+                      key={actif}
+                      className="carrousel-progres absolute inset-y-0 left-0 rounded-full bg-brand"
+                      style={{ animationDuration: `${DUREE_MS}ms`, animationPlayState: visible ? "running" : "paused" }}
+                    />
+                  </span>
                 )}
                 <span className="relative">{o}</span>
               </button>

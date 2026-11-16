@@ -51,13 +51,21 @@ export default function BarreReservation({
     return () => obs.disconnect();
   }, []);
 
-  const visible = pret && enVue.size === 0;
+  // Elle ne bouge que si l'état tient 350 ms : en passant d'une section à
+  // l'autre, il y a un court moment sans bouton à l'écran, et la barre
+  // apparaissait puis disparaissait aussitôt (l'effet « qui bug »).
+  const cible = pret && enVue.size === 0;
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(cible), cible ? 350 : 150);
+    return () => clearTimeout(t);
+  }, [cible]);
 
   return (
     <div
       inert={!visible}
-      className={`fixed inset-x-3 bottom-3 z-30 flex items-center justify-between gap-4 rounded-full bg-ink p-2 pl-5 text-white shadow-2xl ring-1 ring-white/10 transition duration-300 sm:inset-x-auto sm:right-4 sm:bottom-4 ${
-        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
+      className={`fixed inset-x-3 bottom-3 z-30 flex items-center justify-between gap-4 rounded-full bg-ink p-2 pl-5 text-white shadow-2xl ring-1 ring-white/10 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform sm:inset-x-auto sm:right-4 sm:bottom-4 ${
+        visible ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-[130%] scale-95 opacity-0"
       }`}
     >
       <span className="flex items-center gap-2 text-sm font-black">

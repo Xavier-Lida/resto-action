@@ -95,9 +95,6 @@ export default function Hero({ t }: { t: Textes }) {
                     />
                   ))}
                 </svg>
-                <div
-                  className="absolute inset-0 opacity-[0.18] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_70%)]"
-                />
               </div>
               <div className="relative flex justify-center">
                 <DemoApp

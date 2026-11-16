@@ -81,10 +81,10 @@ function etapes(langue: Langue): Etape[] {
   const liste: (Etape | null | "")[] = [
     { ...e("google"), href: f.referencement.slug, fond: "bg-gradient-to-br from-ciel via-[#3d8bf0] to-[#5b5ff0]", image: { src: "/systeme/google.webp", l: 724, h: 775, alt: T.alt.google } },
     { ...e("commandes"), href: f.commandes.slug, fond: "bg-gradient-to-br from-hero to-brand", ecran: { src: "/demo-app/client/accueil.webp", alt: T.alt.accueil } },
-    piece("pub-du-lancement") && { ...e("pub"), href: piece("pub-du-lancement")!, fond: "bg-ink", image: { src: "/systeme/nouveaux-clients.webp", l: 691, h: 646, alt: T.alt.pub } },
+    piece("pub-du-lancement") && { ...e("pub"), href: piece("pub-du-lancement")!, fond: "bg-gradient-to-br from-[#5b5ff0] via-[#3d8bf0] to-ciel", image: { src: "/systeme/nouveaux-clients.webp", l: 691, h: 646, alt: T.alt.pub } },
     piece("points-recompenses") && { ...e("points"), href: piece("points-recompenses")!, fond: "bg-[#efe9e1]", clair: true, image: { src: "/systeme/fidelite.webp", l: 810, h: 712, alt: T.alt.points } },
-    piece("livraison") && { ...e("livraison"), href: piece("livraison")!, fond: "bg-gradient-to-br from-[#1f2a37] to-ink", image: { src: "/systeme/livraison.webp", l: 872, h: 559, alt: T.alt.livraison } },
-    piece("texto-du-lundi") && { ...e("lundi"), href: piece("texto-du-lundi")!, fond: "bg-ink", image: { src: "/systeme/texto-du-lundi.webp", l: 742, h: 669, alt: T.alt.lundi } },
+    piece("livraison") && { ...e("livraison"), href: piece("livraison")!, fond: "bg-gradient-to-br from-brand to-[#b8321b]", image: { src: "/systeme/livraison.webp", l: 872, h: 559, alt: T.alt.livraison } },
+    piece("texto-du-lundi") && { ...e("lundi"), href: piece("texto-du-lundi")!, fond: "bg-gradient-to-br from-ciel via-[#3d8bf0] to-[#5b5ff0]", image: { src: "/systeme/texto-du-lundi.webp", l: 742, h: 669, alt: T.alt.lundi } },
   ];
   return liste.filter((x): x is Etape => Boolean(x));
 }
@@ -157,7 +157,6 @@ export default function CommentOnFait({
                 key={e.titre}
                 className={`relative grid min-w-0 grid-cols-[minmax(0,1fr)] overflow-hidden rounded-[2rem] md:h-[30rem] md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:rounded-[2.5rem] ${e.fond} ${e.clair ? "text-ink" : "text-white"}`}
               >
-                <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]" />
                 {/* Le texte */}
                 <div className="relative flex min-w-0 flex-col justify-center p-8 md:p-12">
                   <SousTitre className="font-display text-3xl font-black leading-[1.05] tracking-tight [overflow-wrap:break-word] lg:text-4xl">{e.titre}</SousTitre>

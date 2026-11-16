@@ -23,7 +23,6 @@ export default function RareteLancement({ langue = "fr" }: { langue?: Langue }) 
           aria-hidden="true"
           className="absolute inset-0 overflow-hidden rounded-[2rem] lg:rounded-[3rem]"
         >
-          <div className="absolute inset-0 opacity-[0.15] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]" />
           <div className="absolute -right-20 top-1/2 size-[28rem] -translate-y-1/2 rounded-full bg-white/15 blur-3xl" />
         </div>
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 md:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
