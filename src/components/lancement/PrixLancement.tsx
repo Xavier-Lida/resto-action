@@ -135,34 +135,35 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
               </div>
             </Reveal>
 
-            {/* LES BONUS ET LE BOUTON */}
-            <div className="flex flex-col gap-4">
-              {bonus.length > 0 && (
-                <Reveal delay={1}>
-                  <div className="rounded-[2rem] bg-brand p-6 md:p-7">
-                    <p className="text-xs font-black uppercase tracking-widest text-white/80">{T.bonus}</p>
-                    <ul className="mt-4 grid list-none gap-4">
-                      {bonus.map((b) => (
-                        <li key={b.texte} className="flex gap-3">
-                          <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white text-brand">
-                            <Check className="size-3.5" aria-hidden="true" />
+            {/* LES BONUS ET LE BOUTON, dans une seule carte rouge qui suit la
+                hauteur du forfait : plus de trou noir entre les deux. */}
+            <Reveal delay={1} className="h-full">
+              <div className="relative flex h-full flex-col overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#ff5a36] via-brand to-[#d93212] p-6 shadow-2xl shadow-brand/30 md:p-8">
+                <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-white/15 blur-2xl" />
+                <p className="relative font-display text-2xl font-black md:text-3xl">{T.bonus}</p>
+                <ul className="relative mt-5 grid list-none gap-3">
+                  {bonus.map((b) => (
+                    <li key={b.texte} className="flex gap-3 rounded-2xl bg-white/[0.12] p-4 ring-1 ring-white/15">
+                      <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-white text-brand">
+                        <Check className="size-3.5" aria-hidden="true" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block font-bold leading-snug">{fr(b.texte)}</span>
+                        {b.expire && (
+                          <span className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-black text-white/85">
+                            <span aria-hidden="true" className="size-1.5 rounded-full bg-white" />
+                            {fr(BONUS_SECTION.etiquetteCourte)}
                           </span>
-                          <span className="font-bold leading-snug">
-                            {fr(b.texte)}
-                            {b.expire && <span className="ml-1.5 text-sm font-semibold text-white/75">({fr(BONUS_SECTION.etiquetteCourte).toLowerCase()})</span>}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-              )}
-              <Reveal delay={2} className="mt-auto">
-                <div className="rounded-[2rem] bg-white/[0.06] p-6 ring-1 ring-white/10 md:p-7">
-                  <BoutonReserver href={lienReservation()} libelle={T.reserve} pleineLargeur sous={fr(PRIX.sousBouton)} className="text-white" />
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="relative mt-6 pt-2 lg:mt-auto">
+                  <BoutonReserver href={lienReservation()} libelle={T.reserve} pleineLargeur sous={fr(PRIX.sousBouton)} ton="blanc" className="text-white" />
                 </div>
-              </Reveal>
-            </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
