@@ -27,12 +27,13 @@ import type {
 import {
   ABONNEMENT,
   CREDIT_SORTIE_MAX,
-  MISE_EN_SERVICE_ACTUELLE,
-  MISE_EN_SERVICE_ENSUITE,
   PRIX_GELE_MOIS,
   RESERVATION_URL,
   RESTOS_PAR_MOIS,
   RESTOS_PAR_SEMAINE,
+  dateFin750,
+  miseEnService,
+  montantMise,
 } from "./grand-lancement.ts";
 
 export type {
@@ -56,7 +57,9 @@ export {
   ABONNEMENT,
   COMMANDES_VISEES_7_JOURS,
   CREDIT_SORTIE_MAX,
+  DATE_FIN_750_ISO,
   EXEMPLE,
+  FIN_LANCEMENT_ISO,
   FRAIS,
   LIEN_APPEL,
   MISE_EN_SERVICE_ACTUELLE,
@@ -70,7 +73,11 @@ export {
   VIDEO_GUILLAUME_URL,
   VILLES,
   VILLE_EQUIPE,
+  dateFin750,
   lienAppel,
+  maintenant,
+  miseEnService,
+  montantMise,
 } from "./grand-lancement.ts";
 
 // ───────────────────────── Variables ─────────────────────────
@@ -90,9 +97,6 @@ export const NOMS_GARANTIES = {
 
 export const DATE_COHORTE = "January 2027";
 export const DATE_LIMITE = "Friday, December 18, 2026";
-/** Empty until an end date for the $750 is decided. Fill it in when the French
-    DATE_FIN_750 is filled in (it stays hidden here until then). */
-export const DATE_FIN_750 = "";
 
 export const EQUIPE = "Guillaume and Xavier";
 
@@ -409,7 +413,9 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
   etapes: [
     {
       titre: "You reserve your spot for free, then you sign with us",
-      texte: `$${MISE_EN_SERVICE_ACTUELLE} setup, printer included. No deposit.`,
+      get texte() {
+        return `${montantMise(miseEnService().montant, "en")} setup, printer included. No deposit.`;
+      },
     },
     {
       titre: "You send us your menu, photos and access",
@@ -452,7 +458,9 @@ export const ETAPES_INCLUS: { titre: string; sousTitre: string; etapes: EtapeInc
     {
       quand: "You sign",
       titre: "We build everything for you",
-      toi: `You reserve for free, sign your agreement ($${MISE_EN_SERVICE_ACTUELLE} setup) and send us your menu, photos and access within 5 days. Your site is ready in 48 hours.`,
+      get toi() {
+        return `You reserve for free, sign your agreement (${montantMise(miseEnService().montant, "en")} setup) and send us your menu, photos and access within 5 days. Your site is ready in 48 hours.`;
+      },
       pieces: ["installation", "app-a-ton-nom", "menu-qui-vend", "reglage-plateformes", "marketing"],
     },
     {
@@ -501,7 +509,9 @@ export const PILE = {
   titre: "Everything included",
   sousTitre: "{n} items, all for the same price. Tap a name to see the details.",
   totalLibelle: "Total value",
-  prixLigne: `Your price: $${ABONNEMENT} a month, plus our per-order fees, and a $${MISE_EN_SERVICE_ACTUELLE} setup`,
+  get prixLigne() {
+    return `Your price: $${ABONNEMENT} a month, plus our per-order fees, and a ${montantMise(miseEnService().montant, "en")} setup`;
+  },
   prixLien: "See the full price",
 };
 
@@ -616,8 +626,12 @@ export const PRIX = {
   taxes: "plus taxes",
   lignes: {
     abonnement: `Subscription: $${ABONNEMENT} a month, starting when you go live.`,
-    miseEnService: `Setup: $${MISE_EN_SERVICE_ACTUELLE} for ${NOM_OFFRE}, then $${MISE_EN_SERVICE_ENSUITE.toLocaleString("en-CA")}, an increase announced in advance. It's paid when you sign; no deposit. If your app hasn't earned it back in 90 days, we refund it (${NOMS_GARANTIES.boomerang}).`,
-    miseEnServiceFin: DATE_FIN_750 ? `The $${MISE_EN_SERVICE_ACTUELLE} is offered until ${DATE_FIN_750}.` : "",
+    get miseEnService() {
+      const m = miseEnService();
+      return m.avantFin
+        ? `Setup: ${montantMise(m.montant, "en")} until ${dateFin750("en")}. After that, it doubles: ${montantMise(m.ensuite, "en")}. It's paid when you sign; no deposit. If your app hasn't brought it back within 90 days, we refund it (${NOMS_GARANTIES.boomerang}).`
+        : `Setup: ${montantMise(m.montant, "en")}. It's paid when you sign; no deposit. If your app hasn't brought it back within 90 days, we refund it (${NOMS_GARANTIES.boomerang}).`;
+    },
     livraison:
       "Delivery: 10% of food and drinks + $3.51 per delivery today (the delivery run at cost: what it costs us, minus the $4.99 your customer pays). Your customer pays $4.99 for delivery, nothing else.",
     cueillette: "Pickup: 5% + $0.30 per order.",
@@ -660,7 +674,13 @@ export const RARETE = {
   /** The short banner version: one line. */
   courte: `Sign before ${DATE_LIMITE} to launch in ${DATE_COHORTE}. Reserving is free.`,
   expirePrefixe: "After this date, you lose",
-  signature: `The $${MISE_EN_SERVICE_ACTUELLE} setup is paid when you sign. Not ready yet? Sign up for free: we'll keep you posted.`,
+  get signature() {
+    return `The ${montantMise(miseEnService().montant, "en")} setup is paid when you sign. Not ready yet? Sign up for free: we'll keep you posted.`;
+  },
+  get expireMise() {
+    const m = miseEnService();
+    return m.avantFin ? `the ${montantMise(m.montant, "en")} setup` : "";
+  },
   bouton: "Reserve your spot",
 };
 
@@ -801,7 +821,13 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       id: "faq-mise-en-service",
       question: "What's the setup fee?",
-      reponse: `$${MISE_EN_SERVICE_ACTUELLE} for ${NOM_OFFRE}, then $${MISE_EN_SERVICE_ENSUITE.toLocaleString("en-CA")}. It's paid when you sign and covers your installation, your private training and your Launch Box. Your printer is on us and belongs to you. If your app hasn't earned it back in 90 days, we refund it (${NOMS_GARANTIES.boomerang}).`,
+      get reponse() {
+        const m = miseEnService();
+        const debut = m.avantFin
+          ? `${montantMise(m.montant, "en")} until ${dateFin750("en")}. After that, it doubles: ${montantMise(m.ensuite, "en")}.`
+          : `${montantMise(m.montant, "en")}.`;
+        return `${debut} It's paid when you sign and covers your installation, your private training and your Launch Box. Your printer is included and it's yours. If your app hasn't brought it back within 90 days, we refund it (${NOMS_GARANTIES.boomerang}).`;
+      },
     },
     {
       question: "I'm worried about bad reviews.",

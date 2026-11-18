@@ -1,4 +1,5 @@
 import { CITY, PHONE_DISPLAY, POSTAL_CODE, STREET } from "@/lib/site";
+import { dateFin750, miseEnService, montantMise } from "@/lib/contenu/grand-lancement";
 
 /* Tous les textes de la page d'accueil, en français.
 
@@ -529,7 +530,9 @@ export const FR = {
     texte: "On lance au plus 16 restos par mois au Québec, 4 par semaine : c'est notre limite, pour lancer chaque resto comme il faut. Pour faire partie de la cohorte de janvier 2027, signe avant le vendredi 18 décembre 2026.",
     date: "Il faut 2 semaines pour ton menu, tes photos, ton site, ton app, l'impression et l'installation. Après la date limite, tu pars avec la cohorte suivante, un mois plus tard.",
     abonnement: "Ton abonnement de 200 $ par mois commence à la mise en ligne de ton app, avec tes 4 garanties.",
-    remboursement: "La mise en service de 750 $ se paie à la signature. Pas encore prêt? Inscris-toi gratuitement : on te garde au courant.",
+    get remboursement() {
+      return `La mise en service de ${montantMise(miseEnService().montant)} se paie à la signature. Pas encore prêt? Inscris-toi gratuitement : on te garde au courant.`;
+    },
   },
 
   /* L'OFFRE DU GRAND LANCEMENT. Les montants et la garantie doivent rester identiques au
@@ -561,7 +564,17 @@ export const FR = {
     },
     coutsTitre: "Le prix, tout compris",
     couts: [
-      { quand: "À la signature", quoi: "750 $", detail: "Prix du Grand Lancement d'hiver, puis 1 500 $" },
+      /* B3 et C3 du prompt de la fin du 750 $ (18 nov.). */
+      {
+        quand: "À la signature",
+        get quoi() {
+          return montantMise(miseEnService().montant);
+        },
+        get detail() {
+          const m = miseEnService();
+          return m.avantFin ? `Jusqu'au ${dateFin750()}. Après : ${montantMise(m.ensuite)}` : "";
+        },
+      },
       { quand: "Chaque mois, dès la mise en ligne", quoi: "200 $", detail: "Abonnement. L'imprimante est offerte." },
       { quand: "Par commande", quoi: "5 % + 0,30 $ · 10 % + 3,51 $", detail: "Cueillette · livraison, frais de carte inclus" },
     ],
@@ -806,7 +819,10 @@ export const FR = {
       },
       {
         q: "Combien ça coûte?",
-        a: "La mise en service est de 750 $ pour le Grand Lancement d'hiver, puis 1 500 $. Elle se paie à la signature; pas de dépôt. Ton imprimante est offerte. Ensuite, 200 $ par mois d'abonnement dès la mise en ligne, plus 5 % + 0,30 $ en cueillette et 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus. Taxes en sus.",
+        get a() {
+          const m = miseEnService();
+          return `La mise en service est de ${montantMise(m.montant)}${m.avantFin ? ` jusqu'au ${dateFin750()}, puis ${montantMise(m.ensuite)}` : ""}. Elle se paie à la signature; pas de dépôt. Ton imprimante est offerte. Ensuite, 200 $ par mois d'abonnement dès la mise en ligne, plus 5 % + 0,30 $ en cueillette et 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus. Taxes en sus.`;
+        },
       },
       {
         q: "Pourquoi pas de rabais?",

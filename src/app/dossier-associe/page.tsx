@@ -12,6 +12,10 @@ import { argent, argentSigne, entier, fr, pourcent } from "@/lib/format";
 import { PHONE_DISPLAY } from "@/lib/site";
 import { FR } from "@/lib/textes/fr";
 
+/* La mise en service passe de 750 $ à 1 500 $ le 19 déc. à 0 h (heure de Montréal) :
+   la page se régénère toutes les 5 minutes, sans redéploiement. */
+export const revalidate = 300;
+
 /* LE DOSSIER POUR TON ASSOCIÉ.
 
    Une page avec les chiffres du resto, à montrer à son associé ou à son

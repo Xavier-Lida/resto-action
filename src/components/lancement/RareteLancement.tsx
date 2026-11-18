@@ -13,6 +13,9 @@ export default function RareteLancement({ langue = "fr" }: { langue?: Langue }) 
   const { typo: fr } = formats(langue);
   const en = langue === "en";
   const expire = bonusDisponibles().filter((b) => b.expire);
+  const perdus = [RARETE.expireMise, ...expire.map((b) => b.nom)].filter(Boolean);
+  const et = en ? " and " : " et ";
+  const liste = (x: string[]) => (x.length < 2 ? x.join("") : `${x.slice(0, -1).join(", ")}${et}${x[x.length - 1]}`);
   return (
     <section
       id={ANCRES.reserver.slice(1)}
@@ -33,9 +36,11 @@ export default function RareteLancement({ langue = "fr" }: { langue?: Langue }) 
             <p className="mt-5 max-w-xl text-lg font-bold leading-relaxed text-white/90">
               {fr(RARETE.courte)}
             </p>
-            {expire.length > 0 && (
+            {/* « Après cette date, tu perds… » : la mise en service à 750 $ (tant
+                qu'elle l'est), Le Crédit de sortie et Ton Prix gelé. */}
+            {perdus.length > 0 && (
               <p className="mt-2 max-w-xl text-white/75">
-                {RARETE.expirePrefixe} {expire.map((b) => b.nom).join(en ? " and " : " et ")}.
+                {fr(`${RARETE.expirePrefixe} ${liste(perdus)}.`)}
               </p>
             )}
             <div className="mt-8 flex flex-wrap items-center gap-4">

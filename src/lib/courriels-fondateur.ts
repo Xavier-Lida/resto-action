@@ -1,6 +1,7 @@
 import { FR } from "@/lib/textes/fr";
 import { EN } from "@/lib/textes/en";
 import { PHONE_DISPLAY, SITE_URL } from "@/lib/site";
+import { miseEnService, montantMise } from "@/lib/contenu/grand-lancement";
 import type { Courriel } from "@/lib/google/courriel";
 
 /* LES COURRIELS DU GRAND LANCEMENT.
@@ -55,7 +56,9 @@ const RESERVATION = {
     appel: "On t'appelle dans les 24 h pour fixer ta date et signer ton bon d'accord.",
     suiteTitre: "La suite",
     suite: FR.reservation.merci.suite,
-    prix: "La mise en service de 750 $ se paie à la signature. Pas de dépôt.",
+    get prix() {
+      return `La mise en service de ${montantMise(miseEnService().montant)} se paie à la signature. Pas de dépôt.`;
+    },
     conditions: "Les conditions :",
     question: "Une question? Réponds à ce courriel ou appelle-moi au {tel}.",
   },
@@ -66,7 +69,9 @@ const RESERVATION = {
     appel: "We'll call you within 24 hours to set your date and sign your agreement.",
     suiteTitre: "What's next",
     suite: EN.reservation.merci.suite,
-    prix: "The $750 setup is paid at signing. No deposit.",
+    get prix() {
+      return `The ${montantMise(miseEnService().montant, "en")} setup is paid at signing. No deposit.`;
+    },
     conditions: "The terms:",
     question: "A question? Reply to this email or call me at {tel}.",
   },

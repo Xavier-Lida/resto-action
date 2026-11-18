@@ -18,7 +18,9 @@ const TEXTES = {
     parMois: "/ mois",
     abonnement: "Abonnement, tout compris",
     ligneMise: "Mise en service",
-    ligneMiseDetail: "Une seule fois. Prix du Grand Lancement.",
+    /* B1 et C2 du prompt de la fin du 750 $ (18 nov.) : la petite phrase sous le montant. */
+    jusquau: (date: string, ensuite: string) => `Jusqu'au ${date}. Après, elle double : ${ensuite}.`,
+    seulementUneFois: "Une seule fois. Elle se paie à la signature; pas de dépôt.",
     moitie: "Moitié prix",
     montant: (n: string) => `${n} $`,
     garantieMise: "Remboursée si ton app ne te l'a pas rapportée en 90 jours.",
@@ -48,7 +50,8 @@ const TEXTES = {
     parMois: "/ month",
     abonnement: "Subscription, all in",
     ligneMise: "Setup",
-    ligneMiseDetail: "One time. Big Launch price.",
+    jusquau: (date: string, ensuite: string) => `Until ${date}. After that, it doubles: ${ensuite}.`,
+    seulementUneFois: "One time. It's paid when you sign; no deposit.",
     moitie: "Half price",
     montant: (n: string) => `$${n}`,
     garantieMise: "Refunded if your app hasn't paid it back within 90 days.",
@@ -75,8 +78,10 @@ const TEXTES = {
 };
 
 export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
-  const { ABONNEMENT, ANCRES, BONUS, FRAIS, MISE_EN_SERVICE_ACTUELLE, MISE_EN_SERVICE_ENSUITE, PRIX, lienReservation } =
+  const { ABONNEMENT, ANCRES, BONUS, FRAIS, PRIX, dateFin750, lienReservation, miseEnService, montantMise } =
     contenuLancement(langue);
+  // Le prix en vigueur à l'affichage (la page se régénère toutes les 5 minutes).
+  const mise = miseEnService();
   const { typo: fr } = formats(langue);
   const T = TEXTES[langue];
   const virgule = T.nombre;
@@ -85,7 +90,6 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
     [T.offerts, bonus.filter((b) => !b.expire), false],
     [T.avantLe, bonus.filter((b) => b.expire), true],
   ];
-  const ensuite = T.montant(MISE_EN_SERVICE_ENSUITE.toLocaleString(langue === "en" ? "en-CA" : "fr-CA"));
 
   return (
     <section id={ANCRES.prix.slice(1)} className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6">
@@ -108,19 +112,22 @@ export default function PrixLancement({ langue = "fr" }: { langue?: Langue }) {
                 </div>
                 <p className="mt-1 font-bold text-ink/60">{T.abonnement}</p>
 
-                {/* LA MISE EN SERVICE, MISE EN VALEUR : 750 $ au lieu de 1 500 $,
-                    la moitié du prix, et la garantie collée dessus. */}
+                {/* LA MISE EN SERVICE. Jusqu'au 18 déc. : le prix du lancement, l'autre
+                    barré et « Moitié prix ». Dès le 19 : un seul montant, sans trace. */}
                 <div className="relative mt-7 overflow-hidden rounded-[1.5rem] bg-ink p-5 text-white md:p-6">
                   <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-brand/40 blur-2xl" />
                   <div className="relative flex flex-wrap items-center justify-between gap-2">
                     <p className="font-black">{T.ligneMise}</p>
-                    <span className="rounded-full bg-brand px-3 py-1 text-xs font-black">{T.moitie}</span>
+                    {mise.avantFin && <span className="rounded-full bg-brand px-3 py-1 text-xs font-black">{T.moitie}</span>}
                   </div>
                   <div className="relative mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <span className="whitespace-nowrap font-display text-5xl font-black tracking-tight text-brand md:text-6xl">{fr(T.montant(String(MISE_EN_SERVICE_ACTUELLE)))}</span>
-                    <span className="whitespace-nowrap font-display text-2xl font-black text-white/40 line-through decoration-brand decoration-[3px] md:text-3xl">{fr(ensuite)}</span>
+                    <span className="whitespace-nowrap font-display text-5xl font-black tracking-tight text-brand md:text-6xl">{fr(montantMise(mise.montant, langue))}</span>
+                    {mise.avantFin && (
+                      <span className="whitespace-nowrap font-display text-2xl font-black text-white/40 line-through decoration-brand decoration-[3px] md:text-3xl">{fr(montantMise(mise.ensuite, langue))}</span>
+                    )}
                   </div>
-                  <p className="relative mt-1 text-sm text-white/60">{T.ligneMiseDetail}</p>
+                  {mise.avantFin && <p className="relative mt-1 text-sm font-bold text-white/85">{fr(T.jusquau(dateFin750(langue), montantMise(mise.ensuite, langue)))}</p>}
+                  <p className="relative mt-1 text-sm text-white/60">{T.seulementUneFois}</p>
                   <p className="relative mt-4 flex gap-2.5 border-t border-white/10 pt-4 text-sm font-bold text-white/90">
                     <ShieldCheck className="mt-0.5 size-5 shrink-0 text-ciel" aria-hidden="true" />
                     {fr(T.garantieMise)}

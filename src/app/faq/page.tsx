@@ -3,6 +3,10 @@ import PageFaq from "@/components/PageFaq";
 import { ANGLAIS_ACTIF } from "@/lib/site";
 import { FR } from "@/lib/textes/fr";
 
+/* La mise en service passe de 750 $ à 1 500 $ le 19 déc. à 0 h (heure de Montréal) :
+   la page se régénère toutes les 5 minutes, sans redéploiement. */
+export const revalidate = 300;
+
 /* LA FAQ, SUR SA PROPRE PAGE (/faq). Le contenu : src/components/PageFaq.tsx. */
 export const metadata: Metadata = {
   title: "Questions fréquentes | Resto Action",

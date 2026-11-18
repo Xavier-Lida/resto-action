@@ -3,6 +3,10 @@ import FormulaireFondateur from "@/components/FormulaireFondateur";
 import { RESERVATION, hreflang } from "@/lib/routes";
 import { EN } from "@/lib/textes/en";
 
+/* La mise en service passe de 750 $ à 1 500 $ le 19 déc. à 0 h (heure de Montréal) :
+   la page se régénère toutes les 5 minutes, sans redéploiement. */
+export const revalidate = 300;
+
 // La version anglaise de /reserver : mêmes étapes, mêmes paramètres.
 export const metadata: Metadata = {
   title: EN.reservation.metaTitre,

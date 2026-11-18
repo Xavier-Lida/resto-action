@@ -11,7 +11,7 @@
  *  - Une valeur en dollars s'affiche seulement si `soumissions === 2`.
  *  - Le total de la pile s'affiche seulement si chaque pièce et chaque bonus
  *    affichés ont une valeur affichable.
- *  - Une date de fin du 750 $ s'affiche seulement si DATE_FIN_750 est remplie.
+ *  - La fin du 750 $ : DATE_FIN_750_ISO et miseEnService(), plus bas.
  *  - Les liens vides retombent sur l'appel téléphonique.
  */
 
@@ -33,10 +33,14 @@ export const NOMS_GARANTIES = {
 /** Date provisoire. Guillaume peut l'avancer. Premiers lancements le 1er janvier. */
 export const DATE_COHORTE = "janvier 2027";
 export const DATE_LIMITE = "vendredi 18 décembre 2026";
-/** La même date, pour le compte à rebours : fin de journée, heure de Montréal. Change-la avec DATE_LIMITE. */
-export const FIN_LANCEMENT_ISO = "2026-12-18T23:59:59-05:00";
-/** Vide tant qu'aucune date de fin du 750 $ n'est décidée. */
-export const DATE_FIN_750 = "";
+/* LA FIN DU 750 $ (18 nov.) : la mise en service est à 750 $ jusqu'au vendredi
+   18 décembre 2026 inclus, 23 h 59, heure de Montréal (UTC−5 en décembre).
+   Dès le 19 décembre à 0 h, elle est à 1 500 $ pour tout le monde, sans
+   redéploiement : les pages qui l'affichent se régénèrent toutes les 5 minutes
+   (revalidate = 300) et les textes qui la nomment sont calculés à l'affichage. */
+export const DATE_FIN_750_ISO = "2026-12-18T23:59:59.999-05:00";
+/** Le compte à rebours du bandeau finit au même moment. */
+export const FIN_LANCEMENT_ISO = DATE_FIN_750_ISO;
 
 export const RESTOS_PAR_MOIS = 16;
 export const RESTOS_PAR_SEMAINE = 4;
@@ -44,6 +48,43 @@ export const RESTOS_PAR_SEMAINE = 4;
 export const ABONNEMENT = 200;
 export const MISE_EN_SERVICE_ACTUELLE = 750;
 export const MISE_EN_SERVICE_ENSUITE = 1500;
+
+/** L'heure qu'il est. En local seulement, SIMULER_DATE (ex. 2026-12-19) la remplace
+    pour tester la bascule; jamais en production (VERCEL_ENV = production). */
+export function maintenant(): Date {
+  const simulee = process.env.SIMULER_DATE;
+  if (simulee && process.env.VERCEL_ENV !== "production" && process.env.NODE_ENV !== "production") {
+    const d = new Date(/T/.test(simulee) ? simulee : `${simulee}T12:00:00-05:00`);
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+  return new Date();
+}
+
+/** La date de fin du 750 $, écrite à partir de DATE_FIN_750_ISO (heure de Montréal). */
+export function dateFin750(langue: "fr" | "en" = "fr"): string {
+  return new Intl.DateTimeFormat(langue === "en" ? "en-CA" : "fr-CA", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "America/Toronto",
+  }).format(new Date(DATE_FIN_750_ISO));
+}
+
+/** LA SEULE SOURCE du prix de la mise en service. Tous les textes passent par ici. */
+export function miseEnService(quand: Date = maintenant()): {
+  montant: number;
+  avantFin: boolean;
+  ensuite: number;
+} {
+  const avantFin = quand.getTime() <= new Date(DATE_FIN_750_ISO).getTime();
+  return { montant: avantFin ? MISE_EN_SERVICE_ACTUELLE : MISE_EN_SERVICE_ENSUITE, avantFin, ensuite: MISE_EN_SERVICE_ENSUITE };
+}
+
+/** « 750 $ » / « 1 500 $ » (fr) ou « $750 » / « $1,500 » (en). */
+export function montantMise(n: number, langue: "fr" | "en" = "fr"): string {
+  return langue === "en" ? `$${n.toLocaleString("en-CA")}` : `${n.toLocaleString("fr-CA")} $`;
+}
 export const PRIX_GELE_MOIS = 24;
 export const CREDIT_SORTIE_MAX = 400;
 export const PUB_LANCEMENT = 300;
@@ -581,7 +622,9 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
   etapes: [
     {
       titre: "Tu réserves ta place gratuitement, puis tu signes avec nous",
-      texte: `mise en service de ${MISE_EN_SERVICE_ACTUELLE} $, imprimante offerte. Pas de dépôt.`,
+      get texte() {
+        return `mise en service de ${montantMise(miseEnService().montant)}, imprimante offerte. Pas de dépôt.`;
+      },
     },
     {
       titre: "Tu nous envoies ton menu, tes photos et tes accès",
@@ -635,7 +678,9 @@ export const ETAPES_INCLUS: { titre: string; sousTitre: string; etapes: EtapeInc
     {
       quand: "Tu signes",
       titre: "On monte tout pour toi",
-      toi: `Tu réserves gratuitement, tu signes ton bon d'accord (mise en service de ${MISE_EN_SERVICE_ACTUELLE} $) et tu nous envoies ton menu, tes photos et tes accès dans les 5 jours. Ton site est prêt en 48 h.`,
+      get toi() {
+        return `Tu réserves gratuitement, tu signes ton bon d'accord (mise en service de ${montantMise(miseEnService().montant)}) et tu nous envoies ton menu, tes photos et tes accès dans les 5 jours. Ton site est prêt en 48 h.`;
+      },
       pieces: ["installation", "app-a-ton-nom", "menu-qui-vend", "reglage-plateformes", "marketing"],
     },
     {
@@ -684,7 +729,9 @@ export const PILE = {
   titre: "Tout ce qui est inclus",
   sousTitre: "{n} pièces, dans le même prix. Touche un nom pour voir le détail.",
   totalLibelle: "Valeur totale",
-  prixLigne: `Ton prix : ${ABONNEMENT} $ par mois, plus nos frais à la commande, et une mise en service de ${MISE_EN_SERVICE_ACTUELLE} $`,
+  get prixLigne() {
+    return `Ton prix : ${ABONNEMENT} $ par mois, plus nos frais à la commande, et une mise en service de ${montantMise(miseEnService().montant)}`;
+  },
   prixLien: "Voir le prix, tout compris",
 };
 
@@ -794,8 +841,13 @@ export const PRIX = {
   taxes: "taxes en sus",
   lignes: {
     abonnement: `Abonnement : ${ABONNEMENT} $ par mois, dès ta mise en ligne.`,
-    miseEnService: `Mise en service : ${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, puis ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $, une hausse annoncée d'avance. Elle se paie à la signature; pas de dépôt. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
-    miseEnServiceFin: DATE_FIN_750 ? `Le ${MISE_EN_SERVICE_ACTUELLE} $ est offert jusqu'au ${DATE_FIN_750}.` : "",
+    /* B1 et C2 du prompt de la fin du 750 $ (18 nov.), mot pour mot. */
+    get miseEnService() {
+      const m = miseEnService();
+      return m.avantFin
+        ? `Mise en service : ${montantMise(m.montant)} jusqu'au ${dateFin750()}. Après, elle double : ${montantMise(m.ensuite)}. Elle se paie à la signature; pas de dépôt. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`
+        : `Mise en service : ${montantMise(m.montant)}. Elle se paie à la signature; pas de dépôt. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`;
+    },
     livraison:
       "Livraison : 10 % des aliments et boissons + 3,51 $ par livraison aujourd'hui (la course au prix coûtant : ce qu'elle nous coûte, moins les 4,99 $ que paie ton client). Ton client paie 4,99 $ de livraison, rien d'autre.",
     cueillette: "Cueillette : 5 % + 0,30 $ par commande.",
@@ -837,7 +889,14 @@ export const RARETE = {
   /** La version courte du bandeau : une ligne. */
   courte: `Signe avant le ${DATE_LIMITE} pour lancer en ${DATE_COHORTE}. Réserver est gratuit.`,
   expirePrefixe: "Après cette date, tu perds",
-  signature: `La mise en service de ${MISE_EN_SERVICE_ACTUELLE} $ se paie à la signature. Pas encore prêt? Inscris-toi gratuitement : on te garde au courant.`,
+  get signature() {
+    return `La mise en service de ${montantMise(miseEnService().montant)} se paie à la signature. Pas encore prêt? Inscris-toi gratuitement : on te garde au courant.`;
+  },
+  /** Ce qui expire à la date limite : la mise en service à 750 $, tant qu'elle l'est. */
+  get expireMise() {
+    const m = miseEnService();
+    return m.avantFin ? `la mise en service à ${montantMise(m.montant)}` : "";
+  },
   bouton: "Réserve ta place",
 };
 
@@ -986,7 +1045,14 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       id: "faq-mise-en-service",
       question: "C'est quoi, la mise en service?",
-      reponse: `${MISE_EN_SERVICE_ACTUELLE} $ pour ${NOM_OFFRE}, ensuite ${MISE_EN_SERVICE_ENSUITE.toLocaleString("fr-CA")} $. Elle se paie à la signature et couvre ton installation, ta formation privée et ta Boîte de lancement. Ton imprimante est offerte et t'appartient. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`,
+      /* B4 et C4 du prompt de la fin du 750 $ (18 nov.), mot pour mot. */
+      get reponse() {
+        const m = miseEnService();
+        const debut = m.avantFin
+          ? `${montantMise(m.montant)} jusqu'au ${dateFin750()}. Après, elle double : ${montantMise(m.ensuite)}.`
+          : `${montantMise(m.montant)}.`;
+        return `${debut} Elle se paie à la signature et couvre ton installation, ta formation privée et ta Boîte de lancement. Ton imprimante est offerte et t'appartient. Si ton app ne te l'a pas rapportée en 90 jours, on te la rembourse (${NOMS_GARANTIES.boomerang}).`;
+      },
     },
     {
       question: "J'ai peur des mauvais avis.",

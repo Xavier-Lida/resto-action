@@ -1,4 +1,5 @@
 import { PHONE_DISPLAY, POSTAL_CODE, STREET } from "@/lib/site";
+import { dateFin750, miseEnService, montantMise } from "@/lib/contenu/grand-lancement";
 import type { Textes } from "./fr";
 
 /* La page d'accueil en anglais.
@@ -419,7 +420,9 @@ export const EN: Textes = {
     texte: "We launch at most 16 restaurants a month in Quebec, 4 a week: that's our limit, so we can launch every restaurant properly. To be part of the January 2027 cohort, sign before Friday, December 18, 2026.",
     date: "It takes 2 weeks for your menu, your photos, your site, your app, the printing and the installation. After the deadline, you launch with the next cohort, one month later.",
     abonnement: "Your $200 monthly subscription starts when your app goes live, with your 4 guarantees.",
-    remboursement: "The $750 setup fee is paid at signing. Not ready yet? Sign up for free: we'll keep you posted.",
+    get remboursement() {
+      return `The ${montantMise(miseEnService().montant, "en")} setup fee is paid at signing. Not ready yet? Sign up for free: we'll keep you posted.`;
+    },
   },
 
   offre: {
@@ -447,7 +450,16 @@ export const EN: Textes = {
     },
     coutsTitre: "The price, all in",
     couts: [
-      { quand: "At signing", quoi: "$750", detail: "Big Winter Launch price, then $1,500" },
+      {
+        quand: "At signing",
+        get quoi() {
+          return montantMise(miseEnService().montant, "en");
+        },
+        get detail() {
+          const m = miseEnService();
+          return m.avantFin ? `Until ${dateFin750("en")}. After that: ${montantMise(m.ensuite, "en")}` : "";
+        },
+      },
       { quand: "Every month, from go-live", quoi: "$200", detail: "Subscription. The printer is included at no cost." },
       { quand: "Per order", quoi: "5% + $0.30 · 10% + $3.51", detail: "Pickup · delivery, card fees included" },
     ],
@@ -646,7 +658,10 @@ export const EN: Textes = {
       },
       {
         q: "How much does it cost?",
-        a: "The setup fee is $750 for The Big Winter Launch, then $1,500. It's paid at signing; no deposit. Your printer is included at no cost. After that, a $200 monthly subscription from go-live, plus 5% + $0.30 on pickup and 10% + $3.51 per delivery (the run at cost), card fees included. Taxes extra.",
+        get a() {
+          const m = miseEnService();
+          return `The setup fee is ${montantMise(m.montant, "en")}${m.avantFin ? ` until ${dateFin750("en")}, then ${montantMise(m.ensuite, "en")}` : ""}. It's paid at signing; no deposit. Your printer is included at no cost. After that, a $200 monthly subscription from go-live, plus 5% + $0.30 on pickup and 10% + $3.51 per delivery (the run at cost), card fees included. Taxes extra.`;
+        },
       },
       {
         q: "Why no discount?",
