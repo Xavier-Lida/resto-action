@@ -1,8 +1,4 @@
-import {
-  CLES,
-  FONCTIONNALITES_EN,
-  FONCTIONNALITES_FR,
-} from "@/lib/contenu/fonctionnalites";
+import { colonnesProduit } from "@/lib/contenu/pieces";
 import type { Textes } from "@/lib/textes/fr";
 
 /* LA COMPOSITION DE LA NAVIGATION, à un seul endroit.
@@ -34,15 +30,11 @@ export type GroupeNav = {
   titre: string;
   fente: string;
   liens: LienNav[];
+  /** Un grand panneau en colonnes (Plateforme) : les mêmes 4 groupes que le pied de page. */
+  colonnes?: { titre: string; liens: { nom: string; href: string }[] }[];
 };
 
 export function groupesNav(t: Textes): GroupeNav[] {
-  /* Le dictionnaire de contenu suit la langue de la page. C'est ce qui fait
-     que le panneau « Plateforme » mène à /plateforme/... en français et à
-     /en/platform/... en anglais, sans qu'aucun chemin soit écrit deux fois. */
-  const fonctionnalites =
-    t.code === "fr" ? FONCTIONNALITES_FR : FONCTIONNALITES_EN;
-
   /* Les ancres sont préfixées par la racine ET par l'accueil : la barre vit
      aussi sur /contact, /plateforme et les articles, où un fragment seul ne
      mènerait nulle part. */
@@ -53,17 +45,10 @@ export function groupesNav(t: Textes): GroupeNav[] {
       cle: "plateforme",
       titre: t.nav.groupes.plateforme,
       fente: "w-[7.75rem]", // Plateforme 75,2 · Platform 58,8
-      liens: [
-        { href: t.nav.plateformeHref, libelle: t.nav.vueDensemble },
-        // Le catalogue vivait dans « Entreprise », à côté de Notre approche et
-        // Notre histoire, du temps où cette ancre menait à la mission. Des
-        // produits se cherchent sous « Plateforme ».
-        { href: ancre("produits"), libelle: t.pied.produits },
-        ...CLES.map((cle) => ({
-          href: fonctionnalites[cle].slug,
-          libelle: fonctionnalites[cle].filNom,
-        })),
-      ],
+      /* 18 nov. : toutes les pièces du Système, en 4 colonnes, comme dans le
+         pied de page (une seule source : colonnesProduit). */
+      liens: [{ href: t.nav.plateformeHref, libelle: t.nav.vueDensemble }],
+      colonnes: colonnesProduit(t.code === "fr" ? "fr" : "en"),
     },
     {
       cle: "entreprise",

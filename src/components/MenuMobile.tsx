@@ -122,7 +122,7 @@ export default function MenuMobile({ t }: { t: Textes }) {
                   {t.htmlLang.startsWith("en") ? "Partners" : "Partenaires"}
                 </Link>
 
-                {groupes.map(({ cle, titre, liens }) => (
+                {groupes.map(({ cle, titre, liens, colonnes }) => (
                   <div key={cle}>
                     {/* Le titre du groupe n'est pas un lien : c'est une
                         étiquette. En faire un lien promettrait une page de
@@ -130,6 +130,19 @@ export default function MenuMobile({ t }: { t: Textes }) {
                     <p className="px-3 text-sm font-bold text-ink/40">
                       {titre}
                     </p>
+                    {/* Plateforme : les 4 groupes de pièces, comme dans le pied de page. */}
+                    {colonnes?.map((col) => (
+                      <div key={col.titre} className="mt-3">
+                        <p className="px-3 text-xs font-bold text-ink/45">{col.titre}</p>
+                        <div className="mt-0.5 flex flex-col">
+                          {col.liens.map(({ href, nom }) => (
+                            <Link key={href} href={href} onClick={fermer} className="rounded-xl px-3 py-1.5 font-bold transition-colors hover:bg-bone">
+                              {nom}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                     <div className="mt-1 flex flex-col">
                       {/* « Nous contacter » a déjà son gros bouton en bas du menu. */}
                       {liens.filter(({ href }) => !href.endsWith("/contact")).map(({ href, libelle }) => (

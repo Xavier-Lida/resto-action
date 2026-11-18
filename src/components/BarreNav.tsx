@@ -39,7 +39,7 @@ export default function BarreNav({ t }: { t: Textes }) {
 
   return (
     <header className="sticky top-0 z-50 rounded-b-[1.75rem] border-b border-bone bg-white lg:rounded-b-[2.25rem]">
-      <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-5 py-3 md:gap-4">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-5 py-3 md:gap-4">
         <Link href={accueil} className="col-start-1 shrink-0">
           <Image
             draggable={false}

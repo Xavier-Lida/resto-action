@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import type { GroupeNav } from "@/lib/navigation";
 
 /* UN GROUPE DÉROULANT DE LA BARRE.
@@ -46,7 +46,9 @@ export default function MenuDeroulant({ groupe }: { groupe: GroupeNav }) {
   return (
     <div
       ref={conteneur}
-      className="relative"
+      // Le grand panneau (Plateforme) se place sur toute la largeur de la
+      // barre : son groupe ne doit donc pas être le repère de position.
+      className={groupe.colonnes ? "" : "relative"}
       onMouseEnter={() => setOuvert(true)}
       onMouseLeave={() => setOuvert(false)}
       onBlur={(e) => {
@@ -80,10 +82,58 @@ export default function MenuDeroulant({ groupe }: { groupe: GroupeNav }) {
         />
       </button>
 
-      {/* Le panneau déborde de la barre vers le bas. Il est centré sur son
-          bouton plutôt qu'aligné à gauche : les titres de groupe n'ont pas la
-          même largeur d'une langue à l'autre, et un alignement à gauche ferait
-          glisser le panneau au changement de langue. */}
+      {groupe.colonnes ? (
+        /* LE GRAND PANNEAU (18 nov.) : toutes les pièces du Système en 4
+           colonnes, comme le pied de page. Il commence un peu plus haut que
+           le bas de la barre, pour que la souris ne tombe pas dans un trou
+           entre le bouton et le panneau. */
+        <div
+          id={idPanneau}
+          className={`absolute inset-x-5 top-[calc(100%-0.75rem)] z-50 pt-4 transition-all duration-200 ease-out motion-reduce:transition-none ${
+            ouvert ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"
+          }`}
+        >
+          <div className="rounded-3xl border border-bone bg-white p-3 shadow-2xl shadow-ink/10">
+            <div className="grid grid-cols-4 gap-2">
+              {groupe.colonnes.map((col) => (
+                <div key={col.titre} className="rounded-2xl p-3">
+                  <p className="px-3 text-xs font-bold text-ink/45">{col.titre}</p>
+                  <ul className="mt-2 grid list-none gap-0.5">
+                    {col.liens.map(({ href, nom }) => (
+                      <li key={href}>
+                        <Link
+                          href={href}
+                          onClick={() => setOuvert(false)}
+                          tabIndex={ouvert ? undefined : -1}
+                          className="block rounded-xl px-3 py-2 text-sm font-black leading-snug text-ink transition-colors hover:bg-bone"
+                        >
+                          {nom}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            {groupe.liens.map(({ href, libelle }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOuvert(false)}
+                tabIndex={ouvert ? undefined : -1}
+                className="group mt-1 flex items-center justify-between rounded-2xl bg-bone px-6 py-3.5 text-sm font-black text-ink transition-colors hover:bg-ink hover:text-white"
+              >
+                {libelle}
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : (
+      /* Le petit panneau déborde de la barre vers le bas. Il est centré sur son
+         bouton plutôt qu'aligné à gauche : les titres de groupe n'ont pas la
+         même largeur d'une langue à l'autre, et un alignement à gauche ferait
+         glisser le panneau au changement de langue. */
       <div
         id={idPanneau}
         className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 transition-all duration-200 ease-out motion-reduce:transition-none ${
@@ -110,6 +160,7 @@ export default function MenuDeroulant({ groupe }: { groupe: GroupeNav }) {
           ))}
         </ul>
       </div>
+      )}
     </div>
   );
 }
