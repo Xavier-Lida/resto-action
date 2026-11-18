@@ -118,7 +118,7 @@ export const VILLE_EQUIPE = "Trois-Rivières";
 
 // ───────────────────────── Liens et contact ─────────────────────────
 
-import { PHONE_HREF } from "../site.ts";
+import { PHONE_DISPLAY, PHONE_HREF } from "../site.ts";
 
 /** Lien de prise de rendez-vous (Google Meet). Vide : le bouton appelle. */
 export const LIEN_APPEL = "";
@@ -1302,6 +1302,58 @@ export const CALCULATEUR = {
     nouvelles: "Les nouvelles ventes",
     abonnement: "L'abonnement",
   },
+};
+
+// ───────────────────────── Le Calcul 60 secondes ─────────────────────────
+
+/* LE CALCUL 60 SECONDES (18 nov.) : 2 chiffres, la réponse tout de suite. Il
+   passe AVANT le relevé dans la section du calculateur; le relevé reste, pour
+   le chiffre exact. Textes de Guillaume, mot pour mot. Pas de noms ni de logos
+   de plateformes ici : on écrit « les plateformes ». Le calcul : src/lib/calcul60.ts.
+   `{x}`, `{y}`, `{commandes}`, `{panier}`, `{taux}` et `{prenom}` sont remplis
+   par le composant (src/components/lancement/Calcul60.tsx). */
+export const CALCUL_60 = {
+  titre: "Combien tu verses aux plateformes par année?",
+  sousTitre: "2 chiffres, 60 secondes. Pas de relevé à sortir.",
+  question1: "Tes commandes par semaine sur les plateformes",
+  question2: "Ton taux de commission",
+  panier: "Commande moyenne :",
+  reponse: "Tu verses environ {x} par année aux plateformes.",
+  parSemaine: "Soit {y} par semaine.",
+  formule: "{commandes} commandes × {panier} × {taux} × 52 semaines",
+  avertissement:
+    "C'est ce que tu verses en commissions, pas ce que tu sauverais. Estimation faite avec tes 2 chiffres : ce n'est pas une promesse de résultat.",
+  /** Le message franc, seulement à 20 %. */
+  franc20: "À 20 %, ton gain avec nous viendra surtout des nouveaux clients, pas des commissions.",
+  formulaireTitre: "Reçois ton dossier complet par texto",
+  champs: {
+    prenom: "Prénom",
+    resto: "Nom du resto",
+    ville: "Ville",
+    cellulaire: "Cellulaire",
+  },
+  consentement:
+    "J'accepte de recevoir des textos de Resto Action au sujet de mon calcul. Je peux me désabonner en tout temps.",
+  lienConfidentialite: { label: "Confidentialité", href: "/confidentialite" },
+  /** Libellé du bouton d'envoi et message de panne : textes utilitaires, pas de vente. */
+  boutonEnvoyer: "Envoyer",
+  erreur: `L'envoi n'a pas fonctionné. Réessaie, ou appelle-nous au ${PHONE_DISPLAY}.`,
+  apresEnvoi: "C'est noté, {prenom}! Ton dossier s'en vient par texto.",
+  suite:
+    "La suite : on fait commander tes clients chez toi, sur ton site et ton app à ton nom, et on va te chercher des nouveaux clients.",
+  /** Seulement à 25 % ou 30 %. */
+  suiteCommission:
+    "C'est chez toi que tu fais le plus d'argent par commande, pas sur une plateforme qui garde 25 à 30 %.",
+  /** Tirée de miseEnService() : vide dès le 19 décembre à 0 h, la ligne disparaît toute seule. */
+  get ligneMise() {
+    const m = miseEnService();
+    return m.avantFin
+      ? `Jusqu'au ${dateFin750()}, la mise en service est à ${montantMise(m.montant)}. Après, elle double : ${montantMise(m.ensuite)}.`
+      : "";
+  },
+  boutonReserver: "Réserve ta place",
+  boutonAppel: "Parle 15 minutes avec Guillaume",
+  lienReleve: "Pour ton chiffre exact : téléverse ton relevé.",
 };
 
 // ───────────────────────── Nav ─────────────────────────

@@ -2,11 +2,12 @@ import BarreNav from "@/components/BarreNav";
 import BandeauReference from "@/components/references/BandeauReference";
 import BarreReservation from "@/components/BarreReservation";
 import BandeauUrgence from "@/components/lancement/BandeauUrgence";
-import { FIN_LANCEMENT_ISO } from "@/lib/contenu/grand-lancement";
+import { CALCUL_60, FIN_LANCEMENT_ISO } from "@/lib/contenu/grand-lancement";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import Footer from "@/components/Footer";
 import CommentOnFait from "@/components/CommentOnFait";
 import ChiffresLancement from "@/components/lancement/ChiffresLancement";
+import Calcul60 from "@/components/lancement/Calcul60";
 import CalculateurReleve from "@/components/lancement/CalculateurReleve";
 import GarantiesLancement from "@/components/lancement/GarantiesLancement";
 import HeroLancement from "@/components/lancement/HeroLancement";
@@ -25,7 +26,7 @@ import type { Textes } from "@/lib/textes/fr";
       directes, argent), le bouton du calculateur, l'urgence.
    2. Le problème en une ligne, le Système en images, les onglets à la Owner,
       puis tout ce qu'on fait (chaque pièce vers sa page).
-   3. Le calculateur (le relevé lu par l'IA).
+   3. Le calculateur : le Calcul 60 secondes, puis le relevé lu par l'IA.
    4. Les 4 garanties, une ligne et une petite animation chacune.
    5. Le prix en quatre chiffres, les bonus, l'exemple à +629 $.
    6. Tout ce qui est inclus, étape par étape, qui on est, et le bandeau de
@@ -74,8 +75,10 @@ export default function AccueilLancement({ t }: { t: Textes }) {
             vidéo, puis les étapes 01 à 06, chacune vers sa page. */}
         <ChiffresLancement langue={langue} />
         <CommentOnFait langue={langue} accueil />
-        {/* 3. Le calculateur. */}
-        <CalculateurReleve langue={langue} />
+        {/* 3. Le calculateur. En français : le Calcul 60 secondes d'abord (2 chiffres,
+            la réponse tout de suite), le relevé ensuite pour le chiffre exact.
+            En anglais : le relevé, comme avant. */}
+        {langue === "fr" ? <Calcul60 ligneMise={CALCUL_60.ligneMise} /> : <CalculateurReleve langue={langue} />}
         {/* 4. Les 4 garanties, une ligne chacune. */}
         <GarantiesLancement langue={langue} />
         {/* 5. Le prix tout compris, l'exemple et les bonus en 3 lignes. */}

@@ -122,6 +122,19 @@ export type EvenementFondateur = {
   reservation?: { consentementTextos: boolean; conditions: string };
   /** Les chiffres du relevé et les hypothèses du calcul (src/lib/calcul.ts). */
   dossier?: unknown;
+  /** D'où vient l'événement quand l'étape ne suffit pas à le dire.
+      « calcul-60 » : Le Calcul 60 secondes (étape « dossier », sans relevé). */
+  source?: "calcul-60";
+  /** Le Calcul 60 secondes : les 3 chiffres entrés et la réponse (src/lib/calcul60.ts). */
+  calcul?: {
+    commandesParSemaine: number;
+    commandeMoyenne: number;
+    tauxCommission: number;
+    parSemaine: number;
+    parAnnee: number;
+    /** La case obligatoire du formulaire : toujours vraie quand l'événement part. */
+    consentementTextos: boolean;
+  };
   provenance?: Provenance;
   /** « Réfère un resto » : qui nous a présenté ce resto (témoin de 30 jours). */
   reference?: ReferencePourCrm;

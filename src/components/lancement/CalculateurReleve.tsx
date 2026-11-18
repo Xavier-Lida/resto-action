@@ -128,7 +128,10 @@ function depuisBrouillon(b: Brouillon): Releve {
   };
 }
 
-export default function CalculateurReleve({ langue = "fr" }: { langue?: Langue }) {
+/* `integre` : le parcours s'affiche à l'intérieur du Calcul 60 secondes
+   (Calcul60.tsx), sans sa propre section ni son ancre #calculateur. Tout le
+   reste est identique. */
+export default function CalculateurReleve({ langue = "fr", integre = false }: { langue?: Langue; integre?: boolean }) {
   const G = contenuLancement(langue);
   const { ABONNEMENT, ANCRES, CALCULATEUR: C, FRAIS, lienAppel, lienReservation } = G;
   const formatsLangue = formats(langue);
@@ -230,10 +233,8 @@ export default function CalculateurReleve({ langue = "fr" }: { langue?: Langue }
 
   const indexEtape = { televerser: 0, lecture: 1, verifier: 2, manuel: 2, resultat: 3 }[etape];
 
-  return (
-    <section id={ANCRES.calculateur.slice(1)} className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6">
-      <div className="rounded-[2rem] bg-bone lg:rounded-[3rem]">
-      <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+  const parcours = (
+      <>
         <Surtitre>
           {C.surtitre} · {langue === "en" ? "AI" : "IA"}
           <Sparkles className="size-3.5 text-ciel" aria-hidden="true" />
@@ -613,6 +614,16 @@ export default function CalculateurReleve({ langue = "fr" }: { langue?: Langue }
             </div>
           )}
         </div>
+      </>
+  );
+
+  if (integre) return parcours;
+
+  return (
+    <section id={ANCRES.calculateur.slice(1)} className="bg-white px-3 pb-3 md:px-5 md:pb-5 lg:px-6 lg:pb-6">
+      <div className="rounded-[2rem] bg-bone lg:rounded-[3rem]">
+      <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+        {parcours}
       </div>
       </div>
     </section>
