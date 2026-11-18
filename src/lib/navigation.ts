@@ -58,16 +58,14 @@ export function groupesNav(t: Textes): GroupeNav[] {
       liens: [
         { href: ancre("approche"), libelle: t.pied.approche },
         { href: ancre("histoire"), libelle: t.pied.histoire },
-        /* « Réfère un resto » et ses partenaires référents (fournisseurs,
-           comptables, associations). L'anglais garde la page simple. */
+        /* « Réfère un resto » : une seule entrée (18 nov.). « Partenaires », dans
+           la barre, mène à la même page. */
         ...(t.code === "fr"
           ? [
               { href: "/refere-un-resto", libelle: "Réfère un resto" },
-              { href: "/refere-un-resto#partenaires", libelle: "Devenir partenaire" },
             ]
           : [
               { href: "/en/referrals", libelle: "Referral program" },
-              { href: "/en/referrals#formulaire", libelle: "Become a partner" },
             ]),
         { href: `${t.racine}/contact`, libelle: t.nav.contacter },
       ],
