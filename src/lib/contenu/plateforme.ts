@@ -1,4 +1,3 @@
-import type { Bloc } from "@/lib/contenu/blocs";
 
 /* La page produit : ce que Resto Action vend, dit à plat.
 
@@ -33,99 +32,40 @@ export const PLATEFORME_FR = {
   // Le nom du service tel que déclaré aux moteurs (JSON-LD).
   typeService: "Plateforme web et marketing pour restaurants",
 
-  blocs: [
-    {
-      t: "h2",
-      texte: "Quatre morceaux, une seule plateforme",
-    },
-    {
-      t: "p",
-      texte:
-        "Chaque morceau règle un problème que tu as déjà. Pris séparément, ce sont quatre chantiers que personne n'a le temps de mener. Ensemble, ils se nourrissent : le client qui te trouve dans Google commande sur ton site, son courriel entre dans tes données, la relance le fait revenir, et l'app le garde.",
-    },
-    {
-      t: "p",
-      texte:
-        "C'est la différence entre payer quatre fournisseurs qui ne se parlent pas et avoir **une plateforme où le client reste le tien du début à la fin**.",
-    },
-
-    { t: "h2", texte: "Ça se branche sur ce que tu as déjà" },
-    {
-      t: "p",
-      texte:
-        "**Ta caisse ne change pas.** Tu gardes le système que ton monde connaît, avec les habitudes qui vont avec. Les commandes en ligne arrivent sans que personne ait à réapprendre son métier en plein service.",
-    },
-    {
-      t: "p",
-      texte:
-        "**Ton site aussi, si tu y tiens.** Si tu en as un qui fait la job, on y greffe la commande en ligne. S'il date, s'il est lent ou s'il n'existe pas, on t'en bâtit un : c'est souvent ce qui débloque le référencement, parce qu'un site lent ne sort pas dans Google, peu importe le reste.",
-    },
-    {
-      t: "encadre",
-      titre: "On regarde ça avant de te vendre quoi que ce soit",
-      texte:
-        "L'appel sert exactement à ça : voir ce que tu as, ce qui marche, et ce qui ne vaut pas la peine d'être remplacé. Il arrive qu'on conseille de ne rien changer à un morceau.",
-    },
-
-    { t: "h2", texte: "Pourquoi pas juste une app de livraison?" },
-    {
-      t: "p",
-      texte:
-        "Les apps de livraison t'apportent des commandes, et c'est vrai. Ce qu'elles ne t'apportent pas, c'est le client. Il reste le leur : son courriel, son historique, sa fréquence, tout est de leur côté. Le jour où tu arrêtes de payer, tu repars de zéro.",
-    },
-    {
-      t: "tableau",
-      entetes: ["", "Par une app de livraison", "Sur ta plateforme"],
-      lignes: [
-        [
-          "Commission par commande",
-          "Jusqu'à 30 %",
-          "5 % + 0,30 $ en cueillette, 10 % + 3,51 $ par livraison (la course au prix coûtant), frais de carte inclus",
-        ],
-        ["Abonnement", "Selon ton forfait", "Abonnement : 200 $ par mois"],
-        ["Le client", "Appartient à l'application", "Est le tien"],
-        ["Son courriel, son historique", "Tu ne les as pas", "Dans tes données"],
-        [
-          "Tes prix",
-          "Souvent gonflés pour absorber la commission",
-          "Les tiens, tels quels",
-        ],
-        ["Si tu arrêtes demain", "Tu repars de zéro", "Tu gardes ta liste de clients"],
-      ],
-    },
-    {
-      t: "p",
-      texte:
-        "On ne te dira pas de fermer tes comptes de livraison. Pour bien du monde, ça reste une source de commandes. On te dit qu'elle ne devrait pas être **la seule**, et que chaque commande qui passe par chez toi plutôt que par eux est une commande où tu gardes presque toute ta marge, et le client.",
-    },
-
-    { t: "h2", texte: "Comment ça commence" },
-    {
-      t: "ol",
-      items: [
-        "**On t'écoute.** Un court appel, tu nous racontes ton resto : ce qui roule, ce qui accroche, ce que tu paies déjà.",
-        "**On creuse avec toi.** On regarde tes chiffres, tes commissions, ta présence dans Google. On te dit ce qu'on voit, même quand c'est que le problème est ailleurs.",
-        "**On règle le problème.** On met tout en place, dans l'ordre qui te rapporte le plus vite.",
-      ],
-    },
-
-    { t: "h2", texte: "Ce qu'on ne te promettra pas" },
-    {
-      t: "p",
-      texte:
-        "**La première position dans Google la semaine prochaine.** Personne ne peut la promettre, et qui te la promet te ment. La visibilité se bâtit sur quelques mois.",
-    },
-    {
-      t: "p",
-      texte:
-        "**Des avis à cinq étoiles achetés.** Google les repère, et la sanction retombe sur ton resto, pas sur le fournisseur qui te les a vendus.",
-    },
-    {
-      t: "p",
-      texte:
-        "**Un contrat de quarante pages.** Si ce qu'on fait ne te rapporte pas, tu dois pouvoir partir. C'est le contraire d'un argument de vente : c'est ce qui nous force à être utiles.",
-    },
-  ] as Bloc[],
+  /* 18 nov. : la page est passée de « beaucoup de texte » à des sections
+     visuelles. Et on ne greffe plus la commande sur l'ancien site : on
+     explique pourquoi on en fait un nouveau. [À RELIRE] */
+  visuel: {
+    siteTitre: "Pourquoi on te fait un nouveau site",
+    siteTexte: "Ton vieux site ne vend pas. Le nouveau, oui.",
+    raisons: [
+      { icone: "vite", titre: "Rapide, donc trouvé dans Google", texte: "Un site lent ne sort pas dans Google, peu importe le reste." },
+      { icone: "commande", titre: "La commande est dedans", texte: "Pas un lien vers une plateforme. Ton client commande chez toi." },
+      { icone: "app", titre: "Branché sur ton app", texte: "Même menu, mêmes prix. Un seul système." },
+      { icone: "clients", titre: "Tes clients sont à toi", texte: "Leur courriel et leur historique restent dans tes données." },
+    ],
+    caisse: "Ta caisse ne change pas. Ton équipe garde ses habitudes.",
+    domaine: "Ton nom de domaine reste à toi.",
+    compareTitre: "Une plateforme de livraison ou ton site et ton app?",
+    compareEux: "Plateforme de livraison",
+    compareNous: "Ton site et ton app",
+    compare: [
+      { sujet: "Commission", eux: "Jusqu'à 30 %", nous: "5 % ou 10 %, plus un petit frais fixe" },
+      { sujet: "Le client", eux: "Est à eux", nous: "Est à toi" },
+      { sujet: "Son courriel", eux: "Tu ne l'as pas", nous: "Dans tes données" },
+      { sujet: "Tes prix", eux: "Gonflés pour payer la commission", nous: "Les tiens" },
+      { sujet: "Si tu arrêtes", eux: "Tu repars de zéro", nous: "Tu gardes ta liste" },
+    ],
+    compareNote: "Garde tes plateformes si tu veux. Elles ne devraient juste pas être les seules.",
+    debutTitre: "Comment ça commence",
+    debut: [
+      { titre: "On t'appelle", texte: "Tu nous racontes ton resto." },
+      { titre: "On regarde tes chiffres", texte: "Tes commissions, ta place dans Google." },
+      { titre: "On met tout en place", texte: "Dans l'ordre qui te rapporte le plus vite." },
+    ],
+    jamaisTitre: "Ce qu'on ne te promettra jamais",
+    jamais: ["Le 1er rang dans Google la semaine prochaine", "Des faux avis 5 étoiles", "Un contrat de 40 pages"],
+  },
 
   /* Les quatre cartes qui mènent aux pages de fonctionnalité. Leur ordre suit
      celui des onglets de la section Résultats de l'accueil : c'est la même
@@ -149,7 +89,7 @@ export const PLATEFORME_FR = {
       },
       {
         q: "Et si j'ai déjà un site web?",
-        a: "On regarde s'il fait la job. S'il est correct, on y greffe la commande en ligne. S'il est lent ou introuvable dans Google, on t'en bâtit un : un site lent ne sort pas, peu importe le reste.",
+        a: "On te fait un nouveau site, branché sur ton app et ta commande en ligne. Un vieux site lent ne sort pas dans Google et ne vend rien. Ton nom de domaine reste à toi.",
       },
       {
         q: "Ça prend combien de temps avant de voir des résultats?",
@@ -185,92 +125,37 @@ export const PLATEFORME_EN: Plateforme = {
 
   typeService: "Web and marketing platform for restaurants",
 
-  blocs: [
-    { t: "h2", texte: "Four pieces, one platform" },
-    {
-      t: "p",
-      texte:
-        "Each piece fixes a problem you already have. Taken separately, they're four projects nobody has time to run. Together, they feed each other: the customer who finds you on Google orders from your site, their email lands in your data, the follow-up brings them back, and the app keeps them.",
-    },
-    {
-      t: "p",
-      texte:
-        "That's the difference between paying four suppliers who don't talk to each other and running **one platform where the customer stays yours from beginning to end**.",
-    },
-
-    { t: "h2", texte: "It plugs into what you already have" },
-    {
-      t: "p",
-      texte:
-        "**Your point of sale doesn't change.** You keep the system your staff knows, with the habits that come with it. Online orders come in without anyone having to relearn their job in the middle of service.",
-    },
-    {
-      t: "p",
-      texte:
-        "**Your website too, if you want.** If you have one that does the job, we graft online ordering onto it. If it's dated, slow or nonexistent, we build you one: that's often what unlocks search, because a slow site doesn't show up on Google no matter what else you do.",
-    },
-    {
-      t: "encadre",
-      titre: "We look before we sell you anything",
-      texte:
-        "The short call is exactly for that: seeing what you have, what works, and what isn't worth replacing. Sometimes we tell you to leave a piece alone.",
-    },
-
-    { t: "h2", texte: "Why not just use a delivery app?" },
-    {
-      t: "p",
-      texte:
-        "Delivery apps bring you orders, and that's true. What they don't bring you is the customer. That customer stays theirs: the email, the order history, the frequency, all of it sits on their side. The day you stop paying, you start from zero.",
-    },
-    {
-      t: "tableau",
-      entetes: ["", "Through a delivery app", "On your platform"],
-      lignes: [
-        [
-          "Commission per order",
-          "Up to 30%",
-          "5% + $0.30 on pickup, 10% + $3.51 per delivery (the run at cost), card fees included",
-        ],
-        ["Subscription", "Depends on your plan", "Subscription: $200 per month"],
-        ["The customer", "Belongs to the app", "Is yours"],
-        ["Their email, their history", "You don't have them", "In your data"],
-        ["Your prices", "Often inflated to absorb the commission", "Yours, as they are"],
-        ["If you stop tomorrow", "You start from zero", "You keep your customer list"],
-      ],
-    },
-    {
-      t: "p",
-      texte:
-        "We won't tell you to close your delivery accounts. For plenty of restaurants they're a real source of orders. We're telling you they shouldn't be **the only one**, and that every order coming through your own channel is an order where you keep nearly all your margin, and the customer.",
-    },
-
-    { t: "h2", texte: "How it starts" },
-    {
-      t: "ol",
-      items: [
-        "**We listen.** A quick call, you tell us about your restaurant: what runs, what sticks, what you're already paying for.",
-        "**We dig in with you.** We look at your numbers, your commissions, your presence on Google. We tell you what we see, even when what we see is that the problem is somewhere else.",
-        "**We fix the problem.** We set everything up, in the order that pays you back fastest.",
-      ],
-    },
-
-    { t: "h2", texte: "What we won't promise you" },
-    {
-      t: "p",
-      texte:
-        "**The top spot on Google by next week.** Nobody can promise that, and anyone who does is lying to you. Visibility builds over months.",
-    },
-    {
-      t: "p",
-      texte:
-        "**Bought five-star reviews.** Google catches them, and the penalty lands on your restaurant, not on the supplier who sold them to you.",
-    },
-    {
-      t: "p",
-      texte:
-        "**A forty-page contract.** If what we do doesn't pay you back, you have to be able to walk. That's the opposite of a sales pitch: it's what forces us to be useful.",
-    },
-  ] as Bloc[],
+  visuel: {
+    siteTitre: "Why we build you a new site",
+    siteTexte: "Your old site doesn't sell. The new one does.",
+    raisons: [
+      { icone: "vite", titre: "Fast, so Google finds it", texte: "A slow site doesn't rank, no matter what else you do." },
+      { icone: "commande", titre: "Ordering is built in", texte: "Not a link to a platform. Your customer orders from you." },
+      { icone: "app", titre: "Connected to your app", texte: "Same menu, same prices. One system." },
+      { icone: "clients", titre: "Your customers are yours", texte: "Their email and history stay in your data." },
+    ],
+    caisse: "Your point of sale doesn't change. Your team keeps its habits.",
+    domaine: "Your domain name stays yours.",
+    compareTitre: "A delivery platform, or your own site and app?",
+    compareEux: "Delivery platform",
+    compareNous: "Your site and your app",
+    compare: [
+      { sujet: "Commission", eux: "Up to 30%", nous: "5% or 10%, plus a small fixed fee" },
+      { sujet: "The customer", eux: "Is theirs", nous: "Is yours" },
+      { sujet: "Their email", eux: "You don't get it", nous: "In your data" },
+      { sujet: "Your prices", eux: "Inflated to cover the commission", nous: "Your own" },
+      { sujet: "If you stop", eux: "You start from zero", nous: "You keep your list" },
+    ],
+    compareNote: "Keep your platforms if you want. They just shouldn't be the only ones.",
+    debutTitre: "How it starts",
+    debut: [
+      { titre: "We call you", texte: "You tell us about your restaurant." },
+      { titre: "We look at your numbers", texte: "Your commissions, your spot on Google." },
+      { titre: "We set it all up", texte: "In the order that pays you back fastest." },
+    ],
+    jamaisTitre: "What we'll never promise you",
+    jamais: ["The top spot on Google next week", "Fake 5-star reviews", "A 40-page contract"],
+  },
 
   cartes: {
     titre: "Every piece of the System",
@@ -291,7 +176,7 @@ export const PLATEFORME_EN: Plateforme = {
       },
       {
         q: "What if I already have a website?",
-        a: "We look at whether it does the job. If it's fine, we graft online ordering onto it. If it's slow or invisible on Google, we build you one: a slow site doesn't rank, no matter what else you do.",
+        a: "We build you a new site, connected to your app and your online ordering. An old, slow site doesn't rank on Google and doesn't sell. Your domain name stays yours.",
       },
       {
         q: "How long before I see results?",

@@ -442,7 +442,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     filNom: "Application mobile",
     metaTitre: "Application mobile pour restaurant",
     metaDescription:
-      "Une application à ton nom, sur l'App Store et Google Play, avec la commande en deux tapes et les points de fidélité. Ce qu'elle apporte, et ce qu'elle demande pour marcher.",
+      "Une application à ton nom, sur l'App Store et Google Play, avec la commande en deux clics et les points de fidélité. Ce qu'elle apporte, et ce qu'elle demande pour marcher.",
     surTitre: "Plus de téléchargements",
     titre: "Ton site et ton app, à ton nom, jusque sur l'App Store",
     intro:
@@ -454,7 +454,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       titre: "Comment ça marche",
       items: [
         { titre: "Ton site et ton app, à ton nom", texte: "Ton site sur le web, ton app sur l'App Store et Google Play, avec ton logo et tes couleurs.", ecran: { src: "/demo-app/client/accueil.webp", alt: "L'accueil de l'app de Bistro Habibi" } },
-        { titre: "Tes habitués l'installent", texte: "Pour leurs points et pour commander en deux tapes.", ecran: { src: "/demo-app/client/compte.webp", alt: "Le compte client, avec ses points" } },
+        { titre: "Tes habitués l'installent", texte: "Pour leurs points et pour commander en deux clics.", ecran: { src: "/demo-app/client/compte.webp", alt: "Le compte client, avec ses points" } },
         { titre: "Une icône sur leur écran", texte: "Ton resto leur revient en tête chaque fois qu'ils ouvrent leur téléphone.", visuel: "app" },
       ],
     },
@@ -475,7 +475,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "ul",
         items: [
-          "**La commande en deux tapes.** L'app se souvient du client, de son adresse et de sa dernière commande. Le site doit tout redemander.",
+          "**La commande en deux clics.** L'app se souvient du client, de son adresse et de sa dernière commande. Le site doit tout redemander.",
           "**Une icône sur son écran.** Elle rappelle ton resto chaque fois qu'il cherche autre chose sur son téléphone. Aucune publicité ne fait ça pour ce prix-là.",
           "**Les notifications**, le seul canal qui n'a pas besoin d'être ouvert pour être vu.",
           "**La fidélité**, qui vit là où il commande plutôt que sur une carte de carton au fond d'un portefeuille.",
@@ -537,7 +537,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Mes clients vont-ils vraiment la télécharger?",
-          a: "Les habitués, oui, quand on leur donne une raison : les points, et la commande en deux tapes. Les clients d'un soir, non, et c'est correct : eux commandent depuis ton site.",
+          a: "Les habitués, oui, quand on leur donne une raison : les points, et la commande en deux clics. Les clients d'un soir, non, et c'est correct : eux commandent depuis ton site.",
         },
         {
           q: "Est-ce que je peux avoir l'app sans le reste?",
@@ -546,7 +546,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       ],
     },
     cta: {
-      titre: "Une app à ton nom, ça se regarde ensemble.",
+      titre: "Ton site et ton app à ton nom, ça se regarde ensemble.",
       texte:
         "On te montre à quoi elle ressemblerait chez toi, et ce que ça prend pour la remplir.",
     },
