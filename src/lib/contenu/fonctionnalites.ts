@@ -81,7 +81,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
     etapes: {
       titre: "Comment ça marche",
       items: [
-        { titre: "On monte ta fiche Google", texte: "Tes heures, tes photos, ton menu et un bouton « Commander » qui mène à ton app.", visuel: "fiche-google" },
+        { titre: "On monte ta fiche Google", texte: "Tes heures, tes photos, ton menu et un bouton « Commander » qui mène à ton site.", visuel: "fiche-google" },
         { titre: "Ton site, lisible par Google", texte: "Rapide, en français, avec ton menu en texte : ce que Google lit pour te faire sortir." },
         { titre: "Ça se bâtit sur quelques mois", texte: "Personne ne peut promettre la première place la semaine prochaine. On te dit ce qui bouge, chaque mois." },
       ],
@@ -218,7 +218,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       items: [
         { titre: "Le client choisit", texte: "Livraison ou cueillette, sur ton app, à tes prix de salle.", ecran: { src: "/demo-app/client/accueil.webp", alt: "L'accueil de l'app de Bistro Habibi" } },
         { titre: "Il remplit son panier", texte: "Le menu propose les extras et ce qui va avec.", ecran: { src: "/demo-app/client/panier.webp", alt: "Le panier de l'app de Bistro Habibi" } },
-        { titre: "La commande sort en cuisine", texte: "Sur ton imprimante offerte, ou dans ta caisse si elle est compatible.", visuel: "imprimante" },
+        { titre: "La commande sort en cuisine", texte: "Sur ton imprimante offerte. Ta caisse ne change pas.", visuel: "imprimante" },
       ],
     },
     blocs: [
@@ -268,7 +268,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         items: [
           "Les extras au bon moment : la sauce, le supplément, le format plus grand.",
           "Le plat qui va avec, suggéré avant le paiement plutôt qu'après.",
-          "La commande précédente rappelée en un tap : c'est le raccourci qui fait revenir les habitués.",
+          "La commande précédente rappelée en un clic : c'est le raccourci qui fait revenir les habitués.",
         ],
       },
 
@@ -357,7 +357,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "ol",
         items: [
-          "**Après la première commande** : un mot de remerciement, et l'occasion de laisser un avis pendant que le repas est encore frais en mémoire.",
+          "**Après la première commande** : un mot de remerciement, pendant que le repas est encore frais en mémoire.",
           "**Quand il ne revient pas** : une offre, une seule, sur un plat proche de ce qu'il avait pris.",
           "**Quand il revient** : des suggestions basées sur ses commandes, pas sur ton plat le plus rentable.",
           "**Aux moments qui comptent** : la Saint-Valentin, la fête des Mères, le temps des fêtes. Ce sont les soirs où un resto se remplit ou se vide.",
@@ -471,7 +471,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
           "C'est la différence de fond avec une app de livraison : là-bas, tu es une ligne dans une liste, entre deux concurrents, sous le logo de quelqu'un d'autre.",
       },
 
-      { t: "h2", texte: "Pourquoi une app quand tu as déjà un site" },
+      { t: "h2", texte: "Pourquoi une app en plus de ton site" },
       {
         t: "ul",
         items: [
@@ -517,7 +517,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "Une app ne se remplit pas toute seule : personne ne télécharge l'app d'un resto sans raison. C'est le seul morceau de la plateforme qui demande un geste de ta part, en salle.",
+          "Une app ne se remplit pas toute seule : personne ne télécharge l'app d'un resto sans raison. Ça demande un petit geste de ta part, en salle.",
       },
       {
         t: "ul",
@@ -571,7 +571,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
     etapes: {
       titre: "How it works",
       items: [
-        { titre: "We set up your Google listing", texte: "Your hours, your photos, your menu and an “Order” button that leads to your app.", visuel: "fiche-google" },
+        { titre: "We set up your Google listing", texte: "Your hours, your photos, your menu and an “Order” button that leads to your site.", visuel: "fiche-google" },
         { titre: "Your site, readable by Google", texte: "Fast, with your menu as text: what Google reads to show you." },
         { titre: "It builds over a few months", texte: "Nobody can promise the top spot next week. We tell you what's moving, every month." },
       ],
@@ -706,7 +706,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       items: [
         { titre: "The customer chooses", texte: "Delivery or pickup, on your app, at your dine-in prices.", ecran: { src: "/demo-app/client/accueil.webp", alt: "The home screen of Bistro Habibi's app" } },
         { titre: "They fill their cart", texte: "The menu offers the extras and what goes with them.", ecran: { src: "/demo-app/client/panier.webp", alt: "The cart in Bistro Habibi's app" } },
-        { titre: "The order prints in the kitchen", texte: "On the printer we give you, or into your point of sale if it's compatible.", visuel: "imprimante" },
+        { titre: "The order prints in the kitchen", texte: "On the printer we give you. Your POS doesn't change.", visuel: "imprimante" },
       ],
     },
     blocs: [
@@ -756,7 +756,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         items: [
           "The extras at the right moment: the sauce, the add-on, the bigger size.",
           "The dish that goes with it, suggested before checkout rather than after.",
-          "The previous order brought back in one tap: that's the shortcut that keeps regulars coming.",
+          "The previous order brought back in one click: that's the shortcut that keeps regulars coming.",
         ],
       },
 
@@ -845,7 +845,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "ol",
         items: [
-          "**After the first order**: a thank-you, and the chance to leave a review while the meal is still fresh in mind.",
+          "**After the first order**: a thank-you, while the meal is still fresh in mind.",
           "**When they don't come back**: one offer, just one, on something close to what they ordered.",
           "**When they do come back**: suggestions based on their own orders, not on your highest-margin dish.",
           "**At the moments that matter**: Valentine's Day, Mother's Day, the holidays. Those are the nights a restaurant fills up or sits empty.",
@@ -959,7 +959,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
           "That's the fundamental difference with a delivery app: over there you're a line in a list, between two competitors, under someone else's logo.",
       },
 
-      { t: "h2", texte: "Why an app when you already have a site" },
+      { t: "h2", texte: "Why an app on top of your site" },
       {
         t: "ul",
         items: [
@@ -1005,7 +1005,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "p",
         texte:
-          "An app doesn't fill itself: nobody downloads a restaurant's app for no reason. It's the one piece of the platform that asks something of you, in the dining room.",
+          "An app doesn't fill itself: nobody downloads a restaurant's app for no reason. It asks a small effort from you, in the dining room.",
       },
       {
         t: "ul",

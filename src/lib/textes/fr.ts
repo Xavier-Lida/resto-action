@@ -598,7 +598,7 @@ export const FR = {
       facultatif: "facultatif",
       exempleMenu: "Ex. : facebook.com/tonresto ou ton site",
       menuAide: "Pas de lien? Pas grave : on trouve ton menu et on te le fait valider.",
-      livraisonMaquette: "Après ta signature, tu nous envoies ton menu, tes photos et tes accès dans les 5 jours : ton site et ton app sont prêts en 48 h.",
+      livraisonMaquette: "Après ta signature, tu nous envoies ton menu, tes photos et tes accès dans les 5 jours : ton site est prêt en 48 h.",
       service: "Ce que tu offres",
       services: {
         livraison: "Livraison et cueillette",
@@ -654,7 +654,7 @@ export const FR = {
       etapes: [
         { titre: "Bon d'accord signé", texte: "Ton bon d'accord est signé et ta mise en service est payée." },
         { titre: "Ton menu, tes photos et tes accès", texte: "Tu nous les envoies dans les 5 jours." },
-        { titre: "Ton site et ton app sont prêts", texte: "48 h après tes accès. Tu valides." },
+        { titre: "Ton site est prêt", texte: "48 h après tes accès. Tu valides." },
         { titre: "Ta date de lancement", texte: "Ton imprimante branchée en 10 minutes, et ta formation privée d'une heure, en personne." },
         { titre: "Tes 7 premiers jours", texte: "300 $ de pub payés par nous, nos cartons dans tes sacs, et un texto chaque soir avec tes commandes du jour." },
         { titre: "Chaque lundi", texte: "Ton Texto du Lundi : tes commandes, tes nouvelles ventes et l'argent rapporté." },
@@ -684,7 +684,7 @@ export const FR = {
       // Les étapes 2 à 5 de la frise « Comment ça marche ».
       suite: [
         "Tu nous envoies ton menu, tes photos et tes accès : 5 jours.",
-        "Ton site et ton app sont prêts : 48 h.",
+        "Ton site est prêt : 48 h.",
         "Ta date de lancement : ton imprimante branchée en 10 minutes, et ta formation privée d'une heure, en personne.",
         "Tes 7 premiers jours : 300 $ de pub payés par nous, nos cartons dans tes sacs, et un texto chaque soir avec tes commandes du jour.",
       ],

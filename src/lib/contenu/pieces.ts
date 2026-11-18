@@ -105,7 +105,7 @@ export const PIECES_FR: Record<string, PagePiece> = {
     faq: {
       titre: "Questions sur le menu",
       items: [
-        { q: "Qui monte mon menu?", a: "Nous. Tu nous envoies ton menu, tes photos et tes accès, et ton site et ton app sont prêts en 48 h. Tu valides avant la mise en ligne." },
+        { q: "Qui monte mon menu?", a: "Nous. Tu nous envoies ton menu, tes photos et tes accès, et ton site est prêt en 48 h. Tu valides avant la mise en ligne. Ton app mobile suit, selon les délais d'Apple et de Google." },
         { q: "Je peux changer un prix moi-même?", a: "Oui, ou tu nous le demandes : un seul numéro, en français, pour tout ce qui est en ligne." },
       ],
     },
@@ -276,7 +276,7 @@ export const PIECES_FR: Record<string, PagePiece> = {
       titre: "Comment ça marche",
       items: [
         { titre: "Branchée en 10 minutes", texte: "Le jour de ton lancement, on branche ton imprimante sur place.", visuel: "imprimante" },
-        { titre: "La commande sort toute seule", texte: "Dans ta caisse si elle est compatible, sinon sur ton imprimante. Personne ne retape rien." },
+        { titre: "La commande sort toute seule", texte: "Sur ton imprimante. Personne ne retape rien dans ta caisse." },
         { titre: "Tu suis tout sur ton cell", texte: "Les commandes du jour, et chaque soir de ta première semaine, un texto avec ton résumé." },
       ],
     },
@@ -286,7 +286,7 @@ export const PIECES_FR: Record<string, PagePiece> = {
     faq: {
       titre: "Questions sur l'imprimante",
       items: [
-        { q: "Est-ce que je dois changer ma caisse?", a: "Non. Ta caisse ne change pas. Si elle est compatible, les commandes y entrent; sinon, elles sortent sur ton imprimante." },
+        { q: "Est-ce que je dois changer ma caisse?", a: "Non. Ta caisse ne change pas : les commandes en ligne sortent sur ton imprimante de cuisine." },
       ],
     },
     cta: CTA,
@@ -318,7 +318,7 @@ export const PIECES_FR: Record<string, PagePiece> = {
     ],
     faq: {
       titre: "Questions sur le Texto du Lundi",
-      items: [{ q: "Je peux le recevoir par courriel?", a: "Dis-le-nous : un seul numéro, en français, pour tout ce qui est en ligne." }],
+      items: [{ q: "Je peux le recevoir par courriel?", a: "Oui. Dis-le-nous et on te l'envoie par courriel." }],
     },
     cta: CTA,
     dependDe: ["texto-lundi"],
@@ -439,7 +439,7 @@ export const PIECES_EN: Record<string, PagePiece> = {
     faq: {
       titre: "Questions about the menu",
       items: [
-        { q: "Who builds my menu?", a: "We do. You send us your menu, your photos and your access, and your site and your app are ready in 48 hours. You approve them before it goes live." },
+        { q: "Who builds my menu?", a: "We do. You send us your menu, your photos and your access, and your site is ready in 48 hours. You approve it before it goes live. Your mobile app follows, on Apple's and Google's timelines." },
         { q: "Can I change a price myself?", a: "Yes, or just ask us: one number for everything online." },
       ],
     },
@@ -610,7 +610,7 @@ export const PIECES_EN: Record<string, PagePiece> = {
       titre: "How it works",
       items: [
         { titre: "Plugged in within 10 minutes", texte: "On your launch day, we plug in your printer on site.", visuel: "imprimante" },
-        { titre: "The order prints on its own", texte: "Into your point of sale if it's compatible, otherwise on your printer. Nobody retypes anything." },
+        { titre: "The order prints on its own", texte: "On your printer. Nobody retypes anything into your POS." },
         { titre: "You follow everything on your phone", texte: "The day's orders, and every evening of your first week, a text with your summary." },
       ],
     },
@@ -620,7 +620,7 @@ export const PIECES_EN: Record<string, PagePiece> = {
     faq: {
       titre: "Questions about the printer",
       items: [
-        { q: "Do I have to change my point of sale?", a: "No. Your point of sale doesn't change. If it's compatible, orders go straight into it; if not, they print on your printer." },
+        { q: "Do I have to change my point of sale?", a: "No. Your point of sale doesn't change: online orders print on your kitchen printer." },
       ],
     },
     cta: CTA_EN,
@@ -652,7 +652,7 @@ export const PIECES_EN: Record<string, PagePiece> = {
     ],
     faq: {
       titre: "Questions about The Monday Text",
-      items: [{ q: "Can I get it by email?", a: "Just tell us: one number for everything online." }],
+      items: [{ q: "Can I get it by email?", a: "Yes. Tell us and we'll send it by email." }],
     },
     cta: CTA_EN,
     dependDe: ["texto-lundi"],

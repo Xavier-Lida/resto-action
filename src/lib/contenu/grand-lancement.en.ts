@@ -190,7 +190,7 @@ export const GROUPES: GroupePieces[] = [
       piece(
         "zero-double-saisie",
         "Zero Double Entry",
-        "Your orders in one place: in your POS if it's compatible, otherwise on your kitchen printer.",
+        "Your orders in one place, on your kitchen printer. Your POS doesn't change.",
       ),
     ],
   },
@@ -319,7 +319,7 @@ export const GARANTIES: Garantie[] = [
   garantie(
     "chrono",
     "Not live by your date? Your first month is free.",
-    "Send us your menu, photos and access within 5 days: your site and your app are ready in 48 hours and you're live on your date. If not, your first month is free.",
+    "Send us your menu, photos and access within 5 days: your site is ready in 48 hours and you're live on your date. If not, your first month is free. Your mobile app follows, on Apple's and Google's timelines.",
   ),
   garantie(
     "imprimante",
@@ -415,7 +415,7 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
       titre: "You send us your menu, photos and access",
       texte: "5 days.",
     },
-    { titre: "Your site and your app are ready", texte: "48 hours." },
+    { titre: "Your site is ready", texte: "48 hours." },
     {
       titre: "Your launch date",
       texte:
@@ -452,7 +452,7 @@ export const ETAPES_INCLUS: { titre: string; sousTitre: string; etapes: EtapeInc
     {
       quand: "You sign",
       titre: "We build everything for you",
-      toi: `You reserve for free, sign your agreement ($${MISE_EN_SERVICE_ACTUELLE} setup) and send us your menu, photos and access within 5 days. Your site and your app are ready in 48 hours.`,
+      toi: `You reserve for free, sign your agreement ($${MISE_EN_SERVICE_ACTUELLE} setup) and send us your menu, photos and access within 5 days. Your site is ready in 48 hours.`,
       pieces: ["installation", "app-a-ton-nom", "menu-qui-vend", "reglage-plateformes", "marketing"],
     },
     {
@@ -726,7 +726,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       question: "Another tablet on the counter.",
       reponse:
-        "No tablet. Your orders print on a kitchen printer we provide, or go into your POS if it's compatible, and you follow everything on your phone.",
+        "No tablet. Your orders print on a kitchen printer we provide, and you follow everything on your phone.",
       dependDe: ["zero-double-saisie"],
     },
     {

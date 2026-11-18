@@ -246,7 +246,7 @@ export const GROUPES: GroupePieces[] = [
         id: "zero-double-saisie",
         nom: "Zéro Double Saisie",
         ligne:
-          "Tes commandes au même endroit, dans ta caisse si elle est compatible, sinon sur ton imprimante de cuisine.",
+          "Tes commandes au même endroit, sur ton imprimante de cuisine. Ta caisse ne change pas.",
         valeur: null,
         soumissions: 0,
         disponible: true,
@@ -477,7 +477,7 @@ export const GARANTIES: Garantie[] = [
     nom: NOMS_GARANTIES.chrono,
     court: "Pas en ligne à ta date? Ton premier mois est gratuit.",
     texte:
-      "Envoie-nous ton menu, tes photos et tes accès dans les 5 jours : ton site et ton app sont prêts en 48 h et tu es en ligne à ta date. Sinon, ton premier mois est gratuit.",
+      "Envoie-nous ton menu, tes photos et tes accès dans les 5 jours : ton site est prêt en 48 h et tu es en ligne à ta date. Sinon, ton premier mois est gratuit. Ton app mobile suit, selon les délais d'Apple et de Google.",
     dependDe: ["installation"],
   },
   {
@@ -586,7 +586,7 @@ export const FRISE: { titre: string; etapes: Etape[] } = {
       titre: "Tu nous envoies ton menu, tes photos et tes accès",
       texte: "5 jours.",
     },
-    { titre: "Ton site et ton app sont prêts", texte: "48 h." },
+    { titre: "Ton site est prêt", texte: "48 h." },
     {
       titre: "Ta date de lancement",
       texte:
@@ -634,7 +634,7 @@ export const ETAPES_INCLUS: { titre: string; sousTitre: string; etapes: EtapeInc
     {
       quand: "Tu signes",
       titre: "On monte tout pour toi",
-      toi: `Tu réserves gratuitement, tu signes ton bon d'accord (mise en service de ${MISE_EN_SERVICE_ACTUELLE} $) et tu nous envoies ton menu, tes photos et tes accès dans les 5 jours. Ton site et ton app sont prêts en 48 h.`,
+      toi: `Tu réserves gratuitement, tu signes ton bon d'accord (mise en service de ${MISE_EN_SERVICE_ACTUELLE} $) et tu nous envoies ton menu, tes photos et tes accès dans les 5 jours. Ton site est prêt en 48 h.`,
       pieces: ["installation", "app-a-ton-nom", "menu-qui-vend", "reglage-plateformes", "marketing"],
     },
     {
@@ -910,7 +910,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       question: "Encore une tablette sur le comptoir.",
       reponse:
-        "Pas de tablette. Tes commandes sortent sur une imprimante de cuisine offerte, ou dans ta caisse si elle est compatible, et tu suis tout sur ton cell.",
+        "Pas de tablette. Tes commandes sortent sur une imprimante de cuisine offerte, et tu suis tout sur ton cell.",
       dependDe: ["zero-double-saisie"],
     },
     {

@@ -483,7 +483,7 @@ export const EN: Textes = {
       facultatif: "optional",
       exempleMenu: "E.g. facebook.com/yourrestaurant or your site",
       menuAide: "No link? No problem: we'll find your menu and have you approve it.",
-      livraisonMaquette: "After you sign, you send us your menu, your photos and your access within 5 days: your site and your app are ready in 48 hours.",
+      livraisonMaquette: "After you sign, you send us your menu, your photos and your access within 5 days: your site is ready in 48 hours.",
       service: "What you offer",
       services: {
         livraison: "Delivery and pickup",
@@ -533,7 +533,7 @@ export const EN: Textes = {
       etapes: [
         { titre: "Agreement signed", texte: "Your agreement is signed and your setup fee is paid." },
         { titre: "Your menu, your photos and your access", texte: "You send them to us within 5 days." },
-        { titre: "Your site and your app are ready", texte: "48 hours after your access. You approve it." },
+        { titre: "Your site is ready", texte: "48 hours after your access. You approve it." },
         { titre: "Your launch date", texte: "Your printer plugged in within 10 minutes, and your one-hour private training, in person." },
         { titre: "Your first 7 days", texte: "$300 of ads paid by us, our cards in your bags, and a text every evening with the day's orders." },
         { titre: "Every Monday", texte: "The Monday Text: your orders, your new sales and the money brought in." },
@@ -562,7 +562,7 @@ export const EN: Textes = {
       suiteTitre: "What's next",
       suite: [
         "You send us your menu, your photos and your access: 5 days.",
-        "Your site and your app are ready: 48 hours.",
+        "Your site is ready: 48 hours.",
         "Your launch date: your printer plugged in within 10 minutes, and your one-hour private training, in person.",
         "Your first 7 days: $300 of ads paid by us, our cards in your bags, and a text every evening with the day's orders.",
       ],

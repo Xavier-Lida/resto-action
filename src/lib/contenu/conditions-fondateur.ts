@@ -22,7 +22,9 @@ import {
 
    Les montants doivent rester identiques à `offre` et `lancement` dans
    src/lib/textes/fr.ts et en.ts. */
-export const CONDITIONS_VERSION = "2026-11-07";
+/* 18 nov. : la garantie 48 h top chrono vise le site (l'app mobile suit, selon
+   Apple et Google), comme le bon d'accord v4; plus d'intégration à la caisse. */
+export const CONDITIONS_VERSION = "2026-11-18";
 
 const GARANTIES_TEXTE = `${GARANTIES.map((g) => `${g.nom} : « ${g.texte} »`).join(" ")} ${GARANTIES_CONDITION}`;
 const CALCUL_TEXTE = FAQ.questions.find((q) => q.id === "faq-calcul-garantie")?.reponse ?? "";
@@ -111,7 +113,7 @@ const GARANTIES_EN: Record<(typeof GARANTIES)[number]["id"], { nom: string; text
   chrono: {
     nom: "48 Hours Flat",
     texte:
-      "Send us your menu, your photos and your access within 5 days: your app is ready in 48 hours and you're live by your date. Otherwise, your first month is free.",
+      "Send us your menu, your photos and your access within 5 days: your site is ready in 48 hours and you're live by your date. Otherwise, your first month is free. Your mobile app follows, on Apple's and Google's timelines.",
   },
   imprimante: {
     nom: "The Busy Printer",
