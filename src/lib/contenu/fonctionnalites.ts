@@ -311,7 +311,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Et la livraison, vous la faites?",
-          a: "Oui, sans un seul livreur à gérer : on s'occupe de la livraison et des plaintes. Ton client paie 4,99 $, et toi, 10 % des aliments et boissons + la course au prix coûtant (3,51 $ aujourd'hui).",
+          a: "Oui, sans un seul livreur à gérer : la course est faite par DoorDash Drive, et les plaintes, c'est nous. Ton client paie 4,99 $, et toi, 10 % des aliments et boissons + la course au prix coûtant (3,51 $ aujourd'hui).",
         },
       ],
     },
@@ -334,7 +334,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       "Quelqu'un a commandé chez toi une fois, il a aimé ça, et il ne revient pas. Pas parce qu'il a trouvé mieux, mais parce qu'il a oublié. La relance règle exactement ce problème-là, et rien d'autre.",
     resume: "Le client qui a déjà commandé revient, sans que tu y penses.",
     typeService: "Fidélisation et relances clients pour restaurants",
-    illustration: { type: "visuel", visuel: "textos" },
+    illustration: { type: "visuel", visuel: "fidelite" },
     blocs: [
       { t: "h2", texte: "Le client le moins cher est celui que tu as déjà" },
       {
@@ -357,7 +357,7 @@ export const FONCTIONNALITES_FR: Record<Cle, Fonctionnalite> = {
       {
         t: "ol",
         items: [
-          "**Après la première commande** : un mot de remerciement, pendant que le repas est encore frais en mémoire.",
+          "**Après la première commande** : un mot de remerciement, et l'occasion de laisser un avis pendant que le repas est encore frais en mémoire.",
           "**Quand il ne revient pas** : une offre, une seule, sur un plat proche de ce qu'il avait pris.",
           "**Quand il revient** : des suggestions basées sur ses commandes, pas sur ton plat le plus rentable.",
           "**Aux moments qui comptent** : la Saint-Valentin, la fête des Mères, le temps des fêtes. Ce sont les soirs où un resto se remplit ou se vide.",
@@ -799,7 +799,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
         },
         {
           q: "Do you handle delivery?",
-          a: "Yes, without a single driver for you to manage: we handle delivery and complaints. Your customer pays $4.99, and you pay 10% of food and drinks + the run at cost ($3.51 today).",
+          a: "Yes, without a single driver for you to manage: the run is done by DoorDash Drive, and complaints are on us. Your customer pays $4.99, and you pay 10% of food and drinks + the run at cost ($3.51 today).",
         },
       ],
     },
@@ -822,7 +822,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       "Someone ordered from you once, they liked it, and they don't come back. Not because they found better, but because they forgot. Follow-ups fix exactly that problem, and nothing else.",
     resume: "The customer who already ordered comes back, without you thinking about it.",
     typeService: "Customer retention and follow-ups for restaurants",
-    illustration: { type: "visuel", visuel: "textos" },
+    illustration: { type: "visuel", visuel: "fidelite" },
     blocs: [
       { t: "h2", texte: "The cheapest customer is the one you already have" },
       {
@@ -845,7 +845,7 @@ export const FONCTIONNALITES_EN: Record<Cle, Fonctionnalite> = {
       {
         t: "ol",
         items: [
-          "**After the first order**: a thank-you, while the meal is still fresh in mind.",
+          "**After the first order**: a thank-you, and the chance to leave a review while the meal is still fresh in mind.",
           "**When they don't come back**: one offer, just one, on something close to what they ordered.",
           "**When they do come back**: suggestions based on their own orders, not on your highest-margin dish.",
           "**At the moments that matter**: Valentine's Day, Mother's Day, the holidays. Those are the nights a restaurant fills up or sits empty.",

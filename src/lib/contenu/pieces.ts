@@ -118,20 +118,19 @@ export const PIECES_FR: Record<string, PagePiece> = {
     filNom: "La livraison",
     metaTitre: "La livraison, sans un seul livreur à gérer",
     metaDescription:
-      "Ton client paie 4,99 $ de livraison. Toi, 10 % des aliments et boissons plus la course au prix coûtant. Les livreurs et les plaintes, c'est nous.",
+      "Ton client paie 4,99 $ de livraison. La course est faite par DoorDash Drive. Toi, 10 % des aliments et boissons plus la course au prix coûtant. Les plaintes, c'est nous.",
     surTitre: "La Livraison Incluse",
     titre: "La livraison, sans un seul livreur à gérer",
-    intro: "Tu offres la livraison sur ton app comme sur une plateforme, sans engager personne. On s'occupe des livreurs, des courses et des plaintes.",
-    resume: "Ton client paie 4,99 $. Toi, la course au prix coûtant. Les plaintes, c'est nous.",
+    intro: "Tu offres la livraison sur ton site et ton app, sans engager personne. Chaque course est faite par DoorDash Drive, et les plaintes, c'est nous.",
+    resume: "Ton client paie 4,99 $. La course est faite par DoorDash Drive, à prix coûtant pour toi.",
     typeService: "Livraison pour restaurants",
-    illustration: { type: "ecran", ...ECRAN.offre },
+    illustration: { type: "visuel", visuel: "livraison" },
     etapes: {
       titre: "Comment ça marche",
       items: [
-        { titre: "Le client commande sur ton app", texte: "Il choisit la livraison et paie 4,99 $, rien d'autre.", ecran: ECRAN.accueil },
-        { titre: "Un livreur prend la course", texte: "La course part dans notre app de livreurs, avec l'adresse de ton resto et celle du client.", ecran: ECRAN.offre },
-        { titre: "Il se rend chez le client", texte: "L'itinéraire s'ouvre dans son application de cartes.", ecran: ECRAN.itineraire },
-        { titre: "Déposé à la porte, avec une photo", texte: "Le livreur prend une photo du sac livré. En cas de plainte, c'est nous qui la réglons.", ecran: ECRAN.porte },
+        { titre: "Le client commande chez toi", texte: "Sur ton site ou ton app. Il choisit la livraison et paie 4,99 $, rien d'autre." },
+        { titre: "DoorDash Drive fait la course", texte: "On envoie la course à DoorDash Drive. Un livreur vient chercher la commande chez toi et la livre." },
+        { titre: "Le client reste à toi", texte: "Il a commandé chez toi : la commande, son nom et son numéro restent dans tes données. Une plainte? C'est nous qui la réglons." },
       ],
     },
     blocs: [
@@ -151,7 +150,8 @@ export const PIECES_FR: Record<string, PagePiece> = {
     faq: {
       titre: "Questions sur la livraison",
       items: [
-        { q: "Est-ce que je dois engager des livreurs?", a: "Non. On s'occupe de la livraison et des plaintes. Tu n'as aucun livreur à gérer." },
+        { q: "Est-ce que je dois engager des livreurs?", a: "Non. Les courses sont faites par DoorDash Drive, et on s'occupe des plaintes. Tu n'as aucun livreur à gérer." },
+        { q: "DoorDash, c'est pas une plateforme?", a: "DoorDash Drive fait seulement la course. La commande se passe chez toi, sans commission de 30 %, et le client reste le tien. DoorDash ne voit pas ton client comme le sien." },
         { q: "Je fais seulement de la cueillette, c'est correct?", a: "Oui. En cueillette seulement, c'est 5 % + 0,30 $ par commande, frais de carte inclus." },
       ],
     },
@@ -175,8 +175,8 @@ export const PIECES_FR: Record<string, PagePiece> = {
       titre: "Comment ça marche",
       items: [
         { titre: "Chaque commande donne des points", texte: "Le client voit ses points dans son compte, sur ton app.", ecran: ECRAN.compte },
-        { titre: "Un client qui disparaît reçoit un texto", texte: "Après 30 jours sans commande, une offre part toute seule. Un panier laissé en plan reçoit un rappel.", visuel: "textos" },
-        { titre: "Il revient commander chez toi", texte: "Pas sur une plateforme : sur ton app, à tes prix.", visuel: "fidelite" },
+        { titre: "Un client qui disparaît reçoit un texto", texte: "Après 30 jours sans commande, une offre part toute seule. Un panier laissé en plan reçoit un rappel.", visuel: "fidelite" },
+        { titre: "Il revient commander chez toi", texte: "Pas sur une plateforme : sur ton site ou ton app, à tes prix.", ecran: ECRAN.menu },
       ],
     },
     blocs: [
@@ -196,21 +196,22 @@ export const PIECES_FR: Record<string, PagePiece> = {
 
   "parrainage-cartes-cadeaux": {
     slug: "/plateforme/parrainage-cartes-cadeaux",
-    filNom: "Parrainage et cartes-cadeaux",
-    metaTitre: "Parrainage et cartes-cadeaux : tes clients en amènent d'autres",
+    filNom: "Le parrainage",
+    metaTitre: "Le parrainage : tes clients en amènent d'autres",
     metaDescription:
-      "Un lien pour inviter un ami, des cartes-cadeaux vendues sur ton app : tes clients deviennent ta meilleure pub.",
+      "Chaque client a un lien pour inviter un ami : tes clients deviennent ta meilleure pub.",
     surTitre: "Des nouvelles ventes",
     titre: "Tes clients en amènent d'autres",
     intro: "Le meilleur client, c'est celui qu'un ami t'envoie. Ton app donne à chaque client une raison d'en parler.",
-    resume: "Un lien pour inviter un ami, et des cartes-cadeaux vendues d'avance.",
-    typeService: "Parrainage et cartes-cadeaux pour restaurants",
+    resume: "Un lien pour inviter un ami. L'ami a un rabais, ton client des points.",
+    typeService: "Parrainage pour restaurants",
     illustration: { type: "ecran", ...ECRAN.compte },
     etapes: {
       titre: "Comment ça marche",
       items: [
-        { titre: "Chaque client a son lien", texte: "Il l'envoie à un ami. L'ami a un rabais sur sa première commande, ton client des points." },
-        { titre: "Des cartes-cadeaux sur ton app", texte: "L'argent entre d'avance, et ceux qui les reçoivent deviennent tes clients." },
+        { titre: "Chaque client a son lien", texte: "Il l'envoie à un ami, par texto ou sur ses réseaux." },
+        { titre: "L'ami commande chez toi", texte: "Il a un rabais sur sa première commande." },
+        { titre: "Ton client gagne des points", texte: "Pour chaque ami qui commande. Il a une raison de parler de toi." },
       ],
     },
     blocs: [
@@ -221,7 +222,7 @@ export const PIECES_FR: Record<string, PagePiece> = {
       items: [{ q: "Qui fixe le rabais?", a: "Toi, avec nous. On te propose un montant qui reste rentable pour ton resto." }],
     },
     cta: CTA,
-    dependDe: ["parrainage", "cartes-cadeaux"],
+    dependDe: ["parrainage"],
   },
 
   "reglage-plateformes": {
@@ -452,20 +453,19 @@ export const PIECES_EN: Record<string, PagePiece> = {
     filNom: "Delivery",
     metaTitre: "Delivery, without a single driver to manage",
     metaDescription:
-      "Your customer pays $4.99 for delivery. You pay 10% of food and drinks plus the run at cost. The drivers and the complaints are on us.",
+      "Your customer pays $4.99 for delivery. The run is done by DoorDash Drive. You pay 10% of food and drinks plus the run at cost. Complaints are on us.",
     surTitre: "Delivery Included",
     titre: "Delivery, without a single driver to manage",
-    intro: "You offer delivery on your app just like on a platform, without hiring anyone. We handle the drivers, the runs and the complaints.",
-    resume: "Your customer pays $4.99. You pay the run at cost. Complaints are on us.",
+    intro: "You offer delivery on your site and your app, without hiring anyone. Every run is done by DoorDash Drive, and complaints are on us.",
+    resume: "Your customer pays $4.99. The run is done by DoorDash Drive, at cost for you.",
     typeService: "Delivery for restaurants",
-    illustration: { type: "ecran", ...SCREEN.offre },
+    illustration: { type: "visuel", visuel: "livraison" },
     etapes: {
       titre: "How it works",
       items: [
-        { titre: "The customer orders on your app", texte: "They choose delivery and pay $4.99, nothing else.", ecran: SCREEN.accueil },
-        { titre: "A driver takes the run", texte: "The run goes out in our drivers' app, with your restaurant's address and the customer's.", ecran: SCREEN.offre },
-        { titre: "They head to the customer", texte: "The route opens in their maps app.", ecran: SCREEN.itineraire },
-        { titre: "Left at the door, with a photo", texte: "The driver takes a photo of the delivered bag. If there's a complaint, we're the ones who handle it.", ecran: SCREEN.porte },
+        { titre: "The customer orders from you", texte: "On your site or your app. They choose delivery and pay $4.99, nothing else." },
+        { titre: "DoorDash Drive does the run", texte: "We send the run to DoorDash Drive. A driver picks up the order at your place and delivers it." },
+        { titre: "The customer stays yours", texte: "They ordered from you: the order, their name and their number stay in your data. A complaint? We handle it." },
       ],
     },
     blocs: [
@@ -485,7 +485,8 @@ export const PIECES_EN: Record<string, PagePiece> = {
     faq: {
       titre: "Questions about delivery",
       items: [
-        { q: "Do I have to hire drivers?", a: "No. We handle delivery and complaints. You have no drivers to manage." },
+        { q: "Do I have to hire drivers?", a: "No. Runs are done by DoorDash Drive, and we handle complaints. You have no drivers to manage." },
+        { q: "Isn't DoorDash a platform?", a: "DoorDash Drive only does the run. The order happens with you, with no 30% commission, and the customer stays yours." },
         { q: "I only do pickup. Is that OK?", a: "Yes. Pickup only is 5% + $0.30 per order, card fees included." },
       ],
     },
@@ -509,8 +510,8 @@ export const PIECES_EN: Record<string, PagePiece> = {
       titre: "How it works",
       items: [
         { titre: "Every order earns points", texte: "The customer sees their points in their account, on your app.", ecran: SCREEN.compte },
-        { titre: "A customer who disappears gets a text", texte: "After 30 days without an order, an offer goes out on its own. An abandoned cart gets a reminder.", visuel: "textos" },
-        { titre: "They come back to order from you", texte: "Not on a platform: on your app, at your prices.", visuel: "fidelite" },
+        { titre: "A customer who disappears gets a text", texte: "After 30 days without an order, an offer goes out on its own. An abandoned cart gets a reminder.", visuel: "fidelite" },
+        { titre: "They come back to order from you", texte: "Not on a platform: on your site or your app, at your prices.", ecran: SCREEN.menu },
       ],
     },
     blocs: [
@@ -530,21 +531,22 @@ export const PIECES_EN: Record<string, PagePiece> = {
 
   "parrainage-cartes-cadeaux": {
     slug: "/en/platform/referrals-gift-cards",
-    filNom: "Referrals and gift cards",
-    metaTitre: "Referrals and gift cards: your customers bring in others",
+    filNom: "Referrals",
+    metaTitre: "Referrals: your customers bring in others",
     metaDescription:
-      "A link to invite a friend, gift cards sold on your app: your customers become your best advertising.",
+      "Every customer has a link to invite a friend: your customers become your best advertising.",
     surTitre: "New sales",
     titre: "Your customers bring in others",
     intro: "The best customer is the one a friend sends you. Your app gives every customer a reason to talk about you.",
-    resume: "A link to invite a friend, and gift cards sold in advance.",
-    typeService: "Referrals and gift cards for restaurants",
+    resume: "A link to invite a friend. The friend gets a discount, your customer gets points.",
+    typeService: "Referrals for restaurants",
     illustration: { type: "ecran", ...SCREEN.compte },
     etapes: {
       titre: "How it works",
       items: [
-        { titre: "Every customer has their own link", texte: "They send it to a friend. The friend gets a discount on their first order, your customer gets points." },
-        { titre: "Gift cards on your app", texte: "The money comes in up front, and the people who receive them become your customers." },
+        { titre: "Every customer has their own link", texte: "They send it to a friend, by text or on social media." },
+        { titre: "The friend orders from you", texte: "They get a discount on their first order." },
+        { titre: "Your customer earns points", texte: "For every friend who orders. They have a reason to talk about you." },
       ],
     },
     blocs: [
@@ -555,7 +557,7 @@ export const PIECES_EN: Record<string, PagePiece> = {
       items: [{ q: "Who sets the discount?", a: "You, with us. We suggest an amount that stays profitable for your restaurant." }],
     },
     cta: CTA_EN,
-    dependDe: ["parrainage", "cartes-cadeaux"],
+    dependDe: ["parrainage"],
   },
 
   "reglage-plateformes": {
@@ -726,7 +728,7 @@ const LIBELLES = {
       livraison: "La livraison",
       "reglage-plateformes": "Le Réglage Plateformes",
       "points-recompenses": "Points et récompenses",
-      "parrainage-cartes-cadeaux": "Parrainage et cartes-cadeaux",
+      "parrainage-cartes-cadeaux": "Le parrainage",
       "imprimante-cuisine": "L'imprimante de cuisine",
       "texto-du-lundi": "Le Texto du Lundi",
       "departement-en-ligne": "Ton Département en ligne",
@@ -747,7 +749,7 @@ const LIBELLES = {
       livraison: "Delivery",
       "reglage-plateformes": "The Platform Pricing Tune-Up",
       "points-recompenses": "Points and rewards",
-      "parrainage-cartes-cadeaux": "Referrals and gift cards",
+      "parrainage-cartes-cadeaux": "Referrals",
       "imprimante-cuisine": "The kitchen printer",
       "texto-du-lundi": "The Monday Text",
       "departement-en-ligne": "Your Online Department",

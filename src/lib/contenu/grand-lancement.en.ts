@@ -238,7 +238,7 @@ export const GROUPES: GroupePieces[] = [
       piece(
         "livraison-incluse",
         "Delivery Included",
-        "Delivery at $4.99 for your customer, without a single driver to manage. You pay the delivery run at cost, and complaints are on us.",
+        "Delivery at $4.99 for your customer, without a single driver to manage: the run is done by DoorDash Drive. You pay it at cost, and complaints are on us.",
       ),
     ],
   },
@@ -738,7 +738,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       question: "Delivery is a headache.",
       reponse:
-        "You have no drivers to manage: we handle delivery and complaints. Your customer pays $4.99, and you pay the delivery run at cost.",
+        "You have no drivers to manage: the run is done by DoorDash Drive, and complaints are on us. Your customer pays $4.99, and you pay the run at cost.",
       dependDe: ["livraison-incluse"],
     },
     {

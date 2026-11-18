@@ -264,7 +264,8 @@ export const GROUPES: GroupePieces[] = [
           "Des cartes-cadeaux vendues sur ton app. L'argent entre d'avance, et ceux qui les reçoivent deviennent tes clients.",
         valeur: null,
         soumissions: 0,
-        disponible: true,
+        // 18 nov. : pas au début (Guillaume). Le parrainage et la fidélité, oui.
+        disponible: false,
       },
       {
         id: "parrainage",
@@ -335,7 +336,7 @@ export const GROUPES: GroupePieces[] = [
         visuel: "livraison",
         nom: "La Livraison Incluse",
         ligne:
-          "La livraison à 4,99 $ pour ton client, sans un seul livreur à gérer. Tu paies la course au prix coûtant, et les plaintes, c'est nous.",
+          "La livraison à 4,99 $ pour ton client, sans un seul livreur à gérer : la course est faite par DoorDash Drive. Tu la paies au prix coûtant, et les plaintes, c'est nous.",
         valeur: null,
         soumissions: 0,
         disponible: true,
@@ -922,7 +923,7 @@ export const FAQ: { titre: string; questions: QuestionFaq[] } = {
     {
       question: "La livraison, c'est un casse-tête.",
       reponse:
-        "Tu n'as aucun livreur à gérer : on s'occupe de la livraison et des plaintes. Ton client paie 4,99 $, et toi, la course au prix coûtant.",
+        "Tu n'as aucun livreur à gérer : la course est faite par DoorDash Drive, et les plaintes, c'est nous. Ton client paie 4,99 $, et toi, la course au prix coûtant.",
       dependDe: ["livraison-incluse"],
     },
     {
