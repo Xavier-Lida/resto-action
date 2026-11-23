@@ -2,7 +2,9 @@ import BarreNav from "@/components/BarreNav";
 import BandeauReference from "@/components/references/BandeauReference";
 import BarreReservation from "@/components/BarreReservation";
 import BandeauUrgence from "@/components/lancement/BandeauUrgence";
-import { CALCUL_60, FIN_LANCEMENT_ISO } from "@/lib/contenu/grand-lancement";
+import { CALCUL_60, FIN_LANCEMENT_ISO, dateFin750, miseEnService, montantMise } from "@/lib/contenu/grand-lancement";
+import { CLASSEMENT, remplir } from "@/lib/contenu/classement";
+import ClassementGoogle from "@/components/lancement/ClassementGoogle";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import Footer from "@/components/Footer";
 import CommentOnFait from "@/components/CommentOnFait";
@@ -37,6 +39,16 @@ export default function AccueilLancement({ t }: { t: Textes }) {
   const langue = t.htmlLang.startsWith("en") ? "en" : "fr";
   const { DATE_LIMITE, RESTOS_PAR_MOIS, lienReservation } = contenuLancement(langue);
   const { typo: fr } = formats(langue);
+  /* La ligne de la mise en service de « Ton rang sur Google », tirée de la
+     seule source du prix : vide dès le 19 décembre à 0 h, elle disparaît. */
+  const mise = miseEnService();
+  const ligneMiseClassement = mise.avantFin
+    ? remplir(CLASSEMENT.ligneMise, {
+        date: dateFin750(),
+        montant: montantMise(mise.montant),
+        ensuite: montantMise(mise.ensuite),
+      })
+    : "";
   const racine = `${SITE_URL}${t.racine}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -71,6 +83,9 @@ export default function AccueilLancement({ t }: { t: Textes }) {
       <main className="flex-1" lang={t.htmlLang}>
         {/* 1. La promesse, l'accroche et le bouton du calculateur. */}
         <HeroLancement t={t} langue={langue} />
+        {/* Ton rang sur Google (français seulement) : le proprio tape son resto et
+            voit son rang dans sa ville. Rien n'est écrit dans la page avant sa recherche. */}
+        {langue === "fr" && <ClassementGoogle ligneMise={ligneMiseClassement} />}
         {/* 2. « Tu pourrais faire BEAUCOUP plus de ventes en ligne » : la
             vidéo, puis les étapes 01 à 06, chacune vers sa page. */}
         <ChiffresLancement langue={langue} />

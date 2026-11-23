@@ -32,7 +32,7 @@ const TEXTES = {
     titre: "Tu pourrais faire BEAUCOUP plus de ventes en ligne.",
     surligne: "BEAUCOUP",
     intro: "Sortir dans Google, prendre plus de commandes en ligne et faire revenir tes clients. Voici comment.",
-    bouton: "Calcule ce que tu aurais gardé",
+    bouton: "Calcule ce que tu verses aux plateformes",
     calculateur: "/#calculateur",
     plus: "En savoir plus",
     courts: { google: "Google", commandes: "Commandes", pub: "Nouveaux clients", points: "Fidélité", livraison: "Livraison", lundi: "Texto du lundi" },

@@ -295,7 +295,7 @@ export const FR = {
       titre: "Pas encore prêt? Pas de problème.",
       texte: "Deux façons d'avancer à ton rythme, sans engagement.",
       maquette: {
-        titre: "Calcule ce que tu aurais gardé",
+        titre: "Calcule ce que tu verses aux plateformes",
         texte: "Ton relevé de plateforme, ton estimation. Ton vrai chiffre, sans engagement.",
       },
       appel: {

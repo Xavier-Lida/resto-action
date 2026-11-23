@@ -220,7 +220,7 @@ export default function PageFonctionnalite({
                   href={langue === "en" ? "/en#calculateur" : "/#calculateur"}
                   className="inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 font-black text-ink transition hover:bg-ink hover:text-white"
                 >
-                  {langue === "en" ? "Calculate what you would have kept" : "Calcule ce que tu aurais gardé"}
+                  {langue === "en" ? "Calculate what you would have kept" : "Calcule ce que tu verses aux plateformes"}
                   <ArrowRight className="size-5" />
                 </Link>
                 <a

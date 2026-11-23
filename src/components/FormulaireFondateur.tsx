@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,7 @@ import ModalePasPret from "@/components/ModalePasPret";
 import DemoApp from "@/components/DemoApp";
 import InfoLancement from "@/components/InfoLancement";
 import { formaterTelephone } from "@/lib/telephone";
+import { garderContact, mesurerLead, nouvelIdLead, usePreremplir } from "@/lib/leads/client";
 import { lireProvenance } from "@/lib/provenance";
 import { PHONE_DISPLAY } from "@/lib/site";
 import type { Textes } from "@/lib/textes/fr";
@@ -73,6 +74,22 @@ export default function FormulaireFondateur({
   const [piege, setPiege] = useState("");
   const [envoi, setEnvoi] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
+  /* Les identifiants des 2 leads de ce formulaire (l'étape 1, puis la
+     réservation) : un 2e clic ou un nouvel essai renvoie le même, et le
+     serveur n'envoie pas 2 fois. */
+  const ids = useRef({ prospect: "", reservation: "" });
+  /* Déjà rempli ailleurs sur le site (le Calcul, le Classement…) : le resto, la
+     ville, le prénom et le cellulaire reviennent. Gardé sur son appareil
+     seulement, et il peut tout changer. */
+  usePreremplir((garde) =>
+    setChamps((c) => ({
+      ...c,
+      restaurant: c.restaurant || garde.resto || "",
+      ville: c.ville || garde.ville || "",
+      nom: c.nom || garde.prenom || "",
+      telephone: c.telephone || garde.cellulaire || "",
+    })),
+  );
 
   // On remonte en haut à chaque étape : sur un téléphone, la suivante
   // commencerait sinon au milieu de l'écran.
@@ -107,10 +124,11 @@ export default function FormulaireFondateur({
       }
       // Le CRM est prévenu sans faire attendre : une panne ne bloque pas
       // le resto à l'étape 1.
+      ids.current.prospect ||= nouvelIdLead();
       fetch("/api/fondateur", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "prospect", ...base() }),
+        body: JSON.stringify({ action: "prospect", idProspect: ids.current.prospect, ...base() }),
         keepalive: true,
       }).catch(() => {});
     }
@@ -122,14 +140,17 @@ export default function FormulaireFondateur({
   }
 
   async function reserver() {
+    if (envoi) return;
     setErreur(null);
     setEnvoi(true);
+    ids.current.reservation ||= nouvelIdLead();
     try {
       const reponse = await fetch("/api/fondateur", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "reservation",
+          idLead: ids.current.reservation,
           ...base(),
           menu,
           service,
@@ -141,6 +162,14 @@ export default function FormulaireFondateur({
       });
       const donnees = (await reponse.json()) as { ok?: boolean; erreur?: string };
       if (reponse.ok && donnees.ok) {
+        // Un lead par réservation complète : l'étape 1 n'est pas comptée à part.
+        mesurerLead("reserve-ta-place");
+        garderContact({
+          prenom: champs.nom.trim().split(/\s+/)[0],
+          resto: champs.restaurant,
+          ville: champs.ville,
+          cellulaire: champs.telephone,
+        });
         try {
           sessionStorage.setItem(
             CLE_MERCI,

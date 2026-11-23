@@ -138,3 +138,57 @@ export type CleFondateur = keyof typeof FONDATEURS;
    de langue se cache et ni le plan du site ni les balises hreflang
    n'annoncent l'anglais. */
 export const ANGLAIS_ACTIF = true;
+
+/* LE STUDIO PHOTO (/studio, 18 nov.) : le proprio téléverse la photo d'un plat
+   et la reçoit retouchée, sans personne.
+
+   STUDIO_ACTIF À FAUX : la page et ses routes répondent 404 partout, sauf sur
+   un poste de développement (`next dev`), où on la vérifie. Rien n'est indexé,
+   rien n'est au menu ni au plan du site. On passe à vrai seulement quand
+   Guillaume a dit oui (8 photos sur 10 qui passent ses 3 questions). */
+export const STUDIO_ACTIF = false;
+
+/** Vrai là où le Studio a le droit de répondre : en ligne s'il est actif, et
+    toujours sur un poste de développement. Serveur seulement. */
+export function studioOuvert(): boolean {
+  return STUDIO_ACTIF || process.env.NODE_ENV === "development";
+}
+
+/* Les chiffres variables du Studio. Les textes de la page (src/lib/contenu/studio.ts)
+   et le serveur (src/lib/studio/) lisent ceux-ci, et rien d'autre. */
+export const STUDIO = {
+  /** Le délai promis dans le titre. À changer si la moyenne mesurée dépasse 60 secondes. */
+  delaiPromis: "1 minute",
+  /** Photos au plus par resto (par cellulaire), sur la durée de garde. */
+  photosParResto: 5,
+  /** Photos au plus par visiteur (par adresse IP) et par jour. */
+  photosParVisiteurParJour: 5,
+  /** Plafond de dépenses d'IA par jour, en dollars canadiens. Une fois atteint,
+      on livre la correction sans génération. */
+  plafondDepensesJour: 15,
+  /** Durée de garde des photos, en jours. Ensuite elles s'effacent toutes
+      seules, sauf celles dont le resto a accepté l'usage comme exemple. */
+  gardeJours: 30,
+  /** Taille maximale de la photo envoyée, en mégaoctets. */
+  tailleMaxMo: 15,
+  /** Les 2 formats livrés, en pixels. */
+  formats: {
+    carre: { largeur: 1080, hauteur: 1080 },
+    vertical: { largeur: 1080, hauteur: 1350 },
+  },
+  /** Le moteur de retouche par IA (Google) et son prix par image, en dollars
+      américains, à la taille demandée (aistudio.google.com/docs/pricing, 18 nov. 2026). */
+  moteurIA: { modele: "gemini-nano-banana-2.1", taille: "2K", prixParImageUsd: 0.0504 },
+  /** Le modèle de vision des 2 contrôles et de la publication : celui qui lit
+      déjà le relevé (src/app/api/releve/route.ts). Prix par million de jetons, en dollars américains. */
+  moteurControle: { modele: "claude-opus-5", prixEntreeUsd: 5, prixSortieUsd: 25 },
+  /** Pour compter le plafond en dollars canadiens. */
+  tauxUsdCad: 1.4,
+  /** LE STUDIO A SON MINI CRM (23 nov., demande de Guillaume) : chaque contact
+      est rangé dans le site lui-même (src/lib/mini-crm/, dans le magasin privé)
+      et se suit dans /tableau/leads. Il ne dépend ni de la base Supabase de la
+      porte des leads, ni du CRM de Xavier. `crmBranche` dit si, EN PLUS, le
+      formulaire passe par la porte des leads (signalerLead) : à faux tant
+      qu'elle n'est pas configurée (src/app/api/studio/contact/route.ts). */
+  crmBranche: false,
+} as const;

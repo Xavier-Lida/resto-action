@@ -3,17 +3,19 @@
 Pour : Xavier · De : Guillaume (rédigé avec Claude) · Version 1, 10 nov. 2026
 Statut : **spécification**. Rien de ce qui suit n'existe encore dans le CRM. Le site fonctionne en mode pilote sans base : chaque événement part par courriel à l'équipe. Quand le CRM est prêt, on pose `CRM_REFERENCES_URL` dans Vercel et les mêmes événements arrivent ici, sans changer une ligne du site.
 
+**Mise à jour du 18 nov. 2026 : la porte unique des leads.** Tous les formulaires du site passent maintenant par `signalerLead` (`src/lib/leads/envoi.ts`, contrat dans `docs/leads-contrat-crm.md`). Pour « Réfère un resto », ce qui change est marqué « 18 nov. » plus bas : (1) `signalerReference` est appelée par la porte, sa route et son format n'ont pas changé; (2) le code de référence voyage avec **tous** les leads, plus seulement avec la réservation; (3) `reference.attribuee` part pour tout lead qui porte un code, une seule fois par resto; (4) en mode pilote, le courriel à l'équipe est l'alerte « [Lead] reference : … », qui porte l'événement en entier.
+
 Les montants qui apparaissent dans les règles ont été confirmés par Guillaume le 10 nov. 2026 (pas de plafond de références par parrain). Ils vivent dans `src/lib/contenu/references.ts` côté site. Le CRM ne les code pas en dur : il les lit d'une table de configuration (voir `programme_config`).
 
 ---
 
 ## 1. Le transport
 
-- **Un seul point d'entrée côté site** : `signalerReference(evenement)` dans `src/lib/references/envoi.ts`.
+- **Un seul point d'entrée côté site** : `signalerReference(evenement)` dans `src/lib/references/envoi.ts`. Depuis le 18 nov., c'est la porte unique des leads (`signalerLead`) qui l'appelle pour les formulaires; seule la visite d'un lien (`reference.visite`) l'appelle encore directement.
 - **Requête** : `POST {CRM_REFERENCES_URL}`, en-têtes `Authorization: Bearer {CRM_INGESTION_SECRET}` et `Content-Type: application/json`. Même secret et même façon de faire que `signalerReservation` et `signalerFondateur` (`src/lib/crm.ts`).
 - **Réponse attendue** : `2xx` = accepté. Tout le reste (4xx, 5xx, délai de 10 s dépassé) = refusé.
-- **Rien ne se perd** : si le CRM refuse ou ne répond pas, le site envoie le même événement par courriel à `REFERENCES_COURRIEL_EQUIPE`, et journalise l'erreur. Si le courriel échoue aussi, le visiteur voit un message d'erreur honnête avec le numéro de téléphone.
-- **Idempotence** : chaque événement porte un `id` (UUID v4) créé par le site. Le CRM ignore un `id` déjà reçu (contrainte unique). Le site peut donc renvoyer sans risque de doublon.
+- **Rien ne se perd** : que le CRM réponde ou non, l'équipe reçoit l'alerte « [Lead] reference : {resto}, {ville} » par courriel, à `LEADS_COURRIEL_EQUIPE` (18 nov. : à défaut, `REFERENCES_COURRIEL_EQUIPE`). Elle porte le même événement en JSON, et « CRM en échec » si le CRM a refusé. Si ni le CRM ni le courriel ne passent, le visiteur voit un message d'erreur honnête avec le numéro de téléphone, et l'événement est écrit au journal du serveur.
+- **Idempotence** : chaque événement porte un `id` (UUID) créé par le site. Le CRM ignore un `id` déjà reçu (contrainte unique). Le site peut donc renvoyer sans risque de doublon. 18 nov. : pour un formulaire, l'`id` est créé dans le navigateur (un double clic renvoie le même); pour `reference.attribuee`, il est tiré du code et de la clé du resto (voir 2.2).
 - **Horloge** : `horodatage` en ISO 8601 UTC, fixé par le serveur du site au moment de l'action. C'est cet horodatage qui sert à l'attribution (« le premier inscrit gagne »).
 
 ## 2. Les événements (JSON exact)
@@ -91,7 +93,9 @@ Depuis le formulaire public de `/refere-un-resto`, la personne n'a pas toujours 
 { "demandeur": { "nom": "Jean Gagnon", "resto": "Chez Ti-Jean", "courriel": "jean@chezti.ca", "telephone": "819 555-0000" } }
 ```
 
-**`reference.attribuee`** : un resto réserve sa place en portant un code (lien `/p/CODE` ou `/f/CODE`, ou témoin d'attribution de 30 jours). Ce n'est pas un nouvel envoi séparé : le code voyage **dans les deux POST existants** (`signalerReservation` et `signalerFondateur`) sous une clé `reference`, et `signalerReference` émet en plus cet événement pour le journal.
+**`reference.attribuee`** : un resto laisse un contact en portant un code (lien `/p/CODE` ou `/f/CODE`, ou témoin d'attribution de 30 jours). Le code voyage **dans les deux POST existants** (`signalerReservation` et `signalerFondateur`) sous une clé `reference`, et `signalerReference` émet en plus cet événement pour le journal.
+
+18 nov. : ça vaut maintenant pour **tout lead**, pas seulement la réservation : le Calcul 60 secondes, le Classement, le Studio, le dossier, la maquette. `reservation.etape` vaut alors `lead`, et une clé `lead` dit lequel : `"lead": { "id": "…", "source": "calcul-60" }`. **Une seule fois par resto** : l'`id` de l'événement est tiré du code et de la clé du resto (`cle_resto`, voir `leads-contrat-crm.md`), donc le même resto qui remplit 2 outils produit 2 fois le même `id`, et le CRM ignore le 2e. Cet événement part au CRM seulement (`CRM_REFERENCES_URL`) : en mode pilote, l'alerte [Lead] porte déjà « Référé par » et la ligne du doublon, et aucun 2e courriel ne part.
 
 ```json
 {
@@ -103,7 +107,9 @@ Depuis le formulaire public de `/refere-un-resto`, la personne n'a pas toujours 
   "attribution": { "premier_contact": "2026-11-02T14:10:00Z", "via": "temoin" }
 }
 ```
-`attribution.via` : `url` (le code était dans l'adresse) ou `temoin` (lu dans le témoin de 30 jours). En version 1, le site envoie toujours `temoin` : le lien `/p/CODE` pose le témoin, puis redirige vers l'accueil.
+`reservation.etape` : `reservation` (l'étape 4 de `/reserver`), `rendez_vous` (l'agenda) ou `lead` (tout autre formulaire, 18 nov.).
+
+`attribution.via` : `url` (le code était dans l'adresse) ou `temoin` (lu dans le témoin de 30 jours). En version 1, le site envoie toujours `temoin` : le lien `/p/CODE` pose le témoin, puis redirige vers l'accueil, ou droit vers un outil avec `?vers=calcul`, `?vers=classement` ou `?vers=studio` (18 nov.).
 
 La clé `reference` dans les deux POST existants (`signalerReservation`, `signalerFondateur`) :
 
@@ -414,8 +420,8 @@ Un resto référé suit la même cohorte de 16 restos par mois et la même date 
 | Action sur le site | Événement | Voie |
 |---|---|---|
 | Ouvrir `/p/CODE` ou `/f/CODE` | `reference.visite` | CRM seulement (pas de courriel) |
-| Formulaire « Présente-nous quelqu'un » / formulaire mobile du représentant | `reference.recue` | CRM, sinon courriel |
-| Réserver sa place avec un code (URL ou témoin) | `reference.attribuee` + le code dans les 2 POST existants | CRM, sinon courriel |
-| Formulaire « Devenir partenaire » | `partenaire.candidature` | CRM, sinon courriel |
+| Formulaire « Présente-nous quelqu'un » / formulaire mobile du représentant | `reference.recue` | CRM, et toujours l'alerte [Lead] par courriel |
+| Laisser un contact avec un code (la réservation, l'agenda, le Calcul, le Classement, le Studio, le dossier, la maquette) | `reference.attribuee`, une fois par resto, + le code dans chaque lead | CRM seulement; « Référé par » est dans l'alerte [Lead] |
+| Formulaire « Devenir partenaire » | `partenaire.candidature` | CRM, et toujours l'alerte [Lead] par courriel |
 | Volet C : « Je veux qu'on me présente » | `avantage.presentation` | CRM, sinon courriel |
 | Volet C : lien de suivi | `avantage.clic` | CRM seulement |

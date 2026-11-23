@@ -1664,3 +1664,62 @@ img {
     animation: none;
   }
 }
+
+/* LE CURSEUR DU CALCUL 60 SECONDES (Calcul60.tsx) : facile à attraper au pouce.
+   Une zone de 44 px de haut, un bouton de 32 px, et la piste remplie à la
+   couleur de la marque jusqu'au bouton (--rempli, posé par le composant). */
+.curseur-60 {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.curseur-60:focus {
+  outline: none;
+}
+.curseur-60::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-brand) var(--rempli, 0%),
+    color-mix(in srgb, var(--color-ink) 12%, transparent) var(--rempli, 0%)
+  );
+}
+.curseur-60::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+.curseur-60::-moz-range-progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-brand);
+}
+.curseur-60::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  margin-top: -12px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: var(--color-brand);
+  box-shadow: 0 2px 10px rgba(25, 25, 25, 0.3);
+}
+.curseur-60::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: var(--color-brand);
+  box-shadow: 0 2px 10px rgba(25, 25, 25, 0.3);
+}
+.curseur-60:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-brand) 30%, transparent), 0 2px 10px rgba(25, 25, 25, 0.3);
+}
+.curseur-60:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-brand) 30%, transparent), 0 2px 10px rgba(25, 25, 25, 0.3);
+}

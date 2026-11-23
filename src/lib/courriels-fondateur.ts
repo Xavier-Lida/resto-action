@@ -119,51 +119,9 @@ export function courrielReservation(d: { a: string; nom: string; restaurant: str
 }
 
 /** La copie pour l'équipe : toutes les réponses, à l'adresse de GOOGLE_SUJET. */
-export function courrielReservationEquipe(d: {
-  nom: string;
-  courriel: string;
-  telephone: string;
-  restaurant: string;
-  ville: string;
-  langue: Langue;
-  menu: string;
-  service: string;
-  plateformes: string;
-  commandes: string;
-  consentementTextos: boolean;
-  source: string;
-  /** « Réfère un resto » : « Chez Ti-Jean (code CHEZTI) », ou rien. */
-  referePar?: string;
-  crm: boolean;
-}): Courriel {
-  const lignes: [string, string][] = [
-    ["Resto", d.restaurant],
-    ["Ville", d.ville],
-    ["Nom", d.nom],
-    ["Courriel", d.courriel],
-    ["Téléphone", d.telephone],
-    ["Langue", d.langue],
-    ["Menu", d.menu || "(aucun)"],
-    ["Service", d.service],
-    ["Plateformes", d.plateformes || "(non précisé)"],
-    ["Commandes par semaine", d.commandes || "(non précisé)"],
-    ["Accepte les textos", d.consentementTextos ? "oui" : "non"],
-    ["Provenance", d.source || "(directe)"],
-    ...(d.referePar ? ([["Référé par", d.referePar]] as [string, string][]) : []),
-    ["Reçue par le CRM", d.crm ? "oui" : "NON : à entrer à la main"],
-  ];
-  const texte = ["Nouvelle réservation (gratuite) sur /reserver.", "", ...lignes.map(([k, v]) => `${k} : ${v}`), "", "À rappeler dans les 24 h."].join("\n");
-  const html = enveloppe(
-    [
-      para("Nouvelle réservation (gratuite) sur /reserver."),
-      `<table style="border-collapse:collapse;width:100%;">${lignes
-        .map(([k, v]) => `<tr><td style="padding:4px 8px 4px 0;font-weight:900;vertical-align:top;">${echapper(k)}</td><td style="padding:4px 0;">${echapper(v)}</td></tr>`)
-        .join("")}</table>`,
-      para("À rappeler dans les 24 h."),
-    ].join("\n"),
-  );
-  return { a: process.env.GOOGLE_SUJET ?? "", sujet: `Réservation : ${d.restaurant} (${d.ville})`, texte, html };
-}
+/* Le courriel à l'équipe pour une réservation n'est plus ici : depuis le
+   18 nov. 2026, c'est l'alerte [Lead] de la porte unique
+   (src/lib/leads/courriel.ts), la même pour toutes les sources. */
 
 /* ─── 1. Bienvenue (mise en service payée) ─── */
 

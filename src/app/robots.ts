@@ -11,9 +11,11 @@ import { SITE_URL } from "@/lib/site";
 // restent ouverts : ils redirigent vers l'accueil, il n'y a rien à cacher.
 // Les liens de « Réfère un resto » (/p/CODE, /f/CODE), eux, sont fermés :
 // un robot qui les suit poserait des témoins d'attribution pour rien.
+// Le suivi du Studio Photo (/studio/suivi) est privé comme /tableau, et ses
+// routes (/api/studio/) ne servent que la page.
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/tableau", "/p/", "/f/"] },
+    rules: { userAgent: "*", allow: "/", disallow: ["/tableau", "/studio/suivi", "/api/studio/", "/p/", "/f/"] },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

@@ -15,10 +15,15 @@ import type { NextRequest } from "next/server";
    Production ET en Preview dans Vercel.
 
    Ce fichier est un `proxy.ts` (le `middleware.ts` d'avant Next 16) et ne
-   s'exécute que sur `/tableau` : le `matcher` doit rester un littéral, Next
-   le lit à la compilation. */
+   s'exécute que sur les chemins du `matcher`, qui doit rester un littéral :
+   Next le lit à la compilation.
 
-export const config = { matcher: "/tableau/:path*" };
+   LE SUIVI DU STUDIO PHOTO (18 nov.) passe par la même porte, avec le même mot
+   de passe : `/studio/suivi` (les dernières retouches) et les images privées
+   que cette page affiche (`/api/studio/suivi`). La route des images revérifie
+   le mot de passe elle-même (src/lib/studio/acces.ts). */
+
+export const config = { matcher: ["/tableau/:path*", "/studio/suivi/:path*", "/api/studio/suivi/:path*"] };
 
 const REFUS = {
   status: 401,

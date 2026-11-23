@@ -52,3 +52,45 @@ export function calculer60(e: Entrees60): Reponse60 {
   const parAnnee = Math.round((parSemaine * 52) / 100) * 100;
   return { parSemaine, parAnnee };
 }
+
+// ───────────── La carte du chiffre : 5 ans, et la part des commandes ─────────────
+
+/** « Au même rythme, ça fait … en 5 ans » : le chiffre par année (arrondi), 5 fois. */
+export function sur5Ans(r: Reponse60): number {
+  return r.parAnnee * 5;
+}
+
+/** « C'est 1 commande sur 4 qui part en commission » : `parts` sur `sur`. */
+export const PART_COMMISSION: Record<Taux60, { parts: number; sur: number }> = {
+  0.2: { parts: 1, sur: 5 },
+  0.25: { parts: 1, sur: 4 },
+  0.3: { parts: 3, sur: 10 },
+};
+
+export function partCommission(taux: number): { parts: number; sur: number } {
+  return PART_COMMISSION[taux as Taux60] ?? PART_COMMISSION[CALCUL_60_DEPART.taux];
+}
+
+// ───────────── Le dossier : les 3 chiffres dans l'adresse, rien d'autre ─────────────
+
+/* /calcul/dossier?c=50&m=30&t=25 : c = commandes par semaine, m = commande
+   moyenne en dollars, t = taux en pour cent. Aucun nom, aucun cellulaire :
+   l'adresse peut se transférer sans rien dire de la personne. */
+export const CHEMIN_DOSSIER_60 = "/calcul/dossier";
+
+export function lienDossier60(e: Entrees60): string {
+  const b = borner60(e);
+  return `${CHEMIN_DOSSIER_60}?c=${b.commandes}&m=${b.panier}&t=${Math.round(b.taux * 100)}`;
+}
+
+/** Les 3 chiffres lus dans l'adresse, ou null si l'un d'eux manque ou sort des limites. */
+export function lireDossier60(p: { c?: unknown; m?: unknown; t?: unknown }): Entrees60 | null {
+  const lire = (v: unknown) => (typeof v === "string" && /^\d{1,3}(\.\d{1,2})?$/.test(v) ? Number(v) : NaN);
+  const commandes = lire(p.c);
+  const panier = lire(p.m);
+  const taux = lire(p.t) / 100;
+  if (!Number.isInteger(commandes) || commandes < COMMANDES_MIN || commandes > COMMANDES_MAX) return null;
+  if (!Number.isFinite(panier) || panier < PANIER_MIN || panier > PANIER_MAX) return null;
+  if (!(TAUX_60 as readonly number[]).includes(taux)) return null;
+  return { commandes, panier, taux };
+}

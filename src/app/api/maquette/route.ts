@@ -1,16 +1,20 @@
 import { after, type NextRequest } from "next/server";
-import { signalerFondateur } from "@/lib/crm";
 import { ErreurAgenda } from "@/lib/google/auth";
 import { creerDemandeMaquette } from "@/lib/google/calendrier";
+import { signalerLead } from "@/lib/leads/envoi";
 import { assainirProvenance } from "@/lib/provenance";
+import { pageDeLaRequete, referenceDeLaRequete } from "@/lib/references/lien";
 
 /* LA DEMANDE DE MAQUETTE GRATUITE (« Trouve ton resto », dans le héro).
 
    Le resto laisse son nom, son courriel, son cell, sa ville et, s'il veut,
    le lien de son menu. On pose un bloc dans l'agenda de Guillaume à
    l'échéance des 48 h
-   (voir creerDemandeMaquette), et le CRM est prévenu après coup s'il est
-   branché. Aucun service de plus, aucun coût de plus. */
+   (voir creerDemandeMaquette), puis la demande passe par la porte unique des
+   leads (signalerLead, source « contact », demande « maquette ») : la base,
+   puis l'alerte [Lead] à l'équipe. Le bloc à l'agenda existe déjà quand elle
+   part : elle ne fait pas attendre le resto.
+   Aucun service de plus, aucun coût de plus. */
 export const runtime = "nodejs";
 
 const SANS_CACHE = { "Cache-Control": "no-store" };
@@ -78,19 +82,20 @@ export async function POST(requete: NextRequest): Promise<Response> {
     return refus(config ? "config" : "google", config ? 503 : 502);
   }
 
+  const attribution = referenceDeLaRequete(requete);
+  const page = pageDeLaRequete(requete, "/reserver");
   after(() =>
-    signalerFondateur({
-      etape: "maquette",
-      prospect: {
-        nom: demande.nom,
-        courriel: demande.courriel,
-        telephone: demande.telephone,
-        restaurant: demande.restaurant,
-        ville: demande.ville,
-        langue: demande.langue,
-      },
-      maquette: { menu: demande.menu },
+    signalerLead({
+      id: corps.idLead,
+      source: "contact",
+      langue: demande.langue,
+      contact: { nomComplet: demande.nom, cellulaire: demande.telephone, courriel: demande.courriel },
+      resto: { nom: demande.restaurant, ville: demande.ville, googlePlaceId: demande.lieuId || null },
+      donnees: { demande: "maquette", menu: demande.menu, adresse: demande.adresse },
+      consentement: null,
+      page,
       provenance: demande.provenance,
+      attribution,
     }),
   );
   return Response.json({ ok: true }, { headers: SANS_CACHE });

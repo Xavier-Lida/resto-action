@@ -1,23 +1,29 @@
 import { after, type NextRequest } from "next/server";
-import { signalerFondateur } from "@/lib/crm";
-import { courrielReservation, courrielReservationEquipe } from "@/lib/courriels-fondateur";
+import { courrielReservation } from "@/lib/courriels-fondateur";
 import { CONDITIONS_VERSION } from "@/lib/contenu/conditions-fondateur";
 import { envoyerCourriel } from "@/lib/google/courriel";
-import { assainirProvenance, decrireProvenance } from "@/lib/provenance";
-import { pageDeLaRequete, referenceDeLaRequete, referencePourCrm, signalerAttribution } from "@/lib/references/lien";
+import { signalerLead } from "@/lib/leads/envoi";
+import { assainirProvenance } from "@/lib/provenance";
+import { pageDeLaRequete, referenceDeLaRequete } from "@/lib/references/lien";
+import { EN } from "@/lib/textes/en";
+import { FR } from "@/lib/textes/fr";
 
 /* LA RÉSERVATION GRATUITE (/reserver).
 
    Un seul POST, deux actions :
-     « prospect » : l'étape 1 est remplie. On répond tout de suite et on
-       prévient le CRM après coup. Le visiteur n'attend jamais le CRM.
+     « prospect » : l'étape 1 est remplie. On répond tout de suite, et le
+       lead part après coup. Le visiteur n'attend jamais.
      « reservation » : l'étape 4. Plus aucun paiement : la place est réservée
        gratuitement, et la mise en service se paie à la signature du bon
-       d'accord. La réservation part au CRM (comme les demandes de maquette).
+       d'accord.
 
-   UNE RÉSERVATION NE DOIT PAS SE PERDRE. Si le CRM ne répond pas ou n'est pas
-   configuré, elle part aussi par courriel à l'équipe (GOOGLE_SUJET). Si les
-   deux échouent, le visiteur voit une erreur avec notre numéro.
+   TOUT PASSE PAR LA PORTE UNIQUE DES LEADS (signalerLead, source
+   « reserve-ta-place ») : la base, puis UN courriel à l'équipe, au format
+   [Lead], que la base ait répondu ou non. Le code de référence (témoin de 30
+   jours) voyage avec.
+
+   UNE RÉSERVATION NE DOIT PAS SE PERDRE. Si ni la base ni le courriel ne
+   passent, le visiteur voit une erreur avec notre numéro.
 
    Le code Stripe (src/lib/stripe.ts) et le webhook restent en place : ils
    serviront à encaisser la mise en service à la signature. */
@@ -94,10 +100,29 @@ export async function POST(requete: NextRequest): Promise<Response> {
   /* « Réfère un resto » : le témoin de 30 jours, lu ici par le serveur. Le
      formulaire n'a rien à envoyer. Un code désactivé depuis ne compte plus. */
   const attribution = referenceDeLaRequete(requete);
-  const reference = referencePourCrm(attribution);
+  const commun = {
+    langue,
+    contact: { nomComplet: prospect.nom, cellulaire: prospect.telephone, courriel: prospect.courriel },
+    resto: { nom: prospect.restaurant, ville: prospect.ville },
+    page: pageDeLaRequete(requete, "/reserver"),
+    provenance,
+    attribution,
+  } as const;
 
   if (corps.action === "prospect") {
-    after(() => signalerFondateur({ etape: "prospect", prospect, provenance, reference }));
+    /* L'étape 1 : un lead chaud à rappeler s'il décroche avant la fin. Il part
+       après la réponse, pour ne pas faire attendre le resto. Son identifiant
+       n'est pas celui de l'étape 4 : ce sont 2 alertes, avec la même clé de resto. */
+    after(() =>
+      signalerLead({
+        ...commun,
+        id: corps.idProspect,
+        source: "reserve-ta-place",
+        precision: "étape 1",
+        donnees: { etape: "prospect" },
+        consentement: null,
+      }),
+    );
     return Response.json({ ok: true }, { headers: SANS_CACHE });
   }
 
@@ -115,56 +140,29 @@ export async function POST(requete: NextRequest): Promise<Response> {
   // Non cochée par défaut : seul un vrai `true` vaut consentement.
   const consentementTextos = corps.textos === true;
 
-  const recu = await signalerFondateur({
-    etape: "reservation",
-    prospect,
-    app: { menu, service },
-    qualification: { plateformes, commandes },
-    reservation: { consentementTextos, conditions: CONDITIONS_VERSION },
-    provenance,
-    reference,
+  /* Les textes des 2 cases viennent du serveur, jamais du navigateur : le
+     formulaire n'envoie qu'un oui ou un non. */
+  const t = (langue === "en" ? EN : FR).reservation;
+
+  // La base, puis UN courriel à l'équipe au format [Lead] : le filet.
+  const resultat = await signalerLead({
+    ...commun,
+    id: corps.idLead,
+    source: "reserve-ta-place",
+    donnees: {
+      etape: "reservation",
+      menu,
+      service,
+      plateformes,
+      commandes,
+      conditions: CONDITIONS_VERSION,
+      accord_coche: true,
+      accord_texte: t.offre.accord,
+    },
+    consentement: { texte: t.paiement.textos, coche: consentementTextos },
   });
 
-  // Le filet : l'équipe reçoit la réservation par courriel, CRM ou pas.
-  const equipe = await essayerCourriel(
-    () =>
-      envoyerCourriel(
-        courrielReservationEquipe({
-          ...prospect,
-          menu,
-          service,
-          plateformes,
-          commandes,
-          consentementTextos,
-          source: decrireProvenance(provenance),
-          referePar: reference ? `${reference.nom} (code ${reference.code})` : undefined,
-          crm: recu,
-        }),
-      ),
-    "à l'équipe",
-  );
-
-  if (!recu && !equipe) return refus("autre", 502);
-
-  /* Le journal du programme : la référence part aussi à part (CRM, sinon
-     courriel REFERENCES_COURRIEL_EQUIPE). La réservation, elle, est déjà
-     sauvée plus haut avec son code : rien n'attend ce deuxième envoi. */
-  if (attribution) {
-    after(() =>
-      signalerAttribution(attribution, {
-        langue,
-        page: pageDeLaRequete(requete, "/reserver"),
-        provenance,
-        etape: "reservation",
-        conditions: CONDITIONS_VERSION,
-        restaurant: prospect.restaurant,
-        nom: prospect.nom,
-        telephone: prospect.telephone,
-        courriel: prospect.courriel,
-        ville: prospect.ville,
-      }),
-    );
-  }
+  if (resultat === "echec") return refus("autre", 502);
 
   // La confirmation au resto part après la réponse : il n'attend pas Gmail.
   after(() =>

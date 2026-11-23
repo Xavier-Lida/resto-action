@@ -90,6 +90,80 @@ export async function chercherRestos(requete: string, langue: "fr" | "en"): Prom
   return lieux;
 }
 
+/* LA MÊME RECHERCHE, COMME CHAMP DE FORMULAIRE (« Ton resto », Calcul 60 secondes).
+
+   Le resto tape son nom, choisit sa fiche : on a d'un coup le nom, la ville et
+   l'identifiant de lieu. Mêmes réglages que « Trouve ton resto » (3 fiches,
+   restos seulement, le Québec d'abord), mais SANS note, nombre d'avis ni
+   photos : ces champs-là font passer la requête au palier le plus cher. Ici,
+   c'est le palier Pro. Gardé une heure en mémoire, comme l'autre. */
+export type LieuChamp = { id: string; nom: string; ville: string; adresse: string };
+
+type ReponseChamp = {
+  places?: {
+    id: string;
+    displayName?: { text?: string };
+    formattedAddress?: string;
+    postalAddress?: { locality?: string };
+  }[];
+};
+
+const cacheChamp = new Map<string, { quand: number; lieux: LieuChamp[] }>();
+
+/** « 123 rue X, Trois-Rivières, QC G8T 1A1, Canada » → « Trois-Rivières ». Vide si l'adresse n'a pas cette forme. */
+export function villeDepuisAdresse(adresse: string): string {
+  const morceaux = adresse.split(",").map((m) => m.trim()).filter(Boolean);
+  return morceaux.length >= 4 ? morceaux[morceaux.length - 3] : "";
+}
+
+export async function chercherRestosChamp(requete: string): Promise<LieuChamp[]> {
+  const cle = process.env.GOOGLE_PLACES_CLE;
+  if (!cle) throw new PlacesNonConfigure("GOOGLE_PLACES_CLE manquante");
+
+  const cleCache = requete.toLowerCase();
+  const deja = cacheChamp.get(cleCache);
+  if (deja && Date.now() - deja.quand < UNE_HEURE) return deja.lieux;
+
+  const reponse = await fetch(`${API}/places:searchText`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": cle,
+      // Rien du palier Enterprise (note, avis) : le prix de la requête en dépend.
+      "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.postalAddress",
+    },
+    body: JSON.stringify({
+      textQuery: requete,
+      includedType: "restaurant",
+      languageCode: "fr",
+      regionCode: "CA",
+      pageSize: 3,
+      locationBias: {
+        circle: { center: { latitude: 46.8, longitude: -71.9 }, radius: 50_000 },
+      },
+    }),
+    cache: "no-store",
+    signal: AbortSignal.timeout(8_000),
+  });
+  if (!reponse.ok) {
+    throw new Error(`Places ${reponse.status} ${await reponse.text()}`);
+  }
+  const donnees = (await reponse.json()) as ReponseChamp;
+  const lieux: LieuChamp[] = (donnees.places ?? []).map((p) => {
+    const adresse = p.formattedAddress ?? "";
+    return {
+      id: p.id,
+      nom: p.displayName?.text ?? requete,
+      ville: p.postalAddress?.locality?.trim() || villeDepuisAdresse(adresse),
+      adresse,
+    };
+  });
+
+  if (cacheChamp.size > 300) cacheChamp.clear();
+  cacheChamp.set(cleCache, { quand: Date.now(), lieux });
+  return lieux;
+}
+
 /** Un nom de photo Google valide, et rien d'autre : on ne relaie pas n'importe quoi. */
 export function nomPhotoValide(nom: string): boolean {
   return /^places\/[A-Za-z0-9_-]{5,300}\/photos\/[A-Za-z0-9_-]{5,1000}$/.test(nom);

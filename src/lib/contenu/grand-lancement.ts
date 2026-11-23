@@ -574,7 +574,7 @@ export const HERO = {
   accroche: ACCROCHE,
   sousAccroche:
     "L'hiver, les gens restent chez eux et commandent, alors on te lance avant le gros de la saison.",
-  boutonPrincipal: "Calcule ce que tu aurais gardé",
+  boutonPrincipal: "Calcule ce que tu verses aux plateformes",
   boutonSecondaire: "Réserve ta place",
   ligneCohorte: `On lance au plus ${RESTOS_PAR_MOIS} restos par mois au Québec. Prochaine cohorte : ${DATE_COHORTE}. Inscriptions jusqu'au ${DATE_LIMITE}.`,
 };
@@ -1216,7 +1216,7 @@ export const FIN = {
     "On t'amène des nouveaux clients, on les fait revenir, et ton app paie son abonnement chaque mois, sinon tu ne le paies pas. Tout est fait pour toi, en français.",
   titre: `${NOM_OFFRE} : ta place dans la prochaine cohorte`,
   boutons: {
-    calcul: "Calcule ce que tu aurais gardé",
+    calcul: "Calcule ce que tu verses aux plateformes",
     reserver: "Réserve ta place",
     appel: "Parle 15 minutes avec Guillaume",
   },
@@ -1315,29 +1315,69 @@ export const CALCULATEUR = {
 export const CALCUL_60 = {
   titre: "Combien tu verses aux plateformes par année?",
   sousTitre: "2 chiffres, 60 secondes. Pas de relevé à sortir.",
+
+  // ── Les 2 questions ──
   question1: "Tes commandes par semaine sur les plateformes",
+  aideCurseur: "Glisse pour mettre ton chiffre. À peu près, c'est correct.",
   question2: "Ton taux de commission",
+  aideTaux: "C'est écrit sur ton relevé. Pas sûr? Laisse 25 %.",
   panier: "Commande moyenne :",
+
+  // ── La carte du chiffre ──
+  /** L'étiquette de la carte tant que le resto n'a touché à aucun chiffre. */
+  exemple: "Exemple",
   reponse: "Tu verses environ {x} par année aux plateformes.",
+  /** La version compacte, collée en haut au cellulaire pendant qu'il bouge le curseur. */
+  reponseCompacte: "{x} par année",
   parSemaine: "Soit {y} par semaine.",
+  sur5Ans: "Au même rythme, ça fait {z} en 5 ans.",
   formule: "{commandes} commandes × {panier} × {taux} × 52 semaines",
+  /** Une ligne selon le taux, à côté de la rangée de sacs (clé : le taux en pour cent). */
+  partCommission: {
+    20: "C'est 1 commande sur 5 qui part en commission.",
+    25: "C'est 1 commande sur 4 qui part en commission.",
+    30: "C'est 3 commandes sur 10 qui partent en commission.",
+  } as Record<number, string>,
   avertissement:
     "C'est ce que tu verses en commissions, pas ce que tu sauverais. Estimation faite avec tes 2 chiffres : ce n'est pas une promesse de résultat.",
   /** Le message franc, seulement à 20 %. */
   franc20: "À 20 %, ton gain avec nous viendra surtout des nouveaux clients, pas des commissions.",
-  formulaireTitre: "Reçois ton dossier complet par texto",
+
+  // ── Le formulaire : la seule action de la section avant l'envoi ──
+  formulaireTitre: "Reçois ton dossier par texto",
+  formulaireAide: "Une page avec tes chiffres, à montrer à ton associé ou à ton comptable.",
   champs: {
-    prenom: "Prénom",
-    resto: "Nom du resto",
-    ville: "Ville",
-    cellulaire: "Cellulaire",
+    prenom: "Ton prénom",
+    resto: "Ton resto",
+    cellulaire: "Ton cellulaire",
+    /** Les 2 champs libres de « Je ne trouve pas mon resto ». */
+    restoLibre: "Le nom de ton resto",
+    ville: "Ta ville",
   },
+  /** La recherche de « Trouve ton resto », reprise comme champ. */
+  restoExemple: "Trouve ton resto (ex. Casse-croûte Chez Paul)",
+  restoIntrouvable: "Je ne trouve pas mon resto",
+  restoChanger: "Changer",
+  aideCellulaire: "C'est Guillaume qui t'écrit, pas un robot. Ton numéro n'est ni vendu ni donné.",
   consentement:
     "J'accepte de recevoir des textos de Resto Action au sujet de mon calcul. Je peux me désabonner en tout temps.",
   lienConfidentialite: { label: "Confidentialité", href: "/confidentialite" },
-  /** Libellé du bouton d'envoi et message de panne : textes utilitaires, pas de vente. */
-  boutonEnvoyer: "Envoyer",
+  boutonEnvoyer: "Envoie-moi mon dossier",
+  envoiEnCours: "Envoi...",
+  /** Ce qu'on dit à côté du champ quand il manque quelque chose. Le bouton n'est jamais éteint. */
+  manque: {
+    prenom: "Il manque ton prénom.",
+    resto: "Il manque ton resto.",
+    ville: "Il manque ta ville.",
+    cellulaire: "Il manque ton cellulaire.",
+    cellulaireInvalide: "Ton cellulaire doit avoir 10 chiffres.",
+    consentement: "Coche la case pour recevoir ton dossier par texto.",
+  },
   erreur: `L'envoi n'a pas fonctionné. Réessaie, ou appelle-nous au ${PHONE_DISPLAY}.`,
+  /** Au cellulaire, la barre du bas dans la section, avant l'envoi : elle descend au formulaire. */
+  barreCollante: "Reçois ton dossier",
+
+  // ── Après l'envoi seulement ──
   apresEnvoi: "C'est noté, {prenom}! Ton dossier s'en vient par texto.",
   suite:
     "La suite : on fait commander tes clients chez toi, sur ton site et ton app à ton nom, et on va te chercher des nouveaux clients.",
@@ -1353,7 +1393,15 @@ export const CALCUL_60 = {
   },
   boutonReserver: "Réserve ta place",
   boutonAppel: "Parle 15 minutes avec Guillaume",
+  /** À l'ordinateur, un lien d'appel ne fait souvent rien : le numéro s'affiche en clair à côté. */
+  telephone: PHONE_DISPLAY,
   lienReleve: "Pour ton chiffre exact : téléverse ton relevé.",
+
+  // ── La page du dossier (/calcul/dossier) : le calcul en lecture seule ──
+  dossier: {
+    titrePage: "Ton dossier",
+    introuvable: "Ce dossier n'existe pas.",
+  },
 };
 
 // ───────────────────────── Nav ─────────────────────────

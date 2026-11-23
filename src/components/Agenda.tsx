@@ -7,9 +7,10 @@ import {
   ChevronRight,
   Phone,
 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Buoy from "@/components/Buoy";
 import { FUSEAU } from "@/lib/agenda";
+import { garderContact, mesurerLead, nouvelIdLead, usePreremplir } from "@/lib/leads/client";
 import { lireProvenance } from "@/lib/provenance";
 import { formaterTelephone } from "@/lib/telephone";
 import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
@@ -76,6 +77,18 @@ export default function Agenda({ t }: { t: Textes }) {
   const [mois, setMois] = useState<string | null>(null);
   const [heure, setHeure] = useState<string | null>(null);
   const [champs, setChamps] = useState(CHAMPS_VIDES);
+  // L'identifiant du lead : un 2e clic ou un nouvel essai renvoie le même.
+  const idLead = useRef("");
+  /* Déjà rempli ailleurs sur le site : le prénom, le resto et le cellulaire
+     reviennent. Gardé sur son appareil seulement, et il peut tout changer. */
+  usePreremplir((garde) =>
+    setChamps((c) => ({
+      ...c,
+      nom: c.nom || garde.prenom || "",
+      restaurant: c.restaurant || garde.resto || "",
+      telephone: c.telephone || garde.cellulaire || "",
+    })),
+  );
   const [piege, setPiege] = useState("");
   const [erreur, setErreur] = useState<CleErreur | null>(null);
 
@@ -297,11 +310,13 @@ export default function Agenda({ t }: { t: Textes }) {
     if (!heure) return;
     setEtape("envoi");
     setErreur(null);
+    idLead.current ||= nouvelIdLead();
     try {
       const reponse = await fetch("/api/agenda", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          idLead: idLead.current,
           ...champs,
           message: champs.sujet,
           debut: heure,
@@ -329,6 +344,8 @@ export default function Agenda({ t }: { t: Textes }) {
         }
         return;
       }
+      mesurerLead("reservation");
+      garderContact({ prenom: champs.nom.trim().split(/\s+/)[0], resto: champs.restaurant, cellulaire: champs.telephone });
       setEtape("confirme");
     } catch {
       setErreur("reseau");

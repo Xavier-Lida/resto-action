@@ -2,7 +2,8 @@ import type { NextRequest } from "next/server";
 import { PARTENAIRES_REFERENTS, REFERE_UN_RESTO } from "@/lib/contenu/references";
 import { assainirProvenance } from "@/lib/provenance";
 import { normaliserCode, trouverReferent } from "@/lib/references/codes";
-import { referentDe, signalerReference, type EvenementReference } from "@/lib/references/envoi";
+import { signalerLead, type EvenementLead } from "@/lib/leads/envoi";
+import { referentDe, type EvenementReference } from "@/lib/references/envoi";
 import { pageDeLaRequete } from "@/lib/references/lien";
 
 /* LES TROIS FORMULAIRES DE /refere-un-resto.
@@ -11,8 +12,10 @@ import { pageDeLaRequete } from "@/lib/references/lien";
      « lien »       : Je veux mon lien         → lien.demande
      « partenaire » : Devenir partenaire       → partenaire.candidature
 
-   Tout part par signalerReference (CRM, sinon courriel à l'équipe). Si rien
-   n'est passé, on répond une erreur : le formulaire montre notre numéro.
+   Tout passe par la porte unique des leads (signalerLead, source
+   « reference »), qui range l'événement en entier dans la base et envoie UNE
+   alerte [Lead] à l'équipe.
+   Si rien n'est passé, on répond une erreur : le formulaire montre notre numéro.
 
    LE TEXTE DU CONSENTEMENT VIENT DU SERVEUR, jamais du navigateur : le
    formulaire n'envoie qu'un « oui », et c'est ici qu'on copie le texte exact
@@ -54,6 +57,9 @@ export async function POST(requete: NextRequest): Promise<Response> {
   };
   const maintenant = new Date().toISOString();
   let evenement: EvenementReference;
+  /* Qui appeler et de quel resto on parle, pour l'en-tête de l'alerte. Les
+     données du lead, elles, sont l'événement complet. */
+  let fiche: Pick<EvenementLead, "contact" | "resto" | "consentement" | "precision">;
 
   if (c.action === "presente") {
     const toi = {
@@ -103,10 +109,22 @@ export async function POST(requete: NextRequest): Promise<Response> {
         code_saisi: toi.code && !referent ? (normaliserCode(toi.code) ?? toi.code) : null,
       },
     };
+    // Le contact du lead est le resto présenté : c'est lui qu'on appelle.
+    fiche = {
+      contact: { prenom: lui.prenom, nom: ouNull(lui.nom), cellulaire: lui.telephone, courriel: COURRIEL.test(lui.courriel) ? lui.courriel : null },
+      resto: { nom: lui.resto, ville: ouNull(lui.ville) },
+      consentement: { texte: REFERE_UN_RESTO.presenteNous.consentement, coche: true },
+    };
   } else if (c.action === "lien") {
     const d = { nom: texte(c.nom, 120), resto: texte(c.resto, 160), courriel: texte(c.courriel, 160).toLowerCase(), telephone: texte(c.telephone, 40) };
     if (!d.nom || !d.resto || !COURRIEL.test(d.courriel)) return refus("champs");
     evenement = { ...base, type: "lien.demande", source: "formulaire", referent: null, demandeur: { ...d, telephone: ouNull(d.telephone) } };
+    fiche = {
+      contact: { nomComplet: d.nom, cellulaire: d.telephone, courriel: d.courriel },
+      resto: { nom: d.resto },
+      consentement: null,
+      precision: "demande de lien",
+    };
   } else if (c.action === "partenaire") {
     const facons = Array.isArray(c.facons)
       ? c.facons.filter((f): f is string => typeof f === "string" && PARTENAIRES_REFERENTS.candidature.facons.some((x) => x.id === f))
@@ -134,12 +152,26 @@ export async function POST(requete: NextRequest): Promise<Response> {
       candidat: d,
       consentement_contact: { donne: true, texte: PARTENAIRES_REFERENTS.candidature.consentement, horodatage: maintenant },
     };
+    fiche = {
+      contact: { nomComplet: d.nom, cellulaire: d.telephone, courriel: d.courriel },
+      resto: { nom: d.resto_connu || d.entreprise || "(resto non précisé)" },
+      consentement: { texte: PARTENAIRES_REFERENTS.candidature.consentement, coche: true },
+      precision: "partenaire référent",
+    };
   } else {
     return refus("invalide");
   }
 
   // On attend le résultat : si rien n'est passé, le visiteur doit le savoir.
-  const resultat = await signalerReference(evenement);
+  const resultat = await signalerLead({
+    ...fiche,
+    id: c.idLead,
+    source: "reference",
+    langue: base.langue,
+    page: base.page,
+    provenance: base.provenance,
+    reference: evenement,
+  });
   if (resultat === "echec") return refus("envoi", 502);
   return Response.json({ ok: true }, { headers: SANS_CACHE });
 }

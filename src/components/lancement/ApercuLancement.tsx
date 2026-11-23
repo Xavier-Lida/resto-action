@@ -35,7 +35,7 @@ export default function ApercuLancement({ nom, titreId, onFermer }: { nom: strin
           ))}
       </ul>
       <div className="mt-8 flex flex-col items-start gap-4">
-        <BoutonReserver href={ANCRES.calculateur} libelle="Calcule ce que tu aurais gardé" className="[&_a]:w-full" />
+        <BoutonReserver href={ANCRES.calculateur} libelle="Calcule ce que tu verses aux plateformes" className="[&_a]:w-full" />
         <BoutonContour href={`${lienReservation()}${nom ? `?resto=${encodeURIComponent(nom)}` : ""}`}>Réserve ta place</BoutonContour>
         <button type="button" onClick={onFermer} className="text-sm font-bold text-ink/60 underline underline-offset-4 hover:text-ink">
           Fermer

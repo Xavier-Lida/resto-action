@@ -30,3 +30,18 @@ export function formaterTelephone(brut: string): string {
   if (chiffres.length <= 6) return `(${chiffres.slice(0, 3)}) ${chiffres.slice(3)}`;
   return `(${chiffres.slice(0, 3)}) ${chiffres.slice(3, 6)}-${chiffres.slice(6)}`;
 }
+
+/** Les 10 chiffres d'un numéro d'ici, peu importe comment il a été écrit
+    (« 819 555-0100 », « 819.555.0100 », « +1 (819) 555-0100 »), ou null s'il
+    n'en a pas 10. Le « 1 » d'en-tête ne compte pas. */
+export function dixChiffres(brut: string): string | null {
+  let chiffres = brut.replace(/\D/g, "");
+  if (chiffres.length === 11 && chiffres.startsWith("1")) chiffres = chiffres.slice(1);
+  return chiffres.length === 10 ? chiffres : null;
+}
+
+/** Le seul format qu'on envoie au CRM : « (819) 555-0100 ». Null si le numéro n'a pas 10 chiffres. */
+export function telephoneNormalise(brut: string): string | null {
+  const chiffres = dixChiffres(brut);
+  return chiffres ? formaterTelephone(chiffres) : null;
+}

@@ -5,7 +5,8 @@ import BarreNav from "@/components/BarreNav";
 import BoutonReserver from "@/components/BoutonReserver";
 import Footer from "@/components/Footer";
 import { BoutonImprimer } from "@/components/lancement/BoutonImprimer";
-import { BoutonContour, Exemple, Surtitre } from "@/components/lancement/ui";
+import BoutonAppel from "@/components/lancement/BoutonAppel";
+import { Exemple, Surtitre } from "@/components/lancement/ui";
 import { PLATEFORMES, calculer, decoderDossier } from "@/lib/calcul";
 import { CALCULATEUR as C, NOM_OFFRE, PRIX, garantiesDisponibles, lienAppel, lienReservation } from "@/lib/contenu/grand-lancement";
 import { argent, argentSigne, entier, fr, pourcent } from "@/lib/format";
@@ -155,10 +156,10 @@ function Contenu({ dossier, garanties }: { dossier: NonNullable<ReturnType<typeo
 
       <div className="no-print mt-12 flex flex-col gap-4 border-t border-bone pt-8 sm:flex-row sm:flex-wrap sm:items-center">
         <BoutonReserver href={lienReservation()} libelle={fr(`Réserve ta place dans ${NOM_OFFRE}`)} taille="md" />
-        <BoutonContour href={lienAppel()}>
+        <BoutonAppel href={lienAppel()} ou="dossier-associe">
           <Phone className="size-4" aria-hidden="true" />
           {C.boutonAppel}
-        </BoutonContour>
+        </BoutonAppel>
         <BoutonImprimer />
       </div>
       <p className="mt-6 text-sm text-ink/50">Resto Action · {PHONE_DISPLAY}</p>

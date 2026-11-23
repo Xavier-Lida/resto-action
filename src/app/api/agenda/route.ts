@@ -1,9 +1,9 @@
 import { after, type NextRequest } from "next/server";
 import { HORIZON_JOURS, decouperCreneaux } from "@/lib/agenda";
 import { ErreurAgenda } from "@/lib/google/auth";
-import { signalerReservation } from "@/lib/crm";
+import { signalerLead } from "@/lib/leads/envoi";
 import { assainirProvenance } from "@/lib/provenance";
-import { pageDeLaRequete, referenceDeLaRequete, referencePourCrm, signalerAttribution } from "@/lib/references/lien";
+import { pageDeLaRequete, referenceDeLaRequete, referencePourCrm } from "@/lib/references/lien";
 import {
   creerRendezVous,
   listerFenetres,
@@ -172,49 +172,38 @@ export async function POST(requete: NextRequest): Promise<Response> {
       reference,
     });
 
-    /* LE CRM EST PRÉVENU APRÈS LA RÉPONSE, ET N'Y CHANGE RIEN.
+    /* LE LEAD PART APRÈS LA RÉPONSE, ET N'Y CHANGE RIEN.
 
-       `after()` : le visiteur a déjà sa confirmation quand l'appel part. À ce
-       stade, Google a créé l'événement ET envoyé l'invitation — si une panne
-       du CRM faisait échouer la requête, la personne verrait « erreur » avec un
-       rendez-vous bel et bien à l'agenda. `signalerReservation` ne lève jamais.
+       `after()` : le visiteur a déjà sa confirmation quand l'envoi part. À ce
+       stade, Google a créé l'événement ET envoyé l'invitation : si une panne
+       de la base faisait échouer la requête, la personne verrait « erreur »
+       avec un rendez-vous bel et bien à l'agenda. `signalerLead` ne lève jamais.
+
+       L'annonce passe par la porte unique des leads (source « reservation ») :
+       la base, puis l'alerte [Lead] à l'équipe. L'identifiant du lead vient du
+       navigateur : un 2e clic ne réserverait de toute façon pas deux fois (le
+       créneau n'est plus libre).
 
        Un simple appel non attendu ne suffirait pas : sur Vercel, l'instance
        peut être gelée dès la réponse envoyée, et la requête ne partirait pas.
 
        C'est APRÈS le piège à robots et après la création : rien de ce qui est
-       refusé plus haut n'atteint le CRM. S'il en manque un malgré tout, sa
-       resynchronisation quotidienne le retrouve dans l'agenda. */
+       refusé plus haut n'atteint la base. Si l'envoi échoue malgré tout, le
+       rendez-vous reste à l'agenda, que /tableau/leads lit chaque jour. */
     const { id, ...confirmation } = resultat;
     if (id) {
       after(() =>
-        signalerReservation({
-          googleEventId: id,
-          nom,
-          courriel,
-          telephone,
-          restaurant,
-          message,
+        signalerLead({
+          id: corps.idLead,
+          source: "reservation",
           langue,
-          provenance,
-          reference,
-          ...confirmation,
-        }),
-      );
-    }
-    if (attribution) {
-      after(() =>
-        signalerAttribution(attribution, {
-          langue,
+          contact: { nomComplet: nom, cellulaire: telephone, courriel },
+          resto: { nom: restaurant },
+          donnees: { debut: confirmation.debut, fin: confirmation.fin, meet: confirmation.meet, message, google_event_id: id },
+          consentement: null,
           page: pageDeLaRequete(requete, "/contact"),
           provenance,
-          etape: "rendez_vous",
-          conditions: null,
-          restaurant,
-          nom,
-          telephone,
-          courriel,
-          ville: null,
+          attribution,
         }),
       );
     }

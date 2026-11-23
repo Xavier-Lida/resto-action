@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
+import { garderContact, mesurerLead, nouvelIdLead, usePreremplir } from "@/lib/leads/client";
 import { lireProvenance } from "@/lib/provenance";
 import { PHONE_DISPLAY, cheminReservation } from "@/lib/site";
 import { formaterTelephone } from "@/lib/telephone";
@@ -35,6 +36,19 @@ export default function FormulaireMaquette({
   const [piege, setPiege] = useState("");
   const [etat, setEtat] = useState<"formulaire" | "envoi" | "merci">("formulaire");
   const [erreur, setErreur] = useState<string | null>(null);
+  // L'identifiant du lead : un 2e clic ou un nouvel essai renvoie le même.
+  const idLead = useRef("");
+  /* Déjà rempli ailleurs sur le site : le resto, le prénom, le cellulaire et la
+     ville reviennent. Gardé sur son appareil seulement, et il peut tout changer. */
+  usePreremplir((garde) => {
+    setRestaurant((r) => r || garde.resto || "");
+    setChamps((c) => ({
+      ...c,
+      nom: c.nom || garde.prenom || "",
+      telephone: c.telephone || garde.cellulaire || "",
+      ville: c.ville || garde.ville || "",
+    }));
+  });
 
   const nomResto = restaurant.trim();
   const avecNom = (modele: string) => modele.replace("{nom}", nomResto);
@@ -53,11 +67,13 @@ export default function FormulaireMaquette({
       return;
     }
     setEtat("envoi");
+    idLead.current ||= nouvelIdLead();
     try {
       const reponse = await fetch("/api/maquette", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          idLead: idLead.current,
           restaurant: nomResto,
           ...champs,
           lieuId: lieu?.id,
@@ -68,6 +84,14 @@ export default function FormulaireMaquette({
         }),
       });
       if (reponse.ok) {
+        mesurerLead("contact");
+        garderContact({
+          prenom: champs.nom.trim().split(/\s+/)[0],
+          resto: nomResto,
+          ville: champs.ville,
+          cellulaire: champs.telephone,
+          ...(lieu ? { lieu: { id: lieu.id, resto: nomResto } } : {}),
+        });
         setEtat("merci");
         return;
       }

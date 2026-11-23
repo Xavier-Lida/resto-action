@@ -7,12 +7,12 @@ import {
   TEMOIN_BANDEAU_HEURES,
   TEMOIN_REFERENCE,
   TEMOIN_REFERENCE_JOURS,
-  type Provenance,
   type SourceReference,
   type TemoinReference,
 } from "@/lib/provenance";
+import { studioOuvert } from "@/lib/site";
 import { trouverReferent } from "./codes";
-import { referentDe, signalerReference, type Refere } from "./envoi";
+import { referentDe, signalerReference } from "./envoi";
 
 /* LES LIENS COURTS /p/CODE (resto client) ET /f/CODE (partenaire).
 
@@ -26,7 +26,38 @@ import { referentDe, signalerReference, type Refere } from "./envoi";
      5. Si le CRM est branché, on lui signale la visite (sans donnée perso).
 
    Un ?s=carte (code QR de la carte imprimée) ou ?s=rep (lien d'un
-   représentant) dit comment le resto est arrivé. Sinon : « lien ». */
+   représentant) dit comment le resto est arrivé. Sinon : « lien ».
+
+   DROIT À UN OUTIL (18 nov.) : /p/CODE?vers=calcul, ?vers=classement ou
+   ?vers=studio (pareil pour /f/CODE). On pose le code, puis on mène à l'outil :
+   sa page à lui si elle existe, sinon sa section de l'accueil. Sans « vers »,
+   rien ne change. Un « vers » inconnu est ignoré. Un code inconnu est ignoré en
+   silence, et le visiteur arrive quand même à l'outil demandé. Le code voyage
+   ensuite avec tous les leads, peu importe l'outil (src/lib/leads/envoi.ts). */
+
+/* Où mène chaque outil. Une seule ligne à changer le jour où un outil gagne
+   sa page à lui. Les outils sont en français seulement : en anglais, seul le
+   calculateur du relevé existe (à la même ancre), le reste mène à /en. */
+function cheminOutil(vers: string | null, anglais: boolean): string | undefined {
+  switch (vers) {
+    case "calcul":
+      // Le Calcul 60 secondes a sa page : /calcul (src/app/calcul/page.tsx).
+      return anglais ? "/en#calculateur" : "/calcul";
+    case "classement":
+      // Pas de page à lui : sa section de l'accueil (CLASSEMENT.ancre, contenu/classement.ts).
+      return anglais ? "/en" : "/#rang-google";
+    case "studio":
+      // /studio répond 404 tant que STUDIO_ACTIF est faux (src/lib/site.ts) : d'ici là, l'accueil.
+      return anglais ? "/en" : studioOuvert() ? "/studio" : "/";
+    default:
+      return undefined;
+  }
+}
+
+function destinationDe(requete: NextRequest, anglais: boolean): URL {
+  const chemin = cheminOutil(requete.nextUrl.searchParams.get("vers"), anglais) ?? (anglais ? "/en" : "/");
+  return new URL(chemin, requete.url);
+}
 
 function sourceDe(requete: NextRequest): SourceReference {
   const s = requete.nextUrl.searchParams.get("s");
@@ -37,7 +68,7 @@ function sourceDe(requete: NextRequest): SourceReference {
 
 export function traiterLienReference(requete: NextRequest, brut: string): NextResponse {
   const anglais = requete.nextUrl.searchParams.get("l") === "en";
-  const destination = new URL(anglais ? "/en" : "/", requete.url);
+  const destination = destinationDe(requete, anglais);
   const reponse = NextResponse.redirect(destination, 307);
   reponse.headers.set("X-Robots-Tag", "noindex, nofollow");
   reponse.headers.set("Cache-Control", "no-store");
@@ -100,7 +131,7 @@ export function referenceDeLaRequete(requete: NextRequest): ReferenceAttribuee |
   return referent ? { referent, temoin } : undefined;
 }
 
-/** Ce qui voyage dans les deux POST existants (signalerReservation, signalerFondateur), clé `reference`. */
+/** Ce qui voyage dans les deux POST existants (signalerReservation, signalerFondateur), clé `reference`, et dans chaque lead (provenance.reference). */
 export type ReferencePourCrm = {
   code: string;
   type: CodeReference["type"];
@@ -122,47 +153,9 @@ export function referencePourCrm(r: ReferenceAttribuee | undefined): ReferencePo
   };
 }
 
-/** Coupe « Marie Tremblay » en prénom et nom, pour la fiche du référé. */
-function couper(nom: string): { contact_prenom: string | null; contact_nom: string | null } {
-  const [prenom, ...reste] = nom.trim().split(/\s+/);
-  return { contact_prenom: prenom || null, contact_nom: reste.join(" ") || null };
-}
-
-/** Émet `reference.attribuee`. À appeler dans `after()` : ne fait jamais attendre le visiteur. */
-export function signalerAttribution(
-  r: ReferenceAttribuee,
-  d: {
-    langue: "fr" | "en";
-    page: string;
-    provenance?: Provenance;
-    etape: "reservation" | "rendez_vous";
-    conditions: string | null;
-    restaurant: string;
-    nom: string;
-    telephone: string;
-    courriel: string;
-    ville: string | null;
-  },
-) {
-  const refere: Refere = {
-    resto_nom: d.restaurant || "(non précisé)",
-    ...couper(d.nom),
-    telephone: d.telephone || null,
-    courriel: d.courriel || null,
-    ville: d.ville || null,
-  };
-  return signalerReference({
-    type: "reference.attribuee",
-    langue: d.langue,
-    page: d.page,
-    provenance: d.provenance,
-    source: r.temoin.source,
-    referent: referentDe(r.referent),
-    refere,
-    reservation: { etape: d.etape, conditions: d.conditions },
-    attribution: { premier_contact: new Date(r.temoin.premierContact).toISOString(), via: "temoin" },
-  });
-}
+/* `reference.attribuee` (un resto arrive avec un code) n'est plus émis d'ici :
+   depuis le 18 nov. 2026, c'est la porte unique des leads qui le fait, pour
+   tous les formulaires, une seule fois par resto (src/lib/leads/envoi.ts). */
 
 /** La page d'où vient l'envoi (en-tête Referer), ou la valeur par défaut. */
 export function pageDeLaRequete(requete: NextRequest, defaut: string): string {

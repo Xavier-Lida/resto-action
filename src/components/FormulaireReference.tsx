@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { REFERENCES, REFERENCES_EN, type Profil } from "@/lib/contenu/references";
+import { mesurerLead, nouvelIdLead } from "@/lib/leads/client";
 import { lireProvenance } from "@/lib/provenance";
 import { PHONE_DISPLAY } from "@/lib/site";
 import { formaterTelephone } from "@/lib/telephone";
@@ -23,16 +24,21 @@ export default function FormulaireReference({ langue = "fr" }: { langue?: "fr" |
   const [consentementContact, setConsentementContact] = useState(false);
   const [piege, setPiege] = useState("");
   const [etat, setEtat] = useState<"idle" | "envoi" | "fait" | "erreur">("idle");
+  // L'identifiant du lead : un 2e clic ou un nouvel essai renvoie le même.
+  const idLead = useRef("");
 
   async function envoyer(e: FormEvent) {
     e.preventDefault();
+    if (etat === "envoi") return;
     setEtat("envoi");
+    idLead.current ||= nouvelIdLead();
     try {
       const r = await fetch("/api/reference", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ langue, profil, ...v, consentementRefere, consentementContact, piege, provenance: lireProvenance() }),
+        body: JSON.stringify({ idLead: idLead.current, langue, profil, ...v, consentementRefere, consentementContact, piege, provenance: lireProvenance() }),
       });
+      if (r.ok) mesurerLead("contact");
       setEtat(r.ok ? "fait" : "erreur");
     } catch {
       setEtat("erreur");

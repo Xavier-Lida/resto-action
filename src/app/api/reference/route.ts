@@ -1,15 +1,18 @@
 import { after, type NextRequest } from "next/server";
 import { REFERENCES, REFERENCES_EN, type Profil } from "@/lib/contenu/references";
-import { envoyerCourriel, type Courriel } from "@/lib/google/courriel";
-import { assainirProvenance, decrireProvenance } from "@/lib/provenance";
+import { envoyerCourriel } from "@/lib/google/courriel";
+import { signalerLead } from "@/lib/leads/envoi";
+import { assainirProvenance } from "@/lib/provenance";
+import { pageDeLaRequete, referenceDeLaRequete } from "@/lib/references/lien";
 import { PHONE_DISPLAY } from "@/lib/site";
 
 /* UNE DEMANDE DU PROGRAMME DE RÉFÉRENCES (/references).
 
-   Version simple, sans base de données : la demande part par courriel à
-   l'équipe (GOOGLE_SUJET), et la personne reçoit un accusé de réception. Si
-   le courriel à l'équipe échoue, on répond une erreur : une demande ne doit
-   pas se perdre en silence. */
+   L'ancien formulaire, encore en ligne sur /en/referrals. Sans base de
+   données : la demande passe par la porte unique des leads (signalerLead,
+   source « contact »), qui envoie l'alerte [Lead] à l'équipe, et la personne
+   reçoit son accusé de réception comme avant. Si rien n'est parti, on répond
+   une erreur : une demande ne doit pas se perdre en silence. */
 export const runtime = "nodejs";
 
 const SANS_CACHE = { "Cache-Control": "no-store" };
@@ -52,40 +55,37 @@ export async function POST(requete: NextRequest): Promise<Response> {
     restoEnTete: texte(corps.restoEnTete, 300),
     consentementRefere: corps.consentementRefere === true,
     consentementContact: corps.consentementContact === true,
-    source: decrireProvenance(assainirProvenance(corps.provenance)),
+    provenance: assainirProvenance(corps.provenance),
   };
   if (!d.nom || !d.entreprise || !d.telephone || !COURRIEL.test(d.courriel) || !d.consentementContact) return refus("champs");
   // Un resto nommé exige l'affirmation qu'il veut être contacté.
   if (d.restoEnTete && !d.consentementRefere) return refus("consentement");
 
   const nomProfil = REFERENCES.profils.find((p) => p.id === d.profil)?.nom ?? d.profil;
-  const lignes: [string, string][] = [
-    ["Profil", nomProfil],
-    ["Nom", d.nom],
-    ["Resto ou entreprise", d.entreprise],
-    ["Courriel", d.courriel],
-    ["Téléphone", d.telephone],
-    ["Ville ou région", d.region || "(non précisé)"],
-    ["Resto en tête", d.restoEnTete || "(aucun pour l'instant)"],
-    ["Le resto sait qu'on va le contacter", d.restoEnTete ? (d.consentementRefere ? "oui (affirmé par le référent)" : "non") : "s.o."],
-    ["Provenance", d.source || "(directe)"],
-  ];
-  const equipe: Courriel = {
-    a: process.env.GOOGLE_SUJET ?? "",
-    sujet: `Référence : ${d.entreprise} (${nomProfil})`,
-    texte: [`Nouvelle demande au programme de références (${corps.langue === "en" ? "/en/referrals, en anglais" : "/references"}).`, "", ...lignes.map(([k, v]) => `${k} : ${v}`), "", "À rappeler sous peu."].join("\n"),
-    html: `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#191919;"><p>Nouvelle demande au programme de références${corps.langue === "en" ? " (en anglais)" : ""}.</p><table style="border-collapse:collapse;">${lignes
-      .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;font-weight:900;vertical-align:top;">${echapper(k)}</td><td style="padding:4px 0;">${echapper(v)}</td></tr>`)
-      .join("")}</table><p>À rappeler sous peu.</p></div>`,
-  };
+  const langue = corps.langue === "en" ? ("en" as const) : ("fr" as const);
 
-  try {
-    if (!equipe.a) throw new Error("GOOGLE_SUJET absent");
-    await envoyerCourriel(equipe);
-  } catch (erreur) {
-    console.error("[reference] courriel à l'équipe refusé :", erreur instanceof Error ? erreur.message : erreur);
-    return refus("envoi", 502);
-  }
+  // La porte unique des leads : l'alerte [Lead] à l'équipe. On attend le résultat.
+  const resultat = await signalerLead({
+    id: corps.idLead,
+    source: "contact",
+    langue,
+    contact: { nomComplet: d.nom, cellulaire: d.telephone, courriel: d.courriel },
+    resto: { nom: d.entreprise, ville: d.region || null },
+    donnees: {
+      demande: "programme de références (ancien formulaire)",
+      profil: nomProfil,
+      entreprise: d.entreprise,
+      region: d.region,
+      resto_en_tete: d.restoEnTete,
+      consentement_refere: d.restoEnTete ? d.consentementRefere : null,
+    },
+    // Le texte de la case vient du serveur, jamais du navigateur.
+    consentement: { texte: (langue === "en" ? REFERENCES_EN : REFERENCES).consentementContact, coche: true },
+    page: pageDeLaRequete(requete, langue === "en" ? "/en/referrals" : "/refere-un-resto"),
+    provenance: d.provenance,
+    attribution: referenceDeLaRequete(requete),
+  });
+  if (resultat === "echec") return refus("envoi", 502);
 
   // L'accusé de réception part après la réponse : la personne n'attend pas.
   const c = (corps.langue === "en" ? REFERENCES_EN : REFERENCES).courriel;

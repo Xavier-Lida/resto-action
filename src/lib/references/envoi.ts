@@ -84,8 +84,11 @@ export type EvenementReference = Base &
         type: "reference.attribuee";
         referent: ReferentEvenement;
         refere: Refere;
-        reservation: { etape: "reservation" | "rendez_vous"; conditions: string | null };
+        /** « lead » : le resto a rempli un des outils (Calcul, Classement, Studio…) en portant un code. */
+        reservation: { etape: "reservation" | "rendez_vous" | "lead"; conditions: string | null };
         attribution: { premier_contact: string; via: "url" | "temoin" };
+        /** Le lead qui a porté le code (src/lib/leads/envoi.ts). */
+        lead?: { id: string; source: string };
       }
     | { type: "reference.visite"; referent: ReferentEvenement }
     | {
@@ -128,13 +131,31 @@ export function referentDe(c: CodeReference): ReferentEvenement {
 
 // ─── L'envoi ───
 
-export async function signalerReference(e: EvenementReference): Promise<ResultatEnvoi> {
-  const complet = { id: randomUUID(), version: 1, horodatage: new Date().toISOString(), ...e } as EvenementComplet;
+/** L'événement complet, tel qu'il part : l'identifiant et l'heure s'ajoutent ici. */
+export function completerReference(e: EvenementReference, id?: string): EvenementComplet {
+  return { id: id ?? randomUUID(), version: 1, horodatage: new Date().toISOString(), ...e } as EvenementComplet;
+}
+
+/** Vrai si le CRM des références est branché (les deux variables sont posées). */
+export function crmReferencesBranche(): boolean {
+  return Boolean(process.env.CRM_REFERENCES_URL && process.env.CRM_INGESTION_SECRET);
+}
+
+/* `options.complet` : l'événement déjà complété (son identifiant est celui du
+   lead). `options.sansCourriel` : la porte unique des leads
+   (src/lib/leads/envoi.ts) envoie elle-même UNE alerte [Lead] qui porte tout
+   l'événement ; ici, on ne fait alors que le POST au CRM, sans 2e courriel.
+   Sans options, rien n'a changé. */
+export async function signalerReference(
+  e: EvenementReference,
+  options: { complet?: EvenementComplet; sansCourriel?: boolean } = {},
+): Promise<ResultatEnvoi> {
+  const complet = options.complet ?? completerReference(e);
 
   if (await versCrm(complet)) return "crm";
 
   // Une simple visite ne mérite pas un courriel : trop de bruit. CRM seulement.
-  if (complet.type === "reference.visite") return "ignore";
+  if (complet.type === "reference.visite" || options.sansCourriel) return "ignore";
 
   if (await versCourriel(complet)) return "courriel";
 
@@ -227,8 +248,16 @@ function lignesConsentement(c: Consentement): [string, string][] {
   ];
 }
 
-/** Le sujet et le contenu, en français : c'est l'équipe qui lit. */
-export function courrielEquipe(e: EvenementComplet): { sujet: string; texte: string; html: string } {
+/** La ligne « À vérifier dans le CRM : doublon? », la même partout. */
+export const LIGNE_DOUBLON = `À vérifier dans le CRM : doublon? (même resto en discussion avec nous dans les ${DELAIS.fenetreDoublonJours} derniers jours, ou le propre resto du parrain)`;
+
+/** « resto client », « fournisseur », « professionnel ». */
+export function libelleReferent(type: TypeReferent): string {
+  return LIBELLES_REFERENT[type];
+}
+
+/** Les lignes lisibles d'un événement, et s'il faut vérifier un doublon. Partagées avec l'alerte [Lead]. */
+export function lignesReference(e: EvenementComplet): { sujet: string; lignes: [string, string][]; doublon: boolean } {
   const lignes: [string, string][] = [["Événement", LIBELLES_TYPE[e.type]]];
   let sujet = `[${NOM_PROGRAMME}] ${LIBELLES_TYPE[e.type]}`;
   let doublon = false;
@@ -253,7 +282,14 @@ export function courrielEquipe(e: EvenementComplet): { sujet: string; texte: str
       sujet = `[${NOM_PROGRAMME}] Nouvelle référence : ${e.refere.resto_nom}${e.refere.ville ? `, ${e.refere.ville}` : ""}`;
       lignes.push(...lignesRefere(e.refere));
       lignes.push(
-        ["Ce qu'il a fait", e.reservation.etape === "reservation" ? "réservé sa place sur /reserver" : "pris un rendez-vous à l'agenda"],
+        [
+          "Ce qu'il a fait",
+          e.reservation.etape === "reservation"
+            ? "réservé sa place sur /reserver"
+            : e.reservation.etape === "rendez_vous"
+              ? "pris un rendez-vous à l'agenda"
+              : `rempli un formulaire du site (${e.lead?.source ?? "lead"})`,
+        ],
         ["Premier clic sur le lien", quand(e.attribution.premier_contact)],
       );
       doublon = true;
@@ -306,6 +342,12 @@ export function courrielEquipe(e: EvenementComplet): { sujet: string; texte: str
       break;
   }
 
+  return { sujet, lignes, doublon };
+}
+
+/** Le sujet et le contenu, en français : c'est l'équipe qui lit. */
+export function courrielEquipe(e: EvenementComplet): { sujet: string; texte: string; html: string } {
+  const { sujet, lignes, doublon } = lignesReference(e);
   lignes.push(
     ["Page", e.page],
     ["Provenance", decrireProvenance(e.provenance)],
@@ -313,9 +355,7 @@ export function courrielEquipe(e: EvenementComplet): { sujet: string; texte: str
     ["Reçu le", quand(e.horodatage)],
     ["Reçu par le CRM", "NON : à entrer à la main"],
   );
-  const verifier = doublon
-    ? `À vérifier dans le CRM : doublon? (même resto en discussion avec nous dans les ${DELAIS.fenetreDoublonJours} derniers jours, ou le propre resto du parrain)`
-    : null;
+  const verifier = doublon ? LIGNE_DOUBLON : null;
 
   const texte = [
     ...lignes.map(([k, v]) => `${k} : ${v}`),

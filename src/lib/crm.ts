@@ -1,3 +1,4 @@
+import type { Lead } from "@/lib/leads/lead";
 import type { Provenance } from "@/lib/provenance";
 import type { ReferencePourCrm } from "@/lib/references/lien";
 
@@ -16,7 +17,13 @@ import type { ReferencePourCrm } from "@/lib/references/lien";
 
    SANS CONFIGURATION, ELLE NE FAIT RIEN, et c'est voulu : les deux variables ne
    sont posées qu'en PRODUCTION. Un aperçu Vercel ou un poste de développement
-   ne doit pas écrire de prospects dans le vrai CRM. */
+   ne doit pas écrire de prospects dans le vrai CRM.
+
+   DEPUIS LE 18 NOV. 2026, CES DEUX FONCTIONS SONT APPELÉES PAR LA PORTE UNIQUE
+   (src/lib/leads/envoi.ts, signalerLead), plus par les routes. Leur adresse et
+   leur format n'ont pas changé : une clé `lead` s'ajoute, avec le lead au
+   format unique (identifiant, consentement, clé du resto). Le CRM peut
+   l'ignorer. Voir docs/leads-contrat-crm.md. */
 
 /* Dix secondes, et ça ne coûte rien au visiteur : l'appel part APRÈS sa réponse.
    Le délai ne sert qu'à borner une instance qui attendrait un CRM muet. Il est
@@ -39,12 +46,15 @@ export type ReservationPourCrm = {
   meet: string | null;
   debut: string;
   fin: string;
+  /** Le même rendez-vous au format unique des leads (clé ajoutée, facultative). */
+  lead?: Lead;
 };
 
-export async function signalerReservation(r: ReservationPourCrm): Promise<void> {
+/** Vrai si le CRM a accepté la réservation. Ne lance jamais d'erreur. */
+export async function signalerReservation(r: ReservationPourCrm): Promise<boolean> {
   const url = process.env.CRM_INGESTION_URL;
   const secret = process.env.CRM_INGESTION_SECRET;
-  if (!url || !secret) return;
+  if (!url || !secret) return false;
 
   try {
     const reponse = await fetch(url, {
@@ -70,6 +80,7 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
         message: r.message,
         provenance: r.provenance,
         reference: r.reference,
+        lead: r.lead,
       }),
       signal: AbortSignal.timeout(DELAI_MS),
       cache: "no-store",
@@ -77,12 +88,14 @@ export async function signalerReservation(r: ReservationPourCrm): Promise<void> 
     if (!reponse.ok) {
       console.error("[crm] réservation refusée :", reponse.status);
     }
+    return reponse.ok;
   } catch (erreur) {
     // Ni le corps ni le secret dans les journaux : seulement la nature de la panne.
     console.error(
       "[crm] réservation non transmise :",
       erreur instanceof Error ? erreur.name : "erreur inconnue",
     );
+    return false;
   }
 }
 
@@ -123,8 +136,40 @@ export type EvenementFondateur = {
   /** Les chiffres du relevé et les hypothèses du calcul (src/lib/calcul.ts). */
   dossier?: unknown;
   /** D'où vient l'événement quand l'étape ne suffit pas à le dire.
-      « calcul-60 » : Le Calcul 60 secondes (étape « dossier », sans relevé). */
-  source?: "calcul-60";
+      « calcul-60 » : Le Calcul 60 secondes (étape « dossier », sans relevé).
+      « studio » : Le Studio Photo (étape « dossier »). */
+  source?: "calcul-60" | "classement" | "studio";
+  /** Le Studio Photo (source « studio », /studio) : une photo de plat retouchée
+      sans personne. Les 2 réponses facultatives de l'attente sont dans
+      `qualification`. Les liens mènent aux images gardées dans le magasin privé :
+      ils demandent le mot de passe de l'équipe (TABLEAU_MDP) et cessent de
+      répondre quand les photos s'effacent (STUDIO.gardeJours, src/lib/site.ts). */
+  studio?: {
+    originale: string;
+    retouche: string;
+    /** « ia » : la retouche par IA, passée au contrôle. « correction » : la correction sans génération. */
+    moteur: "ia" | "correction";
+    /** Le verdict du deuxième contrôle au dernier essai; « sans objet » si l'IA n'a pas servi. */
+    verdict: "oui" | "non" | "incertain" | "sans objet";
+    /** La case obligatoire du formulaire : toujours vraie quand l'événement part. */
+    consentementTextos: boolean;
+    /** La 2e case, facultative : « montre mon avant et après comme exemple ». */
+    consentementExemple: boolean;
+  };
+  /** Ton rang sur Google (source « classement »). L'identifiant de lieu et le
+      lien de la fiche, pas les données de Google : ni rang, ni nombre d'avis,
+      ni note (ses règles ne permettent pas de les garder). */
+  classement?: {
+    placeId: string;
+    fiche: string;
+    /** Le type principal que Google donne au resto, et son libellé français. */
+    type: string;
+    typeLibelle: string;
+    /** « Clique sur Commander en ligne. Tu tombes où? » `null` s'il n'a pas répondu. */
+    testBouton: "plateforme" | "chez-moi" | "pas-de-bouton" | null;
+    /** La case obligatoire du formulaire : toujours vraie quand l'événement part. */
+    consentementTextos: boolean;
+  };
   /** Le Calcul 60 secondes : les 3 chiffres entrés et la réponse (src/lib/calcul60.ts). */
   calcul?: {
     commandesParSemaine: number;
@@ -132,12 +177,18 @@ export type EvenementFondateur = {
     tauxCommission: number;
     parSemaine: number;
     parAnnee: number;
+    /** La page du dossier, à texter au resto : ses 3 chiffres dans l'adresse, rien d'autre. */
+    lienDossier: string;
+    /** L'identifiant de lieu Google, s'il a choisi sa fiche dans « Ton resto ». */
+    placeId: string | null;
     /** La case obligatoire du formulaire : toujours vraie quand l'événement part. */
     consentementTextos: boolean;
   };
   provenance?: Provenance;
   /** « Réfère un resto » : qui nous a présenté ce resto (témoin de 30 jours). */
   reference?: ReferencePourCrm;
+  /** Le même événement au format unique des leads (clé ajoutée, facultative). */
+  lead?: Lead;
 };
 
 /** Vrai si le CRM a accepté l'événement. Ne lance jamais d'erreur. */

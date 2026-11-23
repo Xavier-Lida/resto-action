@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { Camera, Check, ChevronDown, FileText, Phone, Sparkles, Upload } from "lucide-react";
 import BoutonReserver from "@/components/BoutonReserver";
 import ScoreResto, { FRAIS_PLANCHER, scoreDepuisFrais } from "@/components/lancement/ScoreResto";
-import { BoutonContour, PointCiel, Surtitre } from "@/components/lancement/ui";
+import BoutonAppel from "@/components/lancement/BoutonAppel";
+import { PointCiel, Surtitre } from "@/components/lancement/ui";
 import { contenuLancement, type ContenuLancement, type Langue } from "@/lib/contenu/lancement";
 import {
   HAUSSE_PRIX,
@@ -21,7 +22,9 @@ import {
   type Releve,
 } from "@/lib/calcul";
 import { formats } from "@/lib/format";
+import { garderContact, mesurerLead, nouvelIdLead, usePreremplir } from "@/lib/leads/client";
 import { lireProvenance } from "@/lib/provenance";
+import { PHONE_DISPLAY } from "@/lib/site";
 import { formaterTelephone } from "@/lib/telephone";
 
 /* LE CALCULATEUR « TON RELEVÉ, TON ESTIMATION ».
@@ -45,6 +48,8 @@ type F = ReturnType<typeof formats>;
 const TEXTES = {
   fr: {
     photo: "Photo",
+    // Même message que le Calcul 60 secondes et le Classement.
+    erreurEnvoi: `L'envoi n'a pas fonctionné. Réessaie, ou appelle-nous au ${PHONE_DISPLAY}.`,
     parMois: "par mois",
     ventesMois: "(par mois)",
     commandesMois: "Commandes par mois",
@@ -68,6 +73,8 @@ const TEXTES = {
   },
   en: {
     photo: "Photo",
+    // Same message as the referral form.
+    erreurEnvoi: `That didn't work. Try again, or call us at ${PHONE_DISPLAY}.`,
     parMois: "per month",
     ventesMois: "(per month)",
     commandesMois: "Orders per month",
@@ -150,7 +157,20 @@ export default function CalculateurReleve({ langue = "fr", integre = false }: { 
   const [glisse, setGlisse] = useState(false);
   const [lead, setLead] = useState({ prenom: "", resto: "", ville: "", cellulaire: "", courriel: "", textos: false });
   const [piege, setPiege] = useState("");
-  const [envoi, setEnvoi] = useState<"idle" | "envoi" | "fait">("idle");
+  const [envoi, setEnvoi] = useState<"idle" | "envoi" | "fait" | "erreur">("idle");
+  // L'identifiant du lead : un 2e clic ou un nouvel essai renvoie le même.
+  const idLead = useRef("");
+  /* Déjà rempli ailleurs sur le site : le prénom, le resto, la ville et le
+     cellulaire reviennent. Gardé sur son appareil seulement, il peut tout changer. */
+  usePreremplir((garde) =>
+    setLead((l) => ({
+      ...l,
+      prenom: l.prenom || garde.prenom || "",
+      resto: l.resto || garde.resto || "",
+      ville: l.ville || garde.ville || "",
+      cellulaire: l.cellulaire || garde.cellulaire || "",
+    })),
+  );
 
   const resultat = useMemo(() => (releve ? calculer(releve, hyp) : null), [releve, hyp]);
 
@@ -206,13 +226,16 @@ export default function CalculateurReleve({ langue = "fr", integre = false }: { 
 
   async function envoyerDossier(e: FormEvent) {
     e.preventDefault();
-    if (!releve) return;
+    if (!releve || envoi === "envoi") return;
     setEnvoi("envoi");
+    idLead.current ||= nouvelIdLead();
     try {
-      await fetch("/api/dossier", {
+      const r = await fetch("/api/dossier", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          idLead: idLead.current,
+          langue,
           prenom: lead.prenom,
           resto: lead.resto,
           ville: lead.ville,
@@ -225,10 +248,18 @@ export default function CalculateurReleve({ langue = "fr", integre = false }: { 
         }),
         keepalive: true,
       });
+      /* Un succès seulement si le lead est parti (CRM ou courriel). Sinon on le
+         dit, et le dossier reste ouvrable : ses chiffres sont dans son adresse. */
+      if (r.ok) {
+        mesurerLead("dossier-releve");
+        garderContact({ prenom: lead.prenom, resto: lead.resto, ville: lead.ville, cellulaire: lead.cellulaire });
+        setEnvoi("fait");
+      } else {
+        setEnvoi("erreur");
+      }
     } catch {
-      /* le dossier s'ouvre quand même */
+      setEnvoi("erreur");
     }
-    setEnvoi("fait");
   }
 
   const indexEtape = { televerser: 0, lecture: 1, verifier: 2, manuel: 2, resultat: 3 }[etape];
@@ -595,6 +626,14 @@ export default function CalculateurReleve({ langue = "fr", integre = false }: { 
                     <input type="checkbox" checked={lead.textos} onChange={(e) => setLead({ ...lead, textos: e.target.checked })} className="mt-0.5 size-5 accent-brand" />
                     {C.consentementTextos}
                   </label>
+                  {envoi === "erreur" && (
+                    <p role="alert" className="mt-4 rounded-2xl bg-brand/10 px-4 py-3 text-sm font-bold text-brand">
+                      {fr(T.erreurEnvoi)}{" "}
+                      <a href={lienDossier} target="_blank" rel="noopener" className="underline underline-offset-4">
+                        {C.dossierBouton}
+                      </a>
+                    </p>
+                  )}
                   <button type="submit" disabled={envoi === "envoi"} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-7 py-3.5 text-lg font-black text-white shadow-[0_4px_0_0_var(--ombre-cta)] transition hover:-translate-y-0.5 active:translate-y-1 active:shadow-none disabled:opacity-60">
                     {C.dossierBouton}
                   </button>
@@ -606,10 +645,10 @@ export default function CalculateurReleve({ langue = "fr", integre = false }: { 
               )}
               <div className="mt-7 flex flex-col gap-4 border-t border-bone pt-6">
                 <BoutonReserver href={lienReservation()} libelle={fr(C.boutonReserver)} taille="md" className="w-full text-ink [&>a]:w-full [&>a>span:first-child]:text-center" />
-                <BoutonContour href={lienAppel()} className="w-full">
+                <BoutonAppel href={lienAppel()} ou="dossier-releve" className="w-full">
                   <Phone className="size-4" aria-hidden="true" />
                   {C.boutonAppel}
-                </BoutonContour>
+                </BoutonAppel>
               </div>
             </div>
           )}
